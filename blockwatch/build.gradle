@@ -36,6 +36,8 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    // `return void` removes the lint error: `Not all execution paths return a value`.
+    return void
 }
 
 dependencies {
