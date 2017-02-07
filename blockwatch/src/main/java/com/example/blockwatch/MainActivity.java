@@ -1,15 +1,18 @@
 package com.example.blockwatch;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BlockwatchFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,12 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        if (savedInstanceState == null) {
+            Fragment watchFragment = new BlockwatchFragment(); // Add the watch fragment here
+            FragmentManager manager = getSupportFragmentManager();
+            manager.beginTransaction().add(R.id.watch_fragment,watchFragment).commit();
+        }
     }
 
     @Override
@@ -48,5 +57,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri){
+        // Here you should launch a new fragment that shows the details of the clicked transaction
     }
 }

@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 
 /**
@@ -26,7 +26,7 @@ public class BlockwatchFragment extends Fragment {
 
     PaintView pV;
     View rootView;
-    RelativeLayout watch;
+    TextView watchView;
 
 
     // TODO: Rename and change types of parameters
@@ -70,10 +70,11 @@ public class BlockwatchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView =inflater.inflate(R.layout.fragment_blockwatch, container, false);
-        watch = (RelativeLayout) rootView.findViewById(R.id.watch);
+        rootView.findViewById(R.id.watch);
+        //watchView = (TextView) rootView.findViewById(R.id.watch);
 
         pV=new PaintView(getActivity());
-        watch.addView(pV);
+        //rootView.addView(pV);
         // Inflate the layout for this fragment
         return rootView;
     }
