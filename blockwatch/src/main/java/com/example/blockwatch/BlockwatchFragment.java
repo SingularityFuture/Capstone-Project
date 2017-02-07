@@ -1,13 +1,16 @@
 package com.example.blockwatch;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -75,15 +78,32 @@ public class BlockwatchFragment extends Fragment {
         RelativeLayout layout = (RelativeLayout) rootView.findViewById(R.id.watch_fragment);
         //watchView = (PaintView) rootView.findViewById(R.id.watch);
 
-        //pV=new PaintView(getActivity());
-        //layout.addView(pV);
+        pV=new PaintView(getActivity());
+        //pV.layout
 
-        TextView temp = new TextView(getActivity());
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        //params.weight = 1.0f;
+        params.gravity = Gravity.BOTTOM;
+        pV.setBackgroundColor(Color.GREEN);
+        //pV.bringToFront();
+        pV.setLayoutParams(params);
+
+        layout.addView(pV);
+
+        /*TextView temp = new TextView(getActivity());
         temp.setText("This better work");
         temp.setTextColor(Color.BLACK);
-        layout.addView(temp);
+        layout.addView(temp);*/
         //rootView.invalidate();
-        //pV.draw(new Canvas());
+        pV.draw(new Canvas());
+
+        TextView whatsGoingOn = (TextView) rootView.findViewById(R.id.stupid_test);
+        //whatsGoingOn.setTextColor(Color.BLACK);
+        //whatsGoingOn.setGravity(Gravity.CENTER | Gravity.BOTTOM);
+/*        layout.removeView(whatsGoingOn);
+        layout.addView(whatsGoingOn);*/
+
+
         // Inflate the layout for this fragment
         return rootView;
     }
