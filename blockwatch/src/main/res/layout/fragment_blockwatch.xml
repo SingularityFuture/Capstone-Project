@@ -3,12 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.blockwatch.BlockwatchFragment"
-    android:background="#000000"
+    android:background="#FFFFFF"
     android:id="@+id/watch_fragment">
 
-    <TextView
+<!--    <com.example.blockwatch.PaintView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/watch"/>
+        android:layout_height="match_parent"
+        android:id="@+id/watch"/>-->
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/temp"
+        android:text="WHERE AM I"
+        android:gravity="center"/>
 
 </RelativeLayout>

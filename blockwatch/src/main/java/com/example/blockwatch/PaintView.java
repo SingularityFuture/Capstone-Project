@@ -5,7 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.RectF;
+import android.util.AttributeSet;
 import android.view.View;
 
 /**
@@ -16,9 +16,12 @@ public class PaintView extends View {
     private static final String Text = "Welcome To Hamad's Blog";
     private Path myArc;
     private Paint mPaintText;
+    private float mTextWidth= 40.0f;
+    private float mTextHeight = 4.0f;
+
 
     public PaintView(Context context) {
-        super(context);
+/*        super(context);
         //create Path object
         myArc = new Path();
         //create RectF Object
@@ -30,16 +33,49 @@ public class PaintView extends View {
         //set style
         mPaintText.setStyle(Paint.Style.FILL_AND_STROKE);
         //set color
-        mPaintText.setColor(Color.WHITE);
+        mPaintText.setColor(Color.BLACK);
         //set text Size
-        mPaintText.setTextSize(20f);
+        mPaintText.setTextSize(200f);
+        // Get the text size
+        mTextWidth = mPaintText.getTextSize();
+        this.setWillNotDraw(false);*/
+        super(context);
+        mPaintText = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mPaintText.setColor(Color.BLACK);
+        mPaintText.setTextSize(mTextHeight);
+        this.setWillNotDraw(false);
 
+    }
+
+    public PaintView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public PaintView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        // Try for a width based on our minimum
+/*        int minw = getPaddingLeft() + getPaddingRight() + getSuggestedMinimumWidth();
+        int w = resolveSizeAndState(minw, widthMeasureSpec, 1);
+
+        // Whatever the width ends up being, ask for a height that would let the pie
+        // get as big as it can
+        int minh = MeasureSpec.getSize(w) - (int) mTextWidth + getPaddingBottom() + getPaddingTop();
+        int h = resolveSizeAndState(MeasureSpec.getSize(minh) - (int) mTextWidth, heightMeasureSpec, 0);*/
+
+        setMeasuredDimension(40, 30);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
         //Draw Text on Canvas
-        canvas.drawTextOnPath(Text, myArc, 0, 20, mPaintText);
-        invalidate();
+        // Draw the label text
+        canvas.drawText("Test", 60, 60, mPaintText);
+        //canvas.drawTextOnPath(Text, myArc, 0, 20, mPaintText);
+        //invalidate();
     }
 }

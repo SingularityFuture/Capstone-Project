@@ -1,12 +1,14 @@
 package com.example.blockwatch;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -26,7 +28,7 @@ public class BlockwatchFragment extends Fragment {
 
     PaintView pV;
     View rootView;
-    TextView watchView;
+    PaintView watchView;
 
 
     // TODO: Rename and change types of parameters
@@ -70,11 +72,18 @@ public class BlockwatchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView =inflater.inflate(R.layout.fragment_blockwatch, container, false);
-        rootView.findViewById(R.id.watch);
-        //watchView = (TextView) rootView.findViewById(R.id.watch);
+        RelativeLayout layout = (RelativeLayout) rootView.findViewById(R.id.watch_fragment);
+        //watchView = (PaintView) rootView.findViewById(R.id.watch);
 
-        pV=new PaintView(getActivity());
-        //rootView.addView(pV);
+        //pV=new PaintView(getActivity());
+        //layout.addView(pV);
+
+        TextView temp = new TextView(getActivity());
+        temp.setText("This better work");
+        temp.setTextColor(Color.BLACK);
+        layout.addView(temp);
+        //rootView.invalidate();
+        //pV.draw(new Canvas());
         // Inflate the layout for this fragment
         return rootView;
     }
