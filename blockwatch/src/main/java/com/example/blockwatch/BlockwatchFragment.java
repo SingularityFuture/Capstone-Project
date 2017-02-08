@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,12 +75,10 @@ public class BlockwatchFragment extends Fragment {
                              Bundle savedInstanceState) {
         rootView =inflater.inflate(R.layout.fragment_blockwatch, container, false);
         layout = (RelativeLayout) rootView.findViewById(R.id.watch_fragment_layout);
-        //watchView = (PaintView) rootView.findViewById(R.id.watch);
-
         pV=new PaintView(getActivity());
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-        //params.weight = 1.0f;
-        //params.gravity = Gravity.BOTTOM;
+        params.weight = 1.0f;
+        params.gravity = (Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
         pV.setBackgroundColor(Color.WHITE);
         pV.setLayoutParams(params);
         layout.addView(pV);
@@ -126,23 +125,4 @@ public class BlockwatchFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-
-/*    @Override
-    public void onViewCreated(final View view, Bundle saved) {
-        super.onViewCreated(view, saved);
-        view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            public void onGlobalLayout() {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                } else {
-                    view.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                }
-
-                int height = layout.getWidth();
-                int width = layout.getHeight();
-                // get width and height of the view
-            }
-        });
-    }*/
-
 }
