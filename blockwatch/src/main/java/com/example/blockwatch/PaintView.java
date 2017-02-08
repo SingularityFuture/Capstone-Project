@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Path;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
@@ -14,27 +13,25 @@ import android.view.View;
  */
 
 public class PaintView extends View {
-    private static final String Text = "Welcome To Hamad's Blog";
-    private Path myArc;
+    private static final String TXHASH = "b5357533bf43d6793aa24d91d6a01055128bff64730627bbb3a512b04d2e9043";
     private Paint mPaintText;
     private Rect mOval;
     private float mTextHeight = 60.0f;
     int temp = 0;
-    float values[] = {130, 130, 130, 130, 130};
+    float values[] = {130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,130,};
     float value_degrees[];
 
-    private float centerX = 300;
-    private float centerY = 300;
-    private float radius = 100;
+    private float left = 0f;
+    private float top = 200f;
+    private float radius = 1500f;
+    private float centerX;
+    private float centerY;
+
 
     public PaintView(Context context) {
         super(context);
-        //create Path object
-        myArc = new Path();
         //create RectF Object
-        mOval = new Rect(300,500,700,900);
-        //add Arc in Path with start angle -90 and sweep angle 360
-        //myArc.addArc(mOval, 0, 360);
+        mOval = new Rect(Math.round(left),Math.round(top),Math.round(left+radius),Math.round(top+radius));
         //create paint object
         mPaintText = new Paint(Paint.ANTI_ALIAS_FLAG);
         //set style
@@ -46,6 +43,7 @@ public class PaintView extends View {
         // Set alignment
         mPaintText.setTextAlign(Paint.Align.CENTER);
         value_degrees = calculateData(values);
+        //Arrays.fill(values, 130);
     }
 
     public PaintView(Context context, AttributeSet attrs) {
@@ -70,13 +68,10 @@ public class PaintView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        //canvas.drawTextOnPath(Text, myArc, 0, 20, mPaintText);
-        //canvas.drawText(String.valueOf(Text.charAt(0)), (centerX - radius/ 2) + 35, (y + radius / 2) - 35, mPaintText);
-
         temp = 0;
-        int centerX = (mOval.left + mOval.right) / 2;
-        int centerY = (mOval.top + mOval.bottom) / 2;
-        int radius = (mOval.right - mOval.left) / 2;
+        centerX = (mOval.right - mOval.left) / 2;
+        centerY = (mOval.bottom - mOval.top) / 2;
+        radius = (mOval.right - mOval.left) / 2;
 
         radius *= 0.5; // 1 will put the text in the border, 0 will put the text in the center. Play with this to set the distance of your text.
 
@@ -86,7 +81,7 @@ public class PaintView extends View {
                 temp += (int) value_degrees[i - 1];
 
             float medianAngle = (temp + (value_degrees[i] / 2f)) * (float)Math.PI / 180f; // this angle will place the text in the center of the arc.
-            canvas.drawText(String.valueOf(Text.charAt(i)), (float)(centerX + (radius * Math.cos(medianAngle))), (float)(centerY + (radius * Math.sin(medianAngle))), mPaintText);
+            canvas.drawText(String.valueOf(TXHASH.charAt(i)), (float)(centerX + (radius * Math.cos(medianAngle))), (float)(centerY + (radius * Math.sin(medianAngle))), mPaintText);
         }
     }
 
