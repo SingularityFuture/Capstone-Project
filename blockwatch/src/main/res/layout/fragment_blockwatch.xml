@@ -3,17 +3,5 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.blockwatch.BlockwatchFragment"
-    android:background="#FFFFFF"
-    android:id="@+id/watch_fragment">
-
-<!--    <com.example.blockwatch.PaintView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignBottom="@id/toolbar"
-        android:gravity="center_vertical"
-        android:id="@+id/watch"/>-->
-
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent" android:id="@+id/stupid_test"
-        android:text="Screw you!" android:textColor="#000000" android:layout_alignBottom="@id/toolbar" android:gravity="center_vertical"/>
-
+    android:id="@+id/watch_fragment_layout">
 </RelativeLayout>

@@ -1,18 +1,15 @@
 package com.example.blockwatch;
 
 import android.content.Context;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 
 /**
@@ -31,6 +28,7 @@ public class BlockwatchFragment extends Fragment {
 
     PaintView pV;
     View rootView;
+    RelativeLayout layout;
     PaintView watchView;
 
 
@@ -75,34 +73,16 @@ public class BlockwatchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView =inflater.inflate(R.layout.fragment_blockwatch, container, false);
-        RelativeLayout layout = (RelativeLayout) rootView.findViewById(R.id.watch_fragment);
+        layout = (RelativeLayout) rootView.findViewById(R.id.watch_fragment_layout);
         //watchView = (PaintView) rootView.findViewById(R.id.watch);
 
         pV=new PaintView(getActivity());
-        //pV.layout
-
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         //params.weight = 1.0f;
-        params.gravity = Gravity.BOTTOM;
-        pV.setBackgroundColor(Color.GREEN);
-        //pV.bringToFront();
+        //params.gravity = Gravity.BOTTOM;
+        pV.setBackgroundColor(Color.WHITE);
         pV.setLayoutParams(params);
-
         layout.addView(pV);
-
-        /*TextView temp = new TextView(getActivity());
-        temp.setText("This better work");
-        temp.setTextColor(Color.BLACK);
-        layout.addView(temp);*/
-        //rootView.invalidate();
-        pV.draw(new Canvas());
-
-        TextView whatsGoingOn = (TextView) rootView.findViewById(R.id.stupid_test);
-        //whatsGoingOn.setTextColor(Color.BLACK);
-        //whatsGoingOn.setGravity(Gravity.CENTER | Gravity.BOTTOM);
-/*        layout.removeView(whatsGoingOn);
-        layout.addView(whatsGoingOn);*/
-
 
         // Inflate the layout for this fragment
         return rootView;
@@ -146,4 +126,23 @@ public class BlockwatchFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+/*    @Override
+    public void onViewCreated(final View view, Bundle saved) {
+        super.onViewCreated(view, saved);
+        view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            public void onGlobalLayout() {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                } else {
+                    view.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                }
+
+                int height = layout.getWidth();
+                int width = layout.getHeight();
+                // get width and height of the view
+            }
+        });
+    }*/
+
 }

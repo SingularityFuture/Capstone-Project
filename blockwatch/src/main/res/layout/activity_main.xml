@@ -25,7 +25,6 @@
     <fragment android:name="com.example.blockwatch.BlockwatchFragment"
         tools:layout="@layout/fragment_blockwatch"
         android:id="@+id/watch_fragment"
-        android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
