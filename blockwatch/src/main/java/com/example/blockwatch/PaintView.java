@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -22,7 +23,10 @@ import java.util.Arrays;
 public class PaintView extends View {
     private static final String TXHASH = "b5357533bf43d6793aa24d91d6a01055128bff64730627bbb3a512b04d2e9043";
     private Paint mPaintText;
-    private Rect mOval;
+    private RectF mOvalFOuter;
+    private RectF mOvalFInner;
+    private RectF mOvalFFirst;
+    private Rect bounds = new Rect();
     private float mTextHeight = 100.0f;
     int temp = 0;
     int outerCircleCount = 30;
@@ -33,6 +37,9 @@ public class PaintView extends View {
     float firstArcSweep = 360/firstCircleCount;
     float outerInitialArcs[]; float innerInitialArcs[]; float firstInitialArcs[];
     float outerDegreesArray[]; float innerDegreesArray[]; float firstDegreesArray[];
+
+    private int[] COLORS = { Color.YELLOW, Color.GREEN, Color.WHITE,
+            Color.CYAN, Color.RED };
 
     private float left = 0f;
     private float top = 0f;
@@ -61,8 +68,13 @@ public class PaintView extends View {
         screenHeight = metrics.heightPixels; // Measure the screen height.
 
         radius = Math.min(screenWidth,screenHeight) / 2;
+        mOvalFOuter = new RectF(Math.round(left),Math.round(top + actionBarHeight),Math.round(left+radius*2),Math.round(top+actionBarHeight+radius*2));
+        centerX = (mOvalFOuter.right - mOvalFOuter.left) / 2;
+        centerY = (mOvalFOuter.bottom - mOvalFOuter.top) / 2 + actionBarHeight;
 
-        mOval = new Rect(Math.round(left),Math.round(top + actionBarHeight),Math.round(left+radius*2),Math.round(top+actionBarHeight+radius*2));
+        mOvalFInner = new RectF(Math.round(centerX - radius*0.65),Math.round(centerY - radius*0.65),Math.round(centerX + radius*0.65),Math.round(centerY + radius*0.65));
+        mOvalFFirst = new RectF(Math.round(centerX - radius*0.25),Math.round(centerY - radius*0.25),Math.round(centerX + radius*0.25),Math.round(centerY + radius*0.25));
+
         //create paint object
         mPaintText = new Paint(Paint.ANTI_ALIAS_FLAG);
         //set style
@@ -108,8 +120,7 @@ public class PaintView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         temp = 0;
-        centerX = (mOval.right - mOval.left) / 2;
-        centerY = (mOval.bottom - mOval.top) / 2 + actionBarHeight;
+
         radius *= 0.9; // 1 will put the text in the border, 0 will put the text in the center. Play with this to set the distance of your text.
 
         // Outer circle
@@ -119,8 +130,12 @@ public class PaintView extends View {
         {
             if (i > 0)
                 temp += (int) outerDegreesArray[i - 1];
+            mPaintText.setColor(COLORS[i%5]);
+            canvas.drawArc(mOvalFOuter, temp, outerDegreesArray[i], true, mPaintText);
+            mPaintText.setColor(Color.BLACK);
+            mPaintText.getTextBounds(String.valueOf(TXHASH.charAt(i)), 0, String.valueOf(TXHASH.charAt(i)).length(), bounds); // Measure the text
             float medianAngle = (temp + (outerDegreesArray[i] / 2f)) * (float)Math.PI / 180f; // this angle will place the text in the center of the arc.
-            canvas.drawText(String.valueOf(TXHASH.charAt(i)), (float)(centerX + (radius * Math.cos(medianAngle))), (float)(centerY + (radius * Math.sin(medianAngle))), mPaintText);
+            canvas.drawText(String.valueOf(TXHASH.charAt(i)), (float)(centerX + (radius * Math.cos(medianAngle))), (float)(centerY + (radius * Math.sin(medianAngle)))+ bounds.height() * 0.5f, mPaintText);
         }
         // Inner circle
         temp = 0;
@@ -130,8 +145,12 @@ public class PaintView extends View {
         {
             if (i > 0)
                 temp += (int) innerDegreesArray[i - 1];
+            mPaintText.setColor(COLORS[(i+1)%5]);
+            canvas.drawArc(mOvalFInner, temp, innerDegreesArray[i], true, mPaintText);
+            mPaintText.setColor(Color.BLACK);
+            mPaintText.getTextBounds(String.valueOf(TXHASH.charAt(i+outerCircleCount)), 0, String.valueOf(TXHASH.charAt(i+outerCircleCount)).length(), bounds); // Measure the text
             float medianAngle = (temp + (innerDegreesArray[i] / 2f)) * (float)Math.PI / 180f; // this angle will place the text in the center of the arc.
-            canvas.drawText(String.valueOf(TXHASH.charAt(i+outerCircleCount)), (float)(centerX + (radius*0.65 * Math.cos(medianAngle))), (float)(centerY + (radius*0.65 * Math.sin(medianAngle))), mPaintText);
+            canvas.drawText(String.valueOf(TXHASH.charAt(i+outerCircleCount)), (float)(centerX + (radius*0.65 * Math.cos(medianAngle))), (float)(centerY + (radius*0.65 * Math.sin(medianAngle)))+ bounds.height() * 0.5f, mPaintText);
         }
         // First circle
         temp = 0;
@@ -141,8 +160,12 @@ public class PaintView extends View {
         {
             if (i > 0)
                 temp += (int) firstDegreesArray[i - 1];
+            mPaintText.setColor(COLORS[(i+2)%5]);
+            canvas.drawArc(mOvalFFirst, temp, firstDegreesArray[i], true, mPaintText);
+            mPaintText.setColor(Color.BLACK);
+            mPaintText.getTextBounds(String.valueOf(TXHASH.charAt(i+outerCircleCount+innerCircleCount)), 0, String.valueOf(TXHASH.charAt(i+outerCircleCount+innerCircleCount)).length(), bounds); // Measure the text
             float medianAngle = (temp + (firstDegreesArray[i] / 2f)) * (float)Math.PI / 180f; // this angle will place the text in the center of the arc.
-            canvas.drawText(String.valueOf(TXHASH.charAt(i+outerCircleCount+innerCircleCount)), (float)(centerX + (radius*0.25 * Math.cos(medianAngle))), (float)(centerY + (radius*0.25 * Math.sin(medianAngle))), mPaintText);
+            canvas.drawText(String.valueOf(TXHASH.charAt(i+outerCircleCount+innerCircleCount)), (float)(centerX + (radius*0.25 * Math.cos(medianAngle))), (float)(centerY + (radius*0.25 * Math.sin(medianAngle)))+ bounds.height() * 0.5f, mPaintText);
         }
     }
 
