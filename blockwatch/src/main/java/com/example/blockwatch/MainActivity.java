@@ -63,4 +63,17 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
     public void onFragmentInteraction(Uri uri){
         // Here you should launch a new fragment that shows the details of the clicked transaction
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        // Make sure to call the super method so that the states of our views are saved
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        // put your code here...
+
+    }
 }
