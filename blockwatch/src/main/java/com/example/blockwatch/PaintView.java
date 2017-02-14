@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -42,6 +43,8 @@ public class PaintView extends View {
     private float centerX; // Declare the center x coordinate of all the circles
     private float centerY; // Declare the center y coordinate of all the circles
     private float actionBarHeight; // Declare the height of the screen
+    private int[] startAngle = {0, 0, 0}; // Set the initial angles to 0; allows you to change any one later if you want it to move
+    private int[] second = {0, 0, 0}; // Initialize second counter for all circles; only inner one should change
 
     private int[] COLORS = { Color.YELLOW, Color.GREEN, Color.WHITE,
             Color.CYAN, Color.RED }; // Define a set of colors used for drawing arcs around each character
@@ -75,6 +78,8 @@ public class PaintView extends View {
             // Declare the bounding rectangles for all the circles of the watch
             mOvalsF[i] = new RectF(Math.round(centerX - radius*circleSpacing[i]),Math.round(centerY - radius*circleSpacing[i]),Math.round(centerX + radius*circleSpacing[i]),Math.round(centerY + radius*circleSpacing[i]));
         }
+
+        moveInnerDial.run(); //
     }
 
     public PaintView(Context context, AttributeSet attrs) {
@@ -100,27 +105,44 @@ public class PaintView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         // All circles
+        int charCount = 0; // Keep track of the character index
         for(int circle=0;circle<numberOfCircles;circle++){ // Go through each circle
-            int startAngle = 0; // Set the initial angle to 0
-            int charCount = 0; // Keep track of the character index
+            int currentAngle = startAngle[circle]; // Start off the angle count the current moved angle
             mPaintText.setTextSize(mTextHeight-circle*20); // Set text size, decreasing with each circle
             // Add 'shadow' highlight to bottom right of each circle
-            canvas.drawOval(mOvalsF[circle].left+15, mOvalsF[circle].top+15, mOvalsF[circle].right+15, mOvalsF[circle].bottom+15, mPaintText); // See if you can see an oval in the background
+            canvas.drawOval(mOvalsF[circle].left+10, mOvalsF[circle].top+10, mOvalsF[circle].right+10, mOvalsF[circle].bottom+10, mPaintText); // See if you can see an oval in the background
             for (int i = 0; i < degreesArray.get(circle).length; i++) // For each character in the current circle
             {
-                if (i > 0) // Initial angle will be 0, or directly to the right
-                    startAngle += (int) degreesArray.get(circle)[i - 1]; // Get the current starting angle
-                mPaintText.setColor(COLORS[(i+circle)%COLORS.length]); // Set the color based on the color array, with an offset for each additional circle
-                canvas.drawArc(mOvalsF[circle], startAngle, degreesArray.get(circle)[i], true, mPaintText); // Draw an arc behind the current character
+                if (i > 0) // Initial angles will be 0, or directly to the right
+                    currentAngle += (int) degreesArray.get(circle)[i - 1]; // Get the current starting angle
+                mPaintText.setColor(COLORS[(i+circle)%COLORS.length]); // Set the color based on the color array, with an offset for each additional circle and an offset for the second count if the circle is keeping track of it
+                canvas.drawArc(mOvalsF[circle], currentAngle, degreesArray.get(circle)[i], true, mPaintText); // Draw an arc behind the current character
                 mPaintText.setColor(Color.BLACK); // Reset the color for the characters
                 // Measure the current character in the string
                 mPaintText.getTextBounds(String.valueOf(TXHASH.charAt(charCount)), 0, String.valueOf(TXHASH.charAt(charCount)).length(), bounds); // Measure the text
                 /** This angle will place the text in the center of the arc.
                 * @see <a href="http://stackoverflow.com/questions/15739009/draw-text-inside-an-arc-using-canvas/19352717?noredirect=1#comment71429997_19352717">Draw text inside an arc using canvas</a> */
-                float medianAngle = (startAngle + (degreesArray.get(circle)[i] / 2f)) * (float) Math.PI / 180f;  // Go halfway between the current starting angle and the next angle, and convert to radians
+                float medianAngle = (currentAngle + (degreesArray.get(circle)[i] / 2f)) * (float) Math.PI / 180f;  // Go halfway between the current starting angle and the next angle, and convert to radians
                 canvas.drawText(String.valueOf(TXHASH.charAt(charCount)), (float)(centerX + (radius*radiusSqueeze[circle]*circleSpacing[circle] * Math.cos(medianAngle))), (float)(centerY + (radius*radiusSqueeze[circle]*circleSpacing[circle] * Math.sin(medianAngle)))+ bounds.height() * 0.5f, mPaintText);
                 charCount++; // Increment the character count
             }
         }
     }
+
+    Handler handler = new Handler(); // Looper.getMainLooper()
+    Runnable moveInnerDial = new Runnable() {
+        public void run() {
+            if(second[1]==circleCount[1]) {
+                second[1]=0; // Reset to 0 every full revolution
+                startAngle[1] = 0; // Reset to 0 every full revolution
+            }
+            else {
+                startAngle[1] = second[1] * (360/circleCount[1]); // Move the starting angle by the size of one arc for this circle
+                second[1]++; // Otherwise increment the second count
+            }
+
+            invalidate(); // Redraw the canvas
+            handler.postDelayed(this, 1000); // Redraw every second
+        }
+    };
 }
