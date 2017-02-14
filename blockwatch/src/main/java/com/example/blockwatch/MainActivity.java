@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -13,6 +12,9 @@ import android.view.MenuItem;
 import android.view.View;
 
 public class MainActivity extends AppCompatActivity implements BlockwatchFragment.OnFragmentInteractionListener {
+
+    private Fragment watchFragment;
+    private static final String WATCH_FRAGMENT_TAG = "watch_fragment";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +33,11 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
         });
 
         if (savedInstanceState == null) {
-            Fragment watchFragment = new BlockwatchFragment(); // Add the watch fragment here
-            FragmentManager manager = getSupportFragmentManager(); // Start the fragment manager
-            manager.beginTransaction().add(R.id.watch_fragment,watchFragment).commit(); // Add the fragment to the transaction
+            watchFragment = new BlockwatchFragment(); // Add the watch fragment here
+            getSupportFragmentManager().beginTransaction().add(R.id.watch_fragment,watchFragment,WATCH_FRAGMENT_TAG).commit(); // Add the fragment to the transaction
+        }
+        else {
+           watchFragment = getSupportFragmentManager().findFragmentByTag(WATCH_FRAGMENT_TAG);;
         }
     }
 
