@@ -104,6 +104,8 @@ public class PaintView extends View {
             int startAngle = 0; // Set the initial angle to 0
             int charCount = 0; // Keep track of the character index
             mPaintText.setTextSize(mTextHeight-circle*20); // Set text size, decreasing with each circle
+            // Add 'shadow' highlight to bottom right of each circle
+            canvas.drawOval(mOvalsF[circle].left+15, mOvalsF[circle].top+15, mOvalsF[circle].right+15, mOvalsF[circle].bottom+15, mPaintText); // See if you can see an oval in the background
             for (int i = 0; i < degreesArray.get(circle).length; i++) // For each character in the current circle
             {
                 if (i > 0) // Initial angle will be 0, or directly to the right
