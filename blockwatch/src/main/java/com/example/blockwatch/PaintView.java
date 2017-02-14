@@ -32,20 +32,19 @@ public class PaintView extends View {
     private Rect bounds = new Rect(); // Define an object that will measure each character before determining its coordinates
     private float mTextHeight = 100.0f; // Define the text size here (might make it more dependent on screen later)
     int temp = 0; // Define variable used for calculating arc sweeps
-    int outerCircleCount = 30; // Define how many characters will go on outer circle
-    int innerCircleCount = 24; // Define how many characters will go on inner circle
-    int firstCircleCount = 10; // Define how many characters will go on first circle
+    int[] circleCount = {30, 24, 10}; // Define how many characters will go in each circle, starting on the outside
     // Declare the arrays that will hold the initial arc sizes in each circle
-    float outerInitialArcs[] = new float[outerCircleCount]; float innerInitialArcs[] = new float[innerCircleCount]; float firstInitialArcs[] = new float[firstCircleCount];
-    float outerDegreesArray[]; float innerDegreesArray[]; float firstDegreesArray[]; // Declare the arrays that will hold the array of degrees in each circle based on total character count in the circle
+    float outerDegreesArray[] = new float[circleCount[0]]; float innerDegreesArray[] = new float[circleCount[1]]; float firstDegreesArray[] = new float[circleCount[2]];
 
     private float radius; // Declare the radius of the largest circle
+    private float radiusSqueeze = 0.85f; // 1 will put the text in the border, 0 will put the text in the center. Play with this to set the distance of your text.
     private float centerX; // Declare the center x coordinate of all the circles
     private float centerY; // Declare the center y coordinate of all the circles
     private float screenWidth; // Declare the width of the screen
     private float screenHeight; // Declare the height of the screen
     private float actionBarHeight; // Declare the height of the screen
-    private float radiusSqueeze; // Declare how far out on each circle to put the characters
+
+
 
     private int[] COLORS = { Color.YELLOW, Color.GREEN, Color.WHITE,
             Color.CYAN, Color.RED }; // Define a set of colors used for drawing arcs around each character
@@ -84,15 +83,9 @@ public class PaintView extends View {
         mPaintText.setTextSize(mTextHeight); // Set text size
         mPaintText.setTextAlign(Paint.Align.CENTER); // Set alignment
 
-        Arrays.fill(outerInitialArcs, 360/outerCircleCount);
-        Arrays.fill(innerInitialArcs, 360/innerCircleCount);
-        Arrays.fill(firstInitialArcs, 360/firstCircleCount);
-/*        outerDegreesArray = calculateData(outerInitialArcs);
-        innerDegreesArray = calculateData(innerInitialArcs);
-        firstDegreesArray = calculateData(firstInitialArcs);*/
-        outerDegreesArray = (outerInitialArcs); // Do we need to use calculateData for regular sized arcs?  Probably not
-        innerDegreesArray = (innerInitialArcs);
-        firstDegreesArray = (firstInitialArcs);
+        Arrays.fill(outerDegreesArray, 360/circleCount[0]); // Fill the arrays with the degrees for each arc
+        Arrays.fill(innerDegreesArray, 360/circleCount[1]);
+        Arrays.fill(firstDegreesArray, 360/circleCount[2]);
     }
 
     public PaintView(Context context, AttributeSet attrs) {
@@ -117,13 +110,9 @@ public class PaintView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        temp = 0;
-
-        radiusSqueeze = radius * 0.85f; // 1 will put the text in the border, 0 will put the text in the center. Play with this to set the distance of your text.
-
         // Outer circle
-        //set text Size
-        mPaintText.setTextSize(mTextHeight);
+        temp = 0;
+        mPaintText.setTextSize(mTextHeight); // Set text size
         for (int i = 0; i < outerDegreesArray.length; i++)
         {
             if (i > 0)
@@ -133,12 +122,11 @@ public class PaintView extends View {
             mPaintText.setColor(Color.BLACK);
             mPaintText.getTextBounds(String.valueOf(TXHASH.charAt(i)), 0, String.valueOf(TXHASH.charAt(i)).length(), bounds); // Measure the text
             float medianAngle = (temp + (outerDegreesArray[i] / 2f)) * (float)Math.PI / 180f; // this angle will place the text in the center of the arc.
-            canvas.drawText(String.valueOf(TXHASH.charAt(i)), (float)(centerX + (radiusSqueeze * Math.cos(medianAngle))), (float)(centerY + (radiusSqueeze * Math.sin(medianAngle)))+ bounds.height() * 0.5f, mPaintText);
+            canvas.drawText(String.valueOf(TXHASH.charAt(i)), (float)(centerX + (radius*radiusSqueeze * Math.cos(medianAngle))), (float)(centerY + (radius*radiusSqueeze * Math.sin(medianAngle)))+ bounds.height() * 0.5f, mPaintText);
         }
         // Inner circle
         temp = 0;
-        //set text Size
-        mPaintText.setTextSize(mTextHeight-15);
+        mPaintText.setTextSize(mTextHeight-15); // Set text size
         for (int i = 0; i < innerDegreesArray.length; i++)
         {
             if (i > 0)
@@ -146,14 +134,13 @@ public class PaintView extends View {
             mPaintText.setColor(COLORS[(i+1)%5]);
             canvas.drawArc(mOvalFInner, temp, innerDegreesArray[i], true, mPaintText);
             mPaintText.setColor(Color.BLACK);
-            mPaintText.getTextBounds(String.valueOf(TXHASH.charAt(i+outerCircleCount)), 0, String.valueOf(TXHASH.charAt(i+outerCircleCount)).length(), bounds); // Measure the text
-            float medianAngle = (temp + (innerDegreesArray[i] / 2f)) * (float)Math.PI / 180f; // this angle will place the text in the center of the arc.
-            canvas.drawText(String.valueOf(TXHASH.charAt(i+outerCircleCount)), (float)(centerX + (radiusSqueeze*0.65 * Math.cos(medianAngle))), (float)(centerY + (radiusSqueeze*0.65 * Math.sin(medianAngle)))+ bounds.height() * 0.5f, mPaintText);
+            mPaintText.getTextBounds(String.valueOf(TXHASH.charAt(i+circleCount[0])), 0, String.valueOf(TXHASH.charAt(i+circleCount[0])).length(), bounds); // Measure the text
+            float medianAngle = (temp + (innerDegreesArray[i] / 2f)) * (float)Math.PI / 180f; // This angle will place the text in the center of the arc.
+            canvas.drawText(String.valueOf(TXHASH.charAt(i+circleCount[0])), (float)(centerX + (radius*radiusSqueeze*0.65 * Math.cos(medianAngle))), (float)(centerY + (radius*radiusSqueeze*0.65 * Math.sin(medianAngle)))+ bounds.height() * 0.5f, mPaintText);
         }
         // First circle
         temp = 0;
-        //set text Size
-        mPaintText.setTextSize(mTextHeight-25);
+        mPaintText.setTextSize(mTextHeight-25); // Set text size
         for (int i = 0; i < firstDegreesArray.length; i++)
         {
             if (i > 0)
@@ -161,19 +148,9 @@ public class PaintView extends View {
             mPaintText.setColor(COLORS[(i+2)%5]);
             canvas.drawArc(mOvalFFirst, temp, firstDegreesArray[i], true, mPaintText);
             mPaintText.setColor(Color.BLACK);
-            mPaintText.getTextBounds(String.valueOf(TXHASH.charAt(i+outerCircleCount+innerCircleCount)), 0, String.valueOf(TXHASH.charAt(i+outerCircleCount+innerCircleCount)).length(), bounds); // Measure the text
-            float medianAngle = (temp + (firstDegreesArray[i] / 2f)) * (float)Math.PI / 180f; // this angle will place the text in the center of the arc.
-            canvas.drawText(String.valueOf(TXHASH.charAt(i+outerCircleCount+innerCircleCount)), (float)(centerX + (radiusSqueeze*0.25 * Math.cos(medianAngle))), (float)(centerY + (radiusSqueeze*0.25 * Math.sin(medianAngle)))+ bounds.height() * 0.5f, mPaintText);
+            mPaintText.getTextBounds(String.valueOf(TXHASH.charAt(i+circleCount[0]+circleCount[1])), 0, String.valueOf(TXHASH.charAt(i+circleCount[0]+circleCount[1])).length(), bounds); // Measure the text
+            float medianAngle = (temp + (firstDegreesArray[i] / 2f)) * (float)Math.PI / 180f; // This angle will place the text in the center of the arc.
+            canvas.drawText(String.valueOf(TXHASH.charAt(i+circleCount[0]+circleCount[1])), (float)(centerX + (radius*radiusSqueeze*0.25 * Math.cos(medianAngle))), (float)(centerY + (radius*radiusSqueeze*0.25 * Math.sin(medianAngle)))+ bounds.height() * 0.5f, mPaintText);
         }
-    }
-
-    private float[] calculateData(float[] initialArcs) {
-        float total = 0;
-        float[] degreeResults = new float[initialArcs.length];
-        for (int i = 0; i < initialArcs.length; i++) total += initialArcs [i];
-        for (int i = 0; i < initialArcs.length; i++) {
-            degreeResults[i] = 360 * (initialArcs[i] / total);
-        }
-        return degreeResults;
     }
 }
