@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +19,9 @@ import android.widget.RelativeLayout;
  * to handle interaction events.
  * Use the {@link BlockwatchFragment#newInstance} factory method to
  * create an instance of this fragment.
+ *
+ * 2/2017 Michael Mebane
+ * Fragment that shows the main BlockWatch face on the mobile side
  */
 public class BlockwatchFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
@@ -27,10 +29,9 @@ public class BlockwatchFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    PaintView pV;
-    View rootView;
-    RelativeLayout layout;
-    PaintView watchView;
+    PaintView pV;  // Declare paintView to put the watch in
+    View rootView; // Declare rootView
+    RelativeLayout layout; // Declare layout that will access fragment layout
 
 
     // TODO: Rename and change types of parameters
@@ -75,13 +76,13 @@ public class BlockwatchFragment extends Fragment {
                              Bundle savedInstanceState) {
         rootView =inflater.inflate(R.layout.fragment_blockwatch, container, false);
         layout = (RelativeLayout) rootView.findViewById(R.id.watch_fragment_layout);
-        pV=new PaintView(getActivity());
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-        params.weight = 1.0f;
-        params.gravity = (Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);
-        pV.setBackgroundColor(Color.WHITE);
-        pV.setLayoutParams(params);
-        layout.addView(pV);
+        pV=new PaintView(getActivity()); // Create a new paint view for the watch face
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT); // Set width and height
+/*        params.weight = 1.0f;
+        params.gravity = (Gravity.CENTER_VERTICAL | Gravity.CENTER_HORIZONTAL);*/
+        pV.setBackgroundColor(Color.WHITE); // Set the background white
+        pV.setLayoutParams(params); // Apply the layout width and height
+        layout.addView(pV); // Add the view to the fragment layout
 
         // Inflate the layout for this fragment
         return rootView;

@@ -17,84 +17,82 @@ import java.util.Arrays;
 /**
  * Created by Michael on 2/6/2017.
  *
+ * Creates a view that holds the current transaction hash from the Blockchain for one minute
+ * Displays the hash in a circle (will decide later to add colored arcs or not)
+ * For information on calculations of arc angles to make each letter vertically oriented: *
  * @see <a href="http://stackoverflow.com/questions/15739009/draw-text-inside-an-arc-using-canvas/19352717?noredirect=1#comment71429997_19352717">Draw text inside an arc using canvas</a>
  */
 
 public class PaintView extends View {
-    private static final String TXHASH = "b5357533bf43d6793aa24d91d6a01055128bff64730627bbb3a512b04d2e9043";
-    private Paint mPaintText;
-    private RectF mOvalFOuter;
-    private RectF mOvalFInner;
-    private RectF mOvalFFirst;
-    private Rect bounds = new Rect();
-    private float mTextHeight = 100.0f;
-    int temp = 0;
-    int outerCircleCount = 30;
-    float outerArcSweep =360/outerCircleCount ;
-    int innerCircleCount = 24;
-    float innerArcSweep =360/innerCircleCount ;
-    int firstCircleCount = 10;
-    float firstArcSweep = 360/firstCircleCount;
-    float outerInitialArcs[]; float innerInitialArcs[]; float firstInitialArcs[];
-    float outerDegreesArray[]; float innerDegreesArray[]; float firstDegreesArray[];
+    private static final String TXHASH = "b5357533bf43d6793aa24d91d6a01055128bff64730627bbb3a512b04d2e9043"; // Dummy hash for now; 64 hexadecimal characters
+    private Paint mPaintText; // Define the paint object to draw the letters and arcs
+    private RectF mOvalFOuter; // Define the bounds of the outer circle
+    private RectF mOvalFInner; // Define the bounds of the inner circle
+    private RectF mOvalFFirst; // Define the bounds of the first circle
+    private Rect bounds = new Rect(); // Define an object that will measure each character before determining its coordinates
+    private float mTextHeight = 100.0f; // Define the text size here (might make it more dependent on screen later)
+    int temp = 0; // Define variable used for calculating arc sweeps
+    int outerCircleCount = 30; // Define how many characters will go on outer circle
+    int innerCircleCount = 24; // Define how many characters will go on inner circle
+    int firstCircleCount = 10; // Define how many characters will go on first circle
+    // Declare the arrays that will hold the initial arc sizes in each circle
+    float outerInitialArcs[] = new float[outerCircleCount]; float innerInitialArcs[] = new float[innerCircleCount]; float firstInitialArcs[] = new float[firstCircleCount];
+    float outerDegreesArray[]; float innerDegreesArray[]; float firstDegreesArray[]; // Declare the arrays that will hold the array of degrees in each circle based on total character count in the circle
+
+    private float radius; // Declare the radius of the largest circle
+    private float centerX; // Declare the center x coordinate of all the circles
+    private float centerY; // Declare the center y coordinate of all the circles
+    private float screenWidth; // Declare the width of the screen
+    private float screenHeight; // Declare the height of the screen
+    private float actionBarHeight; // Declare the height of the screen
+    private float radiusSqueeze; // Declare how far out on each circle to put the characters
 
     private int[] COLORS = { Color.YELLOW, Color.GREEN, Color.WHITE,
-            Color.CYAN, Color.RED };
-
-    private float left = 0f;
-    private float top = 0f;
-    private float radius;
-    private float centerX;
-    private float centerY;
-    private float screenWidth;
-    private float screenHeight;
-    private float actionBarHeight;
+            Color.CYAN, Color.RED }; // Define a set of colors used for drawing arcs around each character
 
     public PaintView(Context context) {
-        super(context);
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        DisplayMetrics metrics = new DisplayMetrics();
-        wm.getDefaultDisplay().getMetrics(metrics);
+        super(context); // Call the superclass's (View) constructor
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE); // Get the window manager
+        DisplayMetrics metrics = new DisplayMetrics(); // Declare a metrics object
+        wm.getDefaultDisplay().getMetrics(metrics); // Get the metrics of the window
         // Calculate ActionBar height
-        TypedValue tv = new TypedValue();
-        if (context.getTheme().resolveAttribute(R.attr.actionBarSize, tv, true))
+        TypedValue tv = new TypedValue(); // Declare a typed value
+        if (context.getTheme().resolveAttribute(R.attr.actionBarSize, tv, true)) // Get the action bar size attribute
         {
-            actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,metrics);
+            actionBarHeight = TypedValue.complexToDimensionPixelSize(tv.data,metrics); // Put it in this variable if it exists
         }
         else {
-            actionBarHeight = 168;
+            actionBarHeight = 168; // Otherwise declare a default value
         }
         screenWidth = metrics.widthPixels; // Measure the screen width.
         screenHeight = metrics.heightPixels; // Measure the screen height.
 
-        radius = Math.min(screenWidth,screenHeight) / 2;
-        mOvalFOuter = new RectF(Math.round(left),Math.round(top + actionBarHeight),Math.round(left+radius*2),Math.round(top+actionBarHeight+radius*2));
-        centerX = (mOvalFOuter.right - mOvalFOuter.left) / 2;
-        centerY = (mOvalFOuter.bottom - mOvalFOuter.top) / 2 + actionBarHeight;
-
+        radius = (Math.min(screenWidth,screenHeight - actionBarHeight) / 2); // Measure the radius of the screen using the smallest dimension taking into account the action bar height
+        //mOvalFOuter = new RectF(Math.round(left),Math.round(top + actionBarHeight),Math.round(left+radius*2),Math.round(top+actionBarHeight+radius*2)); // Declare the bounding rectangle for the largest circle of the watch
+        centerX = screenWidth / 2; // Measure the center x coordinate
+        centerY = radius + actionBarHeight; // Measure the center y coordinate of this rectangle taking into account the action bar height
+        // Declare the bounding rectangle for the largest circle of the watch
+        mOvalFOuter = new RectF(Math.round(centerX - radius*0.95),Math.round(centerY - radius*0.95),Math.round(centerX + radius*0.95),Math.round(centerY + radius*0.95));
+        // Declare the bounding rectangle for the inner circle of the watch
         mOvalFInner = new RectF(Math.round(centerX - radius*0.65),Math.round(centerY - radius*0.65),Math.round(centerX + radius*0.65),Math.round(centerY + radius*0.65));
+        // Declare the bounding rectangle for the first circle of the watch
         mOvalFFirst = new RectF(Math.round(centerX - radius*0.25),Math.round(centerY - radius*0.25),Math.round(centerX + radius*0.25),Math.round(centerY + radius*0.25));
 
-        //create paint object
-        mPaintText = new Paint(Paint.ANTI_ALIAS_FLAG);
-        //set style
-        mPaintText.setStyle(Paint.Style.FILL_AND_STROKE);
-        //set color
-        mPaintText.setColor(Color.BLACK);
-        //set text Size
-        mPaintText.setTextSize(mTextHeight);
-        // Set alignment
-        mPaintText.setTextAlign(Paint.Align.CENTER);
+        mPaintText = new Paint(Paint.ANTI_ALIAS_FLAG); // Create paint object
+        mPaintText.setStyle(Paint.Style.FILL_AND_STROKE); // Set style
+        mPaintText.setColor(Color.BLACK); // Set color
+        mPaintText.setTextSize(mTextHeight); // Set text size
+        mPaintText.setTextAlign(Paint.Align.CENTER); // Set alignment
 
-        outerInitialArcs = new float[(int) outerCircleCount];
-        Arrays.fill(outerInitialArcs, outerArcSweep);
-        outerDegreesArray = calculateData(outerInitialArcs);
-        innerInitialArcs = new float[(int) innerCircleCount];
-        Arrays.fill(innerInitialArcs, innerArcSweep);
+        Arrays.fill(outerInitialArcs, 360/outerCircleCount);
+        Arrays.fill(innerInitialArcs, 360/innerCircleCount);
+        Arrays.fill(firstInitialArcs, 360/firstCircleCount);
+/*        outerDegreesArray = calculateData(outerInitialArcs);
         innerDegreesArray = calculateData(innerInitialArcs);
-        firstInitialArcs = new float[(int) firstCircleCount];
-        Arrays.fill(firstInitialArcs, firstArcSweep);
-        firstDegreesArray = calculateData(firstInitialArcs);
+        firstDegreesArray = calculateData(firstInitialArcs);*/
+        outerDegreesArray = (outerInitialArcs); // Do we need to use calculateData for regular sized arcs?  Probably not
+        innerDegreesArray = (innerInitialArcs);
+        firstDegreesArray = (firstInitialArcs);
     }
 
     public PaintView(Context context, AttributeSet attrs) {
@@ -121,7 +119,7 @@ public class PaintView extends View {
         super.onDraw(canvas);
         temp = 0;
 
-        radius *= 0.9; // 1 will put the text in the border, 0 will put the text in the center. Play with this to set the distance of your text.
+        radiusSqueeze = radius * 0.85f; // 1 will put the text in the border, 0 will put the text in the center. Play with this to set the distance of your text.
 
         // Outer circle
         //set text Size
@@ -135,7 +133,7 @@ public class PaintView extends View {
             mPaintText.setColor(Color.BLACK);
             mPaintText.getTextBounds(String.valueOf(TXHASH.charAt(i)), 0, String.valueOf(TXHASH.charAt(i)).length(), bounds); // Measure the text
             float medianAngle = (temp + (outerDegreesArray[i] / 2f)) * (float)Math.PI / 180f; // this angle will place the text in the center of the arc.
-            canvas.drawText(String.valueOf(TXHASH.charAt(i)), (float)(centerX + (radius * Math.cos(medianAngle))), (float)(centerY + (radius * Math.sin(medianAngle)))+ bounds.height() * 0.5f, mPaintText);
+            canvas.drawText(String.valueOf(TXHASH.charAt(i)), (float)(centerX + (radiusSqueeze * Math.cos(medianAngle))), (float)(centerY + (radiusSqueeze * Math.sin(medianAngle)))+ bounds.height() * 0.5f, mPaintText);
         }
         // Inner circle
         temp = 0;
@@ -150,7 +148,7 @@ public class PaintView extends View {
             mPaintText.setColor(Color.BLACK);
             mPaintText.getTextBounds(String.valueOf(TXHASH.charAt(i+outerCircleCount)), 0, String.valueOf(TXHASH.charAt(i+outerCircleCount)).length(), bounds); // Measure the text
             float medianAngle = (temp + (innerDegreesArray[i] / 2f)) * (float)Math.PI / 180f; // this angle will place the text in the center of the arc.
-            canvas.drawText(String.valueOf(TXHASH.charAt(i+outerCircleCount)), (float)(centerX + (radius*0.65 * Math.cos(medianAngle))), (float)(centerY + (radius*0.65 * Math.sin(medianAngle)))+ bounds.height() * 0.5f, mPaintText);
+            canvas.drawText(String.valueOf(TXHASH.charAt(i+outerCircleCount)), (float)(centerX + (radiusSqueeze*0.65 * Math.cos(medianAngle))), (float)(centerY + (radiusSqueeze*0.65 * Math.sin(medianAngle)))+ bounds.height() * 0.5f, mPaintText);
         }
         // First circle
         temp = 0;
@@ -165,7 +163,7 @@ public class PaintView extends View {
             mPaintText.setColor(Color.BLACK);
             mPaintText.getTextBounds(String.valueOf(TXHASH.charAt(i+outerCircleCount+innerCircleCount)), 0, String.valueOf(TXHASH.charAt(i+outerCircleCount+innerCircleCount)).length(), bounds); // Measure the text
             float medianAngle = (temp + (firstDegreesArray[i] / 2f)) * (float)Math.PI / 180f; // this angle will place the text in the center of the arc.
-            canvas.drawText(String.valueOf(TXHASH.charAt(i+outerCircleCount+innerCircleCount)), (float)(centerX + (radius*0.25 * Math.cos(medianAngle))), (float)(centerY + (radius*0.25 * Math.sin(medianAngle)))+ bounds.height() * 0.5f, mPaintText);
+            canvas.drawText(String.valueOf(TXHASH.charAt(i+outerCircleCount+innerCircleCount)), (float)(centerX + (radiusSqueeze*0.25 * Math.cos(medianAngle))), (float)(centerY + (radiusSqueeze*0.25 * Math.sin(medianAngle)))+ bounds.height() * 0.5f, mPaintText);
         }
     }
 

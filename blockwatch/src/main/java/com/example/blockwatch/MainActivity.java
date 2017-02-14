@@ -32,8 +32,8 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
 
         if (savedInstanceState == null) {
             Fragment watchFragment = new BlockwatchFragment(); // Add the watch fragment here
-            FragmentManager manager = getSupportFragmentManager();
-            manager.beginTransaction().add(R.id.watch_fragment,watchFragment).commit();
+            FragmentManager manager = getSupportFragmentManager(); // Start the fragment manager
+            manager.beginTransaction().add(R.id.watch_fragment,watchFragment).commit(); // Add the fragment to the transaction
         }
     }
 
