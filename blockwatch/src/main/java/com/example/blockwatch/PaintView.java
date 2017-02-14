@@ -37,8 +37,8 @@ public class PaintView extends View {
     private List<float[]> degreesArray= new ArrayList<>(Arrays.asList(new float[circleCount[0]], new float[circleCount[1]], new float[circleCount[2]]));
 
     private float radius; // Declare the radius of the largest circle
-    private float radiusSqueeze = 0.85f; // 1 will put the text in the border, 0 will put the text in the center. Play with this to set the distance of your text.
-    private float[] circleSpacing = {0.95f, 0.65f, 0.25f}; // Define the spacing of the circles
+    private float[] radiusSqueeze = {0.85f, 0.7f, 0.65f}; // 1 will put the text in the border, 0 will put the text in the center. Play with this to set the distance of your text.
+    private float[] circleSpacing = {0.95f, 0.65f, 0.25f}; // Define the spacing of the circles used in the bounding rectangles
     private float centerX; // Declare the center x coordinate of all the circles
     private float centerY; // Declare the center y coordinate of all the circles
     private float actionBarHeight; // Declare the height of the screen
@@ -103,7 +103,7 @@ public class PaintView extends View {
         for(int circle=0;circle<numberOfCircles;circle++){ // Go through each circle
             int startAngle = 0; // Set the initial angle to 0
             int charCount = 0; // Keep track of the character index
-            mPaintText.setTextSize(mTextHeight-circle*15); // Set text size, decreasing with each circle
+            mPaintText.setTextSize(mTextHeight-circle*20); // Set text size, decreasing with each circle
             for (int i = 0; i < degreesArray.get(circle).length; i++) // For each character in the current circle
             {
                 if (i > 0) // Initial angle will be 0, or directly to the right
@@ -116,7 +116,7 @@ public class PaintView extends View {
                 /** This angle will place the text in the center of the arc.
                 * @see <a href="http://stackoverflow.com/questions/15739009/draw-text-inside-an-arc-using-canvas/19352717?noredirect=1#comment71429997_19352717">Draw text inside an arc using canvas</a> */
                 float medianAngle = (startAngle + (degreesArray.get(circle)[i] / 2f)) * (float) Math.PI / 180f;  // Go halfway between the current starting angle and the next angle, and convert to radians
-                canvas.drawText(String.valueOf(TXHASH.charAt(charCount)), (float)(centerX + (radius*radiusSqueeze*circleSpacing[circle] * Math.cos(medianAngle))), (float)(centerY + (radius*radiusSqueeze*circleSpacing[circle] * Math.sin(medianAngle)))+ bounds.height() * 0.5f, mPaintText);
+                canvas.drawText(String.valueOf(TXHASH.charAt(charCount)), (float)(centerX + (radius*radiusSqueeze[circle]*circleSpacing[circle] * Math.cos(medianAngle))), (float)(centerY + (radius*radiusSqueeze[circle]*circleSpacing[circle] * Math.sin(medianAngle)))+ bounds.height() * 0.5f, mPaintText);
                 charCount++; // Increment the character count
             }
         }
