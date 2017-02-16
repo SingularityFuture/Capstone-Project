@@ -20,7 +20,8 @@
         android:layout_gravity="bottom|end" android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@drawable/ic_action_add_light" />
 
-    <fragment android:name="com.example.blockwatch.BlockwatchFragment"
+    <FrameLayout android:name="com.example.blockwatch.BlockwatchFragment"
+        tools:context="com.example.blockwatch.BlockwatchFragment"
         tools:layout="@layout/fragment_blockwatch"
         android:id="@+id/watch_fragment"
         android:layout_width="match_parent"

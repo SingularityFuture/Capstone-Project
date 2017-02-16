@@ -2,6 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.blockwatch.BlockwatchFragment"
+    tools:context="com.example.blockwatch.MainActivity"
     android:id="@+id/watch_fragment_layout">
 </RelativeLayout>

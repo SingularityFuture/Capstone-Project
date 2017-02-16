@@ -1,6 +1,5 @@
 package com.example.blockwatch;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,7 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-public class MainActivity extends AppCompatActivity implements BlockwatchFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity  {
+    //implements BlockwatchFragment.OnFragmentInteractionListener
 
     private Fragment watchFragment;
     private static final String WATCH_FRAGMENT_TAG = "watch_fragment";
@@ -32,12 +32,14 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
             }
         });
 
-        if (savedInstanceState == null) {
-            watchFragment = new BlockwatchFragment(); // Add the watch fragment here
+        if (getSupportFragmentManager().findFragmentByTag(WATCH_FRAGMENT_TAG) == null) {
+            watchFragment = BlockwatchFragment.newInstance("1","2"); // Add the watch fragment here
             getSupportFragmentManager().beginTransaction().add(R.id.watch_fragment,watchFragment,WATCH_FRAGMENT_TAG).commit(); // Add the fragment to the transaction
         }
         else {
-           watchFragment = getSupportFragmentManager().findFragmentByTag(WATCH_FRAGMENT_TAG);;
+           watchFragment = getSupportFragmentManager().findFragmentByTag(WATCH_FRAGMENT_TAG);
+           getSupportFragmentManager().beginTransaction().replace(R.id.watch_fragment,watchFragment,WATCH_FRAGMENT_TAG).commit(); // Replace the fragment with the current one
+
         }
     }
 
@@ -63,10 +65,10 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
+/*    @Override
     public void onFragmentInteraction(Uri uri){
         // Here you should launch a new fragment that shows the details of the clicked transaction
-    }
+    }*/
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -74,10 +76,18 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
         super.onSaveInstanceState(outState);
     }
 
-    @Override
-    public void onResume(){
-        super.onResume();
-        // put your code here...
 
+/*    @Override
+    protected void onPause() {
+        super.onPause();
+        if (getSupportFragmentManager().findFragmentByTag(WATCH_FRAGMENT_TAG) != null)
+            getSupportFragmentManager().findFragmentByTag(WATCH_FRAGMENT_TAG).setRetainInstance(true);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (getSupportFragmentManager().findFragmentByTag(WATCH_FRAGMENT_TAG) != null)
+            getSupportFragmentManager().findFragmentByTag(WATCH_FRAGMENT_TAG).getRetainInstance();
+    }*/
 }

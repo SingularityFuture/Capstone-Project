@@ -1,21 +1,18 @@
 package com.example.blockwatch;
 
-import android.content.Context;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link BlockwatchFragment.OnFragmentInteractionListener} interface
+ * {//@link BlockwatchFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link BlockwatchFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -38,7 +35,7 @@ public class BlockwatchFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
+   // private OnFragmentInteractionListener mListener;
 
     public BlockwatchFragment() {
         // Required empty public constructor
@@ -65,6 +62,9 @@ public class BlockwatchFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Tell the framework to try to keep this fragment around
+        // during a configuration change.
+        //setRetainInstance(true);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -72,23 +72,38 @@ public class BlockwatchFragment extends Fragment {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        int temp=1;
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         rootView =inflater.inflate(R.layout.fragment_blockwatch, container, false);
         layout = (RelativeLayout) rootView.findViewById(R.id.watch_fragment_layout);
-        pV=new PaintView(getActivity()); // Create a new paint view for the watch face
+/*        pV=new PaintView(getActivity()); // Create a new paint view for the watch face
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT); // Set width and height
         pV.setBackgroundColor(Color.WHITE); // Set the background white
         pV.setLayoutParams(params); // Apply the layout width and height
         if(android.os.Build.VERSION.SDK_INT>20)
             pV.setElevation(200); // Set elevation if SDK > 20
-        layout.addView(pV); // Add the view to the fragment layout
+        int newID = pV.generateViewId(); // Generate a new unique ID
+        pV.setId(newID); // Set the ID here
+        pV.setSaveEnabled(true); // Make sure it saves its state
+        layout.addView(pV); // Add the view to the fragment layout*/
 
         // Inflate the layout for this fragment
         return rootView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+/*    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -112,7 +127,7 @@ public class BlockwatchFragment extends Fragment {
         mListener = null;
     }
 
-    /**
+    *//**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
@@ -121,9 +136,9 @@ public class BlockwatchFragment extends Fragment {
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
-     */
+     *//*
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
+    }*/
 }
