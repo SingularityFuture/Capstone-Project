@@ -1,5 +1,6 @@
 package com.example.blockwatch;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,18 +11,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-public class MainActivity extends AppCompatActivity  {
-    //implements BlockwatchFragment.OnFragmentInteractionListener
+public class MainActivity extends AppCompatActivity implements BlockwatchFragment.OnFragmentInteractionListener {
 
-    private Fragment watchFragment;
-    private static final String WATCH_FRAGMENT_TAG = "watch_fragment";
+    private Fragment watchFragment; // Declare the fragment you will include
+    private static final String WATCH_FRAGMENT_TAG = "watch_fragment"; // Create a tag to keep track of created fragments
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_main); // Set the main activity
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar); // Get the toolbar ID
+        setSupportActionBar(toolbar); // Set the toolbar
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -32,14 +32,13 @@ public class MainActivity extends AppCompatActivity  {
             }
         });
 
-        if (getSupportFragmentManager().findFragmentByTag(WATCH_FRAGMENT_TAG) == null) {
-            watchFragment = BlockwatchFragment.newInstance("1","2"); // Add the watch fragment here
-            getSupportFragmentManager().beginTransaction().add(R.id.watch_fragment,watchFragment,WATCH_FRAGMENT_TAG).commit(); // Add the fragment to the transaction
+        if (getSupportFragmentManager().findFragmentByTag(WATCH_FRAGMENT_TAG) == null) { // If the fragment doesn't exist yet,
+            watchFragment = new BlockwatchFragment().newInstance(); // Add the watch fragment here, passing the context as an implementation of the fragment listener
+            getSupportFragmentManager().beginTransaction().add(R.id.transaction_fragment,watchFragment,WATCH_FRAGMENT_TAG).commit(); // Add the fragment to the transaction
         }
         else {
-           watchFragment = getSupportFragmentManager().findFragmentByTag(WATCH_FRAGMENT_TAG);
-           getSupportFragmentManager().beginTransaction().replace(R.id.watch_fragment,watchFragment,WATCH_FRAGMENT_TAG).commit(); // Replace the fragment with the current one
-
+           watchFragment = getSupportFragmentManager().findFragmentByTag(WATCH_FRAGMENT_TAG); // Else if it exists
+           getSupportFragmentManager().beginTransaction().replace(R.id.transaction_fragment,watchFragment,WATCH_FRAGMENT_TAG).commit(); // Replace the fragment with the current one
         }
     }
 
@@ -65,10 +64,14 @@ public class MainActivity extends AppCompatActivity  {
         return super.onOptionsItemSelected(item);
     }
 
-/*    @Override
-    public void onFragmentInteraction(Uri uri){
+    //@Override
+    public String onFragmentInteraction(String string){
         // Here you should launch a new fragment that shows the details of the clicked transaction
-    }*/
+        // Launch the ScheduleActivity.
+        Intent intent = new Intent(this, TransactionDetailActivity.class);
+        startActivity(intent);
+        return string+string+string;
+    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {

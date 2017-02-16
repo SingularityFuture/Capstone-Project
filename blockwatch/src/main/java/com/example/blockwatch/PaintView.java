@@ -39,7 +39,7 @@ public class PaintView extends View {
 
     private float radius; // Declare the radius of the largest circle
     private float[] radiusSqueeze = {0.85f, 0.7f, 0.65f}; // 1 will put the text in the border, 0 will put the text in the center. Play with this to set the distance of your text.
-    private float[] circleSpacing = {1f, 0.65f, 0.25f}; // Define the spacing of the circles used in the bounding rectangles
+    private float[] circleSpacing = {0.95f, 0.65f, 0.25f}; // Define the spacing of the circles used in the bounding rectangles
     private float centerX; // Declare the center x coordinate of all the circles
     private float centerY; // Declare the center y coordinate of all the circles
     private float actionBarHeight; // Declare the height of the toolbar
@@ -70,6 +70,7 @@ public class PaintView extends View {
         }
         radius = (Math.min(metrics.widthPixels,(metrics.heightPixels - actionBarHeight - statusBarHeight)) / 2); // Measure the radius of the screen using the smallest dimension taking into account the action bar height
         centerX = metrics.widthPixels / 2; // Measure the center x coordinate
+        // For some reason, adding actionBarHeight to the centerY coordinate pushes it too far down, even though it's required when computing the radius size
         centerY = (metrics.heightPixels + statusBarHeight) / 2; // Measure the center y coordinate of this rectangle taking into account the action bar height
 
         mPaintText = new Paint(Paint.ANTI_ALIAS_FLAG); // Create paint object
@@ -147,7 +148,6 @@ public class PaintView extends View {
                 startAngle[1] = second[1] * (360/circleCount[1]); // Move the starting angle by the size of one arc for this circle
                 second[1]++; // Otherwise increment the second count
             }
-
             invalidate(); // Redraw the canvas
             handler.postDelayed(this, 1000); // Redraw every second
         }

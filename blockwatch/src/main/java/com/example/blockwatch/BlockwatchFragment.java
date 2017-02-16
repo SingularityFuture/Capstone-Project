@@ -1,5 +1,6 @@
 package com.example.blockwatch;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,20 +22,13 @@ import android.widget.RelativeLayout;
  * 2/2017 Michael Mebane
  * Fragment that shows the main BlockWatch face on the mobile side
  */
-public class BlockwatchFragment extends Fragment {
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-/*
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    private String mParam1;
-    private String mParam2;
+public class BlockwatchFragment extends Fragment implements View.OnClickListener {
     private OnFragmentInteractionListener mListener;
-*/
+
     PaintView pV;  // Declare paintView to put the watch in
     View rootView; // Declare rootView
     RelativeLayout layout; // Declare layout that will access fragment layout
-
-
+    String callBack_result; // Temp variable to make sure callback fragment listener works
 
     public BlockwatchFragment() {
         // Required empty public constructor
@@ -43,26 +37,16 @@ public class BlockwatchFragment extends Fragment {
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment BlockwatchFragment.
      */
-    public static BlockwatchFragment newInstance(String param1, String param2) {
+    public BlockwatchFragment newInstance() {
         BlockwatchFragment fragment = new BlockwatchFragment();
-/*        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);*/
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Tell the framework to try to keep this fragment around
-        // during a configuration change.
-        //setRetainInstance(true);
 /*        if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -94,17 +78,24 @@ public class BlockwatchFragment extends Fragment {
         int newID = pV.generateViewId(); // Generate a new unique ID
         pV.setId(newID); // Set the ID here
         pV.setSaveEnabled(true); // Make sure it saves its state
+        pV.setOnClickListener(this); // Set the onClick listener to call back to the activity
         layout.addView(pV); // Add the view to the fragment layout
 
         // Inflate the layout for this fragment
         return rootView;
     }
 
+    @Override
+    public void onClick(final View v) { //check for what button is pressed
+        callBack_result = mListener.onFragmentInteraction("hello");
+        //Toast.makeText(getActivity(),callBack_result,Toast.LENGTH_LONG).show(); // Show the result
+    }
+
 /*  public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
-    }
+    } */
 
     @Override
     public void onAttach(Context context) {
@@ -117,13 +108,13 @@ public class BlockwatchFragment extends Fragment {
         }
     }
 
-    @Override
+    /*@Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
+    } */
 
-    *//**
+     /*
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
@@ -131,10 +122,8 @@ public class BlockwatchFragment extends Fragment {
      * <p>
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     *//*
+     * >Communicating with Other Fragments</a> for more information. */
     public interface OnFragmentInteractionListener {
-        //
-        void onFragmentInteraction(Uri uri);
-    }*/
+        String onFragmentInteraction(String string);
+    }
 }
