@@ -39,10 +39,11 @@ public class PaintView extends View {
 
     private float radius; // Declare the radius of the largest circle
     private float[] radiusSqueeze = {0.85f, 0.7f, 0.65f}; // 1 will put the text in the border, 0 will put the text in the center. Play with this to set the distance of your text.
-    private float[] circleSpacing = {0.95f, 0.65f, 0.25f}; // Define the spacing of the circles used in the bounding rectangles
+    private float[] circleSpacing = {1f, 0.65f, 0.25f}; // Define the spacing of the circles used in the bounding rectangles
     private float centerX; // Declare the center x coordinate of all the circles
     private float centerY; // Declare the center y coordinate of all the circles
-    private float actionBarHeight; // Declare the height of the screen
+    private float actionBarHeight; // Declare the height of the toolbar
+    private float statusBarHeight; // Declare the height of the status bar
     private int[] startAngle = {0, 0, 0}; // Set the initial angles to 0; allows you to change any one later if you want it to move
     private int[] second = {0, 0, 0}; // Initialize second counter for all circles; only inner one should change
 
@@ -63,9 +64,13 @@ public class PaintView extends View {
         else {
             actionBarHeight = 168; // Otherwise declare a default value
         }
-        radius = (Math.min(metrics.widthPixels,metrics.heightPixels - actionBarHeight) / 2); // Measure the radius of the screen using the smallest dimension taking into account the action bar height
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android"); // Find the height of the status bar
+        if (resourceId > 0) {
+            statusBarHeight = getResources().getDimensionPixelSize(resourceId); // If it exists, put it here
+        }
+        radius = (Math.min(metrics.widthPixels,(metrics.heightPixels - actionBarHeight - statusBarHeight)) / 2); // Measure the radius of the screen using the smallest dimension taking into account the action bar height
         centerX = metrics.widthPixels / 2; // Measure the center x coordinate
-        centerY = radius + actionBarHeight; // Measure the center y coordinate of this rectangle taking into account the action bar height
+        centerY = (metrics.heightPixels + statusBarHeight) / 2; // Measure the center y coordinate of this rectangle taking into account the action bar height
 
         mPaintText = new Paint(Paint.ANTI_ALIAS_FLAG); // Create paint object
         mPaintText.setStyle(Paint.Style.FILL_AND_STROKE); // Set style
@@ -107,6 +112,8 @@ public class PaintView extends View {
         // All circles
         int charCount = 0; // Keep track of the character index
         for(int circle=0;circle<numberOfCircles;circle++){ // Go through each circle
+            if(circle!=1 && second[circle]!=0)
+                continue; // If this is not the inner circle and you're not refreshing to mark a new minute, don't draw the circle
             int currentAngle = startAngle[circle]; // Start off the angle count the current moved angle
             mPaintText.setTextSize(mTextHeight-circle*20); // Set text size, decreasing with each circle
             // Add 'shadow' highlight to bottom right of each circle
