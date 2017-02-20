@@ -10,6 +10,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.neovisionaries.ws.client.WebSocketFactory;
+import com.example.blockwatch.
+
 public class MainActivity extends AppCompatActivity {
     //implements BlockwatchFragment.OnFragmentInteractionListener
 
@@ -36,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         if (getSupportFragmentManager().findFragmentByTag(WATCH_FRAGMENT_TAG) == null) {
             watchFragment = BlockwatchFragment.newInstance("1","2"); // Add the watch fragment here
             getSupportFragmentManager().beginTransaction().add(R.id.watch_fragment,watchFragment,WATCH_FRAGMENT_TAG).commit(); // Add the fragment to the transaction
+            WebSocketFactory wf = new WebSocketFactory().createSocket(MainActivity.this);
         }
         else {
            watchFragment = getSupportFragmentManager().findFragmentByTag(WATCH_FRAGMENT_TAG);
