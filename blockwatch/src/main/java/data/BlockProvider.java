@@ -2,15 +2,12 @@ package data;
 
 import android.content.ContentProvider;
 import android.annotation.TargetApi;
-import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-
-//import com.example.android.sunshine.utilities.SunshineDateUtils;
 
 /**
  * Created by Michael on 2/20/2017.
@@ -51,10 +48,10 @@ public class BlockProvider extends ContentProvider {
         /*
          * For each type of URI you want to add, create a corresponding code. Preferably, these are
          * constant fields in your class so that you can use them throughout the class and you no
-         * they aren't going to change. In Sunshine, we use CODE_BLOCK or CODE_BLOCK_WITH_DATE.
+         * they aren't going to change.
          */
 
-        /* This URI is content://com.example.android.sunshine/weather/ */
+        /* This URI is content://com.example.blockwatch/block/ */
         matcher.addURI(authority, BlockContract.PATH_BLOCK, CODE_BLOCK);
 
         /*
@@ -142,8 +139,8 @@ public class BlockProvider extends ContentProvider {
     }
 
     /**
-     * Handles query requests from clients. We will use this method in Sunshine to query for all
-     * of our weather data as well as to query for the weather on a particular day.
+     * Handles query requests from clients. We will use this method in Blockwatch to query for all
+     * of our data as well as to query for the weather on a particular day.
      *
      * @param uri           The URI to query
      * @param projection    The list of columns to put into the cursor. If null, all columns are
@@ -229,13 +226,13 @@ public class BlockProvider extends ContentProvider {
             /*
              * When sUriMatcher's match method is called with a URI that looks EXACTLY like this
              *
-             *      content://com.example.android.sunshine/weather/
+             *      content://com.example.blockwatch/block/
              *
              * sUriMatcher's match method will return the code that indicates to us that we need
-             * to return all of the weather in our weather table.
+             * to return all of the data in our block table.
              *
-             * In this case, we want to return a cursor that contains every row of weather data
-             * in our weather table.
+             * In this case, we want to return a cursor that contains every row of block data
+             * in our block table.
              */
             case CODE_BLOCK: {
                 cursor = mOpenHelper.getReadableDatabase().query(
@@ -304,18 +301,18 @@ public class BlockProvider extends ContentProvider {
     }
 
     /**
-     * In Sunshine, we aren't going to do anything with this method. However, we are required to
-     * override it as WeatherProvider extends ContentProvider and getType is an abstract method in
+     * In Blockwatch, we aren't going to do anything with this method. However, we are required to
+     * override it as BlockProvider extends ContentProvider and getType is an abstract method in
      * ContentProvider. Normally, this method handles requests for the MIME type of the data at the
      * given URI. For example, if your app provided images at a particular URI, then you would
      * return an image URI from this method.
      *
      * @param uri the URI to query.
-     * @return nothing in Sunshine, but normally a MIME type string, or null if there is no type.
+     * @return nothing in Blockwatch, but normally a MIME type string, or null if there is no type.
      */
     @Override
     public String getType(@NonNull Uri uri) {
-        throw new RuntimeException("We are not implementing getType in Sunshine.");
+        throw new RuntimeException("We are not implementing getType in Blockwatch.");
     }
 
     /**
@@ -332,12 +329,12 @@ public class BlockProvider extends ContentProvider {
     @Override
     public Uri insert(@NonNull Uri uri, ContentValues values) {
         throw new RuntimeException(
-                "We are not implementing insert in Sunshine. Use bulkInsert instead");
+                "We are not implementing insert in Blockwatch. Use bulkInsert instead");
     }
 
     @Override
     public int update(@NonNull Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-        throw new RuntimeException("We are not implementing update in Sunshine");
+        throw new RuntimeException("We are not implementing update in Blockwatch");
     }
 
     /**
