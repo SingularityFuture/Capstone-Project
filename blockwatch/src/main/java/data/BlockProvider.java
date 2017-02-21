@@ -54,13 +54,6 @@ public class BlockProvider extends ContentProvider {
         /* This URI is content://com.example.blockwatch/block/ */
         matcher.addURI(authority, BlockContract.PATH_BLOCK, CODE_BLOCK);
 
-        /*
-         * This URI would look something like content://com.example.android.sunshine/weather/1472214172
-         * The "/#" signifies to the UriMatcher that if PATH_WEATHER is followed by ANY number,
-         * that it should return the CODE_BLOCK_WITH_DATE code
-         */
-        matcher.addURI(authority, BlockContract.PATH_BLOCK + "/#", CODE_BLOCK_WITH_DATE);
-
         return matcher;
     }
 
@@ -92,7 +85,7 @@ public class BlockProvider extends ContentProvider {
 
     /**
      * Handles requests to insert a set of new rows. In Sunshine, we are only going to be
-     * inserting multiple rows of data at a time from a weather forecast. There is no use case
+     * inserting multiple rows of data at a time from a block forecast. There is no use case
      * for inserting a single row of data into our ContentProvider, and so we are only going to
      * implement bulkInsert. In a normal ContentProvider's implementation, you will probably want
      * to provide proper functionality for the insert method as well.
@@ -114,7 +107,7 @@ public class BlockProvider extends ContentProvider {
                 int rowsInserted = 0;
                 try {
                     for (ContentValues value : values) {
-                        long weatherDate =
+                        long blockDate =
                                 value.getAsLong(BlockContract.BlockEntry.COLUMN_DATE);
 
                         long _id = db.insert(BlockContract.BlockEntry.TABLE_NAME, null, value);
@@ -140,7 +133,7 @@ public class BlockProvider extends ContentProvider {
 
     /**
      * Handles query requests from clients. We will use this method in Blockwatch to query for all
-     * of our data as well as to query for the weather on a particular day.
+     * of our data as well as to query for the block on a particular day.
      *
      * @param uri           The URI to query
      * @param projection    The list of columns to put into the cursor. If null, all columns are
@@ -168,14 +161,14 @@ public class BlockProvider extends ContentProvider {
             /*
              * When sUriMatcher's match method is called with a URI that looks something like this
              *
-             *      content://com.example.android.sunshine/weather/1472214172
+             *      content://com.example.blockwatch/block/1472214172
              *
              * sUriMatcher's match method will return the code that indicates to us that we need
-             * to return the weather for a particular date. The date in this code is encoded in
+             * to return the block for a particular date. The date in this code is encoded in
              * milliseconds and is at the very end of the URI (1472214172) and can be accessed
              * programmatically using Uri's getLastPathSegment method.
              *
-             * In this case, we want to return a cursor that contains one row of weather data for
+             * In this case, we want to return a cursor that contains one row of block data for
              * a particular date.
              */
             case CODE_BLOCK_WITH_DATE: {
@@ -208,7 +201,7 @@ public class BlockProvider extends ContentProvider {
                         /*
                          * The URI that matches CODE_BLOCK_WITH_DATE contains a date at the end
                          * of it. We extract that date and use it with these next two lines to
-                         * specify the row of weather we want returned in the cursor. We use a
+                         * specify the row of block we want returned in the cursor. We use a
                          * question mark here and then designate selectionArguments as the next
                          * argument for performance reasons. Whatever Strings are contained
                          * within the selectionArguments array will be inserted into the

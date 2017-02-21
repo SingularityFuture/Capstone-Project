@@ -52,7 +52,6 @@ dependencies {
     compile 'com.android.support:design:25.1.1'
     compile 'com.android.support:support-v4:25.1.1'
     compile 'com.neovisionaries:nv-websocket-client:1.31'
-    compile project(':data')
 
     testCompile 'junit:junit:4.12'
 }

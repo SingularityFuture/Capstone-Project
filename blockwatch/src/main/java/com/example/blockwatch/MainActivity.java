@@ -11,7 +11,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-public class MainActivity extends AppCompatActivity implements BlockwatchFragment.OnFragmentInteractionListener {
+import com.neovisionaries.ws.client.WebSocketFactory;
+
+import data.WebsocketHelper;
+
+public class MainActivity extends AppCompatActivity implements BlockwatchFragment.OnFragmentInteractionListener, View.OnClickListener{
 
     private Fragment watchFragment; // Declare the fragment you will include
     private static final String WATCH_FRAGMENT_TAG = "watch_fragment"; // Create a tag to keep track of created fragments
@@ -24,13 +28,7 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
         setSupportActionBar(toolbar); // Set the toolbar
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        fab.setOnClickListener(this);
 
         if (getSupportFragmentManager().findFragmentByTag(WATCH_FRAGMENT_TAG) == null) { // If the fragment doesn't exist yet,
             watchFragment = new BlockwatchFragment().newInstance(); // Add the watch fragment here, passing the context as an implementation of the fragment listener
@@ -62,6 +60,14 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View view) {
+        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("action", null).show();
+        WebsocketHelper socket = new WebsocketHelper();
+        WebSocketFactory ws = socket.createSocket(this);
     }
 
     //@Override

@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 //import com.example.blockwatch.data.BlockContract.BlockEntry;
 
 /**
- * Manages a local database for weather data.
+ * Manages a local database for block data.
  */
 
 /**
@@ -18,7 +18,7 @@ public class BlockDbHelper extends SQLiteOpenHelper {    /*
      * This is the name of our database. Database names should be descriptive and end with the
      * .db extension.
      */
-    public static final String DATABASE_NAME = "weather.db";
+    public static final String DATABASE_NAME = "block.db";
 
     /*
      * If you change the database schema, you must increment the database version or the onUpgrade
@@ -48,7 +48,7 @@ public class BlockDbHelper extends SQLiteOpenHelper {    /*
 
         /*
          * This String will contain a simple SQL statement that will create a table that will
-         * cache our weather data.
+         * cache our block data.
          */
         final String SQL_CREATE_BLOCK_TABLE =
 
@@ -63,22 +63,11 @@ public class BlockDbHelper extends SQLiteOpenHelper {    /*
 
                         BlockContract.BlockEntry.COLUMN_DATE       + " INTEGER NOT NULL, "                 +
 
-                        BlockContract.BlockEntry.COLUMN_WEATHER_ID + " INTEGER NOT NULL,"                  +
-
-                        BlockContract.BlockEntry.COLUMN_MIN_TEMP   + " REAL NOT NULL, "                    +
-                        BlockContract.BlockEntry.COLUMN_MAX_TEMP   + " REAL NOT NULL, "                    +
-
-                        BlockContract.BlockEntry.COLUMN_HUMIDITY   + " REAL NOT NULL, "                    +
-                        BlockContract.BlockEntry.COLUMN_PRESSURE   + " REAL NOT NULL, "                    +
-
-                        BlockContract.BlockEntry.COLUMN_WIND_SPEED + " REAL NOT NULL, "                    +
-                        BlockContract.BlockEntry.COLUMN_DEGREES    + " REAL NOT NULL, "                    +
-
                 /*
-                 * To ensure this table can only contain one weather entry per date, we declare
+                 * To ensure this table can only contain one block entry per date, we declare
                  * the date column to be unique. We also specify "ON CONFLICT REPLACE". This tells
-                 * SQLite that if we have a weather entry for a certain date and we attempt to
-                 * insert another weather entry with that date, we replace the old weather entry.
+                 * SQLite that if we have a block entry for a certain date and we attempt to
+                 * insert another block entry with that date, we replace the old block entry.
                  */
                         " UNIQUE (" + BlockContract.BlockEntry.COLUMN_DATE + ") ON CONFLICT REPLACE);";
 

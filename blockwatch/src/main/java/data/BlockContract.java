@@ -6,7 +6,7 @@ import android.provider.BaseColumns;
  * Created by Michael on 2/20/2017.
  */
     /**
-     * Defines table and column names for the weather database. This class is not necessary, but keeps
+     * Defines table and column names for the block database. This class is not necessary, but keeps
      * the code organized.
      */
     public class BlockContract {
