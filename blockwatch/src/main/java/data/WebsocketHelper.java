@@ -8,6 +8,7 @@ import com.neovisionaries.ws.client.WebSocket;
 import com.neovisionaries.ws.client.WebSocketAdapter;
 import com.neovisionaries.ws.client.WebSocketException;
 import com.neovisionaries.ws.client.WebSocketFactory;
+import com.neovisionaries.ws.client.WebSocketFrame;
 
 /**
  * Created by test on 2/20/2017.
@@ -18,7 +19,7 @@ public class WebsocketHelper{
     public WebSocketFactory factory = new WebSocketFactory(); // Create a WebSocketFactory instance.
     public WebSocket ws; // Create the socket
     public WebSocketAdapter adapter; // Create the adapter
-    public final String blockchainInfoURL = "ws://echo.websocket.org"; // "wss://ws.blockchain.info/inv"
+    public final String blockchainInfoURL = "wss://ws.blockchain.info/inv" ; //   "ws://echo.websocket.org"
     public Context context;
 
     public WebSocket createSocket(Context context) {
@@ -36,6 +37,14 @@ public class WebsocketHelper{
                     Log.d("onTextMessage: ", message);
                 }
             })
+                    .addListener(new WebSocketAdapter() {
+                        // A text message arrived from the server.
+                        public void onFrame(WebSocket websocket, String message) {
+                            System.out.println(message);
+                            // Received a text message.
+                            Log.d("onFrame: ", message);
+                        }
+                    })
             .connect();
             // Try this "connectAsynchronously()" without using strict thread policy mode in MainActivity
 
@@ -57,6 +66,16 @@ public class WebsocketHelper{
         catch (WebSocketException socketException){
             Log.d("WebSocket Exception: ", socketException.getMessage());
         }
+
+        ws.sendText("test123");
+        WebSocketFrame test = new WebSocketFrame();
+        test.setOpcode(0x09);  // Testing a ping frame
+        ws.sendText("{op: ping}");
+        ws.sendFrame(test);
+        WebSocketFrame status = new WebSocketFrame();
+        status.setOpcode(2);  // Testing a pin status frame
+        ws.sendFrame(status);
+
 
         return ws;
     }
