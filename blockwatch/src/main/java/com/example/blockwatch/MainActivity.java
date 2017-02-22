@@ -2,6 +2,7 @@ package com.example.blockwatch;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -11,7 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.neovisionaries.ws.client.WebSocketFactory;
+import com.neovisionaries.ws.client.WebSocket;
 
 import data.WebsocketHelper;
 
@@ -26,6 +27,12 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
         setContentView(R.layout.activity_main); // Set the main activity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar); // Get the toolbar ID
         setSupportActionBar(toolbar); // Set the toolbar
+
+        /*
+        Temporary to test connection - will put in an IntentService laterHi
+        */
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(this);
@@ -66,8 +73,11 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
     public void onClick(View view) {
         Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("action", null).show();
-        WebsocketHelper socket = new WebsocketHelper();
-        WebSocketFactory ws = socket.createSocket(this);
+        WebsocketHelper socketHelper = new WebsocketHelper();
+        WebSocket ws = socketHelper.createSocket(this);
+        ws.sendText("test from Main");
+
+
     }
 
     //@Override
