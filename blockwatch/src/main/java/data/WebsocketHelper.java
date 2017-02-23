@@ -9,6 +9,8 @@ import com.neovisionaries.ws.client.WebSocketAdapter;
 import com.neovisionaries.ws.client.WebSocketException;
 import com.neovisionaries.ws.client.WebSocketFactory;
 import com.neovisionaries.ws.client.WebSocketFrame;
+import com.neovisionaries.ws.client.WebSocketOpcode;
+import com.neovisionaries.ws.client.WebSocketState;
 
 /**
  * Created by test on 2/20/2017.
@@ -19,7 +21,7 @@ public class WebsocketHelper{
     public WebSocketFactory factory = new WebSocketFactory(); // Create a WebSocketFactory instance.
     public WebSocket ws; // Create the socket
     public WebSocketAdapter adapter; // Create the adapter
-    public final String blockchainInfoURL = "wss://ws.blockchain.info/inv" ; //   "ws://echo.websocket.org"
+    public final String blockchainInfoURL = "wss://echo.websocket.org"; //"wss://ws.blockchain.info/inv"; //"wss://echo.websocket.org"
     public Context context;
 
     public WebSocket createSocket(Context context) {
@@ -37,45 +39,70 @@ public class WebsocketHelper{
                     Log.d("onTextMessage: ", message);
                 }
             })
-                    .addListener(new WebSocketAdapter() {
-                        // A text message arrived from the server.
-                        public void onFrame(WebSocket websocket, String message) {
-                            System.out.println(message);
+            .addListener(new WebSocketAdapter() {
+                        // A frame arrived from the server.
+                        public void onFrame(WebSocket websocket, WebSocketFrame frame) {
+                            System.out.println(frame.toString());
                             // Received a text message.
-                            Log.d("onFrame: ", message);
+                            //Log.d("onFrame: ", frame.toString());
+                            if(frame.hasPayload())
+                                Log.d("onFrame text: ", frame.getPayloadText());
+                        }
+                    })
+                    .addListener(new WebSocketAdapter() {
+                        // A frame arrived from the server.
+                        public void onTextFrame(WebSocket websocket, WebSocketFrame frame) {
+                            System.out.println(frame.toString());
+                            // Received a text message.
+                            Log.d("onTextFrame: ", frame.toString());
+                        }
+                    })
+                    .addListener(new WebSocketAdapter() {
+                        // A frame arrived from the server.
+                        public void onPongFrame(WebSocket websocket, WebSocketFrame frame) {
+                            System.out.println(frame.toString());
+                            // Received a text message.
+                            Log.d("onPongFrame: ", frame.toString());
+                        }
+                    })
+                    .addListener(new WebSocketAdapter() {
+                        // A frame arrived from the server.
+                        public void onStateChanged(WebSocket websocket, WebSocketState state) {
+                            System.out.println(state.toString());
+                            // Received a text message.
+                            Log.d("onStateChanged: ", state.toString());
                         }
                     })
             .connect();
             // Try this "connectAsynchronously()" without using strict thread policy mode in MainActivity
 
-            ws.sendText("test123");
-            ws.sendText("op: ping");
-
+            WebSocketState state = ws.getState();
+            Log.d("WebSocket State: ", state.toString());
         } catch (java.io.IOException exception) {
             Log.d("WebSocket Exception: ", exception.getMessage());
         } catch (OpeningHandshakeException e)
         {
-/*            // Get the status code.
-            int statusCode = e.getStatusLine().getStatusCode();
-            // If the status code is in the range of 300 to 399.
-            if (300 <= statusCode && statusCode <= 399)
-            {   // Location header should hold the redirection URL.
-                String location = e.getHeaders().get("Location").get(0);
-            }*/
+            Log.d("WebSocket Exception: ", e.getMessage());
         }
         catch (WebSocketException socketException){
             Log.d("WebSocket Exception: ", socketException.getMessage());
         }
 
-        ws.sendText("test123");
         WebSocketFrame test = new WebSocketFrame();
-        test.setOpcode(0x09);  // Testing a ping frame
-        ws.sendText("{op: ping}");
+        test.setOpcode(WebSocketOpcode.PING);  // Testing opcodes
+        test.setPayload("{op:ping_tx}");
         ws.sendFrame(test);
-        WebSocketFrame status = new WebSocketFrame();
-        status.setOpcode(2);  // Testing a pin status frame
-        ws.sendFrame(status);
+/*        test.setOpcode(13);  // Testing opcodes
+        ws.sendFrame(test);
+        test.setOpcode(14);  // Testing opcodes
+        ws.sendFrame(test);
+        test.setOpcode(15);  // Testing opcodes
+        ws.sendFrame(test);*/
 
+        ws.sendText("helloWorld");
+
+        WebSocketState state = ws.getState();
+        Log.d("WebSocket State: ", state.toString());
 
         return ws;
     }

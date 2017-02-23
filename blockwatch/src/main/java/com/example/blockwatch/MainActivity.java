@@ -75,7 +75,8 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
                 .setAction("action", null).show();
         WebsocketHelper socketHelper = new WebsocketHelper();
         WebSocket ws = socketHelper.createSocket(this);
-        ws.sendText("test from Main");
+
+        //ws.sendClose();
 
 
     }
