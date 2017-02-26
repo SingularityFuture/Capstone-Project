@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import data.BlockExplorerClass;
+import utilities.BlockchainSyncIntentService;
 
 public class MainActivity extends AppCompatActivity implements BlockwatchFragment.OnFragmentInteractionListener, View.OnClickListener{
 
@@ -98,6 +99,8 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
     public String onFragmentInteraction(String string){
         // Here you should launch a new fragment that shows the details of the clicked transaction
         // Launch the ScheduleActivity.
+        Intent intentToSyncImmediately = new Intent(this, BlockchainSyncIntentService.class);
+        this.startService(intentToSyncImmediately);
         Intent intent = new Intent(this, TransactionDetailActivity.class);
         startActivity(intent);
         return string+string+string;

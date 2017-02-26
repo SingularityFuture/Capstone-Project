@@ -24,8 +24,6 @@ public final class TransactionJsonUtils {
 
     //private static final String MESSAGE_CODE = "cod";
 
-
-
     /**
      * This method parses JSON from a web response and returns an array of Strings
      * describing the transaction.
