@@ -29,6 +29,7 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
     View rootView; // Declare rootView
     RelativeLayout layout; // Declare layout that will access fragment layout
     String callBack_result; // Temp variable to make sure callback fragment listener works
+    String currentHash; // Store the updated transaction hash here
 
     public BlockwatchFragment() {
         // Required empty public constructor
@@ -39,8 +40,9 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
      * this fragment using the provided parameters.
      * @return A new instance of fragment BlockwatchFragment.
      */
-    public BlockwatchFragment newInstance() {
+    public BlockwatchFragment newInstance(String currentHash) {
         BlockwatchFragment fragment = new BlockwatchFragment();
+        fragment.currentHash = currentHash; // Put the current hash into this instance's member variable
         return fragment;
     }
 
@@ -69,7 +71,7 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
         super.onCreateView(inflater, container, savedInstanceState);
         rootView =inflater.inflate(R.layout.fragment_blockwatch, container, false);
         layout = (RelativeLayout) rootView.findViewById(R.id.watch_fragment_layout);
-        pV=new PaintView(getActivity()); // Create a new paint view for the watch face
+        pV=new PaintView(getActivity(),currentHash); // Create a new paint view for the watch face
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT); // Set width and height
         pV.setBackgroundColor(Color.WHITE); // Set the background white
         pV.setLayoutParams(params); // Apply the layout width and height

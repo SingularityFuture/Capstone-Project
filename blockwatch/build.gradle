@@ -13,6 +13,7 @@ buildscript {
 
 repositories {
     maven { url 'http://repo1.maven.org/maven2' }
+    maven { url = 'https://raw.githubusercontent.com/blockchain/api-v1-client-java/mvn-repo' }
     jcenter { url "http://jcenter.bintray.com/" }
 }
 
@@ -52,6 +53,7 @@ dependencies {
     compile 'com.android.support:design:25.1.1'
     compile 'com.android.support:support-v4:25.1.1'
     compile 'com.neovisionaries:nv-websocket-client:1.31'
+    compile 'info.blockchain:api:1.1.4'
 
     testCompile 'junit:junit:4.12'
 }

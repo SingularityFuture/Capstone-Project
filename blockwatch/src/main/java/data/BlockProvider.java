@@ -19,8 +19,7 @@ public class BlockProvider extends ContentProvider {
      * advantage of the UriMatcher class to make that matching MUCH easier than doing something
      * ourselves, such as using regular expressions.
      */
-    public static final int CODE_BLOCK = 100;
-    public static final int CODE_BLOCK_WITH_DATE = 101;
+    public static final int CODE_TRANSACTION = 100;
 
     /*
      * The URI Matcher used by this content provider. The leading "s" in this variable name
@@ -51,8 +50,8 @@ public class BlockProvider extends ContentProvider {
          * they aren't going to change.
          */
 
-        /* This URI is content://com.example.blockwatch/block/ */
-        matcher.addURI(authority, BlockContract.PATH_BLOCK, CODE_BLOCK);
+        /* This URI is content://com.example.blockwatch/transaction/ */
+        matcher.addURI(authority, BlockContract.PATH_TRANSACTION, CODE_TRANSACTION);
 
         return matcher;
     }
@@ -102,13 +101,13 @@ public class BlockProvider extends ContentProvider {
 
         switch (sUriMatcher.match(uri)) {
 
-            case CODE_BLOCK:
+            case CODE_TRANSACTION:
                 db.beginTransaction();
                 int rowsInserted = 0;
                 try {
                     for (ContentValues value : values) {
-                        long blockDate =
-                                value.getAsLong(BlockContract.BlockEntry.COLUMN_DATE);
+                        long ver =
+                                value.getAsLong(BlockContract.BlockEntry.COLUMN_VER);
 
                         long _id = db.insert(BlockContract.BlockEntry.TABLE_NAME, null, value);
                         if (_id != -1) {
@@ -158,63 +157,6 @@ public class BlockProvider extends ContentProvider {
          */
         switch (sUriMatcher.match(uri)) {
 
-            /*
-             * When sUriMatcher's match method is called with a URI that looks something like this
-             *
-             *      content://com.example.blockwatch/block/1472214172
-             *
-             * sUriMatcher's match method will return the code that indicates to us that we need
-             * to return the block for a particular date. The date in this code is encoded in
-             * milliseconds and is at the very end of the URI (1472214172) and can be accessed
-             * programmatically using Uri's getLastPathSegment method.
-             *
-             * In this case, we want to return a cursor that contains one row of block data for
-             * a particular date.
-             */
-            case CODE_BLOCK_WITH_DATE: {
-
-                /*
-                 * In order to determine the date associated with this URI, we look at the last
-                 * path segment. In the comment above, the last path segment is 1472214172 and
-                 * represents the number of seconds since the epoch, or UTC time.
-                 */
-                String normalizedUtcDateString = uri.getLastPathSegment();
-
-                /*
-                 * The query method accepts a string array of arguments, as there may be more
-                 * than one "?" in the selection statement. Even though in our case, we only have
-                 * one "?", we have to create a string array that only contains one element
-                 * because this method signature accepts a string array.
-                 */
-                String[] selectionArguments = new String[]{normalizedUtcDateString};
-
-                cursor = mOpenHelper.getReadableDatabase().query(
-                        /* Table we are going to query */
-                        BlockContract.BlockEntry.TABLE_NAME,
-                        /*
-                         * A projection designates the columns we want returned in our Cursor.
-                         * Passing null will return all columns of data within the Cursor.
-                         * However, if you don't need all the data from the table, it's best
-                         * practice to limit the columns returned in the Cursor with a projection.
-                         */
-                        projection,
-                        /*
-                         * The URI that matches CODE_BLOCK_WITH_DATE contains a date at the end
-                         * of it. We extract that date and use it with these next two lines to
-                         * specify the row of block we want returned in the cursor. We use a
-                         * question mark here and then designate selectionArguments as the next
-                         * argument for performance reasons. Whatever Strings are contained
-                         * within the selectionArguments array will be inserted into the
-                         * selection statement by SQLite under the hood.
-                         */
-                        BlockContract.BlockEntry.COLUMN_DATE + " = ? ",
-                        selectionArguments,
-                        null,
-                        null,
-                        sortOrder);
-
-                break;
-            }
 
             /*
              * When sUriMatcher's match method is called with a URI that looks EXACTLY like this
@@ -227,7 +169,7 @@ public class BlockProvider extends ContentProvider {
              * In this case, we want to return a cursor that contains every row of block data
              * in our block table.
              */
-            case CODE_BLOCK: {
+            case CODE_TRANSACTION: {
                 cursor = mOpenHelper.getReadableDatabase().query(
                         BlockContract.BlockEntry.TABLE_NAME,
                         projection,
@@ -273,7 +215,7 @@ public class BlockProvider extends ContentProvider {
 
         switch (sUriMatcher.match(uri)) {
 
-            case CODE_BLOCK:
+            case CODE_TRANSACTION:
                 numRowsDeleted = mOpenHelper.getWritableDatabase().delete(
                         BlockContract.BlockEntry.TABLE_NAME,
                         selection,

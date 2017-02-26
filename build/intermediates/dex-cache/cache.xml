@@ -57,6 +57,15 @@
     </item>
     <item
         is-multidex="true"
+        jar="C:\Users\Michael\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.3\5fc52c41ef0239d1093a1eb7c3697036183677ce\gson-2.3.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="5fc52c41ef0239d1093a1eb7c3697036183677ce">
+        <dex dex="C:\Users\Michael\AndroidStudioProjects\Capstone-Project\blockwatch\build\intermediates\transforms\dex\debug\folders\1000\10\gson-2.3_a2c62b24fe8b8607b570cc1770d8837e755d7988\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\Michael\AndroidStudioProjects\Capstone-Project\blockwatch\build\intermediates\exploded-aar\com.android.support\support-core-utils\25.1.1\jars\classes.jar"
         jumboMode="true"
         optimize="true"
@@ -79,17 +88,17 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="20b8581ee9572343730390bc30a5947604108487">
+        sha1="87e9fbc17c6ce3343b992c1451207d9db6c850c6">
         <dex dex="C:\Users\Michael\AndroidStudioProjects\Capstone-Project\blockwatch\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_128a9aadf8a52247a3af3f9efddac1ee1f62e5da\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\Michael\AppData\Local\Android\Sdk\extras\android\m2repository\com\android\support\support-annotations\25.1.1\support-annotations-25.1.1.jar"
+        jar="C:\Users\Michael\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\25.1.1\support-annotations-25.1.1.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="b59b6ee8d6ecc03e672d253800430343493a6ed8">
-        <dex dex="C:\Users\Michael\AndroidStudioProjects\Capstone-Project\blockwatch\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-25.1.1_19fd69238d2bd9aa9a385a035525dfd8014c05d1\classes.dex" />
+        <dex dex="C:\Users\Michael\AndroidStudioProjects\Capstone-Project\blockwatch\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-25.1.1_e666155d3dee76b789251c5fdadd0d945c3f7e54\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -106,8 +115,17 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="807ab36413989b8eb8cc8b0b3f3edb010c8ab108">
+        sha1="a65211be522424aaed1ed27345adce07eef0054d">
         <dex dex="C:\Users\Michael\AndroidStudioProjects\Capstone-Project\blockwatch\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_a9a1b30b1eaeba4456be358dacfb824f1b5c8136\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Michael\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.6.0\98476622f10715998eacf9240d6b479f12c66143\okio-1.6.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="98476622f10715998eacf9240d6b479f12c66143">
+        <dex dex="C:\Users\Michael\AndroidStudioProjects\Capstone-Project\blockwatch\build\intermediates\transforms\dex\debug\folders\1000\10\okio-1.6.0_99e52919436b1fe2e377e1fac602b55937230367\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -117,6 +135,15 @@
         revision="25.0.2"
         sha1="02741d05d4b697fba5e279e9881aaa1da0ca7c7f">
         <dex dex="C:\Users\Michael\AndroidStudioProjects\Capstone-Project\blockwatch\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-compat-25.1.1_2015315ab5c8061d841c35665d55abc479ed4db0\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Michael\.gradle\caches\modules-2\files-2.1\info.blockchain\api\1.1.4\18c2e4390e3db03d6d29eac28886a45ef215669e\api-1.1.4.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="18c2e4390e3db03d6d29eac28886a45ef215669e">
+        <dex dex="C:\Users\Michael\AndroidStudioProjects\Capstone-Project\blockwatch\build\intermediates\transforms\dex\debug\folders\1000\10\api-1.1.4_7648ad82208840b0224eab83afa0d61f2bbb220f\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -135,6 +162,15 @@
         revision="25.0.2"
         sha1="ecb496cc08dd52551fc5ec6db3bc0632e95a89bb">
         <dex dex="C:\Users\Michael\AndroidStudioProjects\Capstone-Project\blockwatch\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-25.1.1_c57bd527764a954d564791236cd5d370f99afa16\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\Michael\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp\okhttp\2.6.0\212387a39088ecd3daff8e3bfc3bdc4123e33c67\okhttp-2.6.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="212387a39088ecd3daff8e3bfc3bdc4123e33c67">
+        <dex dex="C:\Users\Michael\AndroidStudioProjects\Capstone-Project\blockwatch\build\intermediates\transforms\dex\debug\folders\1000\10\okhttp-2.6.0_606ba6c838e6d4af95526ffc5428f7e3205ea953\classes.dex" />
     </item>
     <item
         is-multidex="true"

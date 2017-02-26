@@ -27,7 +27,8 @@ import java.util.List;
  */
 
 public class PaintView extends View {
-    private static final String TXHASH = "b5357533bf43d6793aa24d91d6a01055128bff64730627bbb3a512b04d2e9043"; // Dummy hash for now; 64 hexadecimal characters
+    //private static final String TXHASH = "b5357533bf43d6793aa24d91d6a01055128bff64730627bbb3a512b04d2e9043"; // Dummy hash for now; 64 hexadecimal characters
+    private String currentHash;
     private Paint mPaintText; // Define the paint object to draw the letters and arcs
     private Rect bounds = new Rect(); // Define an object that will measure each character before determining its coordinates
     private float mTextHeight = 100.0f; // Define the text size here (might make it more dependent on screen later)
@@ -50,8 +51,9 @@ public class PaintView extends View {
     private int[] COLORS = { Color.YELLOW, Color.GREEN, Color.WHITE,
             Color.CYAN, Color.RED }; // Define a set of colors used for drawing arcs around each character
 
-    public PaintView(Context context) {
+    public PaintView(Context context, String currentHash) {
         super(context); // Call the superclass's (View) constructor
+        this.currentHash = currentHash;
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE); // Get the window manager
         DisplayMetrics metrics = new DisplayMetrics(); // Declare a metrics object
         wm.getDefaultDisplay().getMetrics(metrics); // Get the metrics of the window
@@ -84,7 +86,6 @@ public class PaintView extends View {
             // Declare the bounding rectangles for all the circles of the watch
             mOvalsF[i] = new RectF(Math.round(centerX - radius*circleSpacing[i]),Math.round(centerY - radius*circleSpacing[i]),Math.round(centerX + radius*circleSpacing[i]),Math.round(centerY + radius*circleSpacing[i]));
         }
-
         moveInnerDial.run(); //
     }
 
@@ -127,11 +128,11 @@ public class PaintView extends View {
                 canvas.drawArc(mOvalsF[circle], currentAngle, degreesArray.get(circle)[i], true, mPaintText); // Draw an arc behind the current character
                 mPaintText.setColor(Color.BLACK); // Reset the color for the characters
                 // Measure the current character in the string
-                mPaintText.getTextBounds(String.valueOf(TXHASH.charAt(charCount)), 0, String.valueOf(TXHASH.charAt(charCount)).length(), bounds); // Measure the text
+                mPaintText.getTextBounds(String.valueOf(currentHash.charAt(charCount)), 0, String.valueOf(currentHash.charAt(charCount)).length(), bounds); // Measure the text
                 /** This angle will place the text in the center of the arc.
                 * @see <a href="http://stackoverflow.com/questions/15739009/draw-text-inside-an-arc-using-canvas/19352717?noredirect=1#comment71429997_19352717">Draw text inside an arc using canvas</a> */
                 float medianAngle = (currentAngle + (degreesArray.get(circle)[i] / 2f)) * (float) Math.PI / 180f;  // Go halfway between the current starting angle and the next angle, and convert to radians
-                canvas.drawText(String.valueOf(TXHASH.charAt(charCount)), (float)(centerX + (radius*radiusSqueeze[circle]*circleSpacing[circle] * Math.cos(medianAngle))), (float)(centerY + (radius*radiusSqueeze[circle]*circleSpacing[circle] * Math.sin(medianAngle)))+ bounds.height() * 0.5f, mPaintText);
+                canvas.drawText(String.valueOf(currentHash.charAt(charCount)), (float)(centerX + (radius*radiusSqueeze[circle]*circleSpacing[circle] * Math.cos(medianAngle))), (float)(centerY + (radius*radiusSqueeze[circle]*circleSpacing[circle] * Math.sin(medianAngle)))+ bounds.height() * 0.5f, mPaintText);
                 charCount++; // Increment the character count
             }
         }

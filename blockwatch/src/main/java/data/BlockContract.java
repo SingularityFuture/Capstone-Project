@@ -29,26 +29,33 @@ import android.provider.BaseColumns;
          * Possible paths that can be appended to BASE_CONTENT_URI to form valid URI's that Blockwatch
          * can handle. For instance,
          *
-         *     content://com.example.android.sunshine/block/
-         *     [           BASE_CONTENT_URI         ][ PATH_BLOCK]
+         *     content://com.example.android.sunshine/transaction/
+         *     [           BASE_CONTENT_URI         ][ PATH_TRANSACTION]
          *
-         * is a valid path for looking at block data.
+         * is a valid path for looking at transaction data.
          */
-        public static final String PATH_BLOCK = "block";
+        public static final String PATH_TRANSACTION = "transaction";
 
         /* Inner class that defines the table contents of the block table */
         public static final class BlockEntry implements BaseColumns {
 
             /* The base CONTENT_URI used to query the Block table from the content provider */
             public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()
-                    .appendPath(PATH_BLOCK)
+                    .appendPath(PATH_TRANSACTION)
                     .build();
 
             /* Used internally as the name of our block table. */
-            public static final String TABLE_NAME = "block";
+            public static final String TABLE_NAME = "transaction";
 
             // Store columns for one blockchain transaction
-            public static final String COLUMN_DATE = "date";
-
+            public static final String COLUMN_HASH = "hash";
+            public static final String COLUMN_VER = "ver";
+            public static final String COLUMN_VIN_SIZE = "vin_sz";
+            public static final String COLUMN_VOUT_SIZE = "vout_sz";
+            public static final String COLUMN_LOCK_TIME = "lock_time";
+            public static final String COLUMN_SIZE = "size";
+            public static final String COLUMN_RELAYED_BY = "relayed_by";
+            public static final String COLUMN_BLOCK_HEIGHT = "block_height";
+            public static final String COLUMN_TX_INDEX = "tx_index";
         }
     }

@@ -8,18 +8,18 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.neovisionaries.ws.client.WebSocket;
-
-import data.WebsocketHelper;
+import data.BlockExplorerClass;
 
 public class MainActivity extends AppCompatActivity implements BlockwatchFragment.OnFragmentInteractionListener, View.OnClickListener{
 
     private Fragment watchFragment; // Declare the fragment you will include
     private static final String WATCH_FRAGMENT_TAG = "watch_fragment"; // Create a tag to keep track of created fragments
+    private String hash = "b5357533bf43d6793aa24d91d6a01055128bff64730627bbb3a512b04d2e9043";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,13 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
         fab.setOnClickListener(this);
 
         if (getSupportFragmentManager().findFragmentByTag(WATCH_FRAGMENT_TAG) == null) { // If the fragment doesn't exist yet,
-            watchFragment = new BlockwatchFragment().newInstance(); // Add the watch fragment here, passing the context as an implementation of the fragment listener
+            try {
+                hash =  BlockExplorerClass.test(new String[]{"test"}); // Update the watch at the beginning with a fresh hash
+            }
+            catch (Exception e){
+                Log.d("Explorer error: ", e.getMessage());
+            }
+            watchFragment = new BlockwatchFragment().newInstance(hash); // Add the watch fragment here, passing the context as an implementation of the fragment listener
             getSupportFragmentManager().beginTransaction().add(R.id.transaction_fragment,watchFragment,WATCH_FRAGMENT_TAG).commit(); // Add the fragment to the transaction
         }
         else {
@@ -73,12 +79,19 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
     public void onClick(View view) {
         Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("action", null).show();
-        WebsocketHelper socketHelper = new WebsocketHelper();
-        WebSocket ws = socketHelper.createSocket(this);
-
+//        WebsocketHelper socketHelper = new WebsocketHelper();
+//        WebSocket ws = socketHelper.createSocket(this);
         //ws.sendClose();
 
-
+        //BlockExplorerClass explorerClass = new BlockExplorerClass();  Class is currently static so no need for an instance right now
+        try {
+            hash =  BlockExplorerClass.test(new String[]{"test"}); // Get a fresh hash
+            watchFragment = new BlockwatchFragment().newInstance(hash); // Create a new watch fragment with a new hash
+            getSupportFragmentManager().beginTransaction().replace(R.id.transaction_fragment,watchFragment,WATCH_FRAGMENT_TAG).commit(); // Replace the fragment with the current one with a new hash
+        }
+        catch (Exception e){
+            Log.d("Explorer error: ", e.getMessage());
+        }
     }
 
     //@Override

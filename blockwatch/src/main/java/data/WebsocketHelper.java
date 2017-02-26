@@ -91,6 +91,7 @@ public class WebsocketHelper{
         WebSocketFrame test = new WebSocketFrame();
         test.setOpcode(WebSocketOpcode.PING);  // Testing opcodes
         test.setPayload("{op:ping_tx}");
+        test.setFin(true);
         ws.sendFrame(test);
 /*        test.setOpcode(13);  // Testing opcodes
         ws.sendFrame(test);
@@ -99,7 +100,7 @@ public class WebsocketHelper{
         test.setOpcode(15);  // Testing opcodes
         ws.sendFrame(test);*/
 
-        ws.sendText("helloWorld");
+        //ws.sendText("helloWorld");
 
         WebSocketState state = ws.getState();
         Log.d("WebSocket State: ", state.toString());
