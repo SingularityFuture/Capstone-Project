@@ -37,6 +37,7 @@ public class BlockExplorerClass
             System.out.println(unconfTx.getRelayedBy());
             System.out.println(unconfTx.getHash());
         }
+
         return unconfirmedTxs.get(1).getHash(); // Return the first hash in this block
 
 /*        // calculate the balanace of an address by fetching a list of all its unspent outputs

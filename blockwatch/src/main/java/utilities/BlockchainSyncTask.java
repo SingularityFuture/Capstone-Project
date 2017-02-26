@@ -61,12 +61,8 @@ public class BlockchainSyncTask {
             String jsonTransactionResponse = NetworkUtils.getResponseFromHttpUrl(transactionRequestUrl);
 
             /* Parse the JSON into a list of transaction values */
-            ContentValues[] transactionValues = TransactionJsonUtils
+            ContentValues transactionValues = TransactionJsonUtils
                     .getTransactionValuesFromJson(context, jsonTransactionResponse);
-
-            double hash = transactionValues[0].getAsInteger(BlockContract.BlockEntry.COLUMN_HASH);
-            double blockHeight = transactionValues[0].getAsInteger(BlockContract.BlockEntry.COLUMN_BLOCK_HEIGHT);
-            int lockTime = transactionValues[0].getAsInteger(BlockContract.BlockEntry.COLUMN_LOCK_TIME);
 
             /*
              * In cases where our JSON contained an error code, gettransactionContentValuesFromJson
@@ -74,18 +70,18 @@ public class BlockchainSyncTask {
              * NullPointerExceptions being thrown. We also have no reason to insert fresh data if
              * there isn't any to insert.
              */
-            if (transactionValues != null && transactionValues.length != 0) {
+            if (transactionValues != null) {
                 /* Get a handle on the ContentResolver to delete and insert data */
                 ContentResolver transactionContentResolver = context.getContentResolver();
 
-                /* Delete old transaction data because we don't need to keep multiple days' data */
+                /* Delete old transaction data because we don't need to keep multiple data */
                 transactionContentResolver.delete(
                         BlockContract.BlockEntry.CONTENT_URI,
                         null,
                         null);
 
                 /* Insert our new transaction data into Blockwatch's ContentProvider */
-                transactionContentResolver.bulkInsert(
+                transactionContentResolver.insert(
                         BlockContract.BlockEntry.CONTENT_URI,
                         transactionValues);
             }

@@ -1,7 +1,7 @@
 package data;
 
-import android.content.ContentProvider;
 import android.annotation.TargetApi;
+import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
@@ -263,9 +263,30 @@ public class BlockProvider extends ContentProvider {
      */
     @Override
     public Uri insert(@NonNull Uri uri, ContentValues values) {
-        throw new RuntimeException(
-                "We are not implementing insert in Blockwatch. Use bulkInsert instead");
-    }
+        final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
+
+        switch (sUriMatcher.match(uri)) {
+
+            case CODE_TRANSACTION:
+                db.beginTransaction();
+                int rowsInserted = 0;
+                try {
+                    //long ver = value(BlockContract.BlockEntry.COLUMN_VER);
+                    long _id = db.insert(BlockContract.BlockEntry.TABLE_NAME, null, values);
+                    if (_id != -1) {
+                        rowsInserted++;
+                    }
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+
+                if (rowsInserted > 0) {
+                    getContext().getContentResolver().notifyChange(uri, null);
+                }
+            }
+            return uri;
+        }
 
     @Override
     public int update(@NonNull Uri uri, ContentValues values, String selection, String[] selectionArgs) {

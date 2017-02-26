@@ -7,123 +7,59 @@ package utilities;
 import android.content.ContentValues;
 import android.content.Context;
 
-import data.BlockContract;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.HttpURLConnection;
+import data.BlockContract;
 
 /**
  * Utility functions to handle Blockchain.info JSON data.
  */
 public final class TransactionJsonUtils {
 
-    /* Location information */
-    private static final String OWM_CITY = "city";
+    /* Transaction information */
+    private static final String VER = "ver";
+    private static final String LOCK_TIME= "lock_time";
+    private static final String RELAYED_BY = "relayed_by";
 
-    private static final String OWM_WEATHER_ID = "id";
+    //private static final String MESSAGE_CODE = "cod";
 
-    private static final String OWM_MESSAGE_CODE = "cod";
+
 
     /**
      * This method parses JSON from a web response and returns an array of Strings
      * describing the transaction.
      */
     
-    public static ContentValues[] getTransactionValuesFromJson(Context context, String forecastJsonStr)
+    public static ContentValues getTransactionValuesFromJson(Context context, String transactionJsonStr)
             throws JSONException {
 
-        JSONObject transactionJson = new JSONObject(forecastJsonStr);
+        JSONObject transactionJson = new JSONObject(transactionJsonStr);
 
         /* Is there an error? */
-        if (transactionJson.has(OWM_MESSAGE_CODE)) {
-            int errorCode = transactionJson.getInt(OWM_MESSAGE_CODE);
+/*        if (transactionJson.has(MESSAGE_CODE)) {
+            int errorCode = transactionJson.getInt(MESSAGE_CODE);
 
             switch (errorCode) {
                 case HttpURLConnection.HTTP_OK:
                     break;
                 case HttpURLConnection.HTTP_NOT_FOUND:
-                    /* Location invalid */
+                    *//* Location invalid *//*
                     return null;
                 default:
-                    /* Server probably down */
+                    *//* Server probably down *//*
                     return null;
             }
-        }
+        }*/
+        int version = transactionJson.getInt(VER);
+        double lockTime = transactionJson.getDouble(LOCK_TIME);
+        double relayedBy= transactionJson.getDouble(RELAYED_BY);
 
-        JSONArray jsonBlockArray = transactionJson.getJSONArray(OWM_LIST);
+        ContentValues transactionContentValues = new ContentValues();
+        transactionContentValues.put(BlockContract.BlockEntry.COLUMN_VER, version);
+        transactionContentValues.put(BlockContract.BlockEntry.COLUMN_LOCK_TIME, lockTime);
+        transactionContentValues.put(BlockContract.BlockEntry.COLUMN_RELAYED_BY, relayedBy);
 
-        JSONObject cityJson = transactionJson.getJSONObject(OWM_CITY);
-
-        JSONObject cityCoord = cityJson.getJSONObject(OWM_COORD);
-        double cityLatitude = cityCoord.getDouble(OWM_LATITUDE);
-        double cityLongitude = cityCoord.getDouble(OWM_LONGITUDE);
-
-        ContentValues[] weatherContentValues = new ContentValues[jsonBlockArray.length()];
-        
-        for (int i = 0; i < jsonBlockArray.length(); i++) {
-
-            long dateTimeMillis;
-            double pressure;
-            int humidity;
-            double windSpeed;
-            double windDirection;
-
-            double high;
-            double low;
-
-            int weatherId;
-
-            /* Get the JSON object representing the day */
-            JSONObject dayForecast = jsonBlockArray.getJSONObject(i);
-
-            /*
-             * We ignore all the datetime values embedded in the JSON and assume that
-             * the values are returned in-order by day (which is not guaranteed to be correct).
-             */
-            dateTimeMillis = normalizedUtcStartDay + SunshineDateUtils.DAY_IN_MILLIS * i;
-
-            pressure = dayForecast.getDouble(OWM_PRESSURE);
-            humidity = dayForecast.getInt(OWM_HUMIDITY);
-            windSpeed = dayForecast.getDouble(OWM_WINDSPEED);
-            windDirection = dayForecast.getDouble(OWM_WIND_DIRECTION);
-
-            /*
-             * Description is in a child array called "weather", which is 1 element long.
-             * That element also contains a weather code.
-             */
-            JSONObject weatherObject =
-                    dayForecast.getJSONArray(OWM_WEATHER).getJSONObject(0);
-
-            weatherId = weatherObject.getInt(OWM_WEATHER_ID);
-
-            /*
-             * Temperatures are sent by Open Block Map in a child object called "temp".
-             *
-             * Editor's Note: Try not to name variables "temp" when working with temperature.
-             * It confuses everybody. Temp could easily mean any number of things, including
-             * temperature, temporary variable, temporary folder, temporary employee, or many
-             * others, and is just a bad variable name.
-             */
-            JSONObject temperatureObject = dayForecast.getJSONObject(OWM_TEMPERATURE);
-            high = temperatureObject.getDouble(OWM_MAX);
-            low = temperatureObject.getDouble(OWM_MIN);
-
-            ContentValues weatherValues = new ContentValues();
-            weatherValues.put(BlockContract.BlockEntry.COLUMN_DATE, dateTimeMillis);
-            weatherValues.put(BlockContract.BlockEntry.COLUMN_HUMIDITY, humidity);
-            weatherValues.put(BlockContract.BlockEntry.COLUMN_PRESSURE, pressure);
-            weatherValues.put(BlockContract.BlockEntry.COLUMN_WIND_SPEED, windSpeed);
-            weatherValues.put(BlockContract.BlockEntry.COLUMN_DEGREES, windDirection);
-            weatherValues.put(BlockContract.BlockEntry.COLUMN_MAX_TEMP, high);
-            weatherValues.put(BlockContract.BlockEntry.COLUMN_MIN_TEMP, low);
-            weatherValues.put(BlockContract.BlockEntry.COLUMN_WEATHER_ID, weatherId);
-
-            weatherContentValues[i] = weatherValues;
-        }
-
-        return weatherContentValues;
+        return transactionContentValues;
     }
 }
