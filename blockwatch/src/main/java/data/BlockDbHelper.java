@@ -24,10 +24,10 @@ public class BlockDbHelper extends SQLiteOpenHelper {    /*
      * If you change the database schema, you must increment the database version or the onUpgrade
      * method will not be called.
      *
-     * The reason DATABASE_VERSION starts at 3 is because Sunshine has been used in conjunction
-     * with the Android course for a while now. Believe it or not, older versions of Sunshine
+     * The reason DATABASE_VERSION starts at 3 is because Blockwatch has been used in conjunction
+     * with the Android course for a while now. Believe it or not, older versions of Blockwatch
      * still exist out in the wild. If we started this DATABASE_VERSION off at 1, upgrading older
-     * versions of Sunshine could cause everything to break. Although that is certainly a rare
+     * versions of Blockwatch could cause everything to break. Although that is certainly a rare
      * use-case, we wanted to watch out for it and warn you what could happen if you mistakenly
      * version your databases.
      */
@@ -55,13 +55,13 @@ public class BlockDbHelper extends SQLiteOpenHelper {    /*
                 "CREATE TABLE " + BlockContract.BlockEntry.TABLE_NAME + " (" +
 
                 /*
-                 * WeatherEntry did not explicitly declare a column called "_ID". However,
-                 * WeatherEntry implements the interface, "BaseColumns", which does have a field
+                 * BlockEntry did not explicitly declare a column called "_ID". However,
+                 * BlockEntry implements the interface, "BaseColumns", which does have a field
                  * named "_ID". We use that here to designate our table's primary key.
                  */
                         BlockContract.BlockEntry._ID               + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
 
-                        BlockContract.BlockEntry.COLUMN_DATE       + " INTEGER NOT NULL, "                 +
+                        BlockContract.BlockEntry.COLUMN_HASH       + " INTEGER NOT NULL, "                 +
 
                 /*
                  * To ensure this table can only contain one block entry per date, we declare
@@ -69,7 +69,7 @@ public class BlockDbHelper extends SQLiteOpenHelper {    /*
                  * SQLite that if we have a block entry for a certain date and we attempt to
                  * insert another block entry with that date, we replace the old block entry.
                  */
-                        " UNIQUE (" + BlockContract.BlockEntry.COLUMN_DATE + ") ON CONFLICT REPLACE);";
+                        " UNIQUE (" + BlockContract.BlockEntry.COLUMN_HASH + ") ON CONFLICT REPLACE);";
 
         /*
          * After we've spelled out our SQLite table creation statement above, we actually execute

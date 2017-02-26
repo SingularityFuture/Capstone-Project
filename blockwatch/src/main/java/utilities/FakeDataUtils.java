@@ -24,7 +24,7 @@ public class FakeDataUtils {
      */
     private static ContentValues createTestWeatherContentValues(long date) {
         ContentValues testWeatherValues = new ContentValues();
-        testWeatherValues.put(BlockContract.BlockEntry.COLUMN_DATE, date);
+        testWeatherValues.put(BlockContract.BlockEntry.COLUMN_HASH, date);
         return testWeatherValues;
     }
 

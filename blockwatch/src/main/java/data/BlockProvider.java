@@ -83,8 +83,8 @@ public class BlockProvider extends ContentProvider {
     }
 
     /**
-     * Handles requests to insert a set of new rows. In Sunshine, we are only going to be
-     * inserting multiple rows of data at a time from a block forecast. There is no use case
+     * Handles requests to insert a set of new rows. In Blockwatch, we are only going to be
+     * inserting multiple rows of data at a time from a transaction. There is no use case
      * for inserting a single row of data into our ContentProvider, and so we are only going to
      * implement bulkInsert. In a normal ContentProvider's implementation, you will probably want
      * to provide proper functionality for the insert method as well.
@@ -251,7 +251,7 @@ public class BlockProvider extends ContentProvider {
     }
 
     /**
-     * In Sunshine, we aren't going to do anything with this method. However, we are required to
+     * In Blockwatch, we aren't going to do anything with this method. However, we are required to
      * override it as WeatherProvider extends ContentProvider and insert is an abstract method in
      * ContentProvider. Rather than the single insert method, we are only going to implement
      * {@link BlockProvider#bulkInsert}.
@@ -259,7 +259,7 @@ public class BlockProvider extends ContentProvider {
      * @param uri    The URI of the insertion request. This must not be null.
      * @param values A set of column_name/value pairs to add to the database.
      *               This must not be null
-     * @return nothing in Sunshine, but normally the URI for the newly inserted item.
+     * @return nothing in Blockwatch, but normally the URI for the newly inserted item.
      */
     @Override
     public Uri insert(@NonNull Uri uri, ContentValues values) {
