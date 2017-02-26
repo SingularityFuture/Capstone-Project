@@ -5,6 +5,4 @@ BlockWatch tells the time on your phone and/or Android Wear device by transformi
 
 The app will appeal to all of those who really grok everything Bitcoin and blockchain related (like me!) and want an accessory that is connected to real-time Bitcoin data.
 
-<img src=http://imgur.com/a/OlvQt>
-
-![alt text](Blockwatch.png "Blockwatch Screenshot")
+![Blockwatch Screenshot](Blockwatch.png "Blockwatch Screenshot")
