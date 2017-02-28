@@ -18,6 +18,7 @@ public class TransactionFragment extends Fragment{
 
     View rootView; // Declare rootView
     LinearLayout layout; // Declare layout that will access fragment layout
+    int ver = 0; // Set default version of the transaction
 
     public TransactionFragment() {
         // Required empty public constructor
@@ -28,7 +29,8 @@ public class TransactionFragment extends Fragment{
      * this fragment using the provided parameters.
      * @return A new instance of fragment BlockwatchFragment.
      */
-    public TransactionFragment newInstance() {
+    public TransactionFragment newInstance(Bundle bundle) {
+        this.ver = bundle.getInt("ver"); // Set member variable based on bundle data
         TransactionFragment fragment = new TransactionFragment();
         return fragment;
     }
@@ -57,7 +59,7 @@ public class TransactionFragment extends Fragment{
 
         layout.addView(text);
 
-        Toast.makeText(getActivity(),"Inside Transaction",Toast.LENGTH_LONG).show(); // Show the result
+        Toast.makeText(getActivity(),"Inside Transaction "+String.valueOf(ver),Toast.LENGTH_LONG).show(); // Show the result
 
         // Inflate the layout for this fragment
         return rootView;
