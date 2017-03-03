@@ -178,7 +178,6 @@ public class BlockProvider extends ContentProvider {
                         null,
                         null,
                         sortOrder);
-
                 break;
             }
 

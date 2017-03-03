@@ -23,13 +23,6 @@ public class BlockDbHelper extends SQLiteOpenHelper {    /*
     /*
      * If you change the database schema, you must increment the database version or the onUpgrade
      * method will not be called.
-     *
-     * The reason DATABASE_VERSION starts at 3 is because Blockwatch has been used in conjunction
-     * with the Android course for a while now. Believe it or not, older versions of Blockwatch
-     * still exist out in the wild. If we started this DATABASE_VERSION off at 1, upgrading older
-     * versions of Blockwatch could cause everything to break. Although that is certainly a rare
-     * use-case, we wanted to watch out for it and warn you what could happen if you mistakenly
-     * version your databases.
      */
     private static final int DATABASE_VERSION = 1;
 
@@ -60,8 +53,10 @@ public class BlockDbHelper extends SQLiteOpenHelper {    /*
                  * named "_ID". We use that here to designate our table's primary key.
                  */
                         BlockContract.BlockEntry._ID               + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-
-                        BlockContract.BlockEntry.COLUMN_HASH       + " INTEGER NOT NULL, "                 +
+                        BlockContract.BlockEntry.COLUMN_VER        + " INTEGER NOT NULL, "                  +
+                        BlockContract.BlockEntry.COLUMN_LOCK_TIME  + " INTEGER NOT NULL, "                  +
+                        BlockContract.BlockEntry.COLUMN_RELAYED_BY + " INTEGER NOT NULL, "                  +
+                        BlockContract.BlockEntry.COLUMN_HASH       + " INTEGER NOT NULL, "                  +
 
                 /*
                  * To ensure this table can only contain one block entry per date, we declare
