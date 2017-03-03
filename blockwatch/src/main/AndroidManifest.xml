@@ -24,6 +24,10 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
+        <provider android:name="data.BlockProvider" android:authorities="com.example.blockwatch">
+
+    </provider>
+
     </application>
 
 </manifest>

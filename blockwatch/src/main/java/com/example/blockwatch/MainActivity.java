@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import data.BlockContract;
 import data.BlockExplorerClass;
 import utilities.BlockchainSyncIntentService;
 
@@ -47,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
             }
             watchFragment = new BlockwatchFragment().newInstance(hash); // Add the watch fragment here, passing the context as an implementation of the fragment listener
             getSupportFragmentManager().beginTransaction().add(R.id.transaction_fragment,watchFragment,WATCH_FRAGMENT_TAG).commit(); // Add the fragment to the transaction
+            Intent intentToSyncImmediately = new Intent(this, BlockchainSyncIntentService.class); // Update the ContentProvider with this hash
+            this.startService(intentToSyncImmediately);
         }
         else {
            watchFragment = getSupportFragmentManager().findFragmentByTag(WATCH_FRAGMENT_TAG); // Else if it exists
@@ -87,6 +90,9 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
         //BlockExplorerClass explorerClass = new BlockExplorerClass();  Class is currently static so no need for an instance right now
         try {
             hash =  BlockExplorerClass.test(new String[]{"test"}); // Get a fresh hash
+            Intent intentToSyncImmediately = new Intent(this, BlockchainSyncIntentService.class); // Update the ContentProvider with this hash3
+
+            this.startService(intentToSyncImmediately);
             watchFragment = new BlockwatchFragment().newInstance(hash); // Create a new watch fragment with a new hash
             getSupportFragmentManager().beginTransaction().replace(R.id.transaction_fragment,watchFragment,WATCH_FRAGMENT_TAG).commit(); // Replace the fragment with the current one with a new hash
         }
@@ -99,9 +105,8 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
     public String onFragmentInteraction(String string){
         // Here you should launch a new fragment that shows the details of the clicked transaction
         // Launch the ScheduleActivity.
-        Intent intentToSyncImmediately = new Intent(this, BlockchainSyncIntentService.class);
-        this.startService(intentToSyncImmediately);
         Intent intent = new Intent(this, TransactionDetailActivity.class);
+        intent.putExtra("URI", BlockContract.BlockEntry.CONTENT_URI);
         startActivity(intent);
         return string+string+string;
     }

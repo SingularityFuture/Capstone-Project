@@ -30,9 +30,8 @@ public class BlockProvider extends ContentProvider {
     private BlockDbHelper mOpenHelper;
 
     /**
-     * Creates the UriMatcher that will match each URI to the CODE_BLOCK and
-     * CODE_BLOCK_WITH_DATE constants defined above.
-     * @return A UriMatcher that correctly matches the constants for CODE_BLOCK and CODE_BLOCK_WITH_DATE
+     * Creates the UriMatcher that will match each URI to the CODE_BLOCK constant defined above.
+     * @return A UriMatcher that correctly matches the constants for CODE_BLOCK and
      */
     public static UriMatcher buildUriMatcher() {
 
@@ -50,7 +49,8 @@ public class BlockProvider extends ContentProvider {
          * they aren't going to change.
          */
 
-        /* This URI is content://com.example.blockwatch/transaction/ */
+        /* This URI is content://com.example.blockwatch/transaction/
+        */
         matcher.addURI(authority, BlockContract.PATH_TRANSACTION, CODE_TRANSACTION);
 
         return matcher;
@@ -161,7 +161,7 @@ public class BlockProvider extends ContentProvider {
             /*
              * When sUriMatcher's match method is called with a URI that looks EXACTLY like this
              *
-             *      content://com.example.blockwatch/block/
+             *      content://com.example.blockwatch/transaction/
              *
              * sUriMatcher's match method will return the code that indicates to us that we need
              * to return all of the data in our block table.

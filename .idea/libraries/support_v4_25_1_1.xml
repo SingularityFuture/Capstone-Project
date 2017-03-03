@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="support-v4-25.1.1">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/blockwatch/build/intermediates/exploded-aar/com.android.support/support-v4/25.1.1/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/blockwatch/build/intermediates/exploded-aar/com.android.support/support-v4/25.1.1/res" />
+      <root url="file://$USER_HOME$/.android/build-cache/700afc804ef959b0310b9c927e2c020c1a18414f/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/700afc804ef959b0310b9c927e2c020c1a18414f/output/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

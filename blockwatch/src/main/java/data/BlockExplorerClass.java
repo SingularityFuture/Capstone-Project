@@ -17,7 +17,6 @@ public class BlockExplorerClass
         BlockExplorer blockExplorer = new BlockExplorer();
 
         // get a transaction by hash and list the value of all its inputs
-        Transaction tx = blockExplorer.getTransaction("df67414652722d38b43dcbcac6927c97626a65bd4e76a2e2787e22948a7c5c47");
 /*        for (Input i : tx.getInputs())
         {
             System.out.println(i.getPreviousOutput().getValue());
