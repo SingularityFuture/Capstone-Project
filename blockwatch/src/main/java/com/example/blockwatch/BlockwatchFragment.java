@@ -73,17 +73,6 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
         super.onCreateView(inflater, container, savedInstanceState);
         rootView =inflater.inflate(R.layout.fragment_blockwatch, container, false);
         layout = (RelativeLayout) rootView.findViewById(R.id.watch_fragment_layout);
-        pV=new PaintView(getActivity(),currentHash); // Create a new paint view for the watch face
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT); // Set width and height
-        pV.setBackgroundColor(Color.WHITE); // Set the background white
-        pV.setLayoutParams(params); // Apply the layout width and height
-        if(android.os.Build.VERSION.SDK_INT>20)
-            pV.setElevation(200); // Set elevation if SDK > 20
-        int newID = pV.generateViewId(); // Generate a new unique ID
-        pV.setId(newID); // Set the ID here
-        pV.setSaveEnabled(true); // Make sure it saves its state
-        pV.setOnClickListener(this); // Set the onClick listener to call back to the activity
-        layout.addView(pV); // Add the view to the fragment layout
 
         AdView mAdView = (AdView) rootView.findViewById(R.id.adView);
         // Create an ad request. Check logcat output for the hashed device ID to
@@ -94,6 +83,18 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
                 .addTestDevice("TEST_DEVICE_ID")
                 .build();
         mAdView.loadAd(adRequest);
+
+        pV=new PaintView(getActivity(),currentHash); // Create a new paint view for the watch face
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT); // Set width and height
+        pV.setBackgroundColor(Color.TRANSPARENT); // Set the background white
+        pV.setLayoutParams(params); // Apply the layout width and height
+        if(android.os.Build.VERSION.SDK_INT>20)
+            pV.setElevation(200); // Set elevation if SDK > 20
+        int newID = pV.generateViewId(); // Generate a new unique ID
+        pV.setId(newID); // Set the ID here
+        pV.setSaveEnabled(true); // Make sure it saves its state
+        pV.setOnClickListener(this); // Set the onClick listener to call back to the activity
+        layout.addView(pV); // Add the view to the fragment layout
 
         // Inflate the layout for this fragment
         return rootView;
