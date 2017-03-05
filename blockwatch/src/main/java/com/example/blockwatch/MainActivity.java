@@ -1,6 +1,8 @@
 package com.example.blockwatch;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
@@ -14,7 +16,9 @@ import android.view.MenuItem;
 import android.view.View;
 
 import data.BlockContract;
+import data.BlockDbHelper;
 import data.BlockExplorerClass;
+import data.BlockProvider;
 import utilities.BlockchainSyncIntentService;
 
 public class MainActivity extends AppCompatActivity implements BlockwatchFragment.OnFragmentInteractionListener, View.OnClickListener{
@@ -46,6 +50,15 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
             catch (Exception e){
                 Log.d("Explorer error: ", e.getMessage());
             }
+            BlockDbHelper mOpenHelper = new BlockDbHelper(this);
+            //BlockProvider tempProvider = getContentResolver().;
+
+            ContentValues hashContentValues = new ContentValues();
+            hashContentValues.put(BlockContract.BlockEntry.COLUMN_HASH,hash);
+            //mOpenHelper.insert(hash)
+            getContentResolver().insert(BlockContract.BlockEntry.CONTENT_URI,hashContentValues);
+            //mOpenHelper.
+
             watchFragment = new BlockwatchFragment().newInstance(hash); // Add the watch fragment here, passing the context as an implementation of the fragment listener
             getSupportFragmentManager().beginTransaction().add(R.id.transaction_fragment,watchFragment,WATCH_FRAGMENT_TAG).commit(); // Add the fragment to the transaction
             Intent intentToSyncImmediately = new Intent(this, BlockchainSyncIntentService.class); // Update the ContentProvider with this hash

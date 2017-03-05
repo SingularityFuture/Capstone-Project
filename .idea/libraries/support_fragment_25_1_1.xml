@@ -4,12 +4,12 @@
       <root url="jar://$PROJECT_DIR$/blockwatch/build/intermediates/exploded-aar/com.android.support/support-fragment/25.1.1/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="file://$USER_HOME$/.android/build-cache/93ca85f3f7e0313f7ad89169c9a4820d990998de/output/res" />
-      <root url="jar://$USER_HOME$/.android/build-cache/93ca85f3f7e0313f7ad89169c9a4820d990998de/output/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.android/build-cache/177db55d2989cce5d93085e0effe7a79d85b53ba/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/177db55d2989cce5d93085e0effe7a79d85b53ba/output/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/AppData/Local/Android/Sdk/extras/android/m2repository/com/android/support/support-fragment/25.1.1/support-fragment-25.1.1-sources.jar!/" />
+      <root url="jar://$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/support-fragment/25.1.1/support-fragment-25.1.1-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

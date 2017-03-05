@@ -3,6 +3,7 @@ package data;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 //import com.example.blockwatch.data.BlockContract.BlockEntry;
 
@@ -18,13 +19,13 @@ public class BlockDbHelper extends SQLiteOpenHelper {    /*
      * This is the name of our database. Database names should be descriptive and end with the
      * .db extension.
      */
-    public static final String DATABASE_NAME = "block.db";
+    public static final String DATABASE_NAME = "block4.db";
 
     /*
      * If you change the database schema, you must increment the database version or the onUpgrade
      * method will not be called.
      */
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 4;
 
     public BlockDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -45,18 +46,20 @@ public class BlockDbHelper extends SQLiteOpenHelper {    /*
          */
         final String SQL_CREATE_BLOCK_TABLE =
 
-                "CREATE TABLE " + BlockContract.BlockEntry.TABLE_NAME + " (" +
+                "CREATE TABLE IF NOT EXISTS " + BlockContract.BlockEntry.TABLE_NAME + " (" +
 
                 /*
                  * BlockEntry did not explicitly declare a column called "_ID". However,
                  * BlockEntry implements the interface, "BaseColumns", which does have a field
                  * named "_ID". We use that here to designate our table's primary key.
                  */
-                        BlockContract.BlockEntry._ID               + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        BlockContract.BlockEntry.COLUMN_VER        + " INTEGER NOT NULL, "                  +
-                        BlockContract.BlockEntry.COLUMN_LOCK_TIME  + " INTEGER NOT NULL, "                  +
-                        BlockContract.BlockEntry.COLUMN_RELAYED_BY + " INTEGER NOT NULL, "                  +
-                        BlockContract.BlockEntry.COLUMN_HASH       + " INTEGER NOT NULL, "                  +
+                        BlockContract.BlockEntry.COLUMN_ID               + " INTEGER PRIMARY KEY, " +
+                        BlockContract.BlockEntry.COLUMN_HASH        + " TEXT NOT NULL);";
+
+
+                        //BlockContract.BlockEntry.COLUMN_LOCK_TIME  + " INTEGER NOT NULL, "                  +
+                        //BlockContract.BlockEntry.COLUMN_RELAYED_BY + " INTEGER NOT NULL, "                  +
+                        //BlockContract.BlockEntry.COLUMN_VER       + " INTEGER NOT NULL, "                  +
 
                 /*
                  * To ensure this table can only contain one block entry per date, we declare
@@ -64,8 +67,9 @@ public class BlockDbHelper extends SQLiteOpenHelper {    /*
                  * SQLite that if we have a block entry for a certain date and we attempt to
                  * insert another block entry with that date, we replace the old block entry.
                  */
-                        " UNIQUE (" + BlockContract.BlockEntry.COLUMN_HASH + ") ON CONFLICT REPLACE);";
+                        //" UNIQUE (" + BlockContract.BlockEntry.COLUMN_HASH + ") ON CONFLICT REPLACE);";
 
+        Log.d("createDB=", SQL_CREATE_BLOCK_TABLE);
         /*
          * After we've spelled out our SQLite table creation statement above, we actually execute
          * that SQL with the execSQL method of our SQLite database object.

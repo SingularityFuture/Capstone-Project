@@ -48,6 +48,7 @@ import android.provider.BaseColumns;
             public static final String TABLE_NAME = "transaction";
 
             // Store columns for one blockchain transaction
+            public static final String COLUMN_ID = "ID";
             public static final String COLUMN_HASH = "hash";
             public static final String COLUMN_VER = "ver";
             public static final String COLUMN_VIN_SIZE = "vin_sz";
