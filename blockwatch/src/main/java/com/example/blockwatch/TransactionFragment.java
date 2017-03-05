@@ -23,7 +23,7 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
 
     View rootView; // Declare rootView
     LinearLayout layout; // Declare layout that will access fragment layout
-    private int ver = 0; // Set default version of the transaction
+    private String currentHash = ""; // Set default version of the transaction
     private Uri mURI; // Declare URI for loader query
     /*
      * This ID will be used to identify the Loader responsible for loading the weather details
@@ -76,7 +76,7 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
 
         layout.addView(text);
 
-        Toast.makeText(getActivity(),"Inside Transaction "+String.valueOf(ver),Toast.LENGTH_LONG).show(); // Show the result
+        Toast.makeText(getActivity(),"Inside Transaction "+currentHash,Toast.LENGTH_LONG).show(); // Show the result
 
         // Inflate the layout for this fragment
         return rootView;
@@ -152,7 +152,9 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
         }
 
         /* Read version number from the cursor */
-        ver = data.getInt(1);
+        currentHash = data.getString(1);
+        Toast.makeText(getActivity(),"Inside Transaction "+String.valueOf(currentHash),Toast.LENGTH_LONG).show(); // Show the result
+
     }
 
     /**

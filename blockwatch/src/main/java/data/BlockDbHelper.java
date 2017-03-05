@@ -12,20 +12,20 @@ import android.util.Log;
  */
 
 /**
- * Created by test on 2/20/2017.
+ * Created by Michael on 2/20/2017.
  */
 
 public class BlockDbHelper extends SQLiteOpenHelper {    /*
      * This is the name of our database. Database names should be descriptive and end with the
      * .db extension.
      */
-    public static final String DATABASE_NAME = "block4.db";
+    public static final String DATABASE_NAME = "block.db";
 
     /*
      * If you change the database schema, you must increment the database version or the onUpgrade
      * method will not be called.
      */
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 1;
 
     public BlockDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -53,7 +53,7 @@ public class BlockDbHelper extends SQLiteOpenHelper {    /*
                  * BlockEntry implements the interface, "BaseColumns", which does have a field
                  * named "_ID". We use that here to designate our table's primary key.
                  */
-                        BlockContract.BlockEntry.COLUMN_ID               + " INTEGER PRIMARY KEY, " +
+                        BlockContract.BlockEntry._ID               + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         BlockContract.BlockEntry.COLUMN_HASH        + " TEXT NOT NULL);";
 
 

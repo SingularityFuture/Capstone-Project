@@ -45,10 +45,10 @@ import android.provider.BaseColumns;
                     .build();
 
             /* Used internally as the name of our block table. */
-            public static final String TABLE_NAME = "transaction";
+            public static final String TABLE_NAME = "transaction_table";
 
             // Store columns for one blockchain transaction
-            public static final String COLUMN_ID = "ID";
+            public static final String COLUMN_ID = "id";
             public static final String COLUMN_HASH = "hash";
             public static final String COLUMN_VER = "ver";
             public static final String COLUMN_VIN_SIZE = "vin_sz";
