@@ -18,15 +18,12 @@ import java.util.Scanner;
  */
 public final class NetworkUtils {
 
-    // Dummy value for now
-    private static final String transactionHash= "b5357533bf43d6793aa24d91d6a01055128bff64730627bbb3a512b04d2e9043"; // Dummy hash for now; 64 hexadecimal characters
-
     private static final String TAG = NetworkUtils.class.getSimpleName();
 
     private static final String BLOCKCHAIN_URL =
             "https://blockchain.info/rawtx/";
 
-    public static URL getUrl(Context context) {
+    public static URL getUrl(Context context, String transactionHash) {
         return buildTransactionUrl(transactionHash);
     }
 

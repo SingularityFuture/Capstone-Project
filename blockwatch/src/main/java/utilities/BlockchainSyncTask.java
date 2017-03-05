@@ -1,31 +1,17 @@
 package utilities;
 
 /**
- * Created by test on 2/26/2017.
+ * Created by Michael on 2/26/2017.
  */
 
-/*
- * Copyright (C) 2016 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-        import android.content.ContentResolver;
-        import android.content.ContentValues;
-        import android.content.Context;
+import android.content.ContentResolver;
+import android.content.ContentValues;
+import android.content.Context;
+import android.util.Log;
 
-        import java.net.URL;
+import java.net.URL;
 
-        import data.BlockContract;
+import data.BlockContract;
 
 public class BlockchainSyncTask {
 
@@ -38,28 +24,19 @@ public class BlockchainSyncTask {
      * @param context Used to access utility methods and the ContentResolver
      */
 
-    private static final String MAX_TEMP = "com.example.android.Blockwatch.key.max_temp";
-    private static final String MIN_TEMP = "com.example.android.Blockwatch.key.min_temp";
-    private static final String CURRENT_TIME= "com.example.android.Blockwatch.key.time";
-    private static final String TAG = "Sync Task";
-    private static final String transaction_ID = "com.example.android.Blockwatch.key.transaction_id";
-    private static boolean mResolvingError = false;
-    private static Context mContext;
-
-    synchronized static public void syncTransaction(Context context) {
-        mContext=context;
-
+    synchronized static public void syncTransaction(Context context, String currentHash) {
         try {
             /*
              * The getUrl method will return the URL that we need to get the forecast JSON for the
              * transaction. It will decide whether to create a URL based off of the latitude and
              * longitude or off of a simple location as a String.
              */
-            URL transactionRequestUrl = NetworkUtils.getUrl(context);
+            URL transactionRequestUrl = NetworkUtils.getUrl(context, currentHash);
 
             /* Use the URL to retrieve the JSON */
             String jsonTransactionResponse = NetworkUtils.getResponseFromHttpUrl(transactionRequestUrl);
 
+            Log.d("response: ", jsonTransactionResponse);
             /* Parse the JSON into a list of transaction values */
             ContentValues transactionValues = TransactionJsonUtils
                     .getTransactionValuesFromJson(context, jsonTransactionResponse);

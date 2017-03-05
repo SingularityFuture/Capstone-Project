@@ -37,13 +37,6 @@ public class TransactionDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-/*        FragmentManager fm = getSupportFragmentManager();
-        dataFragment = (DataFragment) fm.findFragmentByTag(TAG_DATA);
-        if (dataFragment == null) {
-            dataFragment = new DataFragment();
-            fm.beginTransaction().add(dataFragment, TAG_DATA).commitNow();
-        }
-        dataFragment.setData(myData);*/
         super.onSaveInstanceState(outState);
     }
 }

@@ -5,5 +5,5 @@
     android:orientation="vertical"
     tools:context="com.example.blockwatch.TransactionDetailActivity"
     android:id="@+id/transaction_fragment_layout"
-    android:layout_below="@id/toolbar_transaction">
+    >
 </LinearLayout>

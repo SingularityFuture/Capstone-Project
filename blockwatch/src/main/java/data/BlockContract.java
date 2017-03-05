@@ -47,8 +47,7 @@ import android.provider.BaseColumns;
             /* Used internally as the name of our block table. */
             public static final String TABLE_NAME = "transaction_table";
 
-            // Store columns for one blockchain transaction
-            public static final String COLUMN_ID = "id";
+            // Store columns for one blockchain transaction, include future possible columns
             public static final String COLUMN_HASH = "hash";
             public static final String COLUMN_VER = "ver";
             public static final String COLUMN_VIN_SIZE = "vin_sz";

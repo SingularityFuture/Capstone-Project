@@ -15,6 +15,6 @@ public class BlockchainSyncIntentService extends IntentService{
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        BlockchainSyncTask.syncTransaction(this);
+        BlockchainSyncTask.syncTransaction(this, intent.getStringExtra("currentHash"));
     }
 }

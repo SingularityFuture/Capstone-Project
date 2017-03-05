@@ -46,17 +46,13 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
         if (getSupportFragmentManager().findFragmentByTag(WATCH_FRAGMENT_TAG) == null) { // If the fragment doesn't exist yet,
             try {
                 hash =  BlockExplorerClass.test(new String[]{"test"}); // Update the watch at the beginning with a fresh hash
-                BlockContract currentTransaction = new BlockContract();
             }
             catch (Exception e){
                 Log.d("Explorer error: ", e.getMessage());
             }
 
-            //ContentValues transactionDetails = new ContentValues(); // Create transaction details to put in the first creation of the database
-            //transactionDetails.put(BlockContract.BlockEntry.COLUMN_HASH,hash); // Put the current hash
-            //getContentResolver().insert(BlockContract.BlockEntry.CONTENT_URI,transactionDetails); //
-
             Intent intentToSyncImmediately = new Intent(this, BlockchainSyncIntentService.class); // Update the ContentProvider with this hash
+            intentToSyncImmediately.putExtra("currentHash", hash); // Put the hash here so you can get the correct one in the sync service
             this.startService(intentToSyncImmediately);
 
             watchFragment = new BlockwatchFragment().newInstance(hash); // Add the watch fragment here, passing the context as an implementation of the fragment listener
@@ -103,8 +99,8 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
         try {
             hash =  BlockExplorerClass.test(new String[]{"test"}); // Get a fresh hash
             Intent intentToSyncImmediately = new Intent(this, BlockchainSyncIntentService.class); // Update the ContentProvider with this hash3
-
-            this.startService(intentToSyncImmediately);
+            intentToSyncImmediately.putExtra("currentHash", hash); // Update the intent with a new hash
+            this.startService(intentToSyncImmediately); // Sync the database with new information from the JSON query
             watchFragment = new BlockwatchFragment().newInstance(hash); // Create a new watch fragment with a new hash
             getSupportFragmentManager().beginTransaction().replace(R.id.transaction_fragment,watchFragment,WATCH_FRAGMENT_TAG).commit(); // Replace the fragment with the current one with a new hash
         }

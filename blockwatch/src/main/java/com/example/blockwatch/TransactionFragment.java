@@ -35,11 +35,6 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
     */
     private static final int ID_DETAIL_LOADER = 353;
 
-/*    public TransactionFragment() {
-        // Required empty public constructor
-        int temp = 1;
-    }*/
-
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -63,21 +58,6 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         rootView =inflater.inflate(R.layout.fragment_transaction, container, false);
-        layout = (LinearLayout) rootView.findViewById(R.id.transaction_fragment_layout);
-        TextView text = new TextView(getActivity());
-        text.setText("test");
-        text.setTextColor(Color.BLACK);
-        text.setGravity(Gravity.TOP);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT); // Set width and height
-        text.setBackgroundColor(Color.WHITE); // Set the background white
-        //text.setLayoutParams(params); // Apply the layout width and height
-        text.setWidth(150);
-        text.setHeight(150);
-        text.setTextSize(40);
-
-        layout.addView(text);
-
-        Toast.makeText(getActivity(),"Inside Transaction "+ currentHash,Toast.LENGTH_LONG).show(); // Show the result
 
         // Inflate the layout for this fragment
         return rootView;
@@ -112,12 +92,6 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
         }
     }
 
-/*    @Override
-    protected void onStartLoading() {
-        getLoaderManager().
-
-    }*/
-
     /**
      * Runs on the main thread when a load is complete. If initLoader is called (we call it from
      * onCreate in TransactionDetailActivity) and the LoaderManager already has completed a previous load
@@ -142,6 +116,7 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
          * have any data to bind, we just return from this method.
          */
         boolean cursorHasValidData = false;
+
         if (data != null && data.moveToFirst()) {
             /* We have valid data, continue on to bind the data to the UI */
             cursorHasValidData = true;
@@ -151,13 +126,41 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
             /* No data to display, simply return and do nothing */
             return;
         }
+        layout = (LinearLayout) rootView.findViewById(R.id.transaction_fragment_layout);
 
-        /* Read version number from the cursor */
-        currentHash = data.getString(1);
-        //data.getString(4)
-        Log.d("Hash, Relayed By : ", currentHash + ", " );
-        Log.d("Size: ", String.valueOf(data.getColumnCount()));
-        Toast.makeText(getActivity(),"Inside Transaction "+ currentHash ,Toast.LENGTH_LONG).show(); // Show the result
+        Log.d("Columns: ", String.valueOf(data.getColumnCount()));
+        Log.d("Hash: ", data.getString(1));
+        Log.d("relayed by ", data.getString(3));
+        //Log.d("Block Height ", String.valueOf(data.getInt(5)));
+
+        if(!data.isNull(1)) {
+            // Add hash value
+            TextView textHash = new TextView(getActivity());
+            textHash.setText("TX Hash: " + data.getString(1));
+            textHash.setSingleLine(false); // Make it multiline
+            textHash.setTextColor(Color.BLACK);
+            textHash.setGravity(Gravity.TOP);
+            textHash.setBackgroundColor(Color.WHITE); // Set the background white
+            textHash.setWidth(150);
+            //textHash.setHeight(150);
+            textHash.setTextSize(20);
+            layout.addView(textHash);
+        }
+
+        if(!data.isNull(3)) {
+            // Relayed By IP text
+            TextView textRelayedBy = new TextView(getActivity());
+            textRelayedBy.setText("Relayed By: " + data.getString(3));
+            textRelayedBy.setTextColor(Color.BLACK);
+            //textRelayedBy.setGravity(Gravity.TOP);
+            textRelayedBy.setBackgroundColor(Color.WHITE); // Set the background white
+            textRelayedBy.setSingleLine(false); // Make it multiline
+            textRelayedBy.setWidth(150);
+            textRelayedBy.setPadding(0,50,0,0);
+            //textRelayedBy.setHeight(150);
+            textRelayedBy.setTextSize(20);
+            layout.addView(textRelayedBy);
+        }
 
     }
 
