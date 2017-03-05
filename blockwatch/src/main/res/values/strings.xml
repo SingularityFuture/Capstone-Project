@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Blockwatch</string>
     <string name="action_settings">Settings</string>
-    <string name="transaction_detail">transaction_detail</string>
+    <string name="transaction_detail">Transaction Detail</string>
 </resources>

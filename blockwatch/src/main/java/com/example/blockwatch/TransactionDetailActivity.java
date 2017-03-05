@@ -18,7 +18,8 @@ public class TransactionDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transaction); // Set the transaction activity
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar); // Get the toolbar ID
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_transaction); // Get the toolbar ID
+        toolbar.setTitle(R.string.transaction_detail);
         setSupportActionBar(toolbar); // Set the toolbar
 
         mURI = getIntent().getParcelableExtra("URI");

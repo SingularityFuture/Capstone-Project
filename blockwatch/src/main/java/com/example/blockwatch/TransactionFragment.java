@@ -128,21 +128,15 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
         }
         layout = (LinearLayout) rootView.findViewById(R.id.transaction_fragment_layout);
 
-        Log.d("Columns: ", String.valueOf(data.getColumnCount()));
-        Log.d("Hash: ", data.getString(1));
-        Log.d("relayed by ", data.getString(3));
-        //Log.d("Block Height ", String.valueOf(data.getInt(5)));
-
         if(!data.isNull(1)) {
             // Add hash value
             TextView textHash = new TextView(getActivity());
             textHash.setText("TX Hash: " + data.getString(1));
             textHash.setSingleLine(false); // Make it multiline
-            textHash.setTextColor(Color.BLACK);
+            textHash.setTextColor(Color.RED);
             textHash.setGravity(Gravity.TOP);
             textHash.setBackgroundColor(Color.WHITE); // Set the background white
             textHash.setWidth(150);
-            //textHash.setHeight(150);
             textHash.setTextSize(20);
             layout.addView(textHash);
         }
@@ -151,13 +145,11 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
             // Relayed By IP text
             TextView textRelayedBy = new TextView(getActivity());
             textRelayedBy.setText("Relayed By: " + data.getString(3));
-            textRelayedBy.setTextColor(Color.BLACK);
-            //textRelayedBy.setGravity(Gravity.TOP);
+            textRelayedBy.setTextColor(Color.GREEN);
             textRelayedBy.setBackgroundColor(Color.WHITE); // Set the background white
             textRelayedBy.setSingleLine(false); // Make it multiline
             textRelayedBy.setWidth(150);
             textRelayedBy.setPadding(0,50,0,0);
-            //textRelayedBy.setHeight(150);
             textRelayedBy.setTextSize(20);
             layout.addView(textRelayedBy);
         }
