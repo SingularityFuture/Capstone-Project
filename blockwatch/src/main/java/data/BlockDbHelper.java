@@ -25,7 +25,7 @@ public class BlockDbHelper extends SQLiteOpenHelper {    /*
      * If you change the database schema, you must increment the database version or the onUpgrade
      * method will not be called.
      */
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     public BlockDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -54,12 +54,10 @@ public class BlockDbHelper extends SQLiteOpenHelper {    /*
                  * named "_ID". We use that here to designate our table's primary key.
                  */
                         BlockContract.BlockEntry._ID               + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        BlockContract.BlockEntry.COLUMN_HASH        + " TEXT NOT NULL);";
-
-
-                        //BlockContract.BlockEntry.COLUMN_LOCK_TIME  + " INTEGER NOT NULL, "                  +
-                        //BlockContract.BlockEntry.COLUMN_RELAYED_BY + " INTEGER NOT NULL, "                  +
-                        //BlockContract.BlockEntry.COLUMN_VER       + " INTEGER NOT NULL, "                  +
+                        BlockContract.BlockEntry.COLUMN_HASH        + " TEXT NOT NULL, "                    +
+                        BlockContract.BlockEntry.COLUMN_LOCK_TIME  + " INTEGER NOT NULL, "                  +
+                        BlockContract.BlockEntry.COLUMN_RELAYED_BY + " TEXT NOT NULL, "                  +
+                        BlockContract.BlockEntry.COLUMN_VER       + " INTEGER NOT NULL, "                  +
 
                 /*
                  * To ensure this table can only contain one block entry per date, we declare
@@ -67,7 +65,7 @@ public class BlockDbHelper extends SQLiteOpenHelper {    /*
                  * SQLite that if we have a block entry for a certain date and we attempt to
                  * insert another block entry with that date, we replace the old block entry.
                  */
-                        //" UNIQUE (" + BlockContract.BlockEntry.COLUMN_HASH + ") ON CONFLICT REPLACE);";
+                        " UNIQUE (" + BlockContract.BlockEntry.COLUMN_HASH + ") ON CONFLICT REPLACE);";
 
         Log.d("createDB=", SQL_CREATE_BLOCK_TABLE);
         /*

@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,7 +77,7 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
 
         layout.addView(text);
 
-        Toast.makeText(getActivity(),"Inside Transaction "+currentHash,Toast.LENGTH_LONG).show(); // Show the result
+        Toast.makeText(getActivity(),"Inside Transaction "+ currentHash,Toast.LENGTH_LONG).show(); // Show the result
 
         // Inflate the layout for this fragment
         return rootView;
@@ -153,7 +154,10 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
 
         /* Read version number from the cursor */
         currentHash = data.getString(1);
-        Toast.makeText(getActivity(),"Inside Transaction "+String.valueOf(currentHash),Toast.LENGTH_LONG).show(); // Show the result
+        //data.getString(4)
+        Log.d("Hash, Relayed By : ", currentHash + ", " );
+        Log.d("Size: ", String.valueOf(data.getColumnCount()));
+        Toast.makeText(getActivity(),"Inside Transaction "+ currentHash ,Toast.LENGTH_LONG).show(); // Show the result
 
     }
 

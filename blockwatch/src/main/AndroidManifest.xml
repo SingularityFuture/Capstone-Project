@@ -25,8 +25,9 @@
         </activity>
 
         <provider android:name="data.BlockProvider" android:authorities="com.example.blockwatch">
+        </provider>
 
-    </provider>
+        <service android:enabled="true" android:name="utilities.BlockchainSyncIntentService"></service>
 
     </application>
 
