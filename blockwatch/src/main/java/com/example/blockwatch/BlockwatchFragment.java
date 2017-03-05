@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -82,6 +84,16 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
         pV.setSaveEnabled(true); // Make sure it saves its state
         pV.setOnClickListener(this); // Set the onClick listener to call back to the activity
         layout.addView(pV); // Add the view to the fragment layout
+
+        AdView mAdView = (AdView) rootView.findViewById(R.id.adView);
+        // Create an ad request. Check logcat output for the hashed device ID to
+        // get test ads on a physical device. e.g.
+        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("TEST_DEVICE_ID")
+                .build();
+        mAdView.loadAd(adRequest);
 
         // Inflate the layout for this fragment
         return rootView;

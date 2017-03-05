@@ -2,6 +2,7 @@
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:fitsSystemWindows="true"
     tools:context="com.example.blockwatch.MainActivity">
@@ -17,7 +18,7 @@
 
     <android.support.design.widget.FloatingActionButton android:id="@+id/fab"
         android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end" android:layout_margin="@dimen/fab_margin"
+        android:layout_gravity="top|end" android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@drawable/ic_action_refresh_light" />
 
     <FrameLayout android:name="com.example.blockwatch.BlockwatchFragment"

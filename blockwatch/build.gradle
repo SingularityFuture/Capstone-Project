@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 
+
 buildscript {
     repositories {
         maven { url 'http://repo1.maven.org/maven2' }
@@ -56,4 +57,7 @@ dependencies {
     compile 'info.blockchain:api:1.1.4'
 
     testCompile 'junit:junit:4.12'
+
+    compile 'com.google.android.gms:play-services-ads:10.0.1'
+    compile 'com.google.firebase:firebase-ads:10.2.0'
 }
