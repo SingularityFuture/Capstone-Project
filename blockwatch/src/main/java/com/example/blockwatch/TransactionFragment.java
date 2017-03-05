@@ -153,7 +153,6 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
             textRelayedBy.setTextSize(20);
             layout.addView(textRelayedBy);
         }
-
     }
 
     /**

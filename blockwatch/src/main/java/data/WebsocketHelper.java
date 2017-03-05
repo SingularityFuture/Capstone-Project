@@ -13,7 +13,7 @@ import com.neovisionaries.ws.client.WebSocketOpcode;
 import com.neovisionaries.ws.client.WebSocketState;
 
 /**
- * Created by test on 2/20/2017.
+ * Created by retrieveUnconfirmedTransactions on 2/20/2017.
  */
 // Implements websocket library's connection
 public class WebsocketHelper{
@@ -93,12 +93,12 @@ public class WebsocketHelper{
         test.setPayload("{op:ping_tx}");
         test.setFin(true);
         ws.sendFrame(test);
-/*        test.setOpcode(13);  // Testing opcodes
-        ws.sendFrame(test);
-        test.setOpcode(14);  // Testing opcodes
-        ws.sendFrame(test);
-        test.setOpcode(15);  // Testing opcodes
-        ws.sendFrame(test);*/
+/*        retrieveUnconfirmedTransactions.setOpcode(13);  // Testing opcodes
+        ws.sendFrame(retrieveUnconfirmedTransactions);
+        retrieveUnconfirmedTransactions.setOpcode(14);  // Testing opcodes
+        ws.sendFrame(retrieveUnconfirmedTransactions);
+        retrieveUnconfirmedTransactions.setOpcode(15);  // Testing opcodes
+        ws.sendFrame(retrieveUnconfirmedTransactions);*/
 
         //ws.sendText("helloWorld");
 
