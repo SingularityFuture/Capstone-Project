@@ -51,21 +51,12 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-/*        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }*/
-    }
-
-/*    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }*/
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -106,12 +97,6 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
         //Toast.makeText(getActivity(),callBack_result,Toast.LENGTH_LONG).show(); // Show the result
     }
 
-/*  public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    } */
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -122,12 +107,6 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
                     + " must implement OnFragmentInteractionListener");
         }
     }
-
-    /*@Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    } */
 
      /*
      * This interface must be implemented by activities that contain this

@@ -135,6 +135,8 @@ public class PaintView extends View {
                 canvas.drawText(String.valueOf(currentHash.charAt(charCount)), (float)(centerX + (radius*radiusSqueeze[circle]*circleSpacing[circle] * Math.cos(medianAngle))), (float)(centerY + (radius*radiusSqueeze[circle]*circleSpacing[circle] * Math.sin(medianAngle)))+ bounds.height() * 0.5f, mPaintText);
                 charCount++; // Increment the character count
             }
+            int one = 1;
+            one++;
         }
     }
 

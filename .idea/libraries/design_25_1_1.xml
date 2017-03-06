@@ -4,12 +4,12 @@
       <root url="jar://$PROJECT_DIR$/blockwatch/build/intermediates/exploded-aar/com.android.support/design/25.1.1/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="jar://$USER_HOME$/.android/build-cache/725a80fd77dfe48cd8994b4a1e9e8ee1e20b93e6/output/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.android/build-cache/725a80fd77dfe48cd8994b4a1e9e8ee1e20b93e6/output/res" />
+      <root url="file://$USER_HOME$/.android/build-cache/74ec67e1b7ba4b852e1ea76d19efd36a3f3c264e/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/74ec67e1b7ba4b852e1ea76d19efd36a3f3c264e/output/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/design/25.1.1/design-25.1.1-sources.jar!/" />
+      <root url="jar://$USER_HOME$/AppData/Local/Android/Sdk/extras/android/m2repository/com/android/support/design/25.1.1/design-25.1.1-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

@@ -13,8 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
 import data.BlockContract;
@@ -55,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
             this.startService(intentToSyncImmediately);
 
             watchFragment = new BlockwatchFragment().newInstance(hash); // Add the watch fragment here, passing the context as an implementation of the fragment listener
+            watchFragment.setRetainInstance(true); // Do this so that it retains the member variable holding the hash
             getSupportFragmentManager().beginTransaction().add(R.id.transaction_fragment,watchFragment,WATCH_FRAGMENT_TAG).commit(); // Add the fragment to the transaction
 
         }
@@ -62,7 +61,6 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
            watchFragment = getSupportFragmentManager().findFragmentByTag(WATCH_FRAGMENT_TAG); // Else if it exists
            getSupportFragmentManager().beginTransaction().replace(R.id.transaction_fragment,watchFragment,WATCH_FRAGMENT_TAG).commit(); // Replace the fragment with the current one
         }
-
         MobileAds.initialize(getApplicationContext(), "ca-app-pub-3940256099942544~3347511713");
     }
 
