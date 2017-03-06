@@ -10,7 +10,7 @@
         android:id="@+id/adView"
         android:layout_width="360dp"
         android:layout_height="168dp"
-        android:layout_gravity="bottom"
+        android:layout_below="@id/toolbar_transaction"
         ads:adSize="BANNER"
         ads:adUnitId="@string/banner_ad_unit_id">
     </com.google.android.gms.ads.AdView>
