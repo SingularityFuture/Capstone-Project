@@ -1,13 +1,13 @@
 package com.example.blockwatch;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.google.android.gms.ads.AdRequest;
@@ -65,26 +65,17 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
         rootView =inflater.inflate(R.layout.fragment_blockwatch, container, false);
         layout = (RelativeLayout) rootView.findViewById(R.id.watch_fragment_layout);
 
-        AdView mAdView = (AdView) layout.findViewById(R.id.adView);
-        // Create an ad request. Check logcat output for the hashed device ID to
-        // get test ads on a physical device. e.g.
-        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("TEST_DEVICE_ID")
-                .build();
-        if(getActivity().getResources().getConfiguration().orientation==2){
+
+/*        if(getActivity().getResources().getConfiguration().orientation==2){
             mAdView.setRotation(-90);  // Rotate 90 degrees for landscape orientation
             mAdView.setY(200);
-            mAdView.setMinimumWidth(168);
-            mAdView.setMinimumHeight(300);
+            //mAdView.setLeft(-100);
             mAdView.setX(0);
-        }
-
-        mAdView.loadAd(adRequest);
+        }*/
+        //mAdView.loadAd(adRequest);
 
         pV=new PaintView(getActivity(),currentHash); // Create a new paint view for the watch face
-        RelativeLayout.LayoutParams paramsPaint = new RelativeLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT); // Set width and height
+        RelativeLayout.LayoutParams paramsPaint = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT); // Set width and height
         pV.setBackgroundColor(Color.TRANSPARENT); // Set the background white
         pV.setLayoutParams(paramsPaint); // Apply the layout width and height
         if(android.os.Build.VERSION.SDK_INT>20)
@@ -95,10 +86,18 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
         pV.setOnClickListener(this); // Set the onClick listener to call back to the activity
         layout.addView(pV); // Add the view to the fragment layout
 
-        //RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
-        //params.addRule(RelativeLayout.ALIGN_BOTTOM, pV.getId());
-        //mAdView.setLayoutParams(params);
-        //mAdView.loadAd(adRequest);
+        AdView mAdView = (AdView) layout.findViewById(R.id.adView);
+        // Create an ad request. Check logcat output for the hashed device ID to
+        // get test ads on a physical device. e.g.
+        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("TEST_DEVICE_ID")
+                .build();
+/*        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+        params.addRule(RelativeLayout.ALIGN_TOP, pV.getId());
+        mAdView.setLayoutParams(params);*/
+        mAdView.loadAd(adRequest);
 
         // Inflate the layout for this fragment
         return rootView;
@@ -133,4 +132,46 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
     public interface OnFragmentInteractionListener {
         String onFragmentInteraction(String string);
     }
+
+    // Implement the method for when the configuration changes
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        renewAd();
+    }
+
+    /* Renew adView during configuration changes
+     */
+    public void renewAd(){
+        // Remove the ad keeping the attributes
+/*        layout = (RelativeLayout) rootView.findViewById(R.id.watch_fragment_layout);
+        AdView mAdView = (AdView) layout.findViewById(R.id.adView);
+        layout.removeView(mAdView);
+
+        // Re-initialise the ad
+        mAdView.destroy();
+        mAdView = new AdView(getActivity());
+        mAdView.setAdSize(BANNER);
+        mAdView.setAdUnitId(getString(R.string.banner_ad_unit_id));
+        mAdView.setId(R.id.adView);*/
+
+/*        if(getActivity().getResources().getConfiguration().orientation==2) {
+            layout = (RelativeLayout) rootView.findViewById(R.id.watch_fragment_layout);
+            AdView mAdView = (AdView) layout.findViewById(R.id.adView);
+            mAdView.setRotation(90);
+            //RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(150, 150); // Set width and height
+            //lp.addRule(RelativeLayout.ALIGN_LEFT);
+            //mAdView.setLayoutParams(lp);
+        }*/
+        //layout.addView(mAdView);
+
+        // Re-fetch add and check successful load
+/*        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("TEST_DEVICE_ID")
+                .build();
+
+        mAdView.loadAd(adRequest);*/
+    }
+
 }

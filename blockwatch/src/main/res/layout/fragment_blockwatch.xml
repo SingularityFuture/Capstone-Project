@@ -4,14 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.blockwatch.MainActivity"
+    android:orientation="vertical"
     android:id="@+id/watch_fragment_layout">
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
         android:layout_width="360dp"
         android:layout_height="168dp"
-        android:layout_below="@id/toolbar_transaction"
-        ads:adSize="BANNER"
+        android:layout_below="@id/toolbar"
+        ads:adSize="SMART_BANNER"
         ads:adUnitId="@string/banner_ad_unit_id">
     </com.google.android.gms.ads.AdView>
 
