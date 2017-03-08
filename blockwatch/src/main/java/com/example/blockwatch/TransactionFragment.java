@@ -174,6 +174,9 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
                 .addTestDevice("TEST_DEVICE_ID")
                 .build();
         mAdView.loadAd(adRequest);
+
+
+
     }
 
     /**

@@ -49,4 +49,12 @@
         android:layout_below="@id/transactionHash"
         android:layout_toRightOf="@id/transactionRelayedByLabel"
         />
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/transactionRelayedBy"
+        android:layout_alignParentStart="true"
+        class="com.google.android.gms.maps.SupportMapFragment" />
 </RelativeLayout>
