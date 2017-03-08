@@ -27,6 +27,7 @@ public class TransactionDetailActivity extends AppCompatActivity {
 
         if (getSupportFragmentManager().findFragmentByTag(TRANSACTION_FRAGMENT_TAG) == null) { // If the fragment doesn't exist yet,
             transactionFragment = new TransactionFragment().newInstance(mURI); // Add the transaction fragment here, passing the context as an implementation of the fragment listener
+            //transactionFragment.setRetainInstance(true); // Do this so that it retains the text views already created the first time
 
             getSupportFragmentManager().beginTransaction().add(R.id.transaction_fragment, transactionFragment, TRANSACTION_FRAGMENT_TAG).commit(); // Add the fragment to the transaction
         }

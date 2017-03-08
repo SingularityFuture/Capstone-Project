@@ -1,6 +1,7 @@
 package com.example.blockwatch;
 
 import android.content.SyncAdapterType;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
@@ -9,11 +10,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
@@ -25,7 +25,7 @@ import com.google.android.gms.ads.AdView;
 public class TransactionFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
     View rootView; // Declare rootView
-    LinearLayout layout; // Declare layout that will access fragment layout
+    RelativeLayout layout; // Declare layout that will access fragment layout
     private String currentHash = ""; // Set default version of the transaction
     private Uri mURI; // Declare URI for loader query
 
@@ -65,6 +65,11 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
 
         // Inflate the layout for this fragment
         return rootView;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 
     /**
@@ -130,34 +135,37 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
             /* No data to display, simply return and do nothing */
             return;
         }
-        layout = (LinearLayout) rootView.findViewById(R.id.transaction_fragment_layout);
+        layout = (RelativeLayout) rootView.findViewById(R.id.transaction_fragment_layout);
 
-        if(!data.isNull(1)) {
+        if (!data.isNull(1)) {
             // Add hash value
-            TextView textHash = new TextView(getActivity());
-            textHash.setText("TX Hash: " + data.getString(1));
+            TextView textHash = (TextView) rootView.findViewById(R.id.transactionHash);
+            textHash.setText(data.getString(1));
             textHash.setSingleLine(false); // Make it multiline
             textHash.setTextColor(Color.RED);
-            textHash.setGravity(Gravity.TOP);
             textHash.setBackgroundColor(Color.WHITE); // Set the background white
-            textHash.setWidth(150);
-            textHash.setTextSize(20);
-            layout.addView(textHash);
+            //textHash.setWidth(150);
+            textHash.setTextSize(19);
         }
+        RelativeLayout.LayoutParams relativeLayoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        relativeLayoutParams.addRule(RelativeLayout.ALIGN_TOP, R.id.transactionHash);
+        relativeLayoutParams.addRule(RelativeLayout.ALIGN_BOTTOM, R.id.transactionHash);
+        rootView.findViewById(R.id.transactionHashLabel).setLayoutParams(relativeLayoutParams);
 
-        if(!data.isNull(3)) {
+        if (!data.isNull(3)) {
             // Relayed By IP text
-            TextView textRelayedBy = new TextView(getActivity());
-            textRelayedBy.setText("Relayed By: " + data.getString(3));
+            TextView textRelayedBy = (TextView) rootView.findViewById(R.id.transactionRelayedBy);
+            textRelayedBy.setText(data.getString(3));
             textRelayedBy.setTextColor(Color.GREEN);
             textRelayedBy.setBackgroundColor(Color.WHITE); // Set the background white
             textRelayedBy.setSingleLine(false); // Make it multiline
-            textRelayedBy.setWidth(150);
-            textRelayedBy.setPadding(0,50,0,0);
-            textRelayedBy.setTextSize(20);
-            layout.addView(textRelayedBy);
+            //textRelayedBy.setWidth(150);
+            textRelayedBy.setPadding(0, 50, 0, 0);
+            textRelayedBy.setTextSize(19);
         }
-        AdView mAdView = (AdView) rootView.findViewById(R.id.adView);
+
+        AdView mAdView = (AdView) rootView.findViewById(R.id.adViewDetail);
         // Create an ad request. Check logcat output for the hashed device ID to
         // get test ads on a physical device. e.g.
         // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
@@ -177,5 +185,11 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
      */
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
+    }
+
+    // Implement the method for when the configuration changes
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 }

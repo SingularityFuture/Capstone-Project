@@ -65,7 +65,6 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
         rootView =inflater.inflate(R.layout.fragment_blockwatch, container, false);
         layout = (RelativeLayout) rootView.findViewById(R.id.watch_fragment_layout);
 
-
 /*        if(getActivity().getResources().getConfiguration().orientation==2){
             mAdView.setRotation(-90);  // Rotate 90 degrees for landscape orientation
             mAdView.setY(200);
@@ -73,18 +72,6 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
             mAdView.setX(0);
         }*/
         //mAdView.loadAd(adRequest);
-
-        pV=new PaintView(getActivity(),currentHash); // Create a new paint view for the watch face
-        RelativeLayout.LayoutParams paramsPaint = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT); // Set width and height
-        pV.setBackgroundColor(Color.TRANSPARENT); // Set the background white
-        pV.setLayoutParams(paramsPaint); // Apply the layout width and height
-        if(android.os.Build.VERSION.SDK_INT>20)
-            pV.setElevation(200); // Set elevation if SDK > 20
-        int newID = pV.generateViewId(); // Generate a new unique ID
-        pV.setId(newID); // Set the ID here
-        pV.setSaveEnabled(true); // Make sure it saves its state
-        pV.setOnClickListener(this); // Set the onClick listener to call back to the activity
-        layout.addView(pV); // Add the view to the fragment layout
 
         AdView mAdView = (AdView) layout.findViewById(R.id.adView);
         // Create an ad request. Check logcat output for the hashed device ID to
@@ -98,6 +85,31 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
         params.addRule(RelativeLayout.ALIGN_TOP, pV.getId());
         mAdView.setLayoutParams(params);*/
         mAdView.loadAd(adRequest);
+
+        pV=new PaintView(getActivity(),currentHash); // Create a new paint view for the watch face
+       RelativeLayout.LayoutParams paramsPaint = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT); // Set width and height
+        pV.setBackgroundColor(Color.TRANSPARENT); // Set the background white
+        pV.setLayoutParams(paramsPaint); // Apply the layout width and height
+        if(android.os.Build.VERSION.SDK_INT>20)
+            pV.setElevation(200); // Set elevation if SDK > 20
+        int newID = pV.generateViewId(); // Generate a new unique ID
+        pV.setId(newID); // Set the ID here
+        pV.setSaveEnabled(true); // Make sure it saves its state
+        pV.setOnClickListener(this); // Set the onClick listener to call back to the activity
+        layout.addView(pV); // Add the view to the fragment layout
+
+/*        AdView mAdView = (AdView) layout.findViewById(R.id.adView);
+        // Create an ad request. Check logcat output for the hashed device ID to
+        // get test ads on a physical device. e.g.
+        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("TEST_DEVICE_ID")
+                .build();
+*//*        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+        params.addRule(RelativeLayout.ALIGN_TOP, pV.getId());
+        mAdView.setLayoutParams(params);*//*
+        mAdView.loadAd(adRequest);*/
 
         // Inflate the layout for this fragment
         return rootView;
@@ -137,7 +149,7 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        renewAd();
+        //renewAd();
     }
 
     /* Renew adView during configuration changes
