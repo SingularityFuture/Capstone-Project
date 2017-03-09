@@ -24,4 +24,11 @@
         tools:context="com.example.blockwatch.TransactionFragment"
         tools:layout="@layout/fragment_transaction" />
 
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        class="com.google.android.gms.maps.SupportMapFragment" />
+
 </android.support.design.widget.CoordinatorLayout>
