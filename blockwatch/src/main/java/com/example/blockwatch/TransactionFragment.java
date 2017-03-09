@@ -18,6 +18,12 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.MapsInitializer;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 /**
  * Created by Michael on 2/16/2017.
@@ -28,6 +34,9 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
     RelativeLayout layout; // Declare layout that will access fragment layout
     private String currentHash = ""; // Set default version of the transaction
     private Uri mURI; // Declare URI for loader query
+
+    MapView mMapView;
+    private GoogleMap googleMap;
 
     private SyncAdapterType mAdapter;
     /*
@@ -62,6 +71,32 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         rootView =inflater.inflate(R.layout.fragment_transaction, container, false);
+
+        mMapView = (MapView) rootView.findViewById(R.id.map);
+        mMapView.onCreate(savedInstanceState);
+
+        mMapView.onResume(); // needed to get the map to display immediately
+
+        try {
+            MapsInitializer.initialize(getActivity().getApplicationContext());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        mMapView.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap mMap) {
+                googleMap = mMap;
+
+                // For dropping a marker at a point on the Map
+                LatLng sydney = new LatLng(-34, 151);
+                googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"));
+
+                // For zooming automatically to the location of the marker
+/*                CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(12).build();
+                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));*/
+            }
+        });
 
         // Inflate the layout for this fragment
         return rootView;
@@ -165,6 +200,12 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
             textRelayedBy.setTextSize(19);
         }
 
+        RelativeLayout.LayoutParams relativeLayoutParams2 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+        relativeLayoutParams2.addRule(RelativeLayout.ALIGN_TOP, R.id.transactionRelayedBy);
+        relativeLayoutParams2.addRule(RelativeLayout.ALIGN_BOTTOM, R.id.transactionRelayedBy);
+        rootView.findViewById(R.id.transactionRelayedByLabel).setLayoutParams(relativeLayoutParams2);
+
         AdView mAdView = (AdView) rootView.findViewById(R.id.adViewDetail);
         // Create an ad request. Check logcat output for the hashed device ID to
         // get test ads on a physical device. e.g.
@@ -194,5 +235,29 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mMapView.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mMapView.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mMapView.onDestroy();
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        mMapView.onLowMemory();
     }
 }

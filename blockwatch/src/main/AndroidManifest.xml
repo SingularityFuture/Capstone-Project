@@ -25,10 +25,7 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-        <!-- Include the AdActivity configChanges and theme. -->
-        <activity
-            android:name="com.google.android.gms.ads.AdActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyDMXAT4Yhe5wLNLiuzezokLNv2iZPgVytE"/>
 
         <activity android:name=".TransactionDetailActivity" android:label="@string/transaction_detail"
             android:theme="@style/AppTheme.NoActionBar">

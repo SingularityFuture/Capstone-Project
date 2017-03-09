@@ -4,4 +4,6 @@
     <string name="transaction_detail">Transaction Detail</string>
     <string name="fab_text">Transaction Hash Refreshed</string>
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="relayed_by">Relayed By:</string>
+    <string name="tx_hash">TX Hash:</string>
 </resources>
