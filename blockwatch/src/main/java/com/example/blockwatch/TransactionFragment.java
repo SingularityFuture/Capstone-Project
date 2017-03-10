@@ -207,6 +207,8 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
         currentLocation = new LatLng(data.getDouble(5),data.getDouble(6));
         mMapView.getMapAsync(this);
 
+
+
 /*        RelativeLayout.LayoutParams relativeLayoutParams3 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
                 RelativeLayout.LayoutParams.MATCH_PARENT);
         relativeLayoutParams3.addRule(RelativeLayout.BELOW, R.id.transactionRelayedBy);

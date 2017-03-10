@@ -15,7 +15,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <ScrollView
+    <FrameLayout
         android:id="@+id/transaction_fragment"
         android:name="com.example.blockwatch.TransactionFragment"
         android:layout_width="match_parent"

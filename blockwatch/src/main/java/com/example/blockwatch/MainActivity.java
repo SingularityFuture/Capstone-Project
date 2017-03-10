@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
 
     private Fragment watchFragment; // Declare the fragment you will include
     private static final String WATCH_FRAGMENT_TAG = "watch_fragment"; // Create a tag to keep track of created fragments
-    private String hash = "b5357533bf43d6793aa24d91d6a01055128bff64730627bbb3a512b04d2e9043"; // Start with a dummy hash in case of any network error
+    private String hash = "b5357533bf43d6793aa24d91d6a01055128bff64730627bbb3a512b04d2e9043"; //getString(R.string.dummy_hash); // Start with a dummy hash in case of any network error
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
