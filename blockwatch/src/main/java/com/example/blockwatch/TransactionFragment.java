@@ -18,17 +18,19 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 /**
  * Created by Michael on 2/16/2017.
  */
-public class TransactionFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
+public class TransactionFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, OnMapReadyCallback{
 
     View rootView; // Declare rootView
     RelativeLayout layout; // Declare layout that will access fragment layout
@@ -36,9 +38,11 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
     private Uri mURI; // Declare URI for loader query
 
     MapView mMapView;
-    private GoogleMap googleMap;
 
     private SyncAdapterType mAdapter;
+
+    LatLng currentLocation; // Declare the location of the current transaction based on the Relayed By IP address
+
     /*
      * This ID will be used to identify the Loader responsible for loading the weather details
      * for a particular day. In some cases, one Activity can deal with many Loaders. However, in
@@ -82,21 +86,6 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        mMapView.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(GoogleMap mMap) {
-                googleMap = mMap;
-
-                // For dropping a marker at a point on the Map
-                LatLng sydney = new LatLng(-34, 151);
-                googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker Title").snippet("Marker Description"));
-
-                // For zooming automatically to the location of the marker
-/*                CameraPosition cameraPosition = new CameraPosition.Builder().target(sydney).zoom(12).build();
-                googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));*/
-            }
-        });
 
         // Inflate the layout for this fragment
         return rootView;
@@ -178,9 +167,8 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
             textHash.setText(data.getString(1));
             textHash.setSingleLine(false); // Make it multiline
             textHash.setTextColor(Color.RED);
-            textHash.setBackgroundColor(Color.WHITE); // Set the background white
-            //textHash.setWidth(150);
             textHash.setTextSize(19);
+            textHash.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         }
         RelativeLayout.LayoutParams relativeLayoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
                 RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -193,18 +181,17 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
             TextView textRelayedBy = (TextView) rootView.findViewById(R.id.transactionRelayedBy);
             textRelayedBy.setText(data.getString(3));
             textRelayedBy.setTextColor(Color.GREEN);
-            textRelayedBy.setBackgroundColor(Color.WHITE); // Set the background white
             textRelayedBy.setSingleLine(false); // Make it multiline
-            //textRelayedBy.setWidth(150);
-            textRelayedBy.setPadding(0, 50, 0, 0);
             textRelayedBy.setTextSize(19);
+            textRelayedBy.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            RelativeLayout.LayoutParams relativeLayoutParams2 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT);
+            relativeLayoutParams2.addRule(RelativeLayout.ALIGN_BASELINE, R.id.transactionRelayedByLabel);
+            relativeLayoutParams2.addRule(RelativeLayout.ALIGN_START, R.id.transactionHash);
+            relativeLayoutParams2.addRule(RelativeLayout.ALIGN_END, R.id.transactionHash);
+            relativeLayoutParams2.addRule(RelativeLayout.END_OF, R.id.transactionRelayedByLabel);
+            textRelayedBy.setLayoutParams(relativeLayoutParams2);
         }
-
-        RelativeLayout.LayoutParams relativeLayoutParams2 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT,
-                RelativeLayout.LayoutParams.WRAP_CONTENT);
-        relativeLayoutParams2.addRule(RelativeLayout.ALIGN_TOP, R.id.transactionRelayedBy);
-        relativeLayoutParams2.addRule(RelativeLayout.ALIGN_BOTTOM, R.id.transactionRelayedBy);
-        rootView.findViewById(R.id.transactionRelayedByLabel).setLayoutParams(relativeLayoutParams2);
 
         AdView mAdView = (AdView) rootView.findViewById(R.id.adViewDetail);
         // Create an ad request. Check logcat output for the hashed device ID to
@@ -216,8 +203,23 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
                 .build();
         mAdView.loadAd(adRequest);
 
+        // For dropping a marker at a point on the Map
+        currentLocation = new LatLng(data.getDouble(5),data.getDouble(6));
+        mMapView.getMapAsync(this);
 
+/*        RelativeLayout.LayoutParams relativeLayoutParams3 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.MATCH_PARENT);
+        relativeLayoutParams3.addRule(RelativeLayout.BELOW, R.id.transactionRelayedBy);
+        relativeLayoutParams3.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+        mMapView.setLayoutParams(relativeLayoutParams3);*/
+    }
 
+    // Override this method for when the map is ready
+    @Override
+    public void onMapReady(GoogleMap map) {
+        // Add a marker to current location
+        Marker marker = map.addMarker(new MarkerOptions().position(currentLocation).title("Relayed By IP Location").snippet("Location based on the Relayed By IP Address of the current transaction"));
+        map.animateCamera(CameraUpdateFactory.newLatLng(currentLocation));
     }
 
     /**

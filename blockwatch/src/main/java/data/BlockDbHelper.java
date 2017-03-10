@@ -25,7 +25,7 @@ public class BlockDbHelper extends SQLiteOpenHelper {    /*
      * If you change the database schema, you must increment the database version or the onUpgrade
      * method will not be called.
      */
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 10;
 
     public BlockDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -54,12 +54,12 @@ public class BlockDbHelper extends SQLiteOpenHelper {    /*
                  * named "_ID". We use that here to designate our table's primary key.
                  */
                         BlockContract.BlockEntry._ID               + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        BlockContract.BlockEntry.COLUMN_HASH        + " TEXT NOT NULL, "                    +
+                        BlockContract.BlockEntry.COLUMN_HASH       + " TEXT NOT NULL, "                     +
                         BlockContract.BlockEntry.COLUMN_LOCK_TIME  + " INTEGER NOT NULL, "                  +
-                        BlockContract.BlockEntry.COLUMN_RELAYED_BY + " TEXT NOT NULL, "                  +
-                        BlockContract.BlockEntry.COLUMN_VER       + " INTEGER NOT NULL, "                  +
-                        //BlockContract.BlockEntry.COLUMN_BLOCK_HEIGHT       + " INTEGER NOT NULL, "                  + // Looks like this sometimes doesn't show up in the JSON response and throws errors.
-
+                        BlockContract.BlockEntry.COLUMN_RELAYED_BY + " TEXT NOT NULL, "                     +
+                        BlockContract.BlockEntry.COLUMN_VER        + " INTEGER NOT NULL, "                  +
+                        BlockContract.BlockEntry.COLUMN_LATITUDE   + " REAL NOT NULL, "                     +
+                        BlockContract.BlockEntry.COLUMN_LONGITUDE  + " REAL NOT NULL, "                     +
 
                 /*
                  * To ensure this table can only contain one block entry per date, we declare

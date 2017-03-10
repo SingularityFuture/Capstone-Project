@@ -15,6 +15,10 @@ import data.BlockContract;
 
 public class BlockchainSyncTask {
 
+    private static final String LATITUDE = "latitude";
+    private static final String LONGITUDE= "longitude";
+    private static final String RELAYED_BY = "relayed_by";
+
     /**
      * Performs the network request for updated transaction, parses the JSON from that request, and
      * inserts the new transaction information into our ContentProvider. Will notify the user that new
@@ -27,19 +31,33 @@ public class BlockchainSyncTask {
     synchronized static public void syncTransaction(Context context, String currentHash) {
         try {
             /*
-             * The getUrl method will return the URL that we need to get the forecast JSON for the
-             * transaction. It will decide whether to create a URL based off of the latitude and
-             * longitude or off of a simple location as a String.
+             * The getUrl method will return the URL that we need to get the JSON for the
+             * transaction based on its hash.
              */
-            URL transactionRequestUrl = NetworkUtils.getUrl(context, currentHash);
+            URL transactionRequestUrl = NetworkUtils.getUrl(currentHash);
 
             /* Use the URL to retrieve the JSON */
             String jsonTransactionResponse = NetworkUtils.getResponseFromHttpUrl(transactionRequestUrl);
 
-            Log.d("response: ", jsonTransactionResponse);
+            Log.d("Transaction Response: ", jsonTransactionResponse);
             /* Parse the JSON into a list of transaction values */
             ContentValues transactionValues = TransactionJsonUtils
-                    .getTransactionValuesFromJson(context, jsonTransactionResponse);
+                    .getTransactionValuesFromJson(jsonTransactionResponse);
+
+            /*
+             * The getUrl method will return the URL that we need to get the location JSON for the
+             * transaction, based on its Relayed By IP address
+            */
+            URL latLongRequestUrl = NetworkUtils.getUrl(transactionValues.getAsString(RELAYED_BY));
+
+            /* Use the URL to retrieve the JSON */
+            String jsonLatLongResponse = NetworkUtils.getResponseFromHttpUrl(latLongRequestUrl);
+
+            Log.d("Lat/Long Response: ", jsonLatLongResponse);
+            ContentValues latLongValues = TransactionJsonUtils.getLatLongValuesFromJson(jsonLatLongResponse);
+            /* Put the lat/long values into the Content Values for insertino in the database */
+            transactionValues.put(BlockContract.BlockEntry.COLUMN_LATITUDE, latLongValues.getAsString(LATITUDE));
+            transactionValues.put(BlockContract.BlockEntry.COLUMN_LONGITUDE, latLongValues.getAsString(LONGITUDE));
 
             /*
              * In cases where our JSON contained an error code, gettransactionContentValuesFromJson

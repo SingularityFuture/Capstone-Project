@@ -43,20 +43,16 @@
         android:textSize="30sp"
         />
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/transactionRelayedBy"
-        android:layout_below="@id/transactionHash"
-        android:layout_toEndOf="@id/transactionRelayedByLabel"
         />
 
     <com.google.android.gms.maps.MapView
         android:id="@+id/map"
-        android:layout_below="@id/transactionRelayedBy"
+        android:layout_below="@id/transactionRelayedByLabel"
         android:layout_width="match_parent"
         android:layout_height="360dp"
-        android:gravity="center"
-        android:layout_centerVertical="true"
          />
 
 </RelativeLayout>

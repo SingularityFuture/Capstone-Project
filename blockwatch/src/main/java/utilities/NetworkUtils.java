@@ -3,9 +3,9 @@ package utilities;
 /**
  * Created by Michael on 2/26/2017.
  */
-import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -23,25 +23,37 @@ public final class NetworkUtils {
     private static final String BLOCKCHAIN_URL =
             "https://blockchain.info/rawtx/";
 
-    public static URL getUrl(Context context, String transactionHash) {
+    private static final String LATLONG_URL =
+            "http://freegeoip.net/json/";
+
+    public static URL getUrl(String transactionHash) {
         return buildTransactionUrl(transactionHash);
     }
 
     /**
      * Builds the URL used to talk to the blockchain.info server using the selected transaction hash
      *
-     * @param transactionHash  The hash of the selected transaction
+     * @param UrlAppend  The hash of the selected transaction  //  Also, the IP address to query latitude and longitude
      * @return The Url to use to query the blockchain server.
      */
-    private static URL buildTransactionUrl(String transactionHash) {
-        Uri transactionQueryUri = Uri.parse(BLOCKCHAIN_URL).buildUpon()
-                .appendPath(transactionHash)
-                .build();
+    private static URL buildTransactionUrl(String UrlAppend) {
+        Uri queryUri;
+
+        if(UrlAppend.indexOf('.')<0){
+            queryUri = Uri.parse(BLOCKCHAIN_URL).buildUpon()
+                    .appendPath(UrlAppend)
+                    .build();
+        }
+        else{
+            queryUri = Uri.parse(LATLONG_URL).buildUpon()
+                    .appendPath(UrlAppend)
+                    .build();
+        }
 
         try {
-            URL transactionQueryUrl = new URL(transactionQueryUri.toString());
-            Log.v(TAG, "URL: " + transactionQueryUri);
-            return transactionQueryUrl;
+            URL queryUrl = new URL(queryUri.toString());
+            Log.v(TAG, "URL: " + queryUri);
+            return queryUrl;
         } catch (MalformedURLException e) {
             e.printStackTrace();
             return null;

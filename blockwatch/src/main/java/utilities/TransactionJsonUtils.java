@@ -5,7 +5,6 @@ package utilities;
  */
 
 import android.content.ContentValues;
-import android.content.Context;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,14 +21,15 @@ public final class TransactionJsonUtils {
     private static final String VER = "ver";
     private static final String LOCK_TIME= "lock_time";
     private static final String RELAYED_BY = "relayed_by";
-    //private static final String BLOCK_HEIGHT = "block_height";
+    private static final String LATITUDE = "latitude";
+    private static final String LONGITUDE= "longitude";
 
     /**
      * This method parses JSON from a web response and returns an array of Strings
      * describing the transaction.
      */
     
-    public static ContentValues getTransactionValuesFromJson(Context context, String transactionJsonStr)
+    public static ContentValues getTransactionValuesFromJson(String transactionJsonStr)
             throws JSONException {
 
         JSONObject transactionJson = new JSONObject(transactionJsonStr);
@@ -57,5 +57,30 @@ public final class TransactionJsonUtils {
         transactionContentValues.put(BlockContract.BlockEntry.COLUMN_RELAYED_BY, relayedBy);
 
         return transactionContentValues; // Return the Content Values so you can insert them into the database using the database helper
+    }
+
+    /**
+     * This method parses JSON from a web response and returns an array of Strings
+     * describing the latitude and longitude of the 'Relayed By' field of the current transaction.
+     */
+    public static ContentValues getLatLongValuesFromJson(String latLongJsonStr)
+            throws JSONException {
+
+        JSONObject latLongJson = new JSONObject(latLongJsonStr);
+        double latitude = 0;
+        double longitude = 0;
+
+        if(!latLongJson.isNull(LATITUDE)) {
+            latitude = Double.valueOf(latLongJson.getString(LATITUDE));  // Get each element from the JSON object
+        }
+        if(!latLongJson.isNull(LONGITUDE)){
+            longitude = Double.valueOf(latLongJson.getString(LONGITUDE));  // Get each element from the JSON object
+        }
+
+        ContentValues latLongValues = new ContentValues(); // Put each element in a set of Content Values
+        latLongValues.put(BlockContract.BlockEntry.COLUMN_LATITUDE, latitude);
+        latLongValues.put(BlockContract.BlockEntry.COLUMN_LONGITUDE, longitude);
+
+        return latLongValues; // Return the Content Values so you can insert them into the database using the database helper
     }
 }

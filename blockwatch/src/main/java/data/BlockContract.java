@@ -57,5 +57,7 @@ import android.provider.BaseColumns;
             public static final String COLUMN_RELAYED_BY = "relayed_by";
             public static final String COLUMN_BLOCK_HEIGHT = "block_height";
             public static final String COLUMN_TX_INDEX = "tx_index";
+            public static final String COLUMN_LATITUDE = "latitude";
+            public static final String COLUMN_LONGITUDE = "longitude";
         }
     }
