@@ -7,4 +7,6 @@
     <string name="relayed_by">Relayed By:</string>
     <string name="tx_hash">TX Hash:</string>
     <string name="dummy_hash">b5357533bf43d6793aa24d91d6a01055128bff64730627bbb3a512b04d2e9043</string>
+    <string name="sync_account_type">blockwatch.example.com</string>
+    <string name="content_authority">com.example.blockwatch</string>
 </resources>
