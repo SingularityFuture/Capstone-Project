@@ -24,7 +24,7 @@ import com.google.android.gms.ads.AdView;
  * 2/2017 Michael Mebane
  * Fragment that shows the main BlockWatch face on the mobile side
  */
-public class BlockwatchFragment extends Fragment implements View.OnClickListener {
+public class BlockwatchFragment extends Fragment implements View.OnClickListener, LoaderManager.LoaderCallbacks<Cursor>{
     private OnFragmentInteractionListener mListener;
 
     PaintView pV;  // Declare paintView to put the watch in
@@ -51,6 +51,8 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /* This connects our Activity into the loader lifecycle. */
+        getLoaderManager().initLoader(ID_DETAIL_LOADER, null, this).forceLoad();
     }
 
     @Override

@@ -206,14 +206,6 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
         // For dropping a marker at a point on the Map
         currentLocation = new LatLng(data.getDouble(5),data.getDouble(6));
         mMapView.getMapAsync(this);
-
-
-
-/*        RelativeLayout.LayoutParams relativeLayoutParams3 = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
-                RelativeLayout.LayoutParams.MATCH_PARENT);
-        relativeLayoutParams3.addRule(RelativeLayout.BELOW, R.id.transactionRelayedBy);
-        relativeLayoutParams3.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-        mMapView.setLayoutParams(relativeLayoutParams3);*/
     }
 
     // Override this method for when the map is ready

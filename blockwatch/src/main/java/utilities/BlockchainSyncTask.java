@@ -60,7 +60,7 @@ public class BlockchainSyncTask {
             transactionValues.put(BlockContract.BlockEntry.COLUMN_LONGITUDE, latLongValues.getAsString(LONGITUDE));
 
             /*
-             * In cases where our JSON contained an error code, gettransactionContentValuesFromJson
+             * In cases where our JSON contained an error code, getTransactionValuesFromJson
              * would have returned null. We need to check for those cases here to prevent any
              * NullPointerExceptions being thrown. We also have no reason to insert fresh data if
              * there isn't any to insert.
