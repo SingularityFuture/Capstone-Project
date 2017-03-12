@@ -37,7 +37,7 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
     View rootView; // Declare rootView
     RelativeLayout layout; // Declare layout that will access fragment layout
     String callBack_result; // Temp variable to make sure callback fragment listener works
-    String currentHash; // Store the updated transaction hash here
+    //String currentHash; // Store the updated transaction hash here
 
     private static final int ID_BLOCKWATCH_LOADER = 444;
 
@@ -53,7 +53,7 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
      */
     public BlockwatchFragment newInstance(String currentHash) {
         BlockwatchFragment fragment = new BlockwatchFragment();
-        fragment.currentHash = currentHash; // Put the current hash into this instance's member variable
+        //fragment.currentHash = currentHash; // Put the current hash into this instance's member variable
         return fragment;
     }
 
@@ -85,18 +85,6 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
                 .addTestDevice("TEST_DEVICE_ID")
                 .build();
         mAdView.loadAd(adRequest);
-
-        pV=new PaintView(getActivity(),currentHash); // Create a new paint view for the watch face
-        RelativeLayout.LayoutParams paramsPaint = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT); // Set width and height
-        pV.setBackgroundColor(Color.TRANSPARENT); // Set the background white
-        pV.setLayoutParams(paramsPaint); // Apply the layout width and height
-        if(android.os.Build.VERSION.SDK_INT>20)
-            pV.setElevation(200); // Set elevation if SDK > 20
-        int newID = pV.generateViewId(); // Generate a new unique ID
-        pV.setId(newID); // Set the ID here
-        pV.setSaveEnabled(true); // Make sure it saves its state
-        pV.setOnClickListener(this); // Set the onClick listener to call back to the activity
-        layout.addView(pV); // Add the view to the fragment layout
 
         // Inflate the layout for this fragment
         return rootView;
@@ -183,7 +171,20 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
         }
         layout = (RelativeLayout) rootView.findViewById(R.id.transaction_fragment_layout);
 
+        // This represents the current transaction hash
         if (!data.isNull(1)) {
+            String currentHash = data.getString(1);
+            pV=new PaintView(getActivity(),currentHash); // Create a new paint view for the watch face
+            RelativeLayout.LayoutParams paramsPaint = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT); // Set width and height
+            pV.setBackgroundColor(Color.TRANSPARENT); // Set the background white
+            pV.setLayoutParams(paramsPaint); // Apply the layout width and height
+            if(android.os.Build.VERSION.SDK_INT>20)
+                pV.setElevation(200); // Set elevation if SDK > 20
+            int newID = pV.generateViewId(); // Generate a new unique ID
+            pV.setId(newID); // Set the ID here
+            pV.setSaveEnabled(true); // Make sure it saves its state
+            pV.setOnClickListener(this); // Set the onClick listener to call back to the activity
+            layout.addView(pV); // Add the view to the fragment layout
         }
     }
 
