@@ -222,6 +222,7 @@ public class BlockwatchSyncAdapter extends AbstractThreadedSyncAdapter {
         syncImmediately(context);
     }
 
+    // This is called in the onCreate method of Main Activity to start off the sync
     public static void initializeSyncAdapter(Context context) {
         getSyncAccount(context);
     }

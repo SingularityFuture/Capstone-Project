@@ -17,6 +17,7 @@ import com.google.android.gms.ads.MobileAds;
 
 import data.BlockContract;
 import data.BlockExplorerClass;
+import sync.BlockwatchSyncAdapter;
 import utilities.BlockchainSyncIntentService;
 
 public class MainActivity extends AppCompatActivity implements BlockwatchFragment.OnFragmentInteractionListener, View.OnClickListener{
@@ -51,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
             Intent intentToSyncImmediately = new Intent(this, BlockchainSyncIntentService.class); // Update the ContentProvider with this hash
             intentToSyncImmediately.putExtra("currentHash", hash); // Put the hash here so you can get the correct one in the sync service
             this.startService(intentToSyncImmediately);
+
+            BlockwatchSyncAdapter.initializeSyncAdapter(this);
 
             watchFragment = new BlockwatchFragment().newInstance(hash); // Add the watch fragment here, passing the context as an implementation of the fragment listener
             watchFragment.setRetainInstance(true); // Do this so that it retains the member variable holding the hash
