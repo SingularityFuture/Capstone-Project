@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
     private static final String WATCH_FRAGMENT_TAG = "watch_fragment"; // Create a tag to keep track of created fragments
     private String hash = "b5357533bf43d6793aa24d91d6a01055128bff64730627bbb3a512b04d2e9043"; //getString(R.string.dummy_hash); // Start with a dummy hash in case of any network error
 
+    private boolean mTwoPane;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,18 +44,10 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
         fab.setOnClickListener(this);
 
         if (getSupportFragmentManager().findFragmentByTag(WATCH_FRAGMENT_TAG) == null) { // If the fragment doesn't exist yet,
-            try {
-                hash =  BlockExplorerClass.retrieveUnconfirmedTransactions(); // Update the watch at the beginning with a fresh hash
-            }
-            catch (Exception e){
-                Log.d("Explorer error: ", e.getMessage());
-            }
-
-            Intent intentToSyncImmediately = new Intent(this, BlockchainSyncIntentService.class); // Update the ContentProvider with this hash
-            intentToSyncImmediately.putExtra("currentHash", hash); // Put the hash here so you can get the correct one in the sync service
-            this.startService(intentToSyncImmediately);
 
             BlockwatchSyncAdapter.initializeSyncAdapter(this);
+
+
 
             watchFragment = new BlockwatchFragment().newInstance(hash); // Add the watch fragment here, passing the context as an implementation of the fragment listener
             watchFragment.setRetainInstance(true); // Do this so that it retains the member variable holding the hash

@@ -12,6 +12,7 @@ import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.google.android.gms.ads.AdRequest;
@@ -35,7 +36,7 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
 
     PaintView pV;  // Declare paintView to put the watch in
     View rootView; // Declare rootView
-    RelativeLayout layout; // Declare layout that will access fragment layout
+    FrameLayout layout; // Declare layout that will access fragment layout
     String callBack_result; // Temp variable to make sure callback fragment listener works
     //String currentHash; // Store the updated transaction hash here
 
@@ -74,7 +75,7 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         rootView =inflater.inflate(R.layout.fragment_blockwatch, container, false);
-        layout = (RelativeLayout) rootView.findViewById(R.id.watch_fragment_layout);
+        layout = (FrameLayout) rootView.findViewById(R.id.watch_fragment_layout);
 
         AdView mAdView = (AdView) layout.findViewById(R.id.adView);
         // Create an ad request. Check logcat output for the hashed device ID to
@@ -169,7 +170,7 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
             /* No data to display, simply return and do nothing */
             return;
         }
-        layout = (RelativeLayout) rootView.findViewById(R.id.transaction_fragment_layout);
+        //layout = (RelativeLayout) rootView.findViewById(R.id.transaction_fragment_layout);
 
         // This represents the current transaction hash
         if (!data.isNull(1)) {

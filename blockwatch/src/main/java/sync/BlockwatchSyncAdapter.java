@@ -6,57 +6,32 @@ package sync;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.AbstractThreadedSyncAdapter;
 import android.content.ContentProviderClient;
 import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.SyncRequest;
 import android.content.SyncResult;
-import android.content.res.Resources;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
-import android.text.format.Time;
 import android.util.Log;
 
-import com.example.blockwatch.BuildConfig;
-import com.example.blockwatch.MainActivity;
 import com.example.blockwatch.R;
+
+import java.net.URL;
+
 import data.BlockContract;
 import data.BlockExplorerClass;
 import utilities.NetworkUtils;
 import utilities.TransactionJsonUtils;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.Vector;
-
 public class BlockwatchSyncAdapter extends AbstractThreadedSyncAdapter {
     public final String LOG_TAG = BlockwatchSyncAdapter.class.getSimpleName();
     // Interval at which to sync with the blockchain transaction, in seconds.
     // 5 seconds
-    public static final int SYNC_INTERVAL = 5;
-    public static final int SYNC_FLEXTIME = SYNC_INTERVAL/3;
+    public static final long SYNC_INTERVAL = 5/12;
+    public static final long SYNC_FLEXTIME = SYNC_INTERVAL/3;
 
     private static final String LATITUDE = "latitude";
     private static final String LONGITUDE= "longitude";
@@ -103,7 +78,7 @@ public class BlockwatchSyncAdapter extends AbstractThreadedSyncAdapter {
 
             Log.d("Lat/Long Response: ", jsonLatLongResponse);
             ContentValues latLongValues = TransactionJsonUtils.getLatLongValuesFromJson(jsonLatLongResponse);
-            /* Put the lat/long values into the Content Values for insertino in the database */
+            /* Put the lat/long values into the Content Values for insertion in the database */
             transactionValues.put(BlockContract.BlockEntry.COLUMN_LATITUDE, latLongValues.getAsString(LATITUDE));
             transactionValues.put(BlockContract.BlockEntry.COLUMN_LONGITUDE, latLongValues.getAsString(LONGITUDE));
 
@@ -138,7 +113,7 @@ public class BlockwatchSyncAdapter extends AbstractThreadedSyncAdapter {
     /**
      * Helper method to schedule the sync adapter periodic execution
      */
-    public static void configurePeriodicSync(Context context, int syncInterval, int flexTime) {
+    public static void configurePeriodicSync(Context context, long syncInterval, long flexTime) {
         Account account = getSyncAccount(context);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             // we can enable inexact timers in our periodic sync
