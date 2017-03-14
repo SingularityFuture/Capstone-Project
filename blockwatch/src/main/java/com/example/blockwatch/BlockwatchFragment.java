@@ -77,16 +77,6 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
         rootView =inflater.inflate(R.layout.fragment_blockwatch, container, false);
         layout = (FrameLayout) rootView.findViewById(R.id.watch_fragment_layout);
 
-        AdView mAdView = (AdView) layout.findViewById(R.id.adView);
-        // Create an ad request. Check logcat output for the hashed device ID to
-        // get test ads on a physical device. e.g.
-        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("TEST_DEVICE_ID")
-                .build();
-        mAdView.loadAd(adRequest);
-
         // Inflate the layout for this fragment
         return rootView;
     }
@@ -172,6 +162,16 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
         }
         //layout = (RelativeLayout) rootView.findViewById(R.id.transaction_fragment_layout);
 
+        AdView mAdView = (AdView) layout.findViewById(R.id.adView);
+        // Create an ad request. Check logcat output for the hashed device ID to
+        // get test ads on a physical device. e.g.
+        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("TEST_DEVICE_ID")
+                .build();
+        mAdView.loadAd(adRequest);
+
         // This represents the current transaction hash
         if (!data.isNull(1)) {
             String currentHash = data.getString(1);
@@ -187,6 +187,8 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
             pV.setOnClickListener(this); // Set the onClick listener to call back to the activity
             layout.addView(pV); // Add the view to the fragment layout
         }
+
+
     }
 
     /**

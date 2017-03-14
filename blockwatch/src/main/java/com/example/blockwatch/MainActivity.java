@@ -1,6 +1,7 @@
 package com.example.blockwatch;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
@@ -15,6 +16,8 @@ import android.view.View;
 
 import com.google.android.gms.ads.MobileAds;
 
+import java.net.URI;
+
 import data.BlockContract;
 import data.BlockExplorerClass;
 import sync.BlockwatchSyncAdapter;
@@ -23,7 +26,9 @@ import utilities.BlockchainSyncIntentService;
 public class MainActivity extends AppCompatActivity implements BlockwatchFragment.OnFragmentInteractionListener, View.OnClickListener{
 
     private Fragment watchFragment; // Declare the fragment you will include
+    private Fragment transactionFragment; // Declare the fragment you will include
     private static final String WATCH_FRAGMENT_TAG = "watch_fragment"; // Create a tag to keep track of created fragments
+    private static final String TRANSACTION_FRAGMENT_TAG = "transaction_fragment";
     private String hash = "b5357533bf43d6793aa24d91d6a01055128bff64730627bbb3a512b04d2e9043"; //getString(R.string.dummy_hash); // Start with a dummy hash in case of any network error
 
     private boolean mTwoPane;
@@ -47,8 +52,6 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
 
             BlockwatchSyncAdapter.initializeSyncAdapter(this);
 
-
-
             watchFragment = new BlockwatchFragment().newInstance(hash); // Add the watch fragment here, passing the context as an implementation of the fragment listener
             watchFragment.setRetainInstance(true); // Do this so that it retains the member variable holding the hash
             getSupportFragmentManager().beginTransaction().add(R.id.transaction_fragment,watchFragment,WATCH_FRAGMENT_TAG).commit(); // Add the fragment to the transaction
@@ -57,6 +60,31 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
         else {
            watchFragment = getSupportFragmentManager().findFragmentByTag(WATCH_FRAGMENT_TAG); // Else if it exists
            getSupportFragmentManager().beginTransaction().replace(R.id.transaction_fragment,watchFragment,WATCH_FRAGMENT_TAG).commit(); // Replace the fragment with the current one
+        }
+
+        if (findViewById(R.id.transaction_fragment) != null) {
+            // The detail container view will be present only in the large-screen layouts
+            // (res/layout-sw600dp). If this view is present, then the activity should be
+            // in two-pane mode.
+            mTwoPane = true;
+            // In two-pane mode, show the detail view in this activity by
+            // adding or replacing the detail fragment using a
+            // fragment transaction.
+            if (getSupportFragmentManager().findFragmentByTag(TRANSACTION_FRAGMENT_TAG) == null) {
+                transactionFragment = new TransactionFragment().newInstance(BlockContract.BlockEntry.CONTENT_URI); // Add the transaction fragment here, passing the context as an implementation of the fragment listener
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.transaction_fragment, transactionFragment, TRANSACTION_FRAGMENT_TAG)
+                        .commit();
+            }
+            else{
+                transactionFragment = getSupportFragmentManager().findFragmentByTag(TRANSACTION_FRAGMENT_TAG); // Else if it exists
+
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.transaction_fragment, transactionFragment, TRANSACTION_FRAGMENT_TAG)
+                        .commit();
+            }
+        } else {
+            mTwoPane = false;
         }
         MobileAds.initialize(getApplicationContext(), "ca-app-pub-3940256099942544~3347511713");
     }
