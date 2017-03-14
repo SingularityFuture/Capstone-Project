@@ -4,9 +4,9 @@
       <root url="jar://$PROJECT_DIR$/blockwatchface/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="file://$USER_HOME$/.android/build-cache/c5280668f7ca7637cacb289b5f328de472a53388/output/res" />
-      <root url="jar://$USER_HOME$/.android/build-cache/c5280668f7ca7637cacb289b5f328de472a53388/output/jars/libs/internal_impl-24.0.0.jar!/" />
-      <root url="jar://$USER_HOME$/.android/build-cache/c5280668f7ca7637cacb289b5f328de472a53388/output/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.android/build-cache/fc250547cbb33f931ad252d36206971a59168f13/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/fc250547cbb33f931ad252d36206971a59168f13/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/fc250547cbb33f931ad252d36206971a59168f13/output/jars/libs/internal_impl-24.0.0.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
