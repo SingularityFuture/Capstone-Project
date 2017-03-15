@@ -42,8 +42,6 @@
         <provider android:name="data.BlockProvider" android:authorities="com.example.blockwatch" android:syncable="true">
         </provider>
 
-        <service android:enabled="true" android:name="utilities.BlockchainSyncIntentService"></service>
-
         <!-- SyncAdapter's dummy authentication service -->
         <service android:name="sync.BlockwatchAuthenticatorService">
             <intent-filter>
