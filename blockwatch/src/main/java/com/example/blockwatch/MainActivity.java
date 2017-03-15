@@ -1,7 +1,6 @@
 package com.example.blockwatch;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
@@ -15,8 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.gms.ads.MobileAds;
-
-import java.net.URI;
 
 import data.BlockContract;
 import data.BlockExplorerClass;
@@ -62,7 +59,8 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
            getSupportFragmentManager().beginTransaction().replace(R.id.transaction_fragment,watchFragment,WATCH_FRAGMENT_TAG).commit(); // Replace the fragment with the current one
         }
 
-        if (findViewById(R.id.transaction_fragment) != null) {
+        boolean isTablet = getResources().getBoolean(R.bool.isTablet);
+        if (isTablet) {
             // The detail container view will be present only in the large-screen layouts
             // (res/layout-sw600dp). If this view is present, then the activity should be
             // in two-pane mode.
