@@ -4,9 +4,11 @@
     <string name="transaction_detail">Transaction Detail</string>
     <string name="fab_text">Transaction Hash Refreshed</string>
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="relayed_by">Relayed By:</string>
-    <string name="tx_hash">TX Hash:</string>
+    <string name="relayed_by">Relayed By: </string>
+    <string name="tx_hash">TX Hash: </string>
     <string name="dummy_hash">b5357533bf43d6793aa24d91d6a01055128bff64730627bbb3a512b04d2e9043</string>
     <string name="sync_account_type">blockwatch.example.com</string>
     <string name="content_authority">com.example.blockwatch</string>
+    <string name="title_widget_">Blockwatch</string>
+    <string name="Transaction">Transaction</string>
 </resources>
