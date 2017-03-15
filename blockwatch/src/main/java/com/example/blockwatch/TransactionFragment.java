@@ -34,7 +34,6 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
 
     View rootView; // Declare rootView
     RelativeLayout layout; // Declare layout that will access fragment layout
-    private String currentHash = ""; // Set default version of the transaction
     private Uri mURI; // Declare URI for loader query
 
     MapView mMapView;

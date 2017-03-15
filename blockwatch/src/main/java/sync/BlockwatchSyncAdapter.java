@@ -11,6 +11,7 @@ import android.content.ContentProviderClient;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SyncRequest;
 import android.content.SyncResult;
 import android.os.Build;
@@ -37,6 +38,9 @@ public class BlockwatchSyncAdapter extends AbstractThreadedSyncAdapter {
     private static final String LONGITUDE= "longitude";
     private static final String RELAYED_BY = "relayed_by";
     private String currentHash;
+
+    public static final String ACTION_DATA_UPDATED =
+            "com.example.blockwatch.ACTION_DATA_UPDATED";
 
     public BlockwatchSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
@@ -102,12 +106,24 @@ public class BlockwatchSyncAdapter extends AbstractThreadedSyncAdapter {
                 transactionContentResolver.insert(
                         BlockContract.BlockEntry.CONTENT_URI,
                         transactionValues);
+
+                // Call the service to update the widgets
+                updateWidgets();
             }
         } catch (Exception e) {
             /* Server probably invalid */
             e.printStackTrace();
         }
         return;
+    }
+
+    // Update the widget information
+    private void updateWidgets() {
+        Context context = getContext();
+        // Setting the package ensures that only components in our app will receive the broadcast
+        Intent dataUpdatedIntent = new Intent(ACTION_DATA_UPDATED)
+                .setPackage(context.getPackageName());
+        context.sendBroadcast(dataUpdatedIntent);
     }
 
     /**

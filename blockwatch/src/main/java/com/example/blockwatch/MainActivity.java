@@ -18,7 +18,6 @@ import com.google.android.gms.ads.MobileAds;
 import data.BlockContract;
 import data.BlockExplorerClass;
 import sync.BlockwatchSyncAdapter;
-import utilities.BlockchainSyncIntentService;
 
 public class MainActivity extends AppCompatActivity implements BlockwatchFragment.OnFragmentInteractionListener, View.OnClickListener{
 
@@ -115,9 +114,11 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
                 .setAction("action", null).show();
         try {
             hash =  BlockExplorerClass.retrieveUnconfirmedTransactions(); // Get a fresh hash
-            Intent intentToSyncImmediately = new Intent(this, BlockchainSyncIntentService.class); // Update the ContentProvider with this hash3
+            /*Intent intentToSyncImmediately = new Intent(this, BlockchainSyncIntentService.class); // Update the ContentProvider with this hash3
             intentToSyncImmediately.putExtra("currentHash", hash); // Update the intent with a new hash
             this.startService(intentToSyncImmediately); // Sync the database with new information from the JSON query
+*/
+            BlockwatchSyncAdapter.syncImmediately(this);
             watchFragment = new BlockwatchFragment().newInstance(hash); // Create a new watch fragment with a new hash
             getSupportFragmentManager().beginTransaction().replace(R.id.transaction_fragment,watchFragment,WATCH_FRAGMENT_TAG).commit(); // Replace the fragment with the current one with a new hash
         }
