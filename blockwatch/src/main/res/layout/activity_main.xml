@@ -11,13 +11,13 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay" android:background="@android:color/black">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="@android:color/black"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             android:contentDescription="@string/main_screen_toolbar"
             />
@@ -31,7 +31,10 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@drawable/ic_action_refresh_light"
-        android:contentDescription="@string/refresh_transaction_hash"/>
+        android:contentDescription="@string/refresh_transaction_hash"
+        app:backgroundTint="@android:color/black"
+        android:tint="@android:color/white"
+        />
 
     <fragment
         android:id="@+id/transaction_fragment"

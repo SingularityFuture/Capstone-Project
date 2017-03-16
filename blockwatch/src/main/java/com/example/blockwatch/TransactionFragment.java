@@ -2,6 +2,7 @@ package com.example.blockwatch;
 
 import android.content.SyncAdapterType;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.net.Uri;
@@ -10,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,8 +26,11 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import static com.google.android.gms.internal.zzt.TAG;
 
 /**
  * Created by Michael on 2/16/2017.
@@ -179,7 +184,7 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
             // Relayed By IP text
             TextView textRelayedBy = (TextView) rootView.findViewById(R.id.transactionRelayedBy);
             textRelayedBy.setText(data.getString(3));
-            textRelayedBy.setTextColor(Color.GREEN);
+            textRelayedBy.setTextColor(Color.RED);
             textRelayedBy.setSingleLine(false); // Make it multiline
             textRelayedBy.setTextSize(19);
             textRelayedBy.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
@@ -212,6 +217,21 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
     public void onMapReady(GoogleMap map) {
         // Add a marker to current location
         Marker marker = map.addMarker(new MarkerOptions().position(currentLocation).title("Relayed By IP Location").snippet("Location based on the Relayed By IP Address of the current transaction"));
+        try {
+            // Customise the styling of the base map using a JSON object defined
+            // in a raw resource file.
+            boolean success = map.setMapStyle(
+                    MapStyleOptions.loadRawResourceStyle(
+                            getActivity(), R.raw.black_white_map_style));
+
+/*            boolean success = map.setMapStyle(new MapStyleOptions(getResources()
+                    .getString(R.string.black_white_map_style)));*/
+            if (!success) {
+                Log.e(TAG, "Style parsing failed.");
+            }
+        } catch (Resources.NotFoundException e) {
+            Log.e(TAG, "Can't find style. Error: ", e);
+        }
         map.animateCamera(CameraUpdateFactory.newLatLng(currentLocation));
     }
 

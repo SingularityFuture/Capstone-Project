@@ -15,6 +15,7 @@ import android.view.WindowManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -43,13 +44,21 @@ public class PaintView extends View {
     private float[] circleSpacing = {0.95f, 0.65f, 0.25f}; // Define the spacing of the circles used in the bounding rectangles
     private float centerX; // Declare the center x coordinate of all the circles
     private float centerY; // Declare the center y coordinate of all the circles
-    private float actionBarHeight; // Declare the height of the toolbar
+    float actionBarHeight; // Declare the height of the toolbar
     private float statusBarHeight; // Declare the height of the status bar
     private int[] startAngle = {0, 0, 0}; // Set the initial angles to 0; allows you to change any one later if you want it to move
     private int[] second = {0, 0, 0}; // Initialize second counter for all circles; only inner one should change
+    Calendar mCalendar;
+    String hour;
+    String minute;
+    String currentChar;
+    List<Boolean> hourDrawn = new ArrayList<>(Arrays.asList(false, false));;
+    List<Boolean> minuteDrawn = new ArrayList<>(Arrays.asList(false, false));
 
-    private int[] COLORS = { Color.YELLOW, Color.GREEN, Color.WHITE,
-            Color.CYAN, Color.RED }; // Define a set of colors used for drawing arcs around each character
+/*    private int[] COLORS = { Color.YELLOW, Color.GREEN, Color.WHITE,
+            Color.CYAN, Color.RED }; // Define a set of colors used for drawing arcs around each character*/
+
+    private int[] COLORS = {Color.BLACK, Color.WHITE}; // Create a simpler version here
 
     public PaintView(Context context, String currentHash) {
         super(context); // Call the superclass's (View) constructor
@@ -111,32 +120,77 @@ public class PaintView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        mCalendar = Calendar.getInstance();
+        hour = String.valueOf(mCalendar.get(Calendar.HOUR));  // Get the hour
+        if(hour.equals("0")){
+            hour="12"; // Change the hour from 0 to 12 to fix Java notation
+        }
+        minute = String.valueOf(mCalendar.get(Calendar.MINUTE)); // Get the minute
+        if(minute.length()==1){
+            minute="0"+minute; // If the minute is less than 9, add a 0 in the front of it.
+        }
+
+        // Reset everything to false so it redraws the time correctly
+        hourDrawn.set(0, false); hourDrawn.set(1, false);
+        minuteDrawn.set(0, false); minuteDrawn.set(1, false);
+        // Clear background with white rectangle since some former clock digits will extend past the circle
+        mPaintText.setColor(Color.WHITE);
+        canvas.drawRect(mOvalsF[0].left-3, mOvalsF[0].top-3, mOvalsF[0].right+3, mOvalsF[0].bottom+3, mPaintText); // Add white rectangle to back
+
         // All circles
         int charCount = 0; // Keep track of the character index
         for(int circle=0;circle<numberOfCircles;circle++){ // Go through each circle
             if(circle!=1 && second[circle]!=0)
                 continue; // If this is not the inner circle and you're not refreshing to mark a new minute, don't draw the circle
             int currentAngle = startAngle[circle]; // Start off the angle count the current moved angle
-            mPaintText.setTextSize(mTextHeight-circle*20); // Set text size, decreasing with each circle
             // Add 'shadow' highlight to bottom right of each circle
+            mPaintText.setColor(Color.BLACK);
             canvas.drawOval(mOvalsF[circle].left+10, mOvalsF[circle].top+10, mOvalsF[circle].right+10, mOvalsF[circle].bottom+10, mPaintText); // See if you can see an oval in the background
             for (int i = 0; i < degreesArray.get(circle).length; i++) // For each character in the current circle
             {
+                mPaintText.setTextSize(mTextHeight-circle*20); // Set text size, decreasing with each circle
                 if (i > 0) // Initial angles will be 0, or directly to the right
                     currentAngle += (int) degreesArray.get(circle)[i - 1]; // Get the current starting angle
                 mPaintText.setColor(COLORS[(i+circle)%COLORS.length]); // Set the color based on the color array, with an offset for each additional circle and an offset for the second count if the circle is keeping track of it
                 canvas.drawArc(mOvalsF[circle], currentAngle, degreesArray.get(circle)[i], true, mPaintText); // Draw an arc behind the current character
-                mPaintText.setColor(Color.BLACK); // Reset the color for the characters
-                // Measure the current character in the string
-                mPaintText.getTextBounds(String.valueOf(currentHash.charAt(charCount)), 0, String.valueOf(currentHash.charAt(charCount)).length(), bounds); // Measure the text
-                /** This angle will place the text in the center of the arc.
+                //mPaintText.setColor(Color.BLACK); // Reset the color for the characters
+                mPaintText.setColor(COLORS[(i+circle+1)%COLORS.length]); // Make the text either black or white, the reverse of the arc color
+                /* This angle will place the text in the center of the arc.
                 * @see <a href="http://stackoverflow.com/questions/15739009/draw-text-inside-an-arc-using-canvas/19352717?noredirect=1#comment71429997_19352717">Draw text inside an arc using canvas</a> */
                 float medianAngle = (currentAngle + (degreesArray.get(circle)[i] / 2f)) * (float) Math.PI / 180f;  // Go halfway between the current starting angle and the next angle, and convert to radians
-                canvas.drawText(String.valueOf(currentHash.charAt(charCount)), (float)(centerX + (radius*radiusSqueeze[circle]*circleSpacing[circle] * Math.cos(medianAngle))), (float)(centerY + (radius*radiusSqueeze[circle]*circleSpacing[circle] * Math.sin(medianAngle)))+ bounds.height() * 0.5f, mPaintText);
+                currentChar = String.valueOf(currentHash.charAt(charCount)); // Get the current character in the hash
+                if(currentChar.equals(String.valueOf(hour.charAt(0))) && !hourDrawn.get(0)){
+                    mPaintText.setTextSize(mTextHeight*2); // Make the hour really big
+                    mPaintText.setColor(Color.RED); // Make the color different
+                    hourDrawn.set(0, true); // Track that you've already drawn it
+                    if(hour.length()==1){
+                        currentChar=currentChar+":"; // Put a colon after the hour if it's only one number
+                    }
+                }
+                else if(hour.length()==2 && !hourDrawn.get(1)){
+                    if(currentChar.equals(String.valueOf(hour.charAt(1)))){ // If the current character matches the second number in the hour
+                        mPaintText.setTextSize(mTextHeight*1.8f); // Make the hour really big
+                        mPaintText.setColor(Color.RED);
+                        hourDrawn.set(1, true);
+                        currentChar=currentChar+":"; // Put a colon after the hour
+                    }
+                }
+                else if(currentChar.equals(String.valueOf(minute.charAt(0))) && !minuteDrawn.get(0)){
+                    mPaintText.setTextSize(mTextHeight*1.5f); // Make the hour really big
+                    mPaintText.setColor(Color.RED); // Make the color different
+                    minuteDrawn.set(0,true); // Track that you've already drawn it
+                }
+                else if(currentChar.equals(String.valueOf(minute.charAt(1))) && !minuteDrawn.get(0)){
+                    mPaintText.setTextSize(mTextHeight*1.3f); // Make the hour really big
+                    mPaintText.setColor(Color.RED); // Make the color different
+                    minuteDrawn.set(0,true); // Track that you've already drawn it
+                }
+                // Measure the current character in the string
+                mPaintText.getTextBounds(String.valueOf(currentHash.charAt(charCount)), 0, String.valueOf(currentHash.charAt(charCount)).length(), bounds); // Measure the text
+
+                canvas.drawText(currentChar, (float)(centerX + (radius*radiusSqueeze[circle]*circleSpacing[circle] * Math.cos(medianAngle))), (float)(centerY + (radius*radiusSqueeze[circle]*circleSpacing[circle] * Math.sin(medianAngle)))+ bounds.height() * 0.5f, mPaintText);
                 charCount++; // Increment the character count
             }
-            int one = 1;
-            one++;
         }
     }
 
