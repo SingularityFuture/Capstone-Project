@@ -11,4 +11,21 @@
     <string name="content_authority">com.example.blockwatch</string>
     <string name="title_widget_">Blockwatch</string>
     <string name="Transaction">Transaction</string>
+    <string name="blockwatch_main_screen">Blockwatch Main Screen</string>
+    <string name="main_screen_toolbar">Main Screen Toolbar</string>
+    <string name="refresh_transaction_hash">Refresh Transaction Hash</string>
+    <string name="watch_face">Watch Face</string>
+    <string name="watch_fragment">Watch Fragment</string>
+    <string name="google_ad">Google Ad</string>
+    <string name="transaction_hash_label">Transaction Hash Label</string>
+    <string name="transaction_hash">Transaction Hash</string>
+    <string name="transaction_relayed_by_label">Transaction Relayed By Label</string>
+    <string name="transaction_relayed_by_ip_address">Transaction Relayed By IP Address</string>
+    <string name="map_of_ip_address">Map of IP Address</string>
+    <string name="transaction_fragment">Transaction Fragment</string>
+    <string name="transaction_toolbar">Transaction Toolbar</string>
+    <string name="transaction_frame">Transaction Frame</string>
+    <string name="blockwatch_widget">Blockwatch Widget</string>
+    <string name="widget_layout">Widget Layout</string>
+    <string name="blockwatch_icon">Blockwatch Icon</string>
 </resources>

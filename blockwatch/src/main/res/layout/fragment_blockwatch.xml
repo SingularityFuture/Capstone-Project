@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.blockwatch.MainActivity"
-    android:id="@+id/watch_fragment_layout">
+    android:id="@+id/watch_fragment_layout"
+    android:contentDescription="@string/watch_fragment">
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
@@ -12,7 +13,8 @@
         android:layout_height="168dp"
         android:layout_below="@id/toolbar"
         ads:adSize="SMART_BANNER"
-        ads:adUnitId="@string/banner_ad_unit_id">
+        ads:adUnitId="@string/banner_ad_unit_id"
+        android:contentDescription="@string/google_ad">
     </com.google.android.gms.ads.AdView>
 
 </FrameLayout>

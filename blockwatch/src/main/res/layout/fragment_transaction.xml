@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.blockwatch.TransactionDetailActivity"
-    android:id="@+id/transaction_fragment_layout">
+    android:id="@+id/transaction_fragment_layout"
+    android:contentDescription="@string/transaction_fragment">
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adViewDetail"
@@ -12,7 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar_transaction"
         ads:adSize="SMART_BANNER"
-        ads:adUnitId="@string/banner_ad_unit_id">
+        ads:adUnitId="@string/banner_ad_unit_id"
+        android:contentDescription="@string/google_ad">
     </com.google.android.gms.ads.AdView>
 
     <TextView
@@ -24,6 +26,8 @@
         android:gravity="center"
         android:text="@string/tx_hash"
         android:textSize="30sp"
+        android:nextFocusUp="@id/toolbar_transaction"
+        android:contentDescription="@string/transaction_hash_label"
         />
     <TextView
         android:layout_width="wrap_content"
@@ -31,6 +35,8 @@
         android:id="@+id/transactionHash"
         android:layout_below="@id/adViewDetail"
         android:layout_toEndOf="@id/transactionHashLabel"
+        android:nextFocusUp="@id/transactionHashLabel"
+        android:contentDescription="@string/transaction_hash"
         />
     <TextView
         android:layout_width="wrap_content"
@@ -41,11 +47,15 @@
         android:text="@string/relayed_by"
         android:gravity="center"
         android:textSize="30sp"
+        android:nextFocusUp="@id/transactionHash"
+        android:contentDescription="@string/transaction_relayed_by_label"
         />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/transactionRelayedBy"
+        android:nextFocusUp="@id/transactionRelayedByLabel"
+        android:contentDescription="@string/transaction_relayed_by_ip_address"
         />
 
     <com.google.android.gms.maps.MapView
@@ -53,5 +63,7 @@
         android:layout_below="@id/transactionRelayedByLabel"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:nextFocusUp="@id/transactionRelayedBy"
+        android:contentDescription="@string/map_of_ip_address"
          />
 </RelativeLayout>

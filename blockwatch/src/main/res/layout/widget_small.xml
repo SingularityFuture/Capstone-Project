@@ -3,14 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/widget_margin">
+    android:padding="@dimen/widget_margin"
+    android:contentDescription="@string/blockwatch_widget">
 
     <RelativeLayout
         android:id="@+id/widget"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="4dp">
+        android:padding="4dp"
+        android:contentDescription="@string/widget_layout">
 
         <TextView
             android:layout_width="wrap_content"
@@ -19,6 +21,7 @@
             android:gravity="center"
             android:text="@string/tx_hash"
             android:textColor="@android:color/white"
+            android:contentDescription="@string/transaction_hash_label"
             />
         <ImageView
             android:id="@+id/widget_icon"
@@ -30,6 +33,8 @@
             android:layout_alignEnd="@id/transactionHashLabel"
             android:layout_below="@id/transactionHashLabel"
             tools:src="@drawable/blockwatchicon"
+            android:contentDescription="@string/blockwatch_icon"
+            android:nextFocusUp="@id/transactionHashLabel"
             />
         <TextView
             android:layout_width="wrap_content"
@@ -39,6 +44,8 @@
             android:textColor="@android:color/white"
             android:textSize="11sp"
             android:textAlignment="center"
+            android:contentDescription="@string/transaction_hash"
+            android:nextFocusUp="@id/widget_icon"
             />
         <TextView
             android:layout_width="wrap_content"
@@ -48,6 +55,8 @@
             android:text="@string/relayed_by"
             android:gravity="center"
             android:textColor="@android:color/white"
+            android:contentDescription="@string/transaction_relayed_by_label"
+            android:nextFocusUp="@id/transactionHash"
             />
         <TextView
             android:layout_width="wrap_content"
@@ -61,6 +70,8 @@
             android:textAlignment="center"
             android:layout_alignStart="@id/transactionHash"
             android:layout_alignEnd="@id/transactionHash"
+            android:contentDescription="@string/transaction_relayed_by_ip_address"
+            android:nextFocusUp="@id/transactionRelayedByLabel"
             />
     </RelativeLayout>
 </FrameLayout>
