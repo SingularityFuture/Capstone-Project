@@ -86,7 +86,6 @@ public class PaintView extends View {
 
         mPaintText = new Paint(Paint.ANTI_ALIAS_FLAG); // Create paint object
         mPaintText.setStyle(Paint.Style.FILL_AND_STROKE); // Set style
-        mPaintText.setColor(Color.BLACK); // Set color
         mPaintText.setTextSize(mTextHeight); // Set text size
         mPaintText.setTextAlign(Paint.Align.CENTER); // Set alignment
 
@@ -136,9 +135,9 @@ public class PaintView extends View {
         // Clear background with white rectangle since some former clock digits will extend past the circle
         mPaintText.setColor(Color.WHITE);
         canvas.drawRect(mOvalsF[0].left-3, mOvalsF[0].top-3, mOvalsF[0].right+3, mOvalsF[0].bottom+3, mPaintText); // Add white rectangle to back
+        //canvas.drawColor(Color.WHITE, PorterDuff.Mode.CLEAR);
 
         mPaintText.setAlpha(0);
-
         // All circles
         for(int circle=0;circle<numberOfCircles;circle++){ // Go through each circle
             if(circle!=1 && second[circle]!=0)
@@ -200,6 +199,7 @@ public class PaintView extends View {
                     minuteDrawn.set(0,true); // Track that you've already drawn it
                     mPaintText.setAlpha(255);
                     mPaintText.setShadowLayer(3,2,2,Color.BLACK);
+                    currentChar=":"+currentChar; // Put a colon before the first minute to set it apart
                 }
                 else if(currentChar.equals(String.valueOf(minute.charAt(1))) && !minuteDrawn.get(1)){
                     mPaintText.setTextSize(mTextHeight*1.3f); // Make the hour really big
