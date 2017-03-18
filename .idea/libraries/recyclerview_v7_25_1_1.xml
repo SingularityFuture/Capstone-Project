@@ -4,12 +4,12 @@
       <root url="jar://$PROJECT_DIR$/blockwatch/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/25.1.1/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="file://$USER_HOME$/.android/build-cache/a2fb6e5d1767ed5567db906fe12de3a031d6e644/output/res" />
-      <root url="jar://$USER_HOME$/.android/build-cache/a2fb6e5d1767ed5567db906fe12de3a031d6e644/output/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.android/build-cache/c21a49ab1f393453765ec1ec5b22f85090441723/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/c21a49ab1f393453765ec1ec5b22f85090441723/output/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/AppData/Local/Android/Sdk/extras/android/m2repository/com/android/support/recyclerview-v7/25.1.1/recyclerview-v7-25.1.1-sources.jar!/" />
+      <root url="jar://$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/recyclerview-v7/25.1.1/recyclerview-v7-25.1.1-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
