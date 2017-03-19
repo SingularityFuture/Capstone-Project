@@ -22,6 +22,15 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
 
+    signingConfigs {
+        myconfig {
+            keyAlias 'BlockwatchKey'
+            keyPassword 'password'
+            storeFile file('../keystore.jks')
+            storePassword 'password'
+        }
+    }
+
     defaultConfig {
         applicationId "com.example.blockwatch"
         minSdkVersion 21
@@ -36,6 +45,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.myconfig
         }
     }
     // `return void` removes the lint error: `Not all execution paths return a value`.
