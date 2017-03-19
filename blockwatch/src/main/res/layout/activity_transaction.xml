@@ -10,7 +10,7 @@
     <android.support.design.widget.AppBarLayout android:layout_width="match_parent"
         android:layout_height="wrap_content" android:theme="@style/AppTheme.AppBarOverlay" android:background="@android:color/black">
 
-        <android.support.v7.widget.Toolbar android:id="@+id/toolbar_transaction"
+        <android.support.v7.widget.Toolbar android:id="@+id/toolbar"
             android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
             android:background="@android:color/black" app:popupTheme="@style/AppTheme.PopupOverlay"
             android:contentDescription="@string/transaction_toolbar" />
@@ -22,7 +22,6 @@
         android:name="com.example.blockwatch.TransactionFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?android:attr/actionBarSize"
         tools:context="com.example.blockwatch.TransactionFragment"
         tools:layout="@layout/fragment_transaction"
         android:contentDescription="@string/transaction_frame"/>

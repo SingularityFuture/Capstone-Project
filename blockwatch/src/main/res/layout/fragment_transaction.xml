@@ -7,11 +7,11 @@
     android:id="@+id/transaction_fragment_layout"
     android:contentDescription="@string/transaction_fragment">
 
+
     <com.google.android.gms.ads.AdView
         android:id="@+id/adViewDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar_transaction"
         ads:adSize="SMART_BANNER"
         ads:adUnitId="@string/banner_ad_unit_id"
         android:contentDescription="@string/google_ad">
@@ -27,9 +27,11 @@
         android:gravity="center"
         android:text="@string/tx_hash"
         android:textSize="30sp"
-        android:nextFocusUp="@id/toolbar_transaction"
+        android:nextFocusUp="@id/toolbar"
         android:contentDescription="@string/transaction_hash_label"
         />
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

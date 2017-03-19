@@ -36,7 +36,7 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
 
     PaintView pV;  // Declare paintView to put the watch in
     View rootView; // Declare rootView
-    FrameLayout layout; // Declare layout that will access fragment layout
+    RelativeLayout layout; // Declare layout that will access fragment layout
     String callBack_result; // Temp variable to make sure callback fragment listener works
     //String currentHash; // Store the updated transaction hash here
 
@@ -75,7 +75,7 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         rootView =inflater.inflate(R.layout.fragment_blockwatch, container, false);
-        layout = (FrameLayout) rootView.findViewById(R.id.watch_fragment_layout);
+        layout = (RelativeLayout) rootView.findViewById(R.id.watch_fragment_layout);
 
         // Inflate the layout for this fragment
         return rootView;

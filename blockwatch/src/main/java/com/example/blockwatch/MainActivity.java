@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
         try {
             BlockwatchSyncAdapter.syncImmediately(this);
             watchFragment = new BlockwatchFragment().newInstance(hash); // Create a new watch fragment with a new hash
-            getSupportFragmentManager().beginTransaction().replace(R.id.transaction_fragment,watchFragment,WATCH_FRAGMENT_TAG).commit(); // Replace the fragment with the current one with a new hash
+            getSupportFragmentManager().beginTransaction().replace(R.id.blockwatch_fragment,watchFragment,WATCH_FRAGMENT_TAG).commit(); // Replace the fragment with the current one with a new hash
         }
         catch (Exception e){
             Log.d("Explorer error: ", e.getMessage());
@@ -89,11 +89,13 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
 
     @Override
     public String onFragmentInteraction(String string){
-        // Here you should launch a new fragment that shows the details of the clicked transaction
-        Intent intent = new Intent(this, TransactionDetailActivity.class);
-        intent.putExtra("URI", BlockContract.BlockEntry.CONTENT_URI);
-        startActivity(intent);
-        return string+string+string;
+        // Here you should launch a new fragment that shows the details of the clicked transaction, only in phone mode
+        if(!isTablet) {
+            Intent intent = new Intent(this, TransactionDetailActivity.class);
+            intent.putExtra("URI", BlockContract.BlockEntry.CONTENT_URI);
+            startActivity(intent);
+        }
+        return string + string + string;
     }
 
     @Override

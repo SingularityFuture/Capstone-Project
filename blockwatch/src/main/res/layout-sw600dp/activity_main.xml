@@ -38,7 +38,7 @@
         android:baselineAligned="false"
         android:orientation="horizontal"        >
 
-        <fragment
+        <FrameLayout
             android:id="@+id/blockwatch_fragment"
             android:name="com.example.blockwatch.BlockwatchFragment"
             android:layout_width="0dp"
