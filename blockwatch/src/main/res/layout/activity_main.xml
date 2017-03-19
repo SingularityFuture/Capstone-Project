@@ -36,7 +36,7 @@
         android:tint="@android:color/white"
         />
 
-    <fragment
+    <FrameLayout
         android:id="@+id/blockwatch_fragment"
         android:name="com.example.blockwatch.BlockwatchFragment"
         android:layout_width="match_parent"

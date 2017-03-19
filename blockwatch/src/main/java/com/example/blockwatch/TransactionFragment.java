@@ -84,13 +84,11 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
         mMapView.onCreate(savedInstanceState);
 
         mMapView.onResume(); // needed to get the map to display immediately
-
         try {
             MapsInitializer.initialize(getActivity().getApplicationContext());
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         // Inflate the layout for this fragment
         return rootView;
     }
@@ -99,7 +97,6 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
     }
-
     /**
      * Creates and returns a CursorLoader that loads the data for our URI and stores it in a Cursor.
      *
