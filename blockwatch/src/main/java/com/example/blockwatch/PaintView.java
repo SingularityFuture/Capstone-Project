@@ -143,16 +143,16 @@ public class PaintView extends View {
         hourDrawn.set(0, false); hourDrawn.set(1, false);
         minuteDrawn.set(0, false); minuteDrawn.set(1, false);
         // Clear background with white rectangle since some former clock digits will extend past the circle
-        mPaintText.setColor(Color.WHITE);
-        canvas.drawRect(mOvalsF[0].left-3, mOvalsF[0].top-10, mOvalsF[0].right+3, mOvalsF[0].bottom+10, mPaintText); // Add white rectangle to back
+        //mPaintText.setColor(Color.WHITE);
+        //canvas.drawRect(mOvalsF[0].left-30, mOvalsF[0].top-30, mOvalsF[0].right+30, mOvalsF[0].bottom+30, mPaintText); // Add white rectangle to back
         mPaintText.setShadowLayer(0,0,0,Color.BLACK); // Nullify the shadow layer
 
         // All circles
         // Keep track of the character index
         charCount = 0;
         for(circle = 0; circle <numberOfCircles; circle++){ // Go through each circle
-            if(circle !=1 && second[circle]!=0)
-                continue; // If this is not the inner circle and you're not refreshing to mark a new minute, don't draw the circle
+            /*if(circle !=1 && second[circle]!=0)
+                continue; // If this is not the inner circle and you're not refreshing to mark a new minute, don't draw the circle*/
             // Start off the angle count the current moved angle
             currentAngle = startAngle[circle];
             // Add 'shadow' highlight to bottom right of each circle
@@ -184,9 +184,8 @@ public class PaintView extends View {
                 else if(hour.length()==2 && !hourDrawn.get(1)){
                     if(currentChar.equals(String.valueOf(hour.charAt(1)))){ // If the current character matches the second number in the hour
                         hourDrawn.set(1, true); // Track that you've already drawn it
-                        currentChar=currentChar+":"; // Put a colon after the hour
-                        charIndices[1]=charCount; // Keep track of where each digit occurs in the total hash
                         timeDigit=true; // Mark that we will not draw this time digit on this round of drawing
+                        charIndices[1]=charCount; // Keep track of where each digit occurs in the total hash
                         circleIndices[1]=circle; // Keep track of which circle the digit is in
                         indexInCircle[1]=i; //  Keep track of where it occurs in the current circle too
                         timeAngles[1]=currentAngle; // Keep track of which angle you're at
@@ -194,7 +193,6 @@ public class PaintView extends View {
                 }
                 else if(currentChar.equals(String.valueOf(minute.charAt(0))) && !minuteDrawn.get(0)){
                     minuteDrawn.set(0,true); // Track that you've already drawn it
-                    currentChar=":"+currentChar; // Put a colon before the first minute to set it apart
                     timeDigit=true; // Mark that we will not draw this time digit on this round of drawing
                     charIndices[2]=charCount; // Keep track of where each digit occurs in the total hash
                     circleIndices[2]=circle; // Keep track of which circle the digit is in
@@ -231,7 +229,7 @@ public class PaintView extends View {
                     currentChar=currentChar+":"; // Put a colon after the hour if it's only one number
                 }
                 // Measure the current character in the string
-                mPaintText.getTextBounds(String.valueOf(currentHash.charAt(charIndices[j])), 0, String.valueOf(currentHash.charAt(charIndices[j])).length(), bounds); // Measure the text
+                mPaintText.getTextBounds(currentChar, 0, currentChar.length(), bounds); // Measure the text
                 // Draw a red circle behind the current digit to make it stand out
                 mPaintText.setColor(Color.RED);
                 canvas.drawCircle((float)(centerX + (radius*radiusSqueeze[circleIndices[j]]*circleSpacing[circleIndices[j]] * Math.cos(medianAngle))), (float)(centerY + (radius*radiusSqueeze[circleIndices[j]]*circleSpacing[circleIndices[j]] * Math.sin(medianAngle))), mTextHeight*1.5f, mPaintText);
@@ -241,10 +239,11 @@ public class PaintView extends View {
             else if(j==1 && hour.length()==2 && hourDrawn.get(1)){ // If you're on the current digit of the time, and you found it up above while looping through the hash
                 mPaintText.setTextSize(mTextHeight*1.8f); // Make the hour really big
                 // Measure the current character in the string
-                mPaintText.getTextBounds(String.valueOf(currentHash.charAt(charIndices[j])), 0, String.valueOf(currentHash.charAt(charIndices[j])).length(), bounds); // Measure the text
+                mPaintText.getTextBounds(currentChar, 0, currentChar.length(), bounds); // Measure the text
                 // Draw a red circle behind the current digit to make it stand out
                 mPaintText.setColor(Color.RED);
-                canvas.drawCircle((float)(centerX + (radius*radiusSqueeze[circleIndices[j]]*circleSpacing[circleIndices[j]] * Math.cos(medianAngle))), (float)(centerY + (radius*radiusSqueeze[circleIndices[j]]*circleSpacing[circleIndices[j]] * Math.sin(medianAngle))), mTextHeight*1.25f, mPaintText);
+                currentChar=currentChar+":"; // Put a colon after the hour
+                canvas.drawCircle((float)(centerX + (radius*radiusSqueeze[circleIndices[j]]*circleSpacing[circleIndices[j]] * Math.cos(medianAngle))), (float)(centerY + (radius*radiusSqueeze[circleIndices[j]]*circleSpacing[circleIndices[j]] * Math.sin(medianAngle))), mTextHeight*1.35f, mPaintText);
                 mPaintText.setColor(Color.WHITE);
                 canvas.drawText(currentChar, (float)(centerX + (radius*radiusSqueeze[circleIndices[j]]*circleSpacing[circleIndices[j]] * Math.cos(medianAngle))), (float)(centerY + (radius*radiusSqueeze[circleIndices[j]]*circleSpacing[circleIndices[j]] * Math.sin(medianAngle)))+ bounds.height() * 0.5f, mPaintText);
             }
@@ -252,7 +251,7 @@ public class PaintView extends View {
                 mPaintText.setTextSize(mTextHeight*1.5f); // Make the minute a bit bigger
                 currentChar=":"+currentChar; // Put a colon before the first minute to set it apart
                 // Measure the current character in the string
-                mPaintText.getTextBounds(String.valueOf(currentHash.charAt(charIndices[j])), 0, String.valueOf(currentHash.charAt(charIndices[j])).length(), bounds); // Measure the text
+                mPaintText.getTextBounds(currentChar, 0, currentChar.length(), bounds); // Measure the text
                 // Draw a red circle behind the current digit to make it stand out
                 mPaintText.setColor(Color.RED);
                 canvas.drawCircle((float)(centerX + (radius*radiusSqueeze[circleIndices[j]]*circleSpacing[circleIndices[j]] * Math.cos(medianAngle))), (float)(centerY + (radius*radiusSqueeze[circleIndices[j]]*circleSpacing[circleIndices[j]] * Math.sin(medianAngle))), mTextHeight*1.15f, mPaintText);
@@ -262,13 +261,75 @@ public class PaintView extends View {
             else if(j==3 && minuteDrawn.get(1)){ // If you're on the current digit of the time, and you found it up above while looping through the hash
                 mPaintText.setTextSize(mTextHeight*1.3f); // Make the minute a bit bigger
                 // Measure the current character in the string
-                mPaintText.getTextBounds(String.valueOf(currentHash.charAt(charIndices[j])), 0, String.valueOf(currentHash.charAt(charIndices[j])).length(), bounds); // Measure the text
+                mPaintText.getTextBounds(currentChar, 0, currentChar.length(), bounds); // Measure the text
                 // Draw a red circle behind the current digit to make it stand out
                 mPaintText.setColor(Color.RED);
                 canvas.drawCircle((float)(centerX + (radius*radiusSqueeze[circleIndices[j]]*circleSpacing[circleIndices[j]] * Math.cos(medianAngle))), (float)(centerY + (radius*radiusSqueeze[circleIndices[j]]*circleSpacing[circleIndices[j]] * Math.sin(medianAngle))), mTextHeight*1.05f, mPaintText);
                 mPaintText.setColor(Color.WHITE);
                 canvas.drawText(currentChar, (float)(centerX + (radius*radiusSqueeze[circleIndices[j]]*circleSpacing[circleIndices[j]] * Math.cos(medianAngle))), (float)(centerY + (radius*radiusSqueeze[circleIndices[j]]*circleSpacing[circleIndices[j]] * Math.sin(medianAngle)))+ bounds.height() * 0.5f, mPaintText);
             }
+        }
+
+        // In case something wasn't drawn
+        if(!hourDrawn.get(0)) {
+            currentAngle = 225;
+            medianAngle = (currentAngle) * (float) Math.PI / 180f;
+            currentChar = String.valueOf(hour.charAt(0)); // Get the current character in the hash
+            mPaintText.setTextSize(mTextHeight * 2); // Make the hour really big
+            if (hour.length() == 1) {
+                currentChar = currentChar + ":"; // Put a colon after the hour if it's only one number
+            }
+            // Measure the current character in the string
+            mPaintText.getTextBounds(currentChar, 0, currentChar.length(), bounds); // Measure the text
+            // Draw a red circle behind the current digit to make it stand out
+            mPaintText.setColor(Color.RED);
+            canvas.drawCircle((float) (centerX + ((radius + mTextHeight * 1.5f)* Math.cos(medianAngle))), (float) (centerY + ((radius  + mTextHeight * 1.5f)* Math.sin(medianAngle))), mTextHeight * 1.5f, mPaintText);
+            mPaintText.setColor(Color.WHITE);
+            canvas.drawText(currentChar, (float) (centerX + ((radius + mTextHeight * 1.5f) * Math.cos(medianAngle))), (float) (centerY + ((radius + mTextHeight * 1.5f) * Math.sin(medianAngle))) + bounds.height() * 0.5f, mPaintText);
+        }
+        // In case something wasn't drawn
+        if(!hourDrawn.get(1) && hour.length()==2) {
+            currentAngle = 315;
+            medianAngle = (currentAngle) * (float) Math.PI / 180f;
+            currentChar = String.valueOf(hour.charAt(1)); // Get the current character in the hash
+            mPaintText.setTextSize(mTextHeight * 1.8f); // Make the hour really big
+            currentChar = currentChar + ":"; // Put a colon after the hour if it's only one number
+            // Measure the current character in the string
+            mPaintText.getTextBounds(currentChar, 0, currentChar.length(), bounds); // Measure the text
+            // Draw a red circle behind the current digit to make it stand out
+            mPaintText.setColor(Color.RED);
+            canvas.drawCircle((float) (centerX + ((radius + mTextHeight * 1.35f)* Math.cos(medianAngle))), (float) (centerY + ((radius  + mTextHeight * 1.35f)* Math.sin(medianAngle))), mTextHeight * 1.35f, mPaintText);
+            mPaintText.setColor(Color.WHITE);
+            canvas.drawText(currentChar, (float) (centerX + ((radius + mTextHeight * 1.35f) * Math.cos(medianAngle))), (float) (centerY + ((radius + mTextHeight * 1.35f) * Math.sin(medianAngle))) + bounds.height() * 0.5f, mPaintText);
+        }
+        // In case something wasn't drawn
+        if(!minuteDrawn.get(0)) {
+            currentAngle = 135;
+            medianAngle = (currentAngle) * (float) Math.PI / 180f;
+            currentChar = String.valueOf(minute.charAt(0)); // Get the current character in the hash
+            mPaintText.setTextSize(mTextHeight * 1.5f); // Make the hour really big
+            currentChar = ":" + currentChar; // Put a colon after the hour if it's only one number
+            // Measure the current character in the string
+            mPaintText.getTextBounds(currentChar, 0, currentChar.length(), bounds); // Measure the text
+            // Draw a red circle behind the current digit to make it stand out
+            mPaintText.setColor(Color.RED);
+            canvas.drawCircle((float) (centerX + ((radius + mTextHeight * 1.15f)* Math.cos(medianAngle))), (float) (centerY + ((radius  + mTextHeight * 1.15f)* Math.sin(medianAngle))), mTextHeight * 1.15f, mPaintText);
+            mPaintText.setColor(Color.WHITE);
+            canvas.drawText(currentChar, (float) (centerX + ((radius + mTextHeight * 1.15f) * Math.cos(medianAngle))), (float) (centerY + ((radius + mTextHeight * 1.15f) * Math.sin(medianAngle))) + bounds.height() * 0.5f, mPaintText);
+        }
+        // In case something wasn't drawn
+        if(!minuteDrawn.get(1)) {
+            currentAngle = 45;
+            medianAngle = (currentAngle) * (float) Math.PI / 180f;
+            currentChar = String.valueOf(minute.charAt(1)); // Get the current character in the hash
+            mPaintText.setTextSize(mTextHeight * 1.3f); // Make the hour really big
+            // Measure the current character in the string
+            mPaintText.getTextBounds(currentChar, 0, currentChar.length(), bounds); // Measure the text
+            // Draw a red circle behind the current digit to make it stand out
+            mPaintText.setColor(Color.RED);
+            canvas.drawCircle((float) (centerX + ((radius + mTextHeight * 1.05f)* Math.cos(medianAngle))), (float) (centerY + ((radius  + mTextHeight * 1.05f)* Math.sin(medianAngle))), mTextHeight * 1.05f, mPaintText);
+            mPaintText.setColor(Color.WHITE);
+            canvas.drawText(currentChar, (float) (centerX + ((radius + mTextHeight * 1.05f) * Math.cos(medianAngle))), (float) (centerY + ((radius + mTextHeight * 1.05f) * Math.sin(medianAngle))) + bounds.height() * 0.5f, mPaintText);
         }
     }
 
