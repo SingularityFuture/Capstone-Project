@@ -37,7 +37,7 @@
         />
 
     <fragment
-        android:id="@+id/transaction_fragment"
+        android:id="@+id/blockwatch_fragment"
         android:name="com.example.blockwatch.BlockwatchFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -46,4 +46,5 @@
         tools:layout="@layout/fragment_blockwatch"
         android:nextFocusUp="@id/toolbar"
         android:contentDescription="@string/watch_face"/>
+
 </android.support.design.widget.CoordinatorLayout>

@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
     private static final String WATCH_FRAGMENT_TAG = "watch_fragment"; // Create a tag to keep track of created fragments
     private static final String TRANSACTION_FRAGMENT_TAG = "transaction_fragment";
     private String hash = "b5357533bf43d6793aa24d91d6a01055128bff64730627bbb3a512b04d2e9043"; // Start with a dummy hash in case of any network error
+    boolean isTablet; // Track whether this is a tablet
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,18 +40,18 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
 
             watchFragment = new BlockwatchFragment().newInstance(hash); // Add the watch fragment here, passing the context as an implementation of the fragment listener
             watchFragment.setRetainInstance(true); // Do this so that it retains the member variable holding the hash
-            getSupportFragmentManager().beginTransaction().add(R.id.transaction_fragment,watchFragment,WATCH_FRAGMENT_TAG).commit(); // Add the fragment to the transaction
+            getSupportFragmentManager().beginTransaction().add(R.id.blockwatch_fragment,watchFragment,WATCH_FRAGMENT_TAG).commit(); // Add the fragment to the transaction
 
         }
         else {
            watchFragment = getSupportFragmentManager().findFragmentByTag(WATCH_FRAGMENT_TAG); // Else if it exists
-           getSupportFragmentManager().beginTransaction().replace(R.id.transaction_fragment,watchFragment,WATCH_FRAGMENT_TAG).commit(); // Replace the fragment with the current one
+           getSupportFragmentManager().beginTransaction().replace(R.id.blockwatch_fragment,watchFragment,WATCH_FRAGMENT_TAG).commit(); // Replace the fragment with the current one
         }
 
         // The detail container view will be present only in the large-screen layouts
         // (res/layout-sw600dp). If this view is present, then the activity should be
         // in two-pane mode.
-        boolean isTablet = getResources().getBoolean(R.bool.isTablet);
+        isTablet = getResources().getBoolean(R.bool.isTablet); // Track whether this is a tablet
         if (isTablet) {
             // In two-pane mode, show the detail view in this activity by
             // adding or replacing the detail fragment using a

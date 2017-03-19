@@ -54,9 +54,7 @@ public class PaintView extends View {
     String currentChar;
     List<Boolean> hourDrawn = new ArrayList<>(Arrays.asList(false, false));;
     List<Boolean> minuteDrawn = new ArrayList<>(Arrays.asList(false, false));
-
-/*    private int[] COLORS = { Color.YELLOW, Color.GREEN, Color.WHITE,
-            Color.CYAN, Color.RED }; // Define a set of colors used for drawing arcs around each character*/
+    boolean isTablet = getResources().getBoolean(R.bool.isTablet); // Detect whether we are in tablet mode, which will affect the drawing size and coordinates
 
     private int[] COLORS = {Color.BLACK, Color.WHITE}; // Create a simpler version here
     private int charCount;
@@ -89,8 +87,14 @@ public class PaintView extends View {
         if (resourceId > 0) {
             statusBarHeight = getResources().getDimensionPixelSize(resourceId); // If it exists, put it here
         }
-        radius = (Math.min(metrics.widthPixels,(metrics.heightPixels - actionBarHeight - statusBarHeight)) / 2); // Measure the radius of the screen using the smallest dimension taking into account the action bar height
-        centerX = metrics.widthPixels / 2; // Measure the center x coordinate
+        if(!isTablet) { // If it's not a tablet, have this fill the whole screen
+            radius = (Math.min(metrics.widthPixels, (metrics.heightPixels - actionBarHeight - statusBarHeight)) / 2); // Measure the radius of the screen using the smallest dimension taking into account the action bar height
+            centerX = metrics.widthPixels / 2; // Measure the center x coordinate
+        }
+        else { // Otherwise, push it over to the left half of the screen
+            radius = (Math.min(metrics.widthPixels, (metrics.heightPixels - actionBarHeight - statusBarHeight)) / 2.5f); // Measure the radius of the screen using the smallest dimension taking into account the action bar height
+            centerX = metrics.widthPixels / 4; // Measure the center x coordinate
+        }
         // For some reason, adding actionBarHeight to the centerY coordinate pushes it too far down, even though it's required when computing the radius size
         centerY = (metrics.heightPixels + statusBarHeight) / 2; // Measure the center y coordinate of this rectangle taking into account the action bar height
 
@@ -143,8 +147,8 @@ public class PaintView extends View {
         hourDrawn.set(0, false); hourDrawn.set(1, false);
         minuteDrawn.set(0, false); minuteDrawn.set(1, false);
         // Clear background with white rectangle since some former clock digits will extend past the circle
-        //mPaintText.setColor(Color.WHITE);
-        //canvas.drawRect(mOvalsF[0].left-30, mOvalsF[0].top-30, mOvalsF[0].right+30, mOvalsF[0].bottom+30, mPaintText); // Add white rectangle to back
+        mPaintText.setColor(Color.WHITE);
+        canvas.drawRect(mOvalsF[0].left-100, mOvalsF[0].top-100, mOvalsF[0].right+100, mOvalsF[0].bottom+100, mPaintText); // Add white rectangle to back
         mPaintText.setShadowLayer(0,0,0,Color.BLACK); // Nullify the shadow layer
 
         // All circles

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:baselineAligned="false"
+    android:contentDescription="@string/blockwatch_main_screen"
     android:divider="?android:attr/dividerHorizontal"
     android:orientation="horizontal"
     tools:context="com.example.blockwatch.MainActivity">
-
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -32,22 +32,33 @@
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@drawable/ic_action_refresh_light" />
 
-    <fragment
-        android:id="@+id/fragment_blockwatch"
-        android:name="com.example.blockwatch.BlockwatchFragment"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"
-        tools:context="com.example.blockwatch.BlockwatchFragment"
-        tools:layout="@layout/fragment_blockwatch" />
+        android:baselineAligned="false"
+        android:orientation="horizontal"        >
 
-    <FrameLayout
-        android:id="@+id/transaction_fragment"
-        android:name="com.example.blockwatch.TransactionDetailFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"
-        tools:context="com.example.blockwatch.TransactionDetailFragment"
-        tools:layout="@layout/fragment_transaction" />
+        <fragment
+            android:id="@+id/blockwatch_fragment"
+            android:name="com.example.blockwatch.BlockwatchFragment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:background="@android:color/transparent"
+            android:backgroundTint="@android:color/transparent"
+            android:contentDescription="@string/watch_face"
+            android:nextFocusUp="@id/toolbar"
+            tools:context="com.example.blockwatch.BlockwatchFragment"
+            tools:layout="@layout/fragment_blockwatch" />
 
-</LinearLayout>
+        <FrameLayout
+            android:id="@+id/transaction_fragment"
+            android:name="com.example.blockwatch.TransactionFragment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            tools:context="com.example.blockwatch.TransactionFragment"
+            tools:layout="@layout/fragment_transaction"
+            android:layout_marginTop="?attr/actionBarSize"/>
+    </LinearLayout>
+</FrameLayout>
