@@ -126,4 +126,9 @@
     ]
   }
 ]</string>
+    <string name="relayed_by_ip_location">Relayed By IP Location</string>
+    <string name="location_of_ip">Location based on the Relayed By IP Address of the current transaction</string>
+    <string name="style_parsing_failed">Style parsing failed.</string>
+    <string name="cant_find_style">Can\'t find style. Error:</string>
+    <string name="explorer_error">Explorer error:</string>
 </resources>

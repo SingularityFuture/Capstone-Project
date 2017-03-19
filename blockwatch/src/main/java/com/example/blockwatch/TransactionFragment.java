@@ -216,7 +216,7 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
     @Override
     public void onMapReady(GoogleMap map) {
         // Add a marker to current location
-        Marker marker = map.addMarker(new MarkerOptions().position(currentLocation).title("Relayed By IP Location").snippet("Location based on the Relayed By IP Address of the current transaction"));
+        Marker marker = map.addMarker(new MarkerOptions().position(currentLocation).title(getString(R.string.relayed_by_ip_location)).snippet(getString(R.string.location_of_ip)));
         try {
             // Customise the styling of the base map using a JSON object defined
             // in a raw resource file.
@@ -227,10 +227,10 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
 /*            boolean success = map.setMapStyle(new MapStyleOptions(getResources()
                     .getString(R.string.black_white_map_style)));*/
             if (!success) {
-                Log.e(TAG, "Style parsing failed.");
+                Log.e(TAG, getString(R.string.style_parsing_failed));
             }
         } catch (Resources.NotFoundException e) {
-            Log.e(TAG, "Can't find style. Error: ", e);
+            Log.e(TAG, getString(R.string.cant_find_style), e);
         }
         map.animateCamera(CameraUpdateFactory.newLatLng(currentLocation));
     }

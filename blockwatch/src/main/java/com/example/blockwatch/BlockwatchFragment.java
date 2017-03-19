@@ -54,7 +54,6 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
      */
     public BlockwatchFragment newInstance(String currentHash) {
         BlockwatchFragment fragment = new BlockwatchFragment();
-        //fragment.currentHash = currentHash; // Put the current hash into this instance's member variable
         return fragment;
     }
 
@@ -83,7 +82,7 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onClick(final View v) { //check for what button is pressed
-        callBack_result = mListener.onFragmentInteraction("hello");
+        mListener.onFragmentInteraction();
     }
 
     @Override
@@ -213,7 +212,7 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information. */
     public interface OnFragmentInteractionListener {
-        String onFragmentInteraction(String string);
+        void onFragmentInteraction();
     }
 
     // Implement the method for when the configuration changes
