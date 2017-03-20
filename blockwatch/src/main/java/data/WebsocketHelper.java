@@ -16,16 +16,16 @@ import com.neovisionaries.ws.client.WebSocketState;
  * Created by retrieveUnconfirmedTransactions on 2/20/2017.
  */
 // Implements websocket library's connection
-public class WebsocketHelper{
+public class WebsocketHelper {
 
-    public WebSocketFactory factory = new WebSocketFactory(); // Create a WebSocketFactory instance.
-    public WebSocket ws; // Create the socket
+    private WebSocketFactory factory = new WebSocketFactory(); // Create a WebSocketFactory instance.
+    private WebSocket ws; // Create the socket
     public WebSocketAdapter adapter; // Create the adapter
-    public final String blockchainInfoURL = "wss://echo.websocket.org"; //"wss://ws.blockchain.info/inv"; //"wss://echo.websocket.org"
     public Context context;
 
     public WebSocket createSocket(Context context) {
         this.context = context;
+        String blockchainInfoURL = "wss://echo.websocket.org";
         // Create a WebSocket. The scheme part can be one of the following:
         // 'ws', 'wss', 'http' and 'https' (case-insensitive). The user info
         // part, if any, is interpreted as expected. If a raw socket failed
@@ -39,13 +39,13 @@ public class WebsocketHelper{
                     Log.d("onTextMessage: ", message);
                 }
             })
-            .addListener(new WebSocketAdapter() {
+                    .addListener(new WebSocketAdapter() {
                         // A frame arrived from the server.
                         public void onFrame(WebSocket websocket, WebSocketFrame frame) {
                             System.out.println(frame.toString());
                             // Received a text message.
                             //Log.d("onFrame: ", frame.toString());
-                            if(frame.hasPayload())
+                            if (frame.hasPayload())
                                 Log.d("onFrame text: ", frame.getPayloadText());
                         }
                     })
@@ -73,18 +73,16 @@ public class WebsocketHelper{
                             Log.d("onStateChanged: ", state.toString());
                         }
                     })
-            .connect();
+                    .connect();
             // Try this "connectAsynchronously()" without using strict thread policy mode in MainActivity
 
             WebSocketState state = ws.getState();
             Log.d("WebSocket State: ", state.toString());
         } catch (java.io.IOException exception) {
-            Log.d("WebSocket Exception: ", exception.getMessage());
-        } catch (OpeningHandshakeException e)
-        {
-            Log.d("WebSocket Exception: ", e.getMessage());
-        }
-        catch (WebSocketException socketException){
+            Log.d("IO Exception: ", exception.getMessage());
+        } catch (OpeningHandshakeException e) {
+            Log.d("Opening Handshake Exc: ", e.getMessage());
+        } catch (WebSocketException socketException) {
             Log.d("WebSocket Exception: ", socketException.getMessage());
         }
 

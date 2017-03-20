@@ -2,7 +2,7 @@ package com.example.blockwatch;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Example local unit retrieveUnconfirmedTransactions, which will execute on the development machine (host).

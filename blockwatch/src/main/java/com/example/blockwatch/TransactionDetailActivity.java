@@ -9,9 +9,9 @@ import android.support.v7.widget.Toolbar;
 /**
  * Created by Michael on 2/16/2017.
  */
-public class TransactionDetailActivity extends AppCompatActivity{
-    private Fragment transactionFragment; // Declare the fragment you will include
+public class TransactionDetailActivity extends AppCompatActivity {
     private static final String TRANSACTION_FRAGMENT_TAG = "transaction_fragment"; // Create a tag to keep track of created fragments
+    private Fragment transactionFragment; // Declare the fragment you will include
     private Uri mURI;
 
     @Override
@@ -30,8 +30,7 @@ public class TransactionDetailActivity extends AppCompatActivity{
             //transactionFragment.setRetainInstance(true); // Do this so that it retains the text views already created the first time
 
             getSupportFragmentManager().beginTransaction().add(R.id.transaction_fragment, transactionFragment, TRANSACTION_FRAGMENT_TAG).commit(); // Add the fragment to the transaction
-        }
-        else {
+        } else {
             transactionFragment = getSupportFragmentManager().findFragmentByTag(TRANSACTION_FRAGMENT_TAG); // Else if it exists
             getSupportFragmentManager().beginTransaction().replace(R.id.transaction_fragment, transactionFragment, TRANSACTION_FRAGMENT_TAG).commit(); // Replace the fragment with the current one
         }

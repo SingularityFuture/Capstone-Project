@@ -19,16 +19,16 @@ public final class TransactionJsonUtils {
     /* JSON Transaction labels */
     private static final String HASH = "hash";
     private static final String VER = "ver";
-    private static final String LOCK_TIME= "lock_time";
+    private static final String LOCK_TIME = "lock_time";
     private static final String RELAYED_BY = "relayed_by";
     private static final String LATITUDE = "latitude";
-    private static final String LONGITUDE= "longitude";
+    private static final String LONGITUDE = "longitude";
 
     /**
      * This method parses JSON from a web response and returns an array of Strings
      * describing the transaction.
      */
-    
+
     public static ContentValues getTransactionValuesFromJson(String transactionJsonStr)
             throws JSONException {
 
@@ -38,16 +38,16 @@ public final class TransactionJsonUtils {
         int lockTime = 0;
         String relayedBy = "";
 
-        if(!transactionJson.isNull(HASH)) {
+        if (!transactionJson.isNull(HASH)) {
             hash = transactionJson.getString(HASH);  // Get each element from the JSON object
         }
-        if(!transactionJson.isNull(VER)){
+        if (!transactionJson.isNull(VER)) {
             version = transactionJson.getInt(VER);
         }
-        if(!transactionJson.isNull(LOCK_TIME)){
+        if (!transactionJson.isNull(LOCK_TIME)) {
             lockTime = transactionJson.getInt(LOCK_TIME);
         }
-        if(!transactionJson.isNull(RELAYED_BY)){
+        if (!transactionJson.isNull(RELAYED_BY)) {
             relayedBy = transactionJson.getString(RELAYED_BY);
         }
         ContentValues transactionContentValues = new ContentValues(); // Put each element in a set of Content Values
@@ -70,10 +70,10 @@ public final class TransactionJsonUtils {
         double latitude = 0;
         double longitude = 0;
 
-        if(!latLongJson.isNull(LATITUDE)) {
+        if (!latLongJson.isNull(LATITUDE)) {
             latitude = Double.valueOf(latLongJson.getString(LATITUDE));  // Get each element from the JSON object
         }
-        if(!latLongJson.isNull(LONGITUDE)){
+        if (!latLongJson.isNull(LONGITUDE)) {
             longitude = Double.valueOf(latLongJson.getString(LONGITUDE));  // Get each element from the JSON object
         }
 

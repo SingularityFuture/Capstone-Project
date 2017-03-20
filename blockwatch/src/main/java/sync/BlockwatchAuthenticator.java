@@ -3,6 +3,7 @@ package sync;
 /**
  * Created by Michael on 3/11/2017.
  */
+
 import android.accounts.AbstractAccountAuthenticator;
 import android.accounts.Account;
 import android.accounts.AccountAuthenticatorResponse;

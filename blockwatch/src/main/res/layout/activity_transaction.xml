@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" android:fitsSystemWindows="true"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context="com.example.blockwatch.TransactionDetailActivity">
 
-    <android.support.design.widget.AppBarLayout android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:theme="@style/AppTheme.AppBarOverlay" android:background="@android:color/black">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/black"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-        <android.support.v7.widget.Toolbar android:id="@+id/toolbar_transaction"
-            android:layout_width="match_parent" android:layout_height="?attr/actionBarSize"
-            android:background="@android:color/black" app:popupTheme="@style/AppTheme.PopupOverlay"
-            android:contentDescription="@string/transaction_toolbar" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_transaction"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@android:color/black"
+            android:contentDescription="@string/transaction_toolbar"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -22,9 +28,9 @@
         android:name="com.example.blockwatch.TransactionFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.blockwatch.TransactionFragment"
         android:layout_marginTop="?android:attr/actionBarSize"
-        tools:layout="@layout/fragment_transaction"
-        android:contentDescription="@string/transaction_frame"/>
+        android:contentDescription="@string/transaction_frame"
+        tools:context="com.example.blockwatch.TransactionFragment"
+        tools:layout="@layout/fragment_transaction" />
 
 </android.support.design.widget.CoordinatorLayout>

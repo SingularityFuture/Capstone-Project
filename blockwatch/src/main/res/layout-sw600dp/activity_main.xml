@@ -36,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:baselineAligned="false"
-        android:orientation="horizontal"        >
+        android:orientation="horizontal">
 
         <FrameLayout
             android:id="@+id/blockwatch_fragment"
@@ -56,9 +56,9 @@
             android:name="com.example.blockwatch.TransactionFragment"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize"
             android:layout_weight="2"
             tools:context="com.example.blockwatch.TransactionFragment"
-            tools:layout="@layout/fragment_transaction"
-            android:layout_marginTop="?attr/actionBarSize"/>
+            tools:layout="@layout/fragment_transaction" />
     </LinearLayout>
 </FrameLayout>

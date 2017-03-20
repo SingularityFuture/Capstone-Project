@@ -3,6 +3,7 @@ package utilities;
 /**
  * Created by Michael on 2/26/2017.
  */
+
 import android.net.Uri;
 import android.util.Log;
 
@@ -33,18 +34,17 @@ public final class NetworkUtils {
     /**
      * Builds the URL used to talk to the blockchain.info server using the selected transaction hash
      *
-     * @param UrlAppend  The hash of the selected transaction  //  Also, the IP address to query latitude and longitude
+     * @param UrlAppend The hash of the selected transaction  //  Also, the IP address to query latitude and longitude
      * @return The Url to use to query the blockchain server.
      */
     private static URL buildTransactionUrl(String UrlAppend) {
         Uri queryUri;
 
-        if(UrlAppend.indexOf('.')<0){
+        if (UrlAppend.indexOf('.') < 0) {
             queryUri = Uri.parse(BLOCKCHAIN_URL).buildUpon()
                     .appendPath(UrlAppend)
                     .build();
-        }
-        else{
+        } else {
             queryUri = Uri.parse(LATLONG_URL).buildUpon()
                     .appendPath(UrlAppend)
                     .build();
@@ -60,7 +60,7 @@ public final class NetworkUtils {
         }
     }
 
-     /**
+    /**
      * This method returns the entire result from the HTTP response.
      *
      * @param url The URL to fetch the HTTP response from.

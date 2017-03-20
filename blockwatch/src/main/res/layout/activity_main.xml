@@ -4,23 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:contentDescription="@string/blockwatch_main_screen"
     android:fitsSystemWindows="true"
-    tools:context="com.example.blockwatch.MainActivity"
-    android:contentDescription="@string/blockwatch_main_screen">
+    tools:context="com.example.blockwatch.MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay" android:background="@android:color/black">
+        android:background="@android:color/black"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@android:color/black"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
             android:contentDescription="@string/main_screen_toolbar"
-            />
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -30,11 +30,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_action_refresh_light"
         android:contentDescription="@string/refresh_transaction_hash"
-        app:backgroundTint="@android:color/black"
         android:tint="@android:color/white"
-        />
+        app:backgroundTint="@android:color/black"
+        app:srcCompat="@drawable/ic_action_refresh_light" />
 
     <FrameLayout
         android:id="@+id/blockwatch_fragment"
@@ -42,9 +41,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
-        tools:context="com.example.blockwatch.BlockwatchFragment"
-        tools:layout="@layout/fragment_blockwatch"
+        android:contentDescription="@string/watch_face"
         android:nextFocusUp="@id/toolbar"
-        android:contentDescription="@string/watch_face"/>
+        tools:context="com.example.blockwatch.BlockwatchFragment"
+        tools:layout="@layout/fragment_blockwatch" />
 
 </android.support.design.widget.CoordinatorLayout>

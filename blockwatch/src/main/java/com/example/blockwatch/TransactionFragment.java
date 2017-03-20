@@ -35,17 +35,7 @@ import static com.google.android.gms.internal.zzt.TAG;
 /**
  * Created by Michael on 2/16/2017.
  */
-public class TransactionFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, OnMapReadyCallback{
-
-    View rootView; // Declare rootView
-    RelativeLayout layout; // Declare layout that will access fragment layout
-    private Uri mURI; // Declare URI for loader query
-
-    MapView mMapView;
-
-    private SyncAdapterType mAdapter;
-
-    LatLng currentLocation; // Declare the location of the current transaction based on the Relayed By IP address
+public class TransactionFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>, OnMapReadyCallback {
 
     /*
      * This ID will be used to identify the Loader responsible for loading the weather details
@@ -55,10 +45,17 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
      * whatever number you like, so long as it is unique and consistent.
     */
     private static final int ID_DETAIL_LOADER = 353;
+    View rootView; // Declare rootView
+    RelativeLayout layout; // Declare layout that will access fragment layout
+    MapView mMapView;
+    LatLng currentLocation; // Declare the location of the current transaction based on the Relayed By IP address
+    private Uri mURI; // Declare URI for loader query
+    private SyncAdapterType mAdapter;
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
+     *
      * @return A new instance of fragment BlockwatchFragment.
      */
     public TransactionFragment newInstance(Uri mURI) {
@@ -78,7 +75,7 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        rootView =inflater.inflate(R.layout.fragment_transaction, container, false);
+        rootView = inflater.inflate(R.layout.fragment_transaction, container, false);
 
         mMapView = (MapView) rootView.findViewById(R.id.map);
         mMapView.onCreate(savedInstanceState);
@@ -97,12 +94,12 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
     }
+
     /**
      * Creates and returns a CursorLoader that loads the data for our URI and stores it in a Cursor.
      *
-     * @param loaderId The loader ID for which we need to create a loader
+     * @param loaderId   The loader ID for which we need to create a loader
      * @param loaderArgs Any arguments supplied by the caller
-     *
      * @return A new Loader instance that is ready to start loading.
      */
     @Override
@@ -205,7 +202,7 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
         mAdView.loadAd(adRequest);
 
         // For dropping a marker at a point on the Map
-        currentLocation = new LatLng(data.getDouble(5),data.getDouble(6));
+        currentLocation = new LatLng(data.getDouble(5), data.getDouble(6));
         mMapView.getMapAsync(this);
     }
 

@@ -3,75 +3,74 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/widget_margin"
-    android:contentDescription="@string/blockwatch_widget">
+    android:contentDescription="@string/blockwatch_widget"
+    android:padding="@dimen/widget_margin">
 
     <RelativeLayout
         android:id="@+id/widget"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:contentDescription="@string/widget_layout"
         android:orientation="vertical"
-        android:padding="4dp"
-        android:contentDescription="@string/widget_layout">
+        android:padding="4dp">
 
         <TextView
+            android:id="@+id/transactionHashLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/transactionHashLabel"
+            android:contentDescription="@string/transaction_hash_label"
             android:gravity="center"
             android:text="@string/tx_hash"
-            android:textColor="@android:color/white"
-            android:contentDescription="@string/transaction_hash_label"
-            />
+            android:textColor="@android:color/white" />
+
         <ImageView
             android:id="@+id/widget_icon"
-            android:layout_gravity="center"
             android:layout_width="@dimen/list_icon"
             android:layout_height="@dimen/list_icon"
-            android:gravity="center"
-            android:layout_alignStart="@id/transactionHashLabel"
             android:layout_alignEnd="@id/transactionHashLabel"
+            android:layout_alignStart="@id/transactionHashLabel"
             android:layout_below="@id/transactionHashLabel"
-            tools:src="@drawable/blockwatchicon"
+            android:layout_gravity="center"
             android:contentDescription="@string/blockwatch_icon"
+            android:gravity="center"
             android:nextFocusUp="@id/transactionHashLabel"
-            />
+            tools:src="@drawable/blockwatchicon" />
+
         <TextView
+            android:id="@+id/transactionHash"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/transactionHash"
             android:layout_toEndOf="@id/transactionHashLabel"
-            android:textColor="@android:color/white"
-            android:textSize="11sp"
-            android:textAlignment="center"
             android:contentDescription="@string/transaction_hash"
             android:nextFocusUp="@id/widget_icon"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/transactionRelayedByLabel"
-            android:layout_below="@id/widget_icon"
-            android:text="@string/relayed_by"
-            android:gravity="center"
-            android:textColor="@android:color/white"
-            android:contentDescription="@string/transaction_relayed_by_label"
-            android:nextFocusUp="@id/transactionHash"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/transactionRelayedBy"
-            android:layout_toEndOf="@id/transactionRelayedByLabel"
-            android:layout_alignTop="@id/transactionRelayedByLabel"
-            android:layout_alignBaseline="@id/transactionRelayedByLabel"
-            android:textSize="11sp"
-            android:textColor="@android:color/white"
             android:textAlignment="center"
-            android:layout_alignStart="@id/transactionHash"
+            android:textColor="@android:color/white"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/transactionRelayedByLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/widget_icon"
+            android:contentDescription="@string/transaction_relayed_by_label"
+            android:gravity="center"
+            android:nextFocusUp="@id/transactionHash"
+            android:text="@string/relayed_by"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/transactionRelayedBy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/transactionRelayedByLabel"
             android:layout_alignEnd="@id/transactionHash"
+            android:layout_alignStart="@id/transactionHash"
+            android:layout_alignTop="@id/transactionRelayedByLabel"
+            android:layout_toEndOf="@id/transactionRelayedByLabel"
             android:contentDescription="@string/transaction_relayed_by_ip_address"
             android:nextFocusUp="@id/transactionRelayedByLabel"
-            />
+            android:textAlignment="center"
+            android:textColor="@android:color/white"
+            android:textSize="11sp" />
     </RelativeLayout>
 </FrameLayout>

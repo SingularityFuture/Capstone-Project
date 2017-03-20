@@ -9,10 +9,8 @@ import java.util.List;
 import info.blockchain.api.blockexplorer.BlockExplorer;
 import info.blockchain.api.blockexplorer.Transaction;
 
-public class BlockExplorerClass
-{
-    public static String retrieveUnconfirmedTransactions() throws Exception
-    {
+public class BlockExplorerClass {
+    public static String retrieveUnconfirmedTransactions() throws Exception {
         // Instantiate a block explorer
         BlockExplorer blockExplorer = new BlockExplorer();
 

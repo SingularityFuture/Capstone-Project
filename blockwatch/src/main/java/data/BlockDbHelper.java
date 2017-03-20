@@ -53,13 +53,13 @@ public class BlockDbHelper extends SQLiteOpenHelper {    /*
                  * BlockEntry implements the interface, "BaseColumns", which does have a field
                  * named "_ID". We use that here to designate our table's primary key.
                  */
-                        BlockContract.BlockEntry._ID               + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        BlockContract.BlockEntry.COLUMN_HASH       + " TEXT NOT NULL, "                     +
-                        BlockContract.BlockEntry.COLUMN_LOCK_TIME  + " INTEGER NOT NULL, "                  +
-                        BlockContract.BlockEntry.COLUMN_RELAYED_BY + " TEXT NOT NULL, "                     +
-                        BlockContract.BlockEntry.COLUMN_VER        + " INTEGER NOT NULL, "                  +
-                        BlockContract.BlockEntry.COLUMN_LATITUDE   + " REAL NOT NULL, "                     +
-                        BlockContract.BlockEntry.COLUMN_LONGITUDE  + " REAL NOT NULL, "                     +
+                        BlockContract.BlockEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        BlockContract.BlockEntry.COLUMN_HASH + " TEXT NOT NULL, " +
+                        BlockContract.BlockEntry.COLUMN_LOCK_TIME + " INTEGER NOT NULL, " +
+                        BlockContract.BlockEntry.COLUMN_RELAYED_BY + " TEXT NOT NULL, " +
+                        BlockContract.BlockEntry.COLUMN_VER + " INTEGER NOT NULL, " +
+                        BlockContract.BlockEntry.COLUMN_LATITUDE + " REAL NOT NULL, " +
+                        BlockContract.BlockEntry.COLUMN_LONGITUDE + " REAL NOT NULL, " +
 
                 /*
                  * To ensure this table can only contain one block entry per date, we declare

@@ -12,7 +12,6 @@ import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.google.android.gms.ads.AdRequest;
@@ -27,20 +26,18 @@ import data.BlockContract;
  * to handle interaction events.
  * Use the {@link BlockwatchFragment#newInstance} factory method to
  * create an instance of this fragment.
- *
+ * <p>
  * 2/2017 Michael Mebane
  * Fragment that shows the main BlockWatch face on the mobile side
  */
-public class BlockwatchFragment extends Fragment implements View.OnClickListener, LoaderManager.LoaderCallbacks<Cursor>{
-    private OnFragmentInteractionListener mListener;
-
+public class BlockwatchFragment extends Fragment implements View.OnClickListener, LoaderManager.LoaderCallbacks<Cursor> {
+    private static final int ID_BLOCKWATCH_LOADER = 444;
     PaintView pV;  // Declare paintView to put the watch in
     View rootView; // Declare rootView
     RelativeLayout layout; // Declare layout that will access fragment layout
     String callBack_result; // Temp variable to make sure callback fragment listener works
     //String currentHash; // Store the updated transaction hash here
-
-    private static final int ID_BLOCKWATCH_LOADER = 444;
+    private OnFragmentInteractionListener mListener;
 
 
     public BlockwatchFragment() {
@@ -50,18 +47,18 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
+     *
      * @return A new instance of fragment BlockwatchFragment.
      */
     public BlockwatchFragment newInstance(String currentHash) {
-        BlockwatchFragment fragment = new BlockwatchFragment();
-        return fragment;
+        return new BlockwatchFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         /* This connects our Activity into the loader lifecycle. */
-        getLoaderManager().initLoader(ID_BLOCKWATCH_LOADER , null, this).forceLoad();
+        getLoaderManager().initLoader(ID_BLOCKWATCH_LOADER, null, this).forceLoad();
     }
 
     @Override
@@ -73,7 +70,7 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        rootView =inflater.inflate(R.layout.fragment_blockwatch, container, false);
+        rootView = inflater.inflate(R.layout.fragment_blockwatch, container, false);
         layout = (RelativeLayout) rootView.findViewById(R.id.watch_fragment_layout);
 
         // Inflate the layout for this fragment
@@ -99,9 +96,8 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
     /**
      * Creates and returns a CursorLoader that loads the data for our URI and stores it in a Cursor.
      *
-     * @param loaderId The loader ID for which we need to create a loader
+     * @param loaderId   The loader ID for which we need to create a loader
      * @param loaderArgs Any arguments supplied by the caller
-     *
      * @return A new Loader instance that is ready to start loading.
      */
     @Override
@@ -111,14 +107,12 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
 
             case ID_BLOCKWATCH_LOADER:
 
-                Loader<Cursor> tempCursor = new CursorLoader(getActivity(),
+                return new CursorLoader(getActivity(),
                         BlockContract.BlockEntry.CONTENT_URI,
                         null,
                         null,
                         null,
                         null);
-
-                return tempCursor;
 
             default:
                 throw new RuntimeException("Loader Not Implemented: " + loaderId);
@@ -174,11 +168,11 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
         // This represents the current transaction hash
         if (!data.isNull(1)) {
             String currentHash = data.getString(1);
-            pV=new PaintView(getActivity(),currentHash); // Create a new paint view for the watch face
+            pV = new PaintView(getActivity(), currentHash); // Create a new paint view for the watch face
             RelativeLayout.LayoutParams paramsPaint = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT); // Set width and height
             pV.setBackgroundColor(Color.TRANSPARENT); // Set the background white
             pV.setLayoutParams(paramsPaint); // Apply the layout width and height
-            if(android.os.Build.VERSION.SDK_INT>20)
+            if (android.os.Build.VERSION.SDK_INT > 20)
                 pV.setElevation(200); // Set elevation if SDK > 20
             int newID = pV.generateViewId(); // Generate a new unique ID
             pV.setId(newID); // Set the ID here
@@ -202,22 +196,22 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
     public void onLoaderReset(Loader<Cursor> loader) {
     }
 
-     /*
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information. */
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction();
-    }
-
     // Implement the method for when the configuration changes
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+    }
+
+    /*
+    * This interface must be implemented by activities that contain this
+    * fragment to allow an interaction in this fragment to be communicated
+    * to the activity and potentially other fragments contained in that
+    * activity.
+    * <p>
+    * See the Android Training lesson <a href=
+    * "http://developer.android.com/training/basics/fragments/communicating.html"
+    * >Communicating with Other Fragments</a> for more information. */
+    public interface OnFragmentInteractionListener {
+        void onFragmentInteraction();
     }
 }

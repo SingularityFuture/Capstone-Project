@@ -15,14 +15,14 @@ import com.google.android.gms.ads.MobileAds;
 import data.BlockContract;
 import sync.BlockwatchSyncAdapter;
 
-public class MainActivity extends AppCompatActivity implements BlockwatchFragment.OnFragmentInteractionListener, View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements BlockwatchFragment.OnFragmentInteractionListener, View.OnClickListener {
 
-    private Fragment watchFragment; // Declare the fragment you will include
-    private Fragment transactionFragment; // Declare the fragment you will include
     private static final String WATCH_FRAGMENT_TAG = "watch_fragment"; // Create a tag to keep track of created fragments
     private static final String TRANSACTION_FRAGMENT_TAG = "transaction_fragment";
-    private String hash = "b5357533bf43d6793aa24d91d6a01055128bff64730627bbb3a512b04d2e9043"; // Start with a dummy hash in case of any network error
     boolean isTablet; // Track whether this is a tablet
+    private Fragment watchFragment; // Declare the fragment you will include
+    private Fragment transactionFragment; // Declare the fragment you will include
+    private String hash = "b5357533bf43d6793aa24d91d6a01055128bff64730627bbb3a512b04d2e9043"; // Start with a dummy hash in case of any network error
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +40,11 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
 
             watchFragment = new BlockwatchFragment().newInstance(hash); // Add the watch fragment here, passing the context as an implementation of the fragment listener
             //watchFragment.setRetainInstance(true); // Do this so that it retains the member variable holding the hash
-            getSupportFragmentManager().beginTransaction().add(R.id.blockwatch_fragment,watchFragment,WATCH_FRAGMENT_TAG).commit(); // Add the fragment to the transaction
+            getSupportFragmentManager().beginTransaction().add(R.id.blockwatch_fragment, watchFragment, WATCH_FRAGMENT_TAG).commit(); // Add the fragment to the transaction
 
-        }
-        else {
-           watchFragment = getSupportFragmentManager().findFragmentByTag(WATCH_FRAGMENT_TAG); // Else if it exists
-           getSupportFragmentManager().beginTransaction().replace(R.id.blockwatch_fragment,watchFragment,WATCH_FRAGMENT_TAG).commit(); // Replace the fragment with the current one
+        } else {
+            watchFragment = getSupportFragmentManager().findFragmentByTag(WATCH_FRAGMENT_TAG); // Else if it exists
+            getSupportFragmentManager().beginTransaction().replace(R.id.blockwatch_fragment, watchFragment, WATCH_FRAGMENT_TAG).commit(); // Replace the fragment with the current one
         }
 
         // The detail container view will be present only in the large-screen layouts
@@ -61,8 +60,7 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
                 getSupportFragmentManager().beginTransaction()
                         .add(R.id.transaction_fragment, transactionFragment, TRANSACTION_FRAGMENT_TAG)
                         .commit();
-            }
-            else{
+            } else {
                 transactionFragment = getSupportFragmentManager().findFragmentByTag(TRANSACTION_FRAGMENT_TAG); // Else if it exists
 
                 getSupportFragmentManager().beginTransaction()
@@ -80,17 +78,16 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
         try {
             BlockwatchSyncAdapter.syncImmediately(this);
             watchFragment = new BlockwatchFragment().newInstance(hash); // Create a new watch fragment with a new hash
-            getSupportFragmentManager().beginTransaction().replace(R.id.blockwatch_fragment,watchFragment,WATCH_FRAGMENT_TAG).commit(); // Replace the fragment with the current one with a new hash
-        }
-        catch (Exception e){
+            getSupportFragmentManager().beginTransaction().replace(R.id.blockwatch_fragment, watchFragment, WATCH_FRAGMENT_TAG).commit(); // Replace the fragment with the current one with a new hash
+        } catch (Exception e) {
             Log.d(getString(R.string.explorer_error), e.getMessage());
         }
     }
 
     @Override
-    public void onFragmentInteraction(){
+    public void onFragmentInteraction() {
         // Here you should launch a new fragment that shows the details of the clicked transaction, only in phone mode
-        if(!isTablet) {
+        if (!isTablet) {
             Intent intent = new Intent(this, TransactionDetailActivity.class);
             intent.putExtra("URI", BlockContract.BlockEntry.CONTENT_URI);
             startActivity(intent);
