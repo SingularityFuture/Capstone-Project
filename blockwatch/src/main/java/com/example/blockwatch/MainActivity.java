@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
 
             BlockwatchSyncAdapter.initializeSyncAdapter(this);
 
-            watchFragment = new BlockwatchFragment().newInstance(hash); // Add the watch fragment here, passing the context as an implementation of the fragment listener
+            watchFragment = new BlockwatchFragment().newInstance(); // Add the watch fragment here, passing the context as an implementation of the fragment listener
             //watchFragment.setRetainInstance(true); // Do this so that it retains the member variable holding the hash
             getSupportFragmentManager().beginTransaction().add(R.id.blockwatch_fragment, watchFragment, WATCH_FRAGMENT_TAG).commit(); // Add the fragment to the transaction
 
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
                 .setAction("action", null).show();
         try {
             BlockwatchSyncAdapter.syncImmediately(this);
-            watchFragment = new BlockwatchFragment().newInstance(hash); // Create a new watch fragment with a new hash
+            watchFragment = new BlockwatchFragment().newInstance(); // Create a new watch fragment with a new hash
             getSupportFragmentManager().beginTransaction().replace(R.id.blockwatch_fragment, watchFragment, WATCH_FRAGMENT_TAG).commit(); // Replace the fragment with the current one with a new hash
         } catch (Exception e) {
             Log.d(getString(R.string.explorer_error), e.getMessage());

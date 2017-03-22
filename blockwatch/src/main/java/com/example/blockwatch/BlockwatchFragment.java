@@ -35,14 +35,8 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
     PaintView pV;  // Declare paintView to put the watch in
     View rootView; // Declare rootView
     RelativeLayout layout; // Declare layout that will access fragment layout
-    String callBack_result; // Temp variable to make sure callback fragment listener works
     //String currentHash; // Store the updated transaction hash here
     private OnFragmentInteractionListener mListener;
-
-
-    public BlockwatchFragment() {
-        // Required empty public constructor
-    }
 
     /**
      * Use this factory method to create a new instance of
@@ -50,7 +44,7 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
      *
      * @return A new instance of fragment BlockwatchFragment.
      */
-    public BlockwatchFragment newInstance(String currentHash) {
+    public BlockwatchFragment newInstance() {
         return new BlockwatchFragment();
     }
 
