@@ -49,7 +49,8 @@
         <provider
             android:name="data.BlockProvider"
             android:authorities="com.example.blockwatch"
-            android:syncable="true"></provider>
+            android:syncable="true"
+            android:label="blockwatch"></provider>
 
         <!-- SyncAdapter's dummy authentication service -->
         <service android:name="sync.BlockwatchAuthenticatorService">

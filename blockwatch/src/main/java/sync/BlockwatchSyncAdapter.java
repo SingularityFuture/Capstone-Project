@@ -28,9 +28,8 @@ import utilities.NetworkUtils;
 import utilities.TransactionJsonUtils;
 
 public class BlockwatchSyncAdapter extends AbstractThreadedSyncAdapter {
-    // Interval at which to sync with the blockchain transaction, in seconds.
-    // 5 seconds
-    public static final long SYNC_INTERVAL = 5 / 12;
+    // Interval at which to sync with the blockchain transaction, in seconds
+    public static final long SYNC_INTERVAL = 5;
     public static final long SYNC_FLEXTIME = SYNC_INTERVAL / 3;
     public static final String ACTION_DATA_UPDATED =
             "com.example.blockwatch.ACTION_DATA_UPDATED";
