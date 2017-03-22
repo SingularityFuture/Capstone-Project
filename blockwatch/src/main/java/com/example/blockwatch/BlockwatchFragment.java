@@ -175,8 +175,6 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
             pV.setContentDescription(getString(R.string.blockwatch_face));
             layout.addView(pV); // Add the view to the fragment layout
         }
-
-
     }
 
     /**

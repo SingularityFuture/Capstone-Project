@@ -131,4 +131,25 @@
     <string name="style_parsing_failed">Style parsing failed.</string>
     <string name="cant_find_style">Can\'t find style. Error:</string>
     <string name="explorer_error">Explorer error:</string>
+    <string name="inline_preferences">Inline Preferences</string>
+    <string name="title_checkbox_preference">Checkbox Preference</string>
+    <string name="summary_checkbox_preference">Summary Checkbox</string>
+    <string name="dialog_based_preferences">Dialog Based Preferences</string>
+    <string name="title_edittext_preference">Edit Text Preference</string>
+    <string name="summary_edittext_preference">Summary Edit Text Preference</string>
+    <string name="dialog_title_edittext_preference">Dialog Text Edit Text</string>
+    <string name="title_list_preference">Title List Preference</string>
+    <string name="summary_list_preference">Summary List Preference</string>
+    <string name="dialog_title_list_preference">Dialog Title List Preferences</string>
+    <string name="launch_preferences">Launch Preferences</string>
+    <string name="title_fragment_preference">Title Fragment Preference</string>
+    <string name="summary_fragment_preference">Summary Fragment Preference</string>
+    <string name="title_intent_preference">Title Intent Preference</string>
+    <string name="summary_intent_preference">Summary Intent Preference</string>
+    <string name="preference_attributes">Preference Attributes</string>
+    <string name="title_parent_preference">Title Parent Preference</string>
+    <string name="summary_parent_preference">Summary Parent Preference</string>
+    <string name="title_child_preference" />
+    <string name="summary_child_preference">Summary Child Preference</string>
+    <string name="preference_with_headers">Preferences</string>
 </resources>

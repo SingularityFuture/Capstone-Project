@@ -46,6 +46,11 @@
             android:label="@string/transaction_detail"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
+        <activity
+            android:name=".PreferenceWithHeaders"
+            android:label="@string/preference_with_headers"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
         <provider
             android:name="data.BlockProvider"
             android:authorities="com.example.blockwatch"
