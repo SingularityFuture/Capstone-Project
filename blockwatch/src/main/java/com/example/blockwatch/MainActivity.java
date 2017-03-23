@@ -2,6 +2,7 @@ package com.example.blockwatch;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -32,6 +33,8 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
         setContentView(R.layout.activity_main); // Set the main activity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar); // Get the toolbar ID
         setSupportActionBar(toolbar); // Set the toolbar
+
+        PreferenceManager.setDefaultValues(this, R.xml.advanced_preferences, false);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(this);

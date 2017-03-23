@@ -5,11 +5,16 @@
     android:key="sorting_pref"
     android:title="Sorting Preferences">
 
-    <ListPreference
-        android:title="Movie Sorting Preference"
-        android:summary="Sort the movies by %s."
-        android:key="sortSetting"
-        android:defaultValue="1"
-        android:entries="@array/listArray"
-        android:entryValues="@array/listValues" />
+    <net.margaritov.preference.colorpicker.ColorPickerPreference
+        android:key="@string/hour_one_color"
+        android:title="@string/title_hour_one_color"
+        android:summary="@string/change_hour_one_color"
+        android:defaultValue="@color/lightRed" />
+
+    <net.margaritov.preference.colorpicker.ColorPickerPreference
+        android:key="@string/hour_two_color"
+        android:title="@string/title_hour_two_color"
+        android:summary="@string/change_hour_two_color"
+        android:defaultValue="@color/lightRed" />
+
 </PreferenceScreen>
