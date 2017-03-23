@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.widget.Button;
+import android.util.Log;
 
 import java.util.List;
 
@@ -24,13 +24,6 @@ public class PreferenceWithHeaders extends PreferenceActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Add a button to the header list.
-        if (hasHeaders()) {
-            Button button = new Button(this);
-            button.setText("Some action");
-            setListFooter(button);
-        }
     }
 
     /**
@@ -39,6 +32,11 @@ public class PreferenceWithHeaders extends PreferenceActivity {
     @Override
     public void onBuildHeaders(List<Header> target) {
         loadHeadersFromResource(R.xml.preference_headers, target);
+    }
+
+    @Override
+    protected boolean isValidFragment (String fragmentName) {
+        return Prefs1Fragment.class.getName().equals(fragmentName) || Prefs2Fragment.class.getName().equals(fragmentName);
     }
 
     /**
@@ -56,15 +54,15 @@ public class PreferenceWithHeaders extends PreferenceActivity {
                     R.xml.advanced_preferences, false);
 
             // Load the preferences from an XML resource
-            addPreferencesFromResource(R.xml.fragmented_preferences);
+            addPreferencesFromResource(R.xml.color_preferences);
         }
     }
 
-    /**
+   /* *
      * This fragment contains a second-level set of preference that you
-     * can get to by tapping an item in the first preferences fragment.
-     *//*
-    public static class Prefs1FragmentInner extends PreferenceFragment {
+     * can get to by tapping an item in the first preferences fragment.*/
+
+/*    public static class Prefs1FragmentInner extends PreferenceFragment {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -75,11 +73,11 @@ public class PreferenceWithHeaders extends PreferenceActivity {
             // Load the preferences from an XML resource
             addPreferencesFromResource(R.xml.fragmented_preferences_inner);
         }
-    }
+    }*/
 
-    *//**
-     * This fragment shows the preferences for the second header.
-     *//*
+/*    *
+     * This fragment shows the preferences for the second header.*/
+
     public static class Prefs2Fragment extends PreferenceFragment {
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -89,8 +87,8 @@ public class PreferenceWithHeaders extends PreferenceActivity {
             Log.i("args", "Arguments: " + getArguments());
 
             // Load the preferences from an XML resource
-            addPreferencesFromResource(R.xml.preference_dependencies);
+            addPreferencesFromResource(R.xml.show_time_preferences);
         }
-    }*/
+    }
 }
 

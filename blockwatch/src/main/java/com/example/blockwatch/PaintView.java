@@ -8,6 +8,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -20,7 +21,11 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
-import static com.example.blockwatch.R.color.lightRed;
+import static com.example.blockwatch.R.string.hour_one_color;
+import static com.example.blockwatch.R.string.hour_two_color;
+import static com.example.blockwatch.R.string.minute_one_color;
+import static com.example.blockwatch.R.string.minute_two_color;
+import static com.example.blockwatch.R.string.show_time_preference_key;
 
 /**
  * Created by Michael on 2/6/2017.
@@ -88,6 +93,11 @@ public class PaintView extends View {
     private int[] indexInCircle = {0, 0, 0, 0};
     private int[] timeAngles = {0, 0, 0, 0};
     private int am_pm;
+    int hourOneColor = PreferenceManager.getDefaultSharedPreferences(getContext()).getInt(getResources().getString(hour_one_color), ContextCompat.getColor(getContext(),R.color.red));
+    int hourTwoColor = PreferenceManager.getDefaultSharedPreferences(getContext()).getInt(getResources().getString(hour_two_color), ContextCompat.getColor(getContext(),R.color.red));
+    int minuteOneColor = PreferenceManager.getDefaultSharedPreferences(getContext()).getInt(getResources().getString(minute_one_color), ContextCompat.getColor(getContext(),R.color.red));
+    int minuteTwoColor = PreferenceManager.getDefaultSharedPreferences(getContext()).getInt(getResources().getString(minute_two_color), ContextCompat.getColor(getContext(),R.color.red));
+    boolean showTimeBelowWheel= PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean(getResources().getString(show_time_preference_key), true);
 
     public PaintView(Context context, String currentHash) {
         super(context); // Call the superclass's (View) constructor
@@ -247,17 +257,19 @@ public class PaintView extends View {
             currentChar = String.valueOf(currentHash.charAt(charIndices[j])); // Get the current character in the hash
             if (j == 0 && hourDrawn.get(0)) { // If you're on the current digit of the time, and you found it up above while looping through the hash
                 // Draw a red circle behind the current digit to make it stand out
-                mPaintText.setColor(Color.RED); // Change the color to red
+                mPaintText.setColor(hourOneColor); // Change the color to red
                 canvas.drawCircle((float) (centerX + (radius * radiusSqueeze[circleIndices[j]] * circleSpacing[circleIndices[j]] * Math.cos(medianAngle))), (float) (centerY + (radius * radiusSqueeze[circleIndices[j]] * circleSpacing[circleIndices[j]] * Math.sin(medianAngle))), mTextHeight * firstHourTextScale, mPaintText);
             } else if (j == 1 && hour.length() == 2 && hourDrawn.get(1)) { // If you're on the current digit of the time, and you found it up above while looping through the hash
                 // Draw a red circle behind the current digit to make it stand out
+                mPaintText.setColor(hourTwoColor); // Change the color to red
                 canvas.drawCircle((float) (centerX + (radius * radiusSqueeze[circleIndices[j]] * circleSpacing[circleIndices[j]] * Math.cos(medianAngle))), (float) (centerY + (radius * radiusSqueeze[circleIndices[j]] * circleSpacing[circleIndices[j]] * Math.sin(medianAngle))), mTextHeight * secondHourTextScale, mPaintText);
             } else if (j == 2 && minuteDrawn.get(0)) { // If you're on the current digit of the time, and you found it up above while looping through the hash
                 // Draw a red circle behind the current digit to make it stand out
-                mPaintText.setColor(ContextCompat.getColor(getContext(),lightRed)); // Change the color
+                mPaintText.setColor(minuteOneColor); // Change the color
                 canvas.drawCircle((float) (centerX + (radius * radiusSqueeze[circleIndices[j]] * circleSpacing[circleIndices[j]] * Math.cos(medianAngle))), (float) (centerY + (radius * radiusSqueeze[circleIndices[j]] * circleSpacing[circleIndices[j]] * Math.sin(medianAngle))), mTextHeight * firstMinuteTextScale, mPaintText);
             } else if (j == 3 && minuteDrawn.get(1)) { // If you're on the current digit of the time, and you found it up above while looping through the hash
                 // Draw a red circle behind the current digit to make it stand out
+                mPaintText.setColor(minuteTwoColor); // Change the color
                 canvas.drawCircle((float) (centerX + (radius * radiusSqueeze[circleIndices[j]] * circleSpacing[circleIndices[j]] * Math.cos(medianAngle))), (float) (centerY + (radius * radiusSqueeze[circleIndices[j]] * circleSpacing[circleIndices[j]] * Math.sin(medianAngle))), mTextHeight * secondMinuteTextScale, mPaintText);
             }
         }
@@ -316,10 +328,10 @@ public class PaintView extends View {
             mPaintText.getTextBounds(currentChar, 0, currentChar.length(), bounds); // Measure the text
             mPaintText.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD)); // Make the hours bold
             // Draw a red circle behind the current digit to make it stand out
-            mPaintText.setColor(Color.RED);
-            canvas.drawCircle((float) (centerX + ((radius + mTextHeight * firstHourTextScale) * Math.cos(medianAngle))), (float) (centerY + ((radius + mTextHeight * firstHourTextScale) * Math.sin(medianAngle))), mTextHeight * firstHourTextScale, mPaintText);
+            mPaintText.setColor(hourOneColor);
+            canvas.drawCircle((float) (centerX + (radius * Math.cos(medianAngle))), (float) (centerY + (radius * Math.sin(medianAngle))), mTextHeight * firstHourTextScale, mPaintText);
             mPaintText.setColor(Color.WHITE);
-            canvas.drawText(currentChar, (float) (centerX + ((radius + mTextHeight * firstHourTextScale) * Math.cos(medianAngle))), (float) (centerY + ((radius + mTextHeight * firstHourTextScale) * Math.sin(medianAngle))) + bounds.height() * 0.5f, mPaintText);
+            canvas.drawText(currentChar, (float) (centerX + (radius * Math.cos(medianAngle))), (float) (centerY + (radius * Math.sin(medianAngle))) + bounds.height() * 0.5f, mPaintText);
         }
         // In case something wasn't drawn
         if (!hourDrawn.get(1) && hour.length() == 2) {
@@ -332,10 +344,10 @@ public class PaintView extends View {
             mPaintText.getTextBounds(currentChar, 0, currentChar.length(), bounds); // Measure the text
             mPaintText.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD)); // Make the hours bold
             // Draw a red circle behind the current digit to make it stand out
-            mPaintText.setColor(Color.RED);
-            canvas.drawCircle((float) (centerX + ((radius + mTextHeight * secondHourTextScale) * Math.cos(medianAngle))), (float) (centerY + ((radius + mTextHeight * secondHourTextScale) * Math.sin(medianAngle))), mTextHeight * secondHourTextScale, mPaintText);
+            mPaintText.setColor(hourTwoColor);
+            canvas.drawCircle((float) (centerX + (radius * Math.cos(medianAngle))), (float) (centerY + (radius * Math.sin(medianAngle))), mTextHeight * secondHourTextScale, mPaintText);
             mPaintText.setColor(Color.WHITE);
-            canvas.drawText(currentChar, (float) (centerX + ((radius + mTextHeight * secondHourTextScale) * Math.cos(medianAngle))), (float) (centerY + ((radius + mTextHeight * secondHourTextScale) * Math.sin(medianAngle))) + bounds.height() * 0.5f, mPaintText);
+            canvas.drawText(currentChar, (float) (centerX + (radius * Math.cos(medianAngle))), (float) (centerY + (radius * Math.sin(medianAngle))) + bounds.height() * 0.5f, mPaintText);
         }
         // In case something wasn't drawn
         if (!minuteDrawn.get(0)) {
@@ -346,11 +358,11 @@ public class PaintView extends View {
             // Measure the current character in the string
             mPaintText.getTextBounds(currentChar, 0, currentChar.length(), bounds); // Measure the text
             // Draw a red circle behind the current digit to make it stand out
-            mPaintText.setColor(Color.RED);
+            mPaintText.setColor(minuteOneColor);
             mPaintText.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.ITALIC)); // Make the minutes italic
-            canvas.drawCircle((float) (centerX + ((radius + mTextHeight * firstMinuteTextScale) * Math.cos(medianAngle))), (float) (centerY + ((radius + mTextHeight * firstMinuteTextScale) * Math.sin(medianAngle))), mTextHeight * firstMinuteTextScale, mPaintText);
+            canvas.drawCircle((float) (centerX + (radius * Math.cos(medianAngle))), (float) (centerY + (radius * Math.sin(medianAngle))), mTextHeight * firstMinuteTextScale, mPaintText);
             mPaintText.setColor(Color.WHITE);
-            canvas.drawText(currentChar, (float) (centerX + ((radius + mTextHeight * firstMinuteTextScale) * Math.cos(medianAngle))), (float) (centerY + ((radius + mTextHeight * firstMinuteTextScale) * Math.sin(medianAngle))) + bounds.height() * 0.5f, mPaintText);
+            canvas.drawText(currentChar, (float) (centerX + (radius * Math.cos(medianAngle))), (float) (centerY + (radius * Math.sin(medianAngle))) + bounds.height() * 0.5f, mPaintText);
         }
         // In case something wasn't drawn
         if (!minuteDrawn.get(1)) {
@@ -361,15 +373,18 @@ public class PaintView extends View {
             // Measure the current character in the string
             mPaintText.getTextBounds(currentChar, 0, currentChar.length(), bounds); // Measure the text
             // Draw a red circle behind the current digit to make it stand out
-            mPaintText.setColor(Color.RED);
+            mPaintText.setColor(minuteTwoColor);
             mPaintText.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.ITALIC)); // Make the minutes italic
-            canvas.drawCircle((float) (centerX + ((radius + mTextHeight * secondMinuteTextScale) * Math.cos(medianAngle))), (float) (centerY + ((radius + mTextHeight * secondMinuteTextScale) * Math.sin(medianAngle))), mTextHeight * secondMinuteTextScale, mPaintText);
+            canvas.drawCircle((float) (centerX + (radius * Math.cos(medianAngle))), (float) (centerY + (radius * Math.sin(medianAngle))), mTextHeight * secondMinuteTextScale, mPaintText);
             mPaintText.setColor(Color.WHITE);
-            canvas.drawText(currentChar, (float) (centerX + ((radius + mTextHeight * secondMinuteTextScale) * Math.cos(medianAngle))), (float) (centerY + ((radius + mTextHeight * secondMinuteTextScale) * Math.sin(medianAngle))) + bounds.height() * 0.5f, mPaintText);
+            canvas.drawText(currentChar, (float) (centerX + (radius * Math.cos(medianAngle))), (float) (centerY + (radius * Math.sin(medianAngle))) + bounds.height() * 0.5f, mPaintText);
         }
-        String fullTime = am_pm == Calendar.AM ? hour + ":" + minute + " AM" : hour + ":" + minute + " PM"; // Put the full time here
-        mPaintText.setColor(Color.BLACK);
-        mPaintText.setShadowLayer(0, 0, 0, Color.BLACK); // Nullify the shadow layer
-        canvas.drawText(fullTime,centerX,centerY + radius + mTextHeight * 0.7f, mPaintText); // Draw the full time to make it easier
+        if(showTimeBelowWheel) {
+            String fullTime = am_pm == Calendar.AM ? hour + ":" + minute + " AM" : hour + ":" + minute + " PM"; // Put the full time here
+            mPaintText.setColor(Color.BLACK);
+            mPaintText.setTextSize(mTextHeight);
+            mPaintText.setShadowLayer(0, 0, 0, Color.BLACK); // Nullify the shadow layer
+            canvas.drawText(fullTime, centerX, centerY + radius + mTextHeight * 0.7f, mPaintText); // Draw the full time to make it easier
+        }
     }
 }

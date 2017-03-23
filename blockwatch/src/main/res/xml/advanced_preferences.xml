@@ -12,5 +12,4 @@
         android:defaultValue="1"
         android:entries="@array/listArray"
         android:entryValues="@array/listValues" />
-
 </PreferenceScreen>

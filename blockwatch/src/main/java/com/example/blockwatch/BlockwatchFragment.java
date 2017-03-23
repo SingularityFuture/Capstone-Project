@@ -35,7 +35,6 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
     PaintView pV;  // Declare paintView to put the watch in
     View rootView; // Declare rootView
     RelativeLayout layout; // Declare layout that will access fragment layout
-    //String currentHash; // Store the updated transaction hash here
     private OnFragmentInteractionListener mListener;
 
     /**
@@ -85,6 +84,12 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        getLoaderManager().restartLoader(ID_BLOCKWATCH_LOADER, null, this);
     }
 
     /**
@@ -147,17 +152,6 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
             /* No data to display, simply return and do nothing */
             return;
         }
-        //layout = (RelativeLayout) rootView.findViewById(R.id.transaction_fragment_layout);
-
-        AdView mAdView = (AdView) layout.findViewById(R.id.adView);
-        // Create an ad request. Check logcat output for the hashed device ID to
-        // get test ads on a physical device. e.g.
-        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("TEST_DEVICE_ID")
-                .build();
-        mAdView.loadAd(adRequest);
 
         // This represents the current transaction hash
         if (!data.isNull(1)) {
@@ -175,6 +169,16 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
             pV.setContentDescription(getString(R.string.blockwatch_face));
             layout.addView(pV); // Add the view to the fragment layout
         }
+
+        AdView mAdView = (AdView) layout.findViewById(R.id.adView);
+        // Create an ad request. Check logcat output for the hashed device ID to
+        // get test ads on a physical device. e.g.
+        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("TEST_DEVICE_ID")
+                .build();
+        mAdView.loadAd(adRequest);
     }
 
     /**
