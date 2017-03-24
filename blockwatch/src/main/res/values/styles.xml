@@ -6,7 +6,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:fontFamily">sans-serif</item>
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -17,4 +17,13 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!-- Settings application theme. -->
+<!--    <style name="PreferenceThemeOverlay" parent="Theme.AppCompat.Light.DarkActionBar">
+        &lt;!&ndash; Customize your theme here. &ndash;&gt;
+        <item name="colorPrimary">@android:color/black</item>
+        <item name="colorPrimaryDark">@android:color/black</item>
+        <item name="colorAccent">@color/red</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>-->
 </resources>

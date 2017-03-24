@@ -161,8 +161,9 @@
     <string name="show_time_below_wheel">Show Time Below Wheel</string>
     <string name="show_time_preference_key">Show Time Preference Key</string>
     <string name="title_color_preferences">Color Preferences</string>
-    <string name="keep_colors_same">Keep Colors Same</string>
+    <string name="keep_colors_same_key">Keep Colors Same</string>
     <string name="title_keep_colors_same">Keep Colors Same</string>
+    <string name="keep_colors_same">Set all colors to be equal to the first hour color</string>
     <string name="hour_one_color">HourOneColor</string>
     <string name="hour_two_color">HourTwoColor</string>
     <string name="title_hour_one_color">First Hour Digit Color</string>

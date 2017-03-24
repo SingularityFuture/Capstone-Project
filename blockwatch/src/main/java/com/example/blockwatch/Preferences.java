@@ -5,9 +5,9 @@ package com.example.blockwatch;
  */
 
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.PreferenceFragmentCompat;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 
 /**
@@ -25,17 +25,26 @@ public class Preferences extends AppCompatActivity {
         setContentView(R.layout.settings_layout); // Set the main activity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.settings_toolbar); // Get the settings toolbar ID
-        setSupportActionBar(toolbar); // Set the toolbar
+        //setSupportActionBar(toolbar); // Set the toolbar
+/*        if(getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });*/
 
-        getFragmentManager().beginTransaction()
+        getSupportFragmentManager().beginTransaction()
                 .replace(R.id.settings_content, new Prefs1Fragment()).commit();
     }
 
     /**
      * This fragment shows the preferences for the first header.
      */
-    public static class Prefs1Fragment extends PreferenceFragment {
-        @Override
+    public static class Prefs1Fragment extends PreferenceFragmentCompat {
+/*        @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             // Make sure default values are applied.  In a real app, you would
@@ -44,6 +53,16 @@ public class Preferences extends AppCompatActivity {
             PreferenceManager.setDefaultValues(getActivity(),
                     R.xml.advanced_preferences, false);
             // Load the preferences from an XML resource
+            addPreferencesFromResource(R.xml.preference_layout);
+        }*/
+
+        @Override
+        public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+            // Make sure default values are applied.  In a real app, you would
+            // want this in a shared function that is used to retrieve the
+            // SharedPreferences wherever they are needed.
+            PreferenceManager.setDefaultValues(getActivity(),
+                    R.xml.advanced_preferences, false);
             addPreferencesFromResource(R.xml.preference_layout);
         }
     }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 /**
  * Created by Michael on 2/16/2017.
@@ -21,6 +22,15 @@ public class TransactionDetailActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_transaction); // Get the toolbar ID
         toolbar.setTitle(R.string.transaction_detail);
         setSupportActionBar(toolbar); // Set the toolbar
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         mURI = getIntent().getParcelableExtra("URI");
         if (mURI == null) throw new NullPointerException("URI for DetailActivity cannot be null");
