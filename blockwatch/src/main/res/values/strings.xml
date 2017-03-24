@@ -175,4 +175,12 @@
     <string name="change_minute_one_color">Change the First Minute Digit Color</string>
     <string name="title_minute_two_color">Second Minute Digit Color</string>
     <string name="change_minute_two_color">Change the Second Minute Digit Color</string>
+    <string name="preferences">Preferences</string>
+    <string name="preferences_main_screen">Preferences Main Screen</string>
+    <string name="settings_fragment">Settings Fragment</string>
+    <string name="military_time_preference">Military Time</string>
+    <string name="military_time_preference_key">Military Time Preference Key</string>
+    <string name="show_military_time">Display Time in Military Format</string>
+    <string name="title_military_time_preference">Military Time</string>
+    <string name="preferences_screen_toolbar">Preferences Toolbar</string>
 </resources>

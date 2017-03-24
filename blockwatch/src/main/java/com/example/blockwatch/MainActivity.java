@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
     boolean isTablet; // Track whether this is a tablet
     private Fragment watchFragment; // Declare the fragment you will include
     private Fragment transactionFragment; // Declare the fragment you will include
-    private String hash = "b5357533bf43d6793aa24d91d6a01055128bff64730627bbb3a512b04d2e9043"; // Start with a dummy hash in case of any network error
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            startActivity(new Intent(this, PreferenceWithHeaders.class));
+            startActivity(new Intent(this, Preferences.class));
             return true;
         }
 

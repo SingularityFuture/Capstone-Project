@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:contentDescription="@string/preferences_main_screen"
     android:fitsSystemWindows="true"
-    tools:context="com.example.blockwatch.TransactionDetailActivity">
+    tools:context="com.example.blockwatch.Preferences">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -14,24 +15,24 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar_transaction"
+            android:id="@+id/settings_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@android:color/black"
-            android:contentDescription="@string/transaction_toolbar"
+            android:contentDescription="@string/preferences_screen_toolbar"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:navigationIcon="?attr/homeAsUpIndicator"/>
-
     </android.support.design.widget.AppBarLayout>
 
     <FrameLayout
-        android:id="@+id/transaction_fragment"
-        android:name="com.example.blockwatch.TransactionFragment"
+        android:id="@+id/settings_content"
+        android:name="com.example.blockwatch.Pref1Fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/settings_toolbar"
         android:layout_marginTop="?android:attr/actionBarSize"
-        android:contentDescription="@string/transaction_frame"
-        tools:context="com.example.blockwatch.TransactionFragment"
-        tools:layout="@layout/fragment_transaction" />
-
+        android:contentDescription="@string/settings_fragment"
+        android:nextFocusUp="@id/settings_toolbar"
+        tools:context="com.example.blockwatch.Preferences"
+        />
 </android.support.design.widget.CoordinatorLayout>

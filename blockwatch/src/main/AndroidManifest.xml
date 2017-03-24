@@ -47,7 +47,7 @@
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <activity
-            android:name=".PreferenceWithHeaders"
+            android:name=".Preferences"
             android:label="@string/preference_with_headers"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 

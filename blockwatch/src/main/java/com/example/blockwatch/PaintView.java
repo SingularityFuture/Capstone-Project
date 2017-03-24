@@ -187,8 +187,6 @@ public class PaintView extends View {
         // Keep track of the character index
         charCount = 0;
         for (circle = 0; circle < numberOfCircles; circle++) { // Go through each circle
-            /*if(circle !=1 && second[circle]!=0)
-                continue; // If this is not the inner circle and you're not refreshing to mark a new minute, don't draw the circle*/
             // Start off the angle count the current moved angle
             currentAngle = startAngle[circle];
             // Add 'shadow' highlight to bottom right of each circle

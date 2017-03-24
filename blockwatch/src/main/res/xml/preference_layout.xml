@@ -1,0 +1,84 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_below="@id/settings_toolbar">
+    <!-- opens a subscreen of settings -->
+    <PreferenceScreen
+        android:key="button_color_category_key"
+        android:title="Colors"
+        android:persistent="false"
+        android:icon="@mipmap/color_wheel"
+        android:summary="Change the colors of the watch">
+
+        <PreferenceCategory
+            android:title="@string/title_color_preferences">
+
+            <net.margaritov.preference.colorpicker.ColorPickerPreference
+                android:key="@string/hour_one_color"
+                android:title="@string/title_hour_one_color"
+                android:summary="@string/change_hour_one_color"
+                />
+
+            <net.margaritov.preference.colorpicker.ColorPickerPreference
+                android:key="@string/hour_two_color"
+                android:title="@string/title_hour_two_color"
+                android:summary="@string/change_hour_two_color"
+                />
+
+            <net.margaritov.preference.colorpicker.ColorPickerPreference
+                android:key="@string/minute_one_color"
+                android:title="@string/title_minute_one_color"
+                android:summary="@string/change_minute_one_color"
+                android:defaultValue="@color/red" />
+
+            <net.margaritov.preference.colorpicker.ColorPickerPreference
+                android:key="@string/minute_two_color"
+                android:title="@string/title_minute_two_color"
+                android:summary="@string/change_minute_two_color"
+                android:defaultValue="@color/red" />
+
+
+        <CheckBoxPreference
+            android:key="@string/show_time_preference_key"
+            android:title="@string/title_show_time_preference"
+            android:summary="@string/show_time_below_wheel"
+            android:defaultValue="true"
+            android:tint="@android:color/white"
+            app:backgroundTint="@android:color/black"/>
+        </PreferenceCategory>
+
+    </PreferenceScreen>
+
+    <PreferenceScreen
+        android:key="button_time_category_key"
+        android:icon="@drawable/ic_clock"
+        android:title="Time Display"
+        android:persistent="false"
+        android:summary="Change whether the time shows up">
+
+        <PreferenceCategory
+            android:title="@string/show_time_preference">
+
+            <CheckBoxPreference
+                android:key="@string/show_time_preference_key"
+                android:title="@string/title_show_time_preference"
+                android:summary="@string/show_time_below_wheel"
+                android:defaultValue="true"
+                android:tint="@android:color/white"
+                app:backgroundTint="@android:color/black"/>
+        </PreferenceCategory>
+
+        <PreferenceCategory
+            android:title="@string/military_time_preference">
+
+            <CheckBoxPreference
+                android:key="@string/military_time_preference_key"
+                android:title="@string/title_military_time_preference"
+                android:summary="@string/show_military_time"
+                android:defaultValue="false"
+                android:tint="@android:color/white"
+                app:backgroundTint="@android:color/black"/>
+        </PreferenceCategory>
+
+    </PreferenceScreen>
+
+</PreferenceScreen>
