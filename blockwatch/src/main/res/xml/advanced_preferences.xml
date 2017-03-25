@@ -5,25 +5,25 @@
     android:key="sorting_pref"
     android:title="Sorting Preferences">
 
-    <net.margaritov.preference.colorpicker.ColorPickerPreference
+    <com.thebluealliance.spectrum.SpectrumPreferenceCompat
         android:key="@string/hour_one_color"
         android:title="@string/title_hour_one_color"
         android:summary="@string/change_hour_one_color"
-        android:defaultValue="@color/red" />
+        android:defaultValue="@color/md_pink_500" />
 
-    <net.margaritov.preference.colorpicker.ColorPickerPreference
+    <com.thebluealliance.spectrum.SpectrumPreferenceCompat
         android:key="@string/hour_two_color"
         android:title="@string/title_hour_two_color"
         android:summary="@string/change_hour_two_color"
-        android:defaultValue="@color/red" />
+        android:defaultValue="@color/md_pink_500" />
 
-    <net.margaritov.preference.colorpicker.ColorPickerPreference
+    <com.thebluealliance.spectrum.SpectrumPreferenceCompat
         android:key="@string/hour_two_color"
         android:title="@string/title_minute_one_color"
         android:summary="@string/change_minute_one_color"
         android:defaultValue="@color/red" />
 
-    <net.margaritov.preference.colorpicker.ColorPickerPreference
+    <com.thebluealliance.spectrum.SpectrumPreferenceCompat
         android:key="@string/hour_two_color"
         android:title="@string/title_minute_two_color"
         android:summary="@string/change_minute_two_color"
