@@ -12,10 +12,12 @@
         <PreferenceCategory
             android:title="@string/title_color_preferences">
 
-            <SpectrumPreferenceCompat
+            <com.thebluealliance.spectrum.SpectrumPreferenceCompat
                 android:key="@string/hour_one_color"
                 android:title="@string/title_hour_one_color"
                 android:summary="@string/change_hour_one_color"
+                app:spectrum_colors="@array/demo_colors"
+                app:spectrum_outlineWidth="2dp"
                 />
 
         <CheckBoxPreference

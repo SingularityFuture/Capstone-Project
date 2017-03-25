@@ -5,10 +5,12 @@ package com.example.blockwatch;
  */
 
 import android.os.Bundle;
+import android.preference.PreferenceFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 /**
  * An activity that presents a set of application settings.
@@ -26,7 +28,7 @@ public class Preferences extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.settings_toolbar); // Get the settings toolbar ID
         setSupportActionBar(toolbar); // Set the toolbar
-/*        if(getSupportActionBar() != null){
+        if(getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -34,8 +36,7 @@ public class Preferences extends AppCompatActivity {
             public void onClick(View v) {
                 onBackPressed();
             }
-        });*/
-
+        });
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.settings_content, new Prefs1Fragment()).commit();
     }
@@ -61,8 +62,8 @@ public class Preferences extends AppCompatActivity {
             // Make sure default values are applied.  In a real app, you would
             // want this in a shared function that is used to retrieve the
             // SharedPreferences wherever they are needed.
-            //PreferenceManager.setDefaultValues(getActivity(),
-            //        R.xml.advanced_preferences, false);
+            PreferenceManager.setDefaultValues(getActivity(),
+                    R.xml.advanced_preferences, false);
             addPreferencesFromResource(R.xml.preference_layout);
         }
     }
