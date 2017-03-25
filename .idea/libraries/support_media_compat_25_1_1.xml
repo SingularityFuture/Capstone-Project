@@ -4,12 +4,12 @@
       <root url="jar://$PROJECT_DIR$/blockwatch/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.1.1/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="file://$USER_HOME$/.android/build-cache/949b0cd6135f63d1b6129b086fd2f248d36a17be/output/res" />
-      <root url="jar://$USER_HOME$/.android/build-cache/949b0cd6135f63d1b6129b086fd2f248d36a17be/output/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/503d8660c789ba1c0b1338b4757e93cf70ece476/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/503d8660c789ba1c0b1338b4757e93cf70ece476/output/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/AppData/Local/Android/Sdk/extras/android/m2repository/com/android/support/support-media-compat/25.1.1/support-media-compat-25.1.1-sources.jar!/" />
+      <root url="jar://$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/support-media-compat/25.1.1/support-media-compat-25.1.1-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
