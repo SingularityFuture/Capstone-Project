@@ -48,7 +48,8 @@
 
         <activity
             android:name=".Preferences"
-            android:label="@string/preference_with_headers"></activity>
+            android:label="@string/preference_with_headers"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <provider
             android:name="data.BlockProvider"
