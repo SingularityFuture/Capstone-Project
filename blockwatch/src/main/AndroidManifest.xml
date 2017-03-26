@@ -49,7 +49,7 @@
         <activity
             android:name=".Preferences"
             android:label="@string/preference_with_headers"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/PreferenceThemeOverlay"></activity>
 
         <provider
             android:name="data.BlockProvider"

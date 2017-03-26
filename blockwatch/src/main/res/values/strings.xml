@@ -156,6 +156,8 @@
     <string name="summary_next_screen_toggle_preference">Summary Toggle Preference</string>
     <string name="color1_title">Time Color</string>
     <string name="color1_summary">Change the Color of the Time Digits</string>
+    <string name="time_settings_title">Time Settings</string>
+    <string name="change_time_settings">Change Time Settings</string>
     <string name="show_time_preference">Show Time</string>
     <string name="title_show_time_preference">Show Time</string>
     <string name="show_time_below_wheel">Show Time Below Wheel</string>

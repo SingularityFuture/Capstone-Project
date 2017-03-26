@@ -10,13 +10,25 @@
         android:summary="Change the colors of the watch">
 
         <PreferenceCategory
-            android:title="@string/title_color_preferences">
+
+            android:title="@string/title_color_preferences"
+            >
+
+            <CheckBoxPreference
+                android:enabled="true"
+                android:key="@string/keep_colors_same_key"
+                android:title="@string/title_keep_colors_same"
+                android:summary="@string/keep_colors_same"
+                android:defaultValue="true"
+                android:disableDependentsState="true"/>
+
 
             <com.thebluealliance.spectrum.SpectrumPreferenceCompat
                 android:key="@string/hour_one_color"
                 android:title="@string/title_hour_one_color"
                 android:summary="@string/change_hour_one_color"
                 app:spectrum_colors="@array/demo_colors"
+                app:spectrum_columnCount="4"
                 app:spectrum_outlineWidth="2dp"
                 />
 
@@ -24,7 +36,9 @@
                 android:key="@string/hour_two_color"
                 android:title="@string/title_hour_two_color"
                 android:summary="@string/change_hour_two_color"
+                android:dependency="@string/keep_colors_same_key"
                 app:spectrum_colors="@array/demo_colors"
+                app:spectrum_columnCount="4"
                 app:spectrum_outlineWidth="2dp"
                 />
 
@@ -32,25 +46,20 @@
                 android:key="@string/minute_one_color"
                 android:title="@string/title_minute_one_color"
                 android:summary="@string/change_minute_one_color"
-                android:defaultValue="@color/md_red_500"
+                android:dependency="@string/keep_colors_same_key"
                 app:spectrum_colors="@array/demo_colors"
+                app:spectrum_columnCount="4"
                 app:spectrum_outlineWidth="2dp"/>
 
             <com.thebluealliance.spectrum.SpectrumPreferenceCompat
                 android:key="@string/minute_two_color"
                 android:title="@string/title_minute_two_color"
                 android:summary="@string/change_minute_two_color"
-                android:defaultValue="@color/red"
-                app:spectrum_colors="@array/demo_colors"
+                android:dependency="@string/keep_colors_same_key"
+                app:spectrum_colors="@array/demo_colors_expanded"
+                app:spectrum_columnCount="4"
                 app:spectrum_outlineWidth="2dp"/>
 
-        <CheckBoxPreference
-            android:key="@string/keep_colors_same_key"
-            android:title="@string/title_keep_colors_same"
-            android:summary="@string/keep_colors_same"
-            android:defaultValue="true"
-            android:tint="@android:color/black"
-            app:backgroundTint="@android:color/white"/>
         </PreferenceCategory>
 
     </PreferenceScreen>
@@ -58,9 +67,9 @@
     <PreferenceScreen
         android:key="button_time_category_key"
         android:icon="@drawable/ic_clock"
-        android:title="Time Display"
+        android:title="@string/time_settings_title"
         android:persistent="false"
-        android:summary="Change whether the time shows up">
+        android:summary="@string/change_time_settings">
 
         <PreferenceCategory
             android:title="@string/show_time_preference">

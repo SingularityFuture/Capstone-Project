@@ -9,24 +9,24 @@
         android:key="@string/hour_one_color"
         android:title="@string/title_hour_one_color"
         android:summary="@string/change_hour_one_color"
-        android:defaultValue="@color/md_pink_500" />
+        android:defaultValue="@color/md_red_500" />
 
     <com.thebluealliance.spectrum.SpectrumPreferenceCompat
         android:key="@string/hour_two_color"
         android:title="@string/title_hour_two_color"
         android:summary="@string/change_hour_two_color"
-        android:defaultValue="@color/md_pink_500" />
+        android:defaultValue="@color/md_red_500" />
 
     <com.thebluealliance.spectrum.SpectrumPreferenceCompat
         android:key="@string/hour_two_color"
         android:title="@string/title_minute_one_color"
         android:summary="@string/change_minute_one_color"
-        android:defaultValue="@color/red" />
+        android:defaultValue="@color/md_red_500" />
 
     <com.thebluealliance.spectrum.SpectrumPreferenceCompat
         android:key="@string/hour_two_color"
         android:title="@string/title_minute_two_color"
         android:summary="@string/change_minute_two_color"
-        android:defaultValue="@color/red" />
+        android:defaultValue="@color/md_red_500" />
 
 </PreferenceScreen>
