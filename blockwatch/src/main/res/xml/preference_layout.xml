@@ -53,7 +53,7 @@
                 android:title="@string/title_minute_two_color"
                 android:summary="@string/change_minute_two_color"
                 android:dependency="@string/keep_colors_same_key"
-                app:spectrum_colors="@array/demo_colors_expanded"
+                app:spectrum_colors="@array/demo_colors"
                 app:spectrum_columnCount="4"
                 app:spectrum_outlineWidth="2dp"/>
 
@@ -63,7 +63,7 @@
 
     <PreferenceScreen
         android:key="button_time_category_key"
-        android:icon="@drawable/ic_clock"
+        android:icon="@mipmap/ic_clock"
         android:title="@string/time_settings_title"
         android:persistent="false"
         android:summary="@string/change_time_settings">
