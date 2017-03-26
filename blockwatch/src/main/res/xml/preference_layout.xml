@@ -9,10 +9,7 @@
         android:icon="@mipmap/color_wheel"
         android:summary="Change the colors of the watch">
 
-        <PreferenceCategory
-
-            android:title="@string/title_color_preferences"
-            >
+        <PreferenceCategory android:title="@string/title_color_preferences">
 
             <CheckBoxPreference
                 android:enabled="true"

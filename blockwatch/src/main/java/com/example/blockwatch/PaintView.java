@@ -23,6 +23,7 @@ import java.util.List;
 
 import static com.example.blockwatch.R.string.hour_one_color;
 import static com.example.blockwatch.R.string.hour_two_color;
+import static com.example.blockwatch.R.string.military_time_preference_key;
 import static com.example.blockwatch.R.string.minute_one_color;
 import static com.example.blockwatch.R.string.minute_two_color;
 import static com.example.blockwatch.R.string.show_time_preference_key;
@@ -97,7 +98,8 @@ public class PaintView extends View {
     int hourTwoColor = PreferenceManager.getDefaultSharedPreferences(getContext()).getInt(getResources().getString(hour_two_color), ContextCompat.getColor(getContext(),R.color.red));
     int minuteOneColor = PreferenceManager.getDefaultSharedPreferences(getContext()).getInt(getResources().getString(minute_one_color), ContextCompat.getColor(getContext(),R.color.red));
     int minuteTwoColor = PreferenceManager.getDefaultSharedPreferences(getContext()).getInt(getResources().getString(minute_two_color), ContextCompat.getColor(getContext(),R.color.red));
-    boolean showTimeBelowWheel= PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean(getResources().getString(show_time_preference_key), true);
+    boolean showTimeBelowWheel = PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean(getResources().getString(show_time_preference_key), true);
+    boolean isMilitaryTime = PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean(getResources().getString(military_time_preference_key), true);
 
     public PaintView(Context context, String currentHash) {
         super(context); // Call the superclass's (View) constructor
@@ -163,7 +165,11 @@ public class PaintView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         mCalendar = Calendar.getInstance();
-        hour = String.valueOf(mCalendar.get(Calendar.HOUR));  // Get the hour
+        if(!isMilitaryTime) {
+            hour = String.valueOf(mCalendar.get(Calendar.HOUR));  // Get the hour
+        } else {
+            hour = String.valueOf(mCalendar.get(Calendar.HOUR_OF_DAY));  // Get the hour in 24 hour format
+        }
         am_pm = mCalendar.get(Calendar.AM_PM);
         if (hour.equals("0")) {
             hour = "12"; // Change the hour from 0 to 12 to fix Java notation
@@ -387,7 +393,12 @@ public class PaintView extends View {
             canvas.drawText(currentChar, (float) (centerX + (radius * Math.cos(medianAngle))), (float) (centerY + (radius * Math.sin(medianAngle))) + bounds.height() * 0.5f, mPaintText);
         }
         if(showTimeBelowWheel) {
-            String fullTime = am_pm == Calendar.AM ? hour + ":" + minute + " AM" : hour + ":" + minute + " PM"; // Put the full time here
+            String fullTime;
+            if(!isMilitaryTime) {
+                fullTime = am_pm == Calendar.AM ? hour + ":" + minute + " AM" : hour + ":" + minute + " PM"; // Put the full time here
+            } else {
+                fullTime = hour + ":" + minute; // Don't use AM/PM
+            }
             mPaintText.setColor(Color.BLACK);
             mPaintText.setTextSize(mTextHeight);
             mPaintText.setShadowLayer(0, 0, 0, Color.BLACK); // Nullify the shadow layer
