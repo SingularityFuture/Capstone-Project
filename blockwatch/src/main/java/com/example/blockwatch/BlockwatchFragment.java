@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -169,6 +170,12 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
             pV.setOnClickListener(this); // Set the onClick listener to call back to the activity
             pV.setContentDescription(getString(R.string.blockwatch_face));
             layout.addView(pV); // Add the view to the fragment layout
+        }
+
+        if (!data.isNull(7)){
+            TextView tv = (TextView) layout.findViewById(R.id.current_price);
+            tv.setText(String.valueOf(data.getDouble(7)));
+            //v.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.colorPrimary));
         }
 
         AdView mAdView = (AdView) layout.findViewById(R.id.adView);
