@@ -127,8 +127,8 @@ public class PaintView extends View {
             centerX = metrics.widthPixels / 4; // Measure the center x coordinate
         }
         // For some reason, adding actionBarHeight to the centerY coordinate pushes it too far down, even though it's required when computing the radius size
-        centerY = (metrics.heightPixels + statusBarHeight) / 2; // Measure the center y coordinate of this rectangle taking into account the action bar height
-
+        //centerY = (metrics.heightPixels + statusBarHeight) / 2; // Measure the center y coordinate of this rectangle taking into account the action bar height
+        centerY = (metrics.heightPixels + statusBarHeight) / 4; // Measure the center y coordinate of this rectangle taking into account the action bar height
         mPaintText = new Paint(Paint.ANTI_ALIAS_FLAG); // Create paint object
         mPaintText.setStyle(Paint.Style.FILL_AND_STROKE); // Set style
         mPaintText.setTextSize(mTextHeight); // Set text size
@@ -153,7 +153,7 @@ public class PaintView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec), MeasureSpec.getSize(heightMeasureSpec));
+        setMeasuredDimension(widthMeasureSpec, heightMeasureSpec);
     }
 
     @Override
@@ -189,6 +189,7 @@ public class PaintView extends View {
         canvas.drawRect(mOvalsF[0].left - 200, mOvalsF[0].top - 150, mOvalsF[0].right + 200, mOvalsF[0].bottom + 300, mPaintText); // Add white rectangle to back
         mPaintText.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)); // Make the hash normal text style
         mPaintText.setShadowLayer(0, 0, 0, Color.BLACK); // Nullify the shadow layer
+        //canvas.drawRect(0,0,1600,1600,mPaintText);
 
         // All circles
         // Keep track of the character index

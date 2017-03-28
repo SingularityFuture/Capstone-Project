@@ -4,13 +4,13 @@
       <root url="jar://$PROJECT_DIR$/blockwatchface/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="file://$USER_HOME$/.android/build-cache/5c5425bfb88d2a82651cdff94cd2f266286d306c/output/res" />
-      <root url="jar://$USER_HOME$/.android/build-cache/5c5425bfb88d2a82651cdff94cd2f266286d306c/output/jars/classes.jar!/" />
-      <root url="jar://$USER_HOME$/.android/build-cache/5c5425bfb88d2a82651cdff94cd2f266286d306c/output/jars/libs/internal_impl-24.0.0.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/44a3227573fb93985f40f4579b9c259a616f3866/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/44a3227573fb93985f40f4579b9c259a616f3866/output/jars/libs/internal_impl-24.0.0.jar!/" />
+      <root url="jar://$USER_HOME$/.android/build-cache/44a3227573fb93985f40f4579b9c259a616f3866/output/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$USER_HOME$/AppData/Local/Android/sdk/extras/android/m2repository/com/android/support/support-v4/24.0.0/support-v4-24.0.0-sources.jar!/" />
+      <root url="jar://$USER_HOME$/AppData/Local/Android/Sdk/extras/android/m2repository/com/android/support/support-v4/24.0.0/support-v4-24.0.0-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
