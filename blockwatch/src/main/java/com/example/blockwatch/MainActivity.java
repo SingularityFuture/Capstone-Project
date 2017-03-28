@@ -19,6 +19,11 @@ import com.google.android.gms.ads.MobileAds;
 import data.BlockContract;
 import sync.BlockwatchSyncAdapter;
 
+import static com.example.blockwatch.R.string.hour_one_color;
+import static com.example.blockwatch.R.string.hour_two_color;
+import static com.example.blockwatch.R.string.minute_one_color;
+import static com.example.blockwatch.R.string.minute_two_color;
+
 public class MainActivity extends AppCompatActivity implements BlockwatchFragment.OnFragmentInteractionListener, SwipeRefreshLayout.OnRefreshListener {
 
     private static final String WATCH_FRAGMENT_TAG = "watch_fragment"; // Create a tag to keep track of created fragments
@@ -77,17 +82,25 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
         rootView = getLayoutInflater().inflate(R.layout.activity_main, null);
         // Retrieve the SwipeRefreshLayout and ListView instances
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
-        //mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_container);
-
         // Set the color scheme of the SwipeRefreshLayout by providing 4 color resource ids
-        mSwipeRefreshLayout.setColorSchemeColors(
-                ContextCompat.getColor(this,R.color.md_red_500), ContextCompat.getColor(this,R.color.md_blue_500),
-                ContextCompat.getColor(this,R.color.md_green_500), ContextCompat.getColor(this,R.color.md_yellow_500));
+        mSwipeRefreshLayout.setColorSchemeColors( // Set the colors to the ones the user has set in preferences
+                PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(hour_one_color), ContextCompat.getColor(this,R.color.red)),
+                PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(hour_two_color), ContextCompat.getColor(this,R.color.red)),
+                PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(minute_one_color), ContextCompat.getColor(this,R.color.red)),
+                PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(minute_two_color), ContextCompat.getColor(this,R.color.red)));
+        mSwipeRefreshLayout.setOnRefreshListener(this); // Set the refresh listener
+        mSwipeRefreshLayout.setProgressViewOffset(false,168,400); // Set where the progress circle starts and ends up
+        mSwipeRefreshLayout.setEnabled(true); // Make sure the swipe screen is enabled
+    }
 
-        mSwipeRefreshLayout.setOnRefreshListener(this);
-        mSwipeRefreshLayout.setProgressViewOffset(false,168,400);
-
-        mSwipeRefreshLayout.setEnabled(true);
+    @Override
+    public void onResume(){
+        super.onResume(); // Do this so colors are reset after visiting the preference screen
+        mSwipeRefreshLayout.setColorSchemeColors( // Set the colors to the ones the user has set in preferences
+                PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(hour_one_color), ContextCompat.getColor(this,R.color.red)),
+                PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(hour_two_color), ContextCompat.getColor(this,R.color.red)),
+                PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(minute_one_color), ContextCompat.getColor(this,R.color.red)),
+                PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(minute_two_color), ContextCompat.getColor(this,R.color.red)));
     }
 
     @Override
