@@ -89,25 +89,9 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
                 ContextCompat.getColor(this,R.color.md_green_500), ContextCompat.getColor(this,R.color.md_yellow_500));
 
         mSwipeRefreshLayout.setOnRefreshListener(this);
-        mSwipeRefreshLayout.setProgressViewOffset(false,200,200);
+        mSwipeRefreshLayout.setProgressViewOffset(false,168,400);
 
         mSwipeRefreshLayout.setEnabled(true);
-
-/*        mSwipeRefreshLayout.addOnLayoutChangeListener(
-                new View.OnLayoutChangeListener() {
-                    @Override
-                    public void onLayoutChange(View v, int left, int top, int right, int bottom,
-                                               int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                        mSwipeRefreshLayout.removeOnLayoutChangeListener(this);
-                        mSwipeRefreshLayout.setRefreshing(true);
-                    }
-                });*/
-
-/*        mSwipeRefreshLayout.post(new Runnable() {
-            @Override public void run() {
-                mSwipeRefreshLayout.setRefreshing(true);
-            }
-        });*/
     }
 
     @Override
@@ -160,27 +144,14 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
     public void onRefresh() {
         Log.i(LOG_TAG, "onRefresh called from SwipeRefreshLayout");
         mSwipeRefreshLayout.setRefreshing(true);
-        /*mSwipeRefreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                mSwipeRefreshLayout.setRefreshing(true);
-                BlockwatchSyncAdapter.syncImmediately(getBaseContext());
-            }
-        });*/
-        //mSwipeRefreshLayout.setRefreshing(false);
         BlockwatchSyncAdapter.syncImmediately(getBaseContext());
         watchFragment = new BlockwatchFragment().newInstance(); // Create a new watch fragment with a new hash
         getSupportFragmentManager().beginTransaction().replace(R.id.blockwatch_fragment, watchFragment, WATCH_FRAGMENT_TAG).commit(); // Replace the fragment with the current one with a new hash
-
-        mSwipeRefreshLayout.setRefreshing(false);
-/*        mSwipeRefreshLayout.postDelayed(new Runnable() {
+        mSwipeRefreshLayout.postDelayed(new Runnable() {
             @Override public void run() {
                 mSwipeRefreshLayout.setRefreshing(false);
             }
-        }, 5000);*/
-
-        //mSwipeRefreshLayout.setEnabled(true);
-
+        }, 5000);
     }
 
     @Override
