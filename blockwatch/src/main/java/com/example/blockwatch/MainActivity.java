@@ -95,19 +95,6 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
     }
 
     @Override
-    public void onClick(View view) {
-        Snackbar.make(view, R.string.fab_text, Snackbar.LENGTH_LONG)
-                .setAction("action", null).show();
-        try {
-            BlockwatchSyncAdapter.syncImmediately(this);
-            watchFragment = new BlockwatchFragment().newInstance(); // Create a new watch fragment with a new hash
-            getSupportFragmentManager().beginTransaction().replace(R.id.blockwatch_fragment, watchFragment, WATCH_FRAGMENT_TAG).commit(); // Replace the fragment with the current one with a new hash
-        } catch (Exception e) {
-            Log.d(getString(R.string.explorer_error), e.getMessage());
-        }
-    }
-
-    @Override
     public void onFragmentInteraction() {
         // Here you should launch a new fragment that shows the details of the clicked transaction, only in phone mode
         if (!isTablet) {
@@ -143,6 +130,9 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
     @Override
     public void onRefresh() {
         Log.i(LOG_TAG, "onRefresh called from SwipeRefreshLayout");
+        Snackbar.make(mSwipeRefreshLayout, R.string.fab_text, Snackbar.LENGTH_LONG)
+                .setAction("action", null).show();
+        try{
         mSwipeRefreshLayout.setRefreshing(true);
         BlockwatchSyncAdapter.syncImmediately(getBaseContext());
         watchFragment = new BlockwatchFragment().newInstance(); // Create a new watch fragment with a new hash
@@ -151,7 +141,10 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
             @Override public void run() {
                 mSwipeRefreshLayout.setRefreshing(false);
             }
-        }, 5000);
+        }, 3000);
+    } catch (Exception e) {
+        Log.d(getString(R.string.explorer_error), e.getMessage());
+    }
     }
 
     @Override
