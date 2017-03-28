@@ -69,7 +69,7 @@
         android:summary="@string/change_time_settings">
 
         <PreferenceCategory
-            android:title="@string/show_time_preference">
+            android:title="@string/time_preference_category">
 
             <CheckBoxPreference
                 android:key="@string/show_time_preference_key"
@@ -78,11 +78,23 @@
                 android:defaultValue="true"
                 android:tint="@android:color/white"
                 app:backgroundTint="@android:color/black"/>
-        </PreferenceCategory>
+<!--        </PreferenceCategory>-->
 
-        <PreferenceCategory
+<!--        <PreferenceCategory
+            android:title="@string/second_hand_wheel_preference">-->
+
+            <CheckBoxPreference
+                android:key="@string/second_hand_wheel_key"
+                android:title="@string/second_hand_wheel_title"
+                android:summary="@string/second_hand_wheel_summary"
+                android:defaultValue="true"
+                android:tint="@android:color/white"
+                app:backgroundTint="@android:color/black"/>
+    <!--    </PreferenceCategory>-->
+
+        <!--<PreferenceCategory
             android:title="@string/military_time_preference">
-
+-->
             <CheckBoxPreference
                 android:key="@string/military_time_preference_key"
                 android:title="@string/title_military_time_preference"

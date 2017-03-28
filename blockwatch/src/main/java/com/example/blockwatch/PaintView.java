@@ -26,6 +26,7 @@ import static com.example.blockwatch.R.string.hour_two_color;
 import static com.example.blockwatch.R.string.military_time_preference_key;
 import static com.example.blockwatch.R.string.minute_one_color;
 import static com.example.blockwatch.R.string.minute_two_color;
+import static com.example.blockwatch.R.string.second_hand_wheel_key;
 import static com.example.blockwatch.R.string.show_time_preference_key;
 
 /**
@@ -75,7 +76,7 @@ public class PaintView extends View {
                 second[1] = 0; // Reset to 0 every full revolution
                 startAngle[1] = 0; // Reset to 0 every full revolution
             } else {
-                startAngle[1] = second[1] * (360 / circleCount[1]); // Move the starting angle by the size of one arc for this circle
+                startAngle[1] = second[1] * 360 / (circleCount[1]); // Move the starting angle by the size of one arc for this circle
                 second[1]++; // Otherwise increment the second count
             }
             invalidate(); // Redraw the canvas
@@ -99,6 +100,7 @@ public class PaintView extends View {
     int minuteOneColor = PreferenceManager.getDefaultSharedPreferences(getContext()).getInt(getResources().getString(minute_one_color), ContextCompat.getColor(getContext(),R.color.red));
     int minuteTwoColor = PreferenceManager.getDefaultSharedPreferences(getContext()).getInt(getResources().getString(minute_two_color), ContextCompat.getColor(getContext(),R.color.red));
     boolean showTimeBelowWheel = PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean(getResources().getString(show_time_preference_key), true);
+    boolean moveSecondHandWheel = PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean(getResources().getString(second_hand_wheel_key), true);
     boolean isMilitaryTime = PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean(getResources().getString(military_time_preference_key), true);
 
     public PaintView(Context context, String currentHash) {
@@ -139,7 +141,9 @@ public class PaintView extends View {
             // Declare the bounding rectangles for all the circles of the watch
             mOvalsF[i] = new RectF(Math.round(centerX - radius * circleSpacing[i]), Math.round(centerY - radius * circleSpacing[i]), Math.round(centerX + radius * circleSpacing[i]), Math.round(centerY + radius * circleSpacing[i]));
         }
-        moveInnerDial.run(); //
+        if(moveSecondHandWheel) {
+            moveInnerDial.run(); //
+        }
     }
 
     public PaintView(Context context, AttributeSet attrs) {
@@ -194,7 +198,6 @@ public class PaintView extends View {
         canvas.drawRect(mOvalsF[0].left - 200, mOvalsF[0].top - 150, mOvalsF[0].right + 200, mOvalsF[0].bottom + 300, mPaintText); // Add white rectangle to back
         mPaintText.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)); // Make the hash normal text style
         mPaintText.setShadowLayer(0, 0, 0, Color.BLACK); // Nullify the shadow layer
-        //michaecanvas.drawRect(0,0,1600,1600,mPaintText);
 
         // All circles
         // Keep track of the character index

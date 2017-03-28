@@ -60,6 +60,7 @@ public class BlockDbHelper extends SQLiteOpenHelper {    /*
                         BlockContract.BlockEntry.COLUMN_VER + " INTEGER NOT NULL, " +
                         BlockContract.BlockEntry.COLUMN_LATITUDE + " REAL NOT NULL, " +
                         BlockContract.BlockEntry.COLUMN_LONGITUDE + " REAL NOT NULL, " +
+                        BlockContract.BlockEntry.COLUMN_PRICE + " REAL NOT NULL, " +
 
                 /*
                  * To ensure this table can only contain one block entry per date, we declare

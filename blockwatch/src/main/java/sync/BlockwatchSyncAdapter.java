@@ -20,6 +20,7 @@ import android.util.Log;
 
 import com.example.blockwatch.R;
 
+import java.math.BigDecimal;
 import java.net.URL;
 
 import data.BlockContract;
@@ -38,6 +39,7 @@ public class BlockwatchSyncAdapter extends AbstractThreadedSyncAdapter {
     private static final String RELAYED_BY = "relayed_by";
     public final String LOG_TAG = BlockwatchSyncAdapter.class.getSimpleName();
     private String currentHash;
+    private BigDecimal currentPrice;
 
     public BlockwatchSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
@@ -143,6 +145,12 @@ public class BlockwatchSyncAdapter extends AbstractThreadedSyncAdapter {
         } catch (Exception e) {
             Log.d("Explorer error: ", e.getMessage());
         }
+        // Get the current price in USD as well
+        try {
+            currentPrice = BlockExplorerClass.retrieveCurrentPrice(); // Update the watch at the beginning with a fresh price
+        } catch (Exception e) {
+            Log.d("Explorer error: ", e.getMessage());
+        }
 
         try {
              /*
@@ -170,9 +178,6 @@ public class BlockwatchSyncAdapter extends AbstractThreadedSyncAdapter {
 
             Log.d("Lat/Long Response: ", jsonLatLongResponse);
             ContentValues latLongValues = TransactionJsonUtils.getLatLongValuesFromJson(jsonLatLongResponse);
-            /* Put the lat/long values into the Content Values for insertion in the database */
-            transactionValues.put(BlockContract.BlockEntry.COLUMN_LATITUDE, latLongValues.getAsString(LATITUDE));
-            transactionValues.put(BlockContract.BlockEntry.COLUMN_LONGITUDE, latLongValues.getAsString(LONGITUDE));
 
             /*
              * In cases where our JSON contained an error code, gettransactionContentValuesFromJson
@@ -181,6 +186,14 @@ public class BlockwatchSyncAdapter extends AbstractThreadedSyncAdapter {
              * there isn't any to insert.
              */
             if (transactionValues != null) {
+                if (latLongValues != null){
+                    /* Put the lat/long values into the Content Values for insertion in the database */
+                    transactionValues.put(BlockContract.BlockEntry.COLUMN_LATITUDE, latLongValues.getAsString(LATITUDE));
+                    transactionValues.put(BlockContract.BlockEntry.COLUMN_LONGITUDE, latLongValues.getAsString(LONGITUDE));
+                }
+                if (currentPrice != null) { // Put the current price in USD into the database
+                    transactionValues.put(BlockContract.BlockEntry.COLUMN_PRICE, currentPrice.doubleValue());
+                }
                 /* Get a handle on the ContentResolver to delete and insert data */
                 ContentResolver transactionContentResolver = getContext().getContentResolver();
 

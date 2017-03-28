@@ -34,7 +34,7 @@
             android:contentDescription="@string/blockwatch_icon"
             android:gravity="center"
             android:nextFocusUp="@id/transactionHashLabel"
-            tools:src="@drawable/blockwatchicon" />
+            tools:src="@mipmap/color_wheel" />
 
         <TextView
             android:id="@+id/transactionHash"

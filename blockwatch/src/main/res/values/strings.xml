@@ -186,4 +186,9 @@
     <string name="show_military_time">Display Time in Military Format</string>
     <string name="title_military_time_preference">Military Time</string>
     <string name="preferences_screen_toolbar">Preferences Toolbar</string>
+    <string name="second_hand_wheel_key">Second Hand Key</string>
+    <string name="second_hand_wheel_title">Move Second Hand</string>
+    <string name="second_hand_wheel_summary">Move the Inner Wheel Every Second</string>
+    <string name="second_hand_wheel_preference">Second Wheel</string>
+    <string name="time_preference_category">Change Time Settings</string>
 </resources>
