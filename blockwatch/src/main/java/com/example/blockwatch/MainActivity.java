@@ -2,7 +2,6 @@ package com.example.blockwatch;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -20,7 +19,7 @@ import com.google.android.gms.ads.MobileAds;
 import data.BlockContract;
 import sync.BlockwatchSyncAdapter;
 
-public class MainActivity extends AppCompatActivity implements BlockwatchFragment.OnFragmentInteractionListener, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
+public class MainActivity extends AppCompatActivity implements BlockwatchFragment.OnFragmentInteractionListener, SwipeRefreshLayout.OnRefreshListener {
 
     private static final String WATCH_FRAGMENT_TAG = "watch_fragment"; // Create a tag to keep track of created fragments
     private static final String TRANSACTION_FRAGMENT_TAG = "transaction_fragment";
@@ -39,9 +38,6 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
         setSupportActionBar(toolbar); // Set the toolbar
 
         PreferenceManager.setDefaultValues(this, R.xml.advanced_preferences, false);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(this);
 
         if (getSupportFragmentManager().findFragmentByTag(WATCH_FRAGMENT_TAG) == null) { // If the fragment doesn't exist yet,
 
