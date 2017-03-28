@@ -7,21 +7,17 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import data.BlockContract;
-import sync.BlockwatchSyncAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,14 +30,12 @@ import sync.BlockwatchSyncAdapter;
  * 2/2017 Michael Mebane
  * Fragment that shows the main BlockWatch face on the mobile side
  */
-public class BlockwatchFragment extends Fragment implements View.OnClickListener, LoaderManager.LoaderCallbacks<Cursor>, SwipeRefreshLayout.OnRefreshListener {
+public class BlockwatchFragment extends Fragment implements View.OnClickListener, LoaderManager.LoaderCallbacks<Cursor> {
     private static final int ID_BLOCKWATCH_LOADER = 444;
     PaintView pV;  // Declare paintView to put the watch in
     View rootView; // Declare rootView
-    LinearLayout layout; // Declare layout that will access fragment layout
+    RelativeLayout layout; // Declare layout that will access fragment layout
     private OnFragmentInteractionListener mListener; // Declare the listener to click on the fragment
-    private SwipeRefreshLayout mSwipeRefreshLayout; // Declare the container for the swip refresh action
-    private static final String LOG_TAG = BlockwatchFragment.class.getSimpleName();
 
     /**
      * Use this factory method to create a new instance of
@@ -70,15 +64,7 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         rootView = inflater.inflate(R.layout.fragment_blockwatch, container, false);
-        layout = (LinearLayout) rootView.findViewById(R.id.watch_fragment_layout);
-
-        // Retrieve the SwipeRefreshLayout and ListView instances
-        mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_container);
-
-        // Set the color scheme of the SwipeRefreshLayout by providing 4 color resource ids
-        mSwipeRefreshLayout.setColorSchemeColors(
-                ContextCompat.getColor(getContext(),R.color.md_red_500), ContextCompat.getColor(getContext(),R.color.md_blue_500),
-                ContextCompat.getColor(getContext(),R.color.md_green_500), ContextCompat.getColor(getContext(),R.color.md_yellow_500));
+        layout = (RelativeLayout) rootView.findViewById(R.id.watch_fragment_layout);
 
         // Inflate the layout for this fragment
         return rootView;
@@ -105,21 +91,6 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
         super.onResume();
         getLoaderManager().restartLoader(ID_BLOCKWATCH_LOADER, null, this);
     }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        mSwipeRefreshLayout.setOnRefreshListener(this);
-    }
-
-        @Override
-        public void onRefresh() {
-            Log.i(LOG_TAG, "onRefresh called from SwipeRefreshLayout");
-            mSwipeRefreshLayout.setRefreshing(true);
-            BlockwatchSyncAdapter.syncImmediately(getContext());
-            getLoaderManager().restartLoader(ID_BLOCKWATCH_LOADER, null, this);
-            mSwipeRefreshLayout.setRefreshing(false);
-        }
 
     /**
      * Creates and returns a CursorLoader that loads the data for our URI and stores it in a Cursor.
@@ -182,16 +153,6 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
             return;
         }
 
-        AdView mAdView = (AdView) layout.findViewById(R.id.adView);
-        // Create an ad request. Check logcat output for the hashed device ID to
-        // get test ads on a physical device. e.g.
-        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("TEST_DEVICE_ID")
-                .build();
-        mAdView.loadAd(adRequest);
-
         // This represents the current transaction hash
         if (!data.isNull(1)) {
             String currentHash = data.getString(1);
@@ -210,7 +171,16 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
             layout.addView(pV); // Add the view to the fragment layout
         }
 
-
+        AdView mAdView = (AdView) layout.findViewById(R.id.adView);
+        mAdView.setBackgroundColor(Color.TRANSPARENT);
+        // Create an ad request. Check logcat output for the hashed device ID to
+        // get test ads on a physical device. e.g.
+        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("TEST_DEVICE_ID")
+                .build();
+        mAdView.loadAd(adRequest);
     }
 
     /**

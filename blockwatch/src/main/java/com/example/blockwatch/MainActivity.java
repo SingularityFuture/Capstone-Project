@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
@@ -18,13 +20,16 @@ import com.google.android.gms.ads.MobileAds;
 import data.BlockContract;
 import sync.BlockwatchSyncAdapter;
 
-public class MainActivity extends AppCompatActivity implements BlockwatchFragment.OnFragmentInteractionListener, View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements BlockwatchFragment.OnFragmentInteractionListener, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     private static final String WATCH_FRAGMENT_TAG = "watch_fragment"; // Create a tag to keep track of created fragments
     private static final String TRANSACTION_FRAGMENT_TAG = "transaction_fragment";
     boolean isTablet; // Track whether this is a tablet
     private Fragment watchFragment; // Declare the fragment you will include
     private Fragment transactionFragment; // Declare the fragment you will include
+    private SwipeRefreshLayout mSwipeRefreshLayout; // Declare the container for the swip refresh action
+    View rootView; // Declare rootView
+    private static final String LOG_TAG = BlockwatchFragment.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +77,17 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
             }
         }
         MobileAds.initialize(getApplicationContext(), "ca-app-pub-3940256099942544~3347511713");
+
+        rootView = getLayoutInflater().inflate(R.layout.activity_main, null);
+        // Retrieve the SwipeRefreshLayout and ListView instances
+        mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_container);
+
+        // Set the color scheme of the SwipeRefreshLayout by providing 4 color resource ids
+        mSwipeRefreshLayout.setColorSchemeColors(
+                ContextCompat.getColor(this,R.color.md_red_500), ContextCompat.getColor(this,R.color.md_blue_500),
+                ContextCompat.getColor(this,R.color.md_green_500), ContextCompat.getColor(this,R.color.md_yellow_500));
+
+        mSwipeRefreshLayout.setOnRefreshListener(this);
     }
 
     @Override
@@ -118,6 +134,17 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onRefresh() {
+        Log.i(LOG_TAG, "onRefresh called from SwipeRefreshLayout");
+        mSwipeRefreshLayout.setRefreshing(true);
+        BlockwatchSyncAdapter.syncImmediately(this);
+        watchFragment = new BlockwatchFragment().newInstance(); // Create a new watch fragment with a new hash
+        getSupportFragmentManager().beginTransaction().replace(R.id.blockwatch_fragment, watchFragment, WATCH_FRAGMENT_TAG).commit(); // Replace the fragment with the current one with a new hash
+
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
