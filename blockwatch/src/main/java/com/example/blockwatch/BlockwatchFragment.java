@@ -18,6 +18,9 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 import data.BlockContract;
 
 /**
@@ -182,12 +185,16 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
 
         if (!data.isNull(7)){
             TextView tV = (TextView) layout.findViewById(R.id.current_price);
-            tV.setText(String.valueOf(data.getDouble(7)));
+            NumberFormat formatter = new DecimalFormat("#0.00");
+            formatter.setMinimumFractionDigits(2);
+            formatter.setMaximumFractionDigits(2);
+            //
+            String formattedCurrentPrice = formatter.format(data.getDouble(7));
+
             RelativeLayout.LayoutParams paramsText = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT); // Set width and height
             paramsText.addRule(RelativeLayout.BELOW, pV.getId());
             tV.setLayoutParams(paramsText); // Apply the layout width and height
-            tV.setText(String.valueOf(data.getDouble(7)));
-            //tV.setBackgroundColor(Color.BLACK);
+            tV.setText(formattedCurrentPrice);
         }
     }
 

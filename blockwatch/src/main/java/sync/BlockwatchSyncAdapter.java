@@ -20,7 +20,6 @@ import android.util.Log;
 
 import com.example.blockwatch.R;
 
-import java.math.BigDecimal;
 import java.net.URL;
 
 import data.BlockContract;
@@ -149,8 +148,7 @@ public class BlockwatchSyncAdapter extends AbstractThreadedSyncAdapter {
         }
         // Get the current price in USD as well
         try {
-            BigDecimal bdPrice = retrieveCurrentPrice().setScale(2, BigDecimal.ROUND_HALF_UP); // Round up to the nearest cent
-            currentPrice = bdPrice.doubleValue(); // Update the watch at the beginning with a fresh price
+            currentPrice = retrieveCurrentPrice().doubleValue();
         } catch (Exception e) {
             Log.d("Explorer error: ", e.getMessage());
         }
