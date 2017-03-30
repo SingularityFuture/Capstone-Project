@@ -41,6 +41,7 @@ public class BlockwatchSyncAdapter extends AbstractThreadedSyncAdapter {
     public final String LOG_TAG = BlockwatchSyncAdapter.class.getSimpleName();
     private String currentHash;
     private double currentPrice;
+    private static final String HISTORICAL_PRICES = "market-price";
 
     public BlockwatchSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
@@ -110,27 +111,15 @@ public class BlockwatchSyncAdapter extends AbstractThreadedSyncAdapter {
              * then call ContentResolver.setIsSyncable(account, AUTHORITY, 1)
              * here.
              */
-
             onAccountCreated(newAccount, context);
         }
         return newAccount;
     }
 
     private static void onAccountCreated(Account newAccount, Context context) {
-        /*
-         * Since we've created an account
-         */
-        BlockwatchSyncAdapter.configurePeriodicSync(context, SYNC_INTERVAL, SYNC_FLEXTIME);
-
-        /*
-         * Without calling setSyncAutomatically, our periodic sync will not be enabled.
-         */
-        ContentResolver.setSyncAutomatically(newAccount, BlockContract.CONTENT_AUTHORITY, true);
-
-        /*
-         * Finally, let's do a sync to get things started
-         */
-        syncImmediately(context);
+        BlockwatchSyncAdapter.configurePeriodicSync(context, SYNC_INTERVAL, SYNC_FLEXTIME); // Since we've created an account
+        ContentResolver.setSyncAutomatically(newAccount, BlockContract.CONTENT_AUTHORITY, true); // Without calling setSyncAutomatically, our periodic sync will not be enabled.
+        syncImmediately(context); // Finally, let's do a sync to get things started
     }
 
     // This is called in the onCreate method of Main Activity to start off the sync
@@ -155,33 +144,41 @@ public class BlockwatchSyncAdapter extends AbstractThreadedSyncAdapter {
 
         try {
              /*
+             * Transaction information
              * The getUrl method will return the URL that we need to get the JSON for the
              * transaction based on its hash.
-             */
+            */
             URL transactionRequestUrl = NetworkUtils.getUrl(currentHash);
-
             /* Use the URL to retrieve the JSON */
             String jsonTransactionResponse = NetworkUtils.getResponseFromHttpUrl(transactionRequestUrl);
-
             Log.d("Transaction Response: ", jsonTransactionResponse);
             /* Parse the JSON into a list of transaction values */
             ContentValues transactionValues = TransactionJsonUtils
                     .getTransactionValuesFromJson(jsonTransactionResponse);
 
             /*
-             * The getUrl method will return the URL that we need to get the location JSON for the
-             * transaction, based on its Relayed By IP address
+             * Latitude/Longitude
+             * The getUrl method will return the URL that we need to get the location JSON based on its Relayed By IP address
             */
             URL latLongRequestUrl = NetworkUtils.getUrl(transactionValues.getAsString(RELAYED_BY));
-
             /* Use the URL to retrieve the JSON */
             String jsonLatLongResponse = NetworkUtils.getResponseFromHttpUrl(latLongRequestUrl);
-
             Log.d("Lat/Long Response: ", jsonLatLongResponse);
             ContentValues latLongValues = TransactionJsonUtils.getLatLongValuesFromJson(jsonLatLongResponse);
 
             /*
-             * In cases where our JSON contained an error code, gettransactionContentValuesFromJson
+             * Historical Prices
+             * The getUrl method will return the URL that we need to get the location JSON based on its Relayed By IP address
+            */
+            URL historicalPricesRequestUrl = NetworkUtils.getUrl(HISTORICAL_PRICES);
+            /* Use the URL to retrieve the JSON */
+            String jsonHistoricalPricesResponse = NetworkUtils.getResponseFromHttpUrl(historicalPricesRequestUrl);
+            Log.d("Historical Response: ", jsonHistoricalPricesResponse); // Log what you got
+            // Since we are storing the JSON response here as a string, we don't need to convert it
+            // Later, when we query for actual prices, we will use TransactionJsonUtilsl.getHistoricalPricesFromJson
+
+            /*
+             * In cases where our JSON contained an error code, getTransactionValuesFromJson
              * would have returned null. We need to check for those cases here to prevent any
              * NullPointerExceptions being thrown. We also have no reason to insert fresh data if
              * there isn't any to insert.
@@ -194,6 +191,13 @@ public class BlockwatchSyncAdapter extends AbstractThreadedSyncAdapter {
                 }
                 if (currentPrice != 0) { // Put the current price in USD into the database, will be 0 if there was no result
                     transactionValues.put(BlockContract.BlockEntry.COLUMN_PRICE, currentPrice);
+                }
+                if (jsonHistoricalPricesResponse != null){
+                    // If you got the JSON response, put the whole response as a string in this column
+                    // Later, in BlockwatchFragment and elsewhere, we use TransactionJsonUtilsl.getHistoricalPricesFromJson to parse the JSON
+                    // and get prices on certain dates
+                    // This is easier than creating another table or a column for each price
+                    transactionValues.put(BlockContract.BlockEntry.COLUMN_PRICE_HISTORY, jsonHistoricalPricesResponse);
                 }
                 /* Get a handle on the ContentResolver to delete and insert data */
                 ContentResolver transactionContentResolver = getContext().getContentResolver();

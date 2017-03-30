@@ -18,10 +18,13 @@ import android.widget.TextView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+import org.json.JSONException;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 import data.BlockContract;
+import utilities.TransactionJsonUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,6 +43,7 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
     View rootView; // Declare rootView
     RelativeLayout layout; // Declare layout that will access fragment layout
     private OnFragmentInteractionListener mListener; // Declare the listener to click on the fragment
+    double[][] price_array = new double[365][365]; // Declare the array of historical prices
 
     /**
      * Use this factory method to create a new instance of
@@ -189,8 +193,19 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
             formatter.setMinimumFractionDigits(2);
             formatter.setMaximumFractionDigits(2);
             //
-            String formattedCurrentPrice = formatter.format(data.getDouble(7));
-
+            String formattedCurrentPrice = formatter.format(data.getDouble(7)); // Get the current price
+            String jsonHistoricalPricesResponse = data.getString(8); // Get the string representing the JSON of historical prices
+            try { // Try parsing the JSON to get the price array
+                price_array = TransactionJsonUtils.getHistoricalPricesFromJson(jsonHistoricalPricesResponse);
+            } catch(JSONException e){
+                e.printStackTrace();
+            }
+            if(data.getDouble(7) < price_array[0][1]){ // If today's price is currently less than yesterday's closing price
+                tV.setTextColor(Color.RED); // Color the price red
+            }
+            else {
+                tV.setTextColor(Color.GREEN); // Otherwise, color it green
+            }
             RelativeLayout.LayoutParams paramsText = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT); // Set width and height
             paramsText.addRule(RelativeLayout.BELOW, pV.getId());
             tV.setLayoutParams(paramsText); // Apply the layout width and height

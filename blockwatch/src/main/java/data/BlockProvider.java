@@ -270,7 +270,6 @@ public class BlockProvider extends ContentProvider {
                 db.beginTransaction();
                 int rowsInserted = 0;
                 try {
-                    //long ver = value(BlockContract.BlockEntry.COLUMN_VER);
                     long _id = db.insert(BlockContract.BlockEntry.TABLE_NAME, null, values);
                     if (_id != -1) {
                         rowsInserted++;

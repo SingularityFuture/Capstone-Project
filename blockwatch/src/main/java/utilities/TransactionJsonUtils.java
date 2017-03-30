@@ -6,6 +6,7 @@ package utilities;
 
 import android.content.ContentValues;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -23,6 +24,7 @@ public final class TransactionJsonUtils {
     private static final String RELAYED_BY = "relayed_by";
     private static final String LATITUDE = "latitude";
     private static final String LONGITUDE = "longitude";
+    private static final String PRICES = "values";
 
     /**
      * This method parses JSON from a web response and returns an array of Strings
@@ -82,5 +84,24 @@ public final class TransactionJsonUtils {
         latLongValues.put(BlockContract.BlockEntry.COLUMN_LONGITUDE, longitude);
 
         return latLongValues; // Return the Content Values so you can insert them into the database using the database helper
+    }
+
+    /**
+     * This method parses JSON from a web response and returns an 2-dimensional array of integers
+     * representing the timestamp and price in USD of Bitcoin starting from yesterday
+     */
+    public static double[][] getHistoricalPricesFromJson(String historicalPricesJsonStr)
+        throws JSONException {
+        JSONObject historicalPricesJson = new JSONObject(historicalPricesJsonStr);
+        JSONArray priceJSONArray;
+        double[][] price_array = new double[365][365];
+
+        if (!historicalPricesJson.isNull(PRICES)) {
+            priceJSONArray = historicalPricesJson.getJSONArray(PRICES);  // Get the value element from the JSON object
+            JSONObject temp = priceJSONArray.getJSONObject(priceJSONArray.length()-1);
+            price_array[0][0] = priceJSONArray.getJSONObject(priceJSONArray.length()-1).getInt("x"); // Get the last element's timestampe, which was yesterday
+            price_array[0][1] = priceJSONArray.getJSONObject(priceJSONArray.length()-1).getInt("y"); // Get yesterday's price
+        }
+        return price_array;
     }
 }

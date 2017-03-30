@@ -62,5 +62,6 @@ public class BlockContract {
         public static final String COLUMN_LATITUDE = "latitude";
         public static final String COLUMN_LONGITUDE = "longitude";
         public static final String COLUMN_PRICE = "price";
+        public static final String COLUMN_PRICE_HISTORY = "price_history";
     }
 }

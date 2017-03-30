@@ -25,7 +25,7 @@ public class BlockDbHelper extends SQLiteOpenHelper {    /*
      * If you change the database schema, you must increment the database version or the onUpgrade
      * method will not be called.
      */
-    private static final int DATABASE_VERSION = 12;
+    private static final int DATABASE_VERSION = 13;
 
     public BlockDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -61,6 +61,7 @@ public class BlockDbHelper extends SQLiteOpenHelper {    /*
                         BlockContract.BlockEntry.COLUMN_LATITUDE + " REAL NOT NULL, " +
                         BlockContract.BlockEntry.COLUMN_LONGITUDE + " REAL NOT NULL, " +
                         BlockContract.BlockEntry.COLUMN_PRICE + " REAL NOT NULL, " +
+                        BlockContract.BlockEntry.COLUMN_PRICE_HISTORY + " TEXT NOT NULL, " +
 
                 /*
                  * To ensure this table can only contain one block entry per date, we declare
