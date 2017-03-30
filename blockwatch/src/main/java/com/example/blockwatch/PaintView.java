@@ -157,12 +157,11 @@ public class PaintView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
         WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE); // Get the window manager
         DisplayMetrics metrics = new DisplayMetrics(); // Declare a metrics object
         wm.getDefaultDisplay().getMetrics(metrics); // Get the metrics of the window
         int height = metrics.heightPixels;
-        setMeasuredDimension(widthMeasureSpec, height);
+        setMeasuredDimension(widthMeasureSpec, height-250);
     }
 
     @Override
@@ -195,7 +194,7 @@ public class PaintView extends View {
         minuteDrawn.set(1, false);
         // Clear background with white rectangle since some former clock digits will extend past the circle
         mPaintText.setColor(Color.WHITE);
-        canvas.drawRect(mOvalsF[0].left - 200, mOvalsF[0].top - 150, mOvalsF[0].right + 200, mOvalsF[0].bottom + 300, mPaintText); // Add white rectangle to back
+        canvas.drawRect(mOvalsF[0].left - 200, mOvalsF[0].top - 150, mOvalsF[0].right + 200, mOvalsF[0].bottom + 200, mPaintText); // Add white rectangle to back
         mPaintText.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)); // Make the hash normal text style
         mPaintText.setShadowLayer(0, 0, 0, Color.BLACK); // Nullify the shadow layer
 

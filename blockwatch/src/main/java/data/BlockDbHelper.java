@@ -25,7 +25,7 @@ public class BlockDbHelper extends SQLiteOpenHelper {    /*
      * If you change the database schema, you must increment the database version or the onUpgrade
      * method will not be called.
      */
-    private static final int DATABASE_VERSION = 10;
+    private static final int DATABASE_VERSION = 12;
 
     public BlockDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

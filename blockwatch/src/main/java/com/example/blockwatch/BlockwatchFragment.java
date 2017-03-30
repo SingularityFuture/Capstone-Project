@@ -154,13 +154,21 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
             return;
         }
 
+        AdView mAdView = (AdView) layout.findViewById(R.id.adView);
+        mAdView.setBackgroundColor(Color.TRANSPARENT);
+        // Create an ad request. Check logcat output for the hashed device ID to
+        // get test ads on a physical device. e.g.
+        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("TEST_DEVICE_ID")
+                .build();
+        mAdView.loadAd(adRequest);
+
         // This represents the current transaction hash
         if (!data.isNull(1)) {
             String currentHash = data.getString(1);
             pV = new PaintView(getActivity(), currentHash); // Create a new paint view for the watch face
-            //LinearLayout.LayoutParams paramsPaint = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT); // Set width and height
-            //LinearLayout.LayoutParams paramsPaint = new LinearLayout.LayoutParams(500,500); // Set width and height
-            //pV.setLayoutParams(paramsPaint); // Apply the layout width and height
             pV.setBackgroundColor(Color.TRANSPARENT); // Set the background white
             if (android.os.Build.VERSION.SDK_INT > 20)
                 pV.setElevation(200); // Set elevation if SDK > 20
@@ -173,21 +181,14 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
         }
 
         if (!data.isNull(7)){
-            TextView tv = (TextView) layout.findViewById(R.id.current_price);
-            tv.setText(String.valueOf(data.getDouble(7)));
-            //v.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.colorPrimary));
+            TextView tV = (TextView) layout.findViewById(R.id.current_price);
+            tV.setText(String.valueOf(data.getDouble(7)));
+            RelativeLayout.LayoutParams paramsText = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT); // Set width and height
+            paramsText.addRule(RelativeLayout.BELOW, pV.getId());
+            tV.setLayoutParams(paramsText); // Apply the layout width and height
+            tV.setText(String.valueOf(data.getDouble(7)));
+            //tV.setBackgroundColor(Color.BLACK);
         }
-
-        AdView mAdView = (AdView) layout.findViewById(R.id.adView);
-        mAdView.setBackgroundColor(Color.TRANSPARENT);
-        // Create an ad request. Check logcat output for the hashed device ID to
-        // get test ads on a physical device. e.g.
-        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("TEST_DEVICE_ID")
-                .build();
-        mAdView.loadAd(adRequest);
     }
 
     /**

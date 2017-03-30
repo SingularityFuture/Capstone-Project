@@ -23,19 +23,6 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
     </android.support.design.widget.AppBarLayout>
 
-    <TextView
-        android:id="@+id/current_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|start"
-        android:contentDescription="@string/current_price"
-        android:textColor="@android:color/black"/>
-
-    <FrameLayout android:id="@+id/swipe_frame_container"
-        android:name="com.example.blockwatch.BlockwatchFragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
     <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/swipe_container"
         android:layout_width="match_parent"
@@ -44,7 +31,8 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/toolbar">
+            android:layout_below="@id/toolbar"
+            android:fillViewport="false">
 
             <FrameLayout
                 android:id="@+id/blockwatch_fragment"
@@ -58,5 +46,4 @@
 
         </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
-    </FrameLayout>
 </android.support.design.widget.CoordinatorLayout>

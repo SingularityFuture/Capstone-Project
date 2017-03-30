@@ -28,6 +28,8 @@ import data.BlockExplorerClass;
 import utilities.NetworkUtils;
 import utilities.TransactionJsonUtils;
 
+import static data.BlockExplorerClass.retrieveCurrentPrice;
+
 public class BlockwatchSyncAdapter extends AbstractThreadedSyncAdapter {
     // Interval at which to sync with the blockchain transaction, in seconds
     public static final long SYNC_INTERVAL = 5;
@@ -39,7 +41,7 @@ public class BlockwatchSyncAdapter extends AbstractThreadedSyncAdapter {
     private static final String RELAYED_BY = "relayed_by";
     public final String LOG_TAG = BlockwatchSyncAdapter.class.getSimpleName();
     private String currentHash;
-    private BigDecimal currentPrice;
+    private double currentPrice;
 
     public BlockwatchSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
@@ -147,7 +149,8 @@ public class BlockwatchSyncAdapter extends AbstractThreadedSyncAdapter {
         }
         // Get the current price in USD as well
         try {
-            currentPrice = BlockExplorerClass.retrieveCurrentPrice(); // Update the watch at the beginning with a fresh price
+            BigDecimal bdPrice = retrieveCurrentPrice().setScale(2, BigDecimal.ROUND_HALF_UP); // Round up to the nearest cent
+            currentPrice = bdPrice.doubleValue(); // Update the watch at the beginning with a fresh price
         } catch (Exception e) {
             Log.d("Explorer error: ", e.getMessage());
         }
@@ -191,8 +194,8 @@ public class BlockwatchSyncAdapter extends AbstractThreadedSyncAdapter {
                     transactionValues.put(BlockContract.BlockEntry.COLUMN_LATITUDE, latLongValues.getAsString(LATITUDE));
                     transactionValues.put(BlockContract.BlockEntry.COLUMN_LONGITUDE, latLongValues.getAsString(LONGITUDE));
                 }
-                if (currentPrice != null) { // Put the current price in USD into the database
-                    transactionValues.put(BlockContract.BlockEntry.COLUMN_PRICE, currentPrice.doubleValue());
+                if (currentPrice != 0) { // Put the current price in USD into the database, will be 0 if there was no result
+                    transactionValues.put(BlockContract.BlockEntry.COLUMN_PRICE, currentPrice);
                 }
                 /* Get a handle on the ContentResolver to delete and insert data */
                 ContentResolver transactionContentResolver = getContext().getContentResolver();
