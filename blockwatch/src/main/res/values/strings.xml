@@ -192,4 +192,5 @@
     <string name="second_hand_wheel_preference">Second Wheel</string>
     <string name="time_preference_category">Change Time Settings</string>
     <string name="current_price">Current Price</string>
+    <string name="trend_up_or_down">Trend Up or Down</string>
 </resources>

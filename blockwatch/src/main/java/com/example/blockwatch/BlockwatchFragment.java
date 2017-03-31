@@ -4,19 +4,24 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.formats.NativeAd;
 
 import org.json.JSONException;
 
@@ -188,7 +193,7 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
         }
 
         if (!data.isNull(7)){
-            TextView tV = (TextView) layout.findViewById(R.id.current_price);
+            Button buttonPrice = (Button) layout.findViewById(R.id.current_price);
             NumberFormat formatter = new DecimalFormat("#0.00");
             formatter.setMinimumFractionDigits(2);
             formatter.setMaximumFractionDigits(2);
@@ -201,15 +206,19 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
                 e.printStackTrace();
             }
             if(data.getDouble(7) < price_array[0][1]){ // If today's price is currently less than yesterday's closing price
-                tV.setTextColor(Color.RED); // Color the price red
+                buttonPrice.setTextColor(ContextCompat.getColor(getContext(), R.color.md_red_500)); // Color the price red
+                Drawable img = getContext().getResources().getDrawable(R.mipmap.trending_up);
+                img.setBounds( 200, 200, 260, 260 );
+                buttonPrice.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.trending_up,0,0,0);
             }
             else {
-                tV.setTextColor(Color.GREEN); // Otherwise, color it green
+                buttonPrice.setTextColor(ContextCompat.getColor(getContext(), R.color.md_light_green_500)); // Otherwise, color it green
             }
             RelativeLayout.LayoutParams paramsText = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT); // Set width and height
             paramsText.addRule(RelativeLayout.BELOW, pV.getId());
-            tV.setLayoutParams(paramsText); // Apply the layout width and height
-            tV.setText(formattedCurrentPrice);
+            paramsText.addRule(RelativeLayout.ALIGN_BOTTOM);
+            buttonPrice.setLayoutParams(paramsText); // Apply the layout width and height
+            buttonPrice.setText(formattedCurrentPrice);
         }
     }
 
