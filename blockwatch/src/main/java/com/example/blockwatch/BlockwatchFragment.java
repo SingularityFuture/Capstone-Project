@@ -207,12 +207,15 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
             }
             if(data.getDouble(7) < price_array[0][1]){ // If today's price is currently less than yesterday's closing price
                 buttonPrice.setTextColor(ContextCompat.getColor(getContext(), R.color.md_red_500)); // Color the price red
-                Drawable img = getContext().getResources().getDrawable(R.mipmap.trending_up);
-                img.setBounds( 200, 200, 260, 260 );
-                buttonPrice.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.trending_up,0,0,0);
+                Drawable img = ContextCompat.getDrawable(getContext(), R.mipmap.trending_down);
+                img.setBounds( 0, -40, 100, 60);
+                buttonPrice.setCompoundDrawables(null,null,img,null); // Put a trending up button inside
             }
             else {
                 buttonPrice.setTextColor(ContextCompat.getColor(getContext(), R.color.md_light_green_500)); // Otherwise, color it green
+                Drawable img = ContextCompat.getDrawable(getContext(), R.mipmap.trending_up);
+                img.setBounds( 0, -40, 100, 60);
+                buttonPrice.setCompoundDrawables(null,null,img,null); // Put a trending up button inside
             }
             RelativeLayout.LayoutParams paramsText = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT); // Set width and height
             paramsText.addRule(RelativeLayout.BELOW, pV.getId());
