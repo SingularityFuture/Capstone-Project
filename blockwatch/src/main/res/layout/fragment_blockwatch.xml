@@ -31,7 +31,7 @@
         android:layout_margin="16dp"
         android:paddingEnd="16dp"
         android:paddingStart="16dp"
-        android:elevation="8dp"
+        android:elevation="0dp"
         android:drawablePadding="8dp"
         />
 </RelativeLayout>

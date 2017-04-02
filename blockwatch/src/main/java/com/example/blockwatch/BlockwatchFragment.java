@@ -3,9 +3,18 @@ package com.example.blockwatch;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.IntRange;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
@@ -210,6 +219,28 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
                 Drawable img = ContextCompat.getDrawable(getContext(), R.mipmap.trending_down);
                 img.setBounds( 0, -40, 100, 60);
                 buttonPrice.setCompoundDrawables(null,null,img,null); // Put a trending up button inside
+
+                Drawable imgPercentage = new ColorDrawable(Color.RED);
+                imgPercentage.setColorFilter(Color.GREEN, PorterDuff.Mode.ADD );
+                imgPercentage.setTint(Color.BLACK);
+                imgPercentage.setTintMode(PorterDuff.Mode.ADD);
+                //imgPercentage.setAlpha(50);
+                imgPercentage.setBounds( -50, -50, 200, 200);
+                Canvas canvas = new Canvas();
+                Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+                paint.setColor(Color.BLUE);
+                paint.setTextSize(12);
+                paint.setStyle(Paint.Style.FILL_AND_STROKE); // Set style
+                paint.setTextAlign(Paint.Align.CENTER); // Set alignment
+                //paint.setAlpha(255);
+                canvas.drawText("H",50,50,paint);
+                //canvas.drawColor(Color.GREEN);
+                //canvas.drawArc(0,0,140,140,0,90,true,paint);
+                canvas.drawCircle(50,50,50,paint);
+                //canvas.setBitmap(new Bitmap());
+                imgPercentage.draw(canvas);
+                //imgPercentage.setVisible(true,true);
+                //buttonPrice.setCompoundDrawables(imgPercentage,null,null,null); // Put a trending up button inside
             }
             else {
                 buttonPrice.setTextColor(ContextCompat.getColor(getContext(), R.color.md_light_green_500)); // Otherwise, color it green
