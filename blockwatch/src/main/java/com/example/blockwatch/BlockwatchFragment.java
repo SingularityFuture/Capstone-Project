@@ -1,20 +1,14 @@
 package com.example.blockwatch;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.ColorFilter;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.IntRange;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
@@ -24,13 +18,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.formats.NativeAd;
 
 import org.json.JSONException;
 
@@ -217,10 +208,9 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
             if(data.getDouble(7) < price_array[0][1]){ // If today's price is currently less than yesterday's closing price
                 buttonPrice.setTextColor(ContextCompat.getColor(getContext(), R.color.md_red_500)); // Color the price red
                 Drawable img = ContextCompat.getDrawable(getContext(), R.mipmap.trending_down);
-                img.setBounds( 0, -40, 100, 60);
+                img.setBounds(0, 0, 75, 100);
                 buttonPrice.setCompoundDrawables(null,null,img,null); // Put a trending up button inside
-
-                Drawable imgPercentage = new ColorDrawable(Color.RED);
+/*                Drawable imgPercentage = new ColorDrawable(Color.RED);
                 imgPercentage.setColorFilter(Color.GREEN, PorterDuff.Mode.ADD );
                 imgPercentage.setTint(Color.BLACK);
                 imgPercentage.setTintMode(PorterDuff.Mode.ADD);
@@ -240,12 +230,23 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
                 //canvas.setBitmap(new Bitmap());
                 imgPercentage.draw(canvas);
                 //imgPercentage.setVisible(true,true);
-                //buttonPrice.setCompoundDrawables(imgPercentage,null,null,null); // Put a trending up button inside
+                //buttonPrice.setCompoundDrawables(imgPercentage,null,null,null); // Put a trending up button inside*/
             }
             else {
                 buttonPrice.setTextColor(ContextCompat.getColor(getContext(), R.color.md_light_green_500)); // Otherwise, color it green
                 Drawable img = ContextCompat.getDrawable(getContext(), R.mipmap.trending_up);
-                img.setBounds( 0, -40, 100, 60);
+                img.setBounds(0, 0, 75, 100);
+
+                Canvas canvas = new Canvas();
+                Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+                paint.setColor(Color.BLUE);
+                paint.setTextSize(12);
+                paint.setStyle(Paint.Style.FILL_AND_STROKE); // Set style
+                paint.setTextAlign(Paint.Align.CENTER); // Set alignment
+                //paint.setAlpha(255);
+                canvas.drawText("H",0,0,paint);
+                img.draw(canvas);
+
                 buttonPrice.setCompoundDrawables(null,null,img,null); // Put a trending up button inside
             }
             RelativeLayout.LayoutParams paramsText = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT); // Set width and height
@@ -253,6 +254,13 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
             paramsText.addRule(RelativeLayout.ALIGN_BOTTOM);
             buttonPrice.setLayoutParams(paramsText); // Apply the layout width and height
             buttonPrice.setText(formattedCurrentPrice);
+
+            buttonPrice.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    Intent intent = new Intent(getContext(), PriceDetailActivity.class);
+                    startActivity(intent);
+                }
+            });
         }
     }
 

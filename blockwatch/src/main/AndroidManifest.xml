@@ -47,6 +47,11 @@
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <activity
+            android:name=".PriceDetailActivity"
+            android:label="@string/price_detail"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity
             android:name=".Preferences"
             android:label="@string/preference_with_headers"
             android:theme="@style/PreferenceThemeOverlay"></activity>
