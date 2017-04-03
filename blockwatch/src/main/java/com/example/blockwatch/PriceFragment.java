@@ -3,30 +3,45 @@ package com.example.blockwatch;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import org.json.JSONException;
 
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import data.BlockContract;
 import utilities.TransactionJsonUtils;
+
+import static com.github.mikephil.charting.animation.Easing.EasingOption.Linear;
 
 /**
  * Created by Michael on 2/16/2017.
@@ -132,32 +147,68 @@ public class PriceFragment extends Fragment implements LoaderManager.LoaderCallb
         }
         layout = (RelativeLayout) rootView.findViewById(R.id.price_fragment_layout);
 
-        if (!data.isNull(7)){
-            String jsonHistoricalPricesResponse = data.getString(8); // Get the string representing the JSON of historical prices
-            if(!data.isNull(8)){
-                try { // Try parsing the JSON to get the price array
-                    price_array = TransactionJsonUtils.getHistoricalPricesFromJson(jsonHistoricalPricesResponse);
-                } catch(JSONException e){
-                    e.printStackTrace();
-                }
-            }
-
-            List<Entry> entries = new ArrayList<>(); // Create a specific object of entries
-            int temp=price_array.length;
-            for (int i=0; i<365; i++) {
-                // Turn your data into Entry objects
-                entries.add(new Entry((float) price_array[i][0], (float) price_array[i][1]));
-            }
-            entries.add(new Entry((float) System.currentTimeMillis() / 1000f,(float) data.getDouble(7)));
-            // Price history
-            LineChart priceHistoryChart = (LineChart) rootView.findViewById(R.id.price_chart);
-            LineDataSet dataSet = new LineDataSet(entries, "Label"); // add entries to dataset
-            dataSet.setColor(Color.BLUE);
-            dataSet.setValueTextColor(Color.BLACK); //
-            LineData lineData = new LineData(dataSet);
-            priceHistoryChart.setData(lineData);
-            priceHistoryChart.invalidate(); // Refresh
+        String jsonHistoricalPricesResponse=""; // Initialize the JSON response
+        if (!data.isNull(8)) {
+            jsonHistoricalPricesResponse = data.getString(8); // Get the string representing the JSON of historical prices
         }
+        try { // Try parsing the JSON to get the price array
+            price_array = TransactionJsonUtils.getHistoricalPricesFromJson(jsonHistoricalPricesResponse);
+        } catch(JSONException e){
+            e.printStackTrace();
+        }
+        List<Entry> entries = new ArrayList<>(); // Create a specific object of entries
+        int i;
+        final String[] dates = new String[366];
+        DateFormat df = new SimpleDateFormat("M/d/yy", Locale.US);
+        Date dateString;
+        for (i=0; i<price_array.length; i++) {
+            // Turn your data into Entry objects
+            entries.add(new Entry((float) i, (float) price_array[i][1]));
+            // The labels that should be drawn on the XAxis
+            dateString = new Date((long) price_array[i][0]*1000);
+            dates[i] = String.valueOf(df.format(dateString));
+        }
+        entries.add(new Entry((float) i,(float) data.getDouble(7)));
+        dateString = new Date(System.currentTimeMillis()/1000);
+        dates[i] = String.valueOf(df.format(dateString));
+
+        // Price history
+        LineChart priceHistoryChart = (LineChart) rootView.findViewById(R.id.price_chart);
+        LineDataSet dataSet = new LineDataSet(entries, ""); // add entries to dataset
+        dataSet.setColor(Color.BLACK);
+        dataSet.setValueTextColor(Color.BLACK); //
+        dataSet.setCircleColor(Color.BLACK);
+        dataSet.setCircleRadius(2f);
+        LineData lineData = new LineData(dataSet);
+
+        IAxisValueFormatter formatter = new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                return dates[(int) value+1];
+            }
+        };
+        XAxis xAxis = priceHistoryChart.getXAxis(); // Put dates on the x-axis
+        xAxis.setGranularity(15f); // minimum axis-step (interval) is 15 days
+        xAxis.setValueFormatter(formatter);
+        xAxis.setLabelRotationAngle(45);
+        xAxis.setDrawGridLines(false);
+        xAxis.setTextSize(12);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setDrawAxisLine(false);
+
+        YAxis yAxis = priceHistoryChart.getAxisLeft(); // Put dates on the y-axis
+        yAxis.setTextSize(16);
+
+        priceHistoryChart.getAxisRight().setEnabled(false);
+        priceHistoryChart.setData(lineData);
+        priceHistoryChart.setDrawMarkers(false);
+        priceHistoryChart.setAutoScaleMinMaxEnabled(true);
+
+        priceHistoryChart.setDrawGridBackground(false);
+        priceHistoryChart.setDescription(null);
+        priceHistoryChart.getLegend().setEnabled(false);
+        priceHistoryChart.animateX(2000, Linear);
+        //priceHistoryChart.invalidate(); // Refresh
 
         AdView mAdView = (AdView) rootView.findViewById(R.id.adViewDetailPrice);
         // Create an ad request. Check logcat output for the hashed device ID to
@@ -168,6 +219,36 @@ public class PriceFragment extends Fragment implements LoaderManager.LoaderCallb
                 .addTestDevice("TEST_DEVICE_ID")
                 .build();
         mAdView.loadAd(adRequest);
+
+        if (!data.isNull(7)) {
+            TextView detailPrice = (TextView) layout.findViewById(R.id.current_price_detail);
+            TextView percentagePrice = (TextView) layout.findViewById(R.id.current_price_percentage_change);
+            NumberFormat priceFormatter = new DecimalFormat("#0.00");
+            priceFormatter.setMinimumFractionDigits(2);
+            priceFormatter.setMaximumFractionDigits(2);
+            String formattedCurrentPrice = priceFormatter.format(data.getDouble(7)); // Get the current price
+
+            NumberFormat percentFormat = NumberFormat.getPercentInstance();
+            percentFormat.setMinimumFractionDigits(2);
+            percentFormat.setMaximumFractionDigits(2);
+            String formattedPercentageChange = percentFormat.format((data.getDouble(7) - price_array[price_array.length - 1][1])/price_array[price_array.length - 1][1]); // Get the price percentage change from yesterday
+
+            if (data.getDouble(7) < price_array[price_array.length - 1][1]) { // If today's price is currently less than yesterday's closing price
+                detailPrice.setTextColor(ContextCompat.getColor(getContext(), R.color.md_red_500)); // Color the price red
+                percentagePrice.setTextColor(ContextCompat.getColor(getContext(), R.color.md_red_500)); // Color the price red
+                Drawable img = ContextCompat.getDrawable(getContext(), R.mipmap.trending_down);
+                img.setBounds(0, 0, 100, 100);
+                detailPrice.setCompoundDrawables(null, null, img, null); // Put a trending up button inside        //entries.add(new Entry((float) price_array[i][0], (float) price_array[i][1]));
+            } else {
+                detailPrice.setTextColor(ContextCompat.getColor(getContext(), R.color.md_light_green_500)); // Otherwise, color it green
+                percentagePrice.setTextColor(ContextCompat.getColor(getContext(), R.color.md_light_green_500)); // Color the price red
+                Drawable img = ContextCompat.getDrawable(getContext(), R.mipmap.trending_up);
+                img.setBounds(0, 0, 100, 100);
+                detailPrice.setCompoundDrawables(null,null,img,null); // Put a trending up button inside
+            }
+            detailPrice.setText(formattedCurrentPrice);
+            percentagePrice.setText(formattedPercentageChange);
+        }
     }
 
     /**

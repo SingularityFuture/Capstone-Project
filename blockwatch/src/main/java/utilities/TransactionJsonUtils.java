@@ -98,9 +98,10 @@ public final class TransactionJsonUtils {
 
         if (!historicalPricesJson.isNull(PRICES)) {
             priceJSONArray = historicalPricesJson.getJSONArray(PRICES);  // Get the value element from the JSON object
-            JSONObject temp = priceJSONArray.getJSONObject(priceJSONArray.length()-1);
-            price_array[0][0] = priceJSONArray.getJSONObject(priceJSONArray.length()-1).getInt("x"); // Get the last element's timestampe, which was yesterday
-            price_array[0][1] = priceJSONArray.getJSONObject(priceJSONArray.length()-1).getInt("y"); // Get yesterday's price
+            for(int i=0; i<priceJSONArray.length(); i++){
+                price_array[i][0] = priceJSONArray.getJSONObject(i).getInt("x"); // Get each Unix timestamp
+                price_array[i][1] = priceJSONArray.getJSONObject(i).getInt("y"); // Get each price
+            }
         }
         return price_array;
     }

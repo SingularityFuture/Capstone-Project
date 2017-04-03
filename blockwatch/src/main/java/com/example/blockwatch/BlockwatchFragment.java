@@ -4,9 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.Cursor;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -207,10 +205,10 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
                     e.printStackTrace();
                 }
             }
-            if(data.getDouble(7) < price_array[0][1]){ // If today's price is currently less than yesterday's closing price
+            if(data.getDouble(7) < price_array[price_array.length-1][1]){ // If today's price is currently less than yesterday's closing price
                 buttonPrice.setTextColor(ContextCompat.getColor(getContext(), R.color.md_red_500)); // Color the price red
                 Drawable img = ContextCompat.getDrawable(getContext(), R.mipmap.trending_down);
-                img.setBounds(0, 0, 75, 100);
+                img.setBounds(0, 0, 100, 100);
                 buttonPrice.setCompoundDrawables(null,null,img,null); // Put a trending up button inside
 /*                Drawable imgPercentage = new ColorDrawable(Color.RED);
                 imgPercentage.setColorFilter(Color.GREEN, PorterDuff.Mode.ADD );
@@ -237,9 +235,8 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
             else {
                 buttonPrice.setTextColor(ContextCompat.getColor(getContext(), R.color.md_light_green_500)); // Otherwise, color it green
                 Drawable img = ContextCompat.getDrawable(getContext(), R.mipmap.trending_up);
-                img.setBounds(0, 0, 75, 100);
-
-                Canvas canvas = new Canvas();
+                img.setBounds(0, 0, 100, 100);
+/*                Canvas canvas = new Canvas();
                 Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
                 paint.setColor(Color.BLUE);
                 paint.setTextSize(12);
@@ -247,8 +244,7 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
                 paint.setTextAlign(Paint.Align.CENTER); // Set alignment
                 //paint.setAlpha(255);
                 canvas.drawText("H",0,0,paint);
-                img.draw(canvas);
-
+                img.draw(canvas);*/
                 buttonPrice.setCompoundDrawables(null,null,img,null); // Put a trending up button inside
             }
             RelativeLayout.LayoutParams paramsText = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT); // Set width and height

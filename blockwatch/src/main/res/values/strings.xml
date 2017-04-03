@@ -193,7 +193,7 @@
     <string name="time_preference_category">Change Time Settings</string>
     <string name="current_price">Current Price</string>
     <string name="trend_up_or_down">Trend Up or Down</string>
-    <string name="price_detail">Price Detail Activity</string>
+    <string name="price_detail">Price History</string>
     <string name="price_toolbar">Price Toolbar</string>
     <string name="price_frame">Price Frame</string>
     <string name="price_fragment">Price Fragment</string>
