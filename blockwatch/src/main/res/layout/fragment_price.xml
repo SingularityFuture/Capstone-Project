@@ -29,18 +29,16 @@
         android:paddingEnd="16dp"
         android:paddingStart="16dp"
         android:textAlignment="center"
+        android:layout_centerInParent="true"
         android:textSize="30sp" />
 
     <TextView
         android:id="@+id/current_price_percentage_change"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_below="@id/adViewDetailPrice"
-        android:layout_toEndOf="@id/current_price_detail"
-        android:layout_alignBottom="@id/current_price_detail"
-        android:layout_alignBaseline="@id/current_price_detail"
+        android:layout_below="@id/current_price_detail"
         android:contentDescription="@string/current_price"
+        android:layout_centerInParent="true"
         android:textAlignment="center"
         android:textSize="20sp" />
 
