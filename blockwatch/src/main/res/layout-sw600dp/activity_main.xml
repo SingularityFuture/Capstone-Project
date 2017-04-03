@@ -58,7 +58,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="?attr/actionBarSize"
             android:layout_weight="2"
-            tools:context="com.example.blockwatch.TransactionFragment"
+            tools:context="com.example.blockwatch.PriceFragment"
             tools:layout="@layout/fragment_transaction" />
     </LinearLayout>
 </FrameLayout>

@@ -6,8 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import data.BlockContract;
-
 /**
  * Created by Michael on 4/3/2017.
  */
@@ -20,8 +18,8 @@ public class PriceDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_transaction); // Set the transaction activity
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_transaction); // Get the toolbar ID
+        setContentView(R.layout.activity_price); // Set the price activity
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_price); // Get the toolbar ID
         toolbar.setTitle(R.string.price_detail);
         setSupportActionBar(toolbar); // Set the toolbar
         if(getSupportActionBar() != null){
@@ -35,11 +33,11 @@ public class PriceDetailActivity extends AppCompatActivity {
         });
 
         if (getSupportFragmentManager().findFragmentByTag(PRICE_FRAGMENT_TAG) == null) { // If the fragment doesn't exist yet,
-            priceFragment = new TransactionFragment().newInstance(BlockContract.BlockEntry.CONTENT_URI); // Add the transaction fragment here, passing the context as an implementation of the fragment listener
-            getSupportFragmentManager().beginTransaction().add(R.id.transaction_fragment, priceFragment, PRICE_FRAGMENT_TAG).commit(); // Add the fragment to the transaction
+            priceFragment = new PriceFragment().newInstance(); // Add the transaction fragment here, passing the context as an implementation of the fragment listener
+            getSupportFragmentManager().beginTransaction().add(R.id.price_fragment, priceFragment, PRICE_FRAGMENT_TAG).commit(); // Add the fragment to the transaction
         } else {
             priceFragment = getSupportFragmentManager().findFragmentByTag(PRICE_FRAGMENT_TAG); // Else if it exists
-            getSupportFragmentManager().beginTransaction().replace(R.id.transaction_fragment, priceFragment, PRICE_FRAGMENT_TAG).commit(); // Replace the fragment with the current one
+            getSupportFragmentManager().beginTransaction().replace(R.id.price_fragment, priceFragment, PRICE_FRAGMENT_TAG).commit(); // Replace the fragment with the current one
         }
     }
 

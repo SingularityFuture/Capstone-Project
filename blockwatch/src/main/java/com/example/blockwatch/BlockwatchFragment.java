@@ -199,11 +199,13 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
             formatter.setMaximumFractionDigits(2);
             //
             String formattedCurrentPrice = formatter.format(data.getDouble(7)); // Get the current price
-            String jsonHistoricalPricesResponse = data.getString(8); // Get the string representing the JSON of historical prices
-            try { // Try parsing the JSON to get the price array
-                price_array = TransactionJsonUtils.getHistoricalPricesFromJson(jsonHistoricalPricesResponse);
-            } catch(JSONException e){
-                e.printStackTrace();
+            if(!data.isNull(8)){
+                String jsonHistoricalPricesResponse = data.getString(8); // Get the string representing the JSON of historical prices
+                try { // Try parsing the JSON to get the price array
+                    price_array = TransactionJsonUtils.getHistoricalPricesFromJson(jsonHistoricalPricesResponse);
+                } catch(JSONException e){
+                    e.printStackTrace();
+                }
             }
             if(data.getDouble(7) < price_array[0][1]){ // If today's price is currently less than yesterday's closing price
                 buttonPrice.setTextColor(ContextCompat.getColor(getContext(), R.color.md_red_500)); // Color the price red

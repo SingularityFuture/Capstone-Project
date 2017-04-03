@@ -16,6 +16,7 @@ repositories {
     maven { url 'http://repo1.maven.org/maven2' }
     maven { url = 'https://raw.githubusercontent.com/blockchain/api-v1-client-java/mvn-repo' }
     jcenter { url "http://jcenter.bintray.com/" }
+    maven { url "https://jitpack.io" }
     jcenter()
 }
 
@@ -68,6 +69,7 @@ dependencies {
     compile 'com.android.support:support-v4:25.3.0'
     compile 'info.blockchain:api:1.1.4'
     compile 'com.thebluealliance:spectrum:0.7.1'
+    compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
 
     testCompile 'junit:junit:4.12'
 
