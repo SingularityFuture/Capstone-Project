@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -192,6 +193,7 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
 
         if (!data.isNull(7)){
             Button buttonPrice = (Button) layout.findViewById(R.id.current_price);
+            TextView percentagePrice = (TextView) layout.findViewById(R.id.current_price_percentage_change_blockwatch);
             NumberFormat formatter = new DecimalFormat("#0.00");
             formatter.setMinimumFractionDigits(2);
             formatter.setMaximumFractionDigits(2);
@@ -210,41 +212,11 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
                 Drawable img = ContextCompat.getDrawable(getContext(), R.mipmap.trending_down);
                 img.setBounds(0, 0, 100, 100);
                 buttonPrice.setCompoundDrawables(null,null,img,null); // Put a trending up button inside
-/*                Drawable imgPercentage = new ColorDrawable(Color.RED);
-                imgPercentage.setColorFilter(Color.GREEN, PorterDuff.Mode.ADD );
-                imgPercentage.setTint(Color.BLACK);
-                imgPercentage.setTintMode(PorterDuff.Mode.ADD);
-                //imgPercentage.setAlpha(50);
-                imgPercentage.setBounds( -50, -50, 200, 200);
-                Canvas canvas = new Canvas();
-                Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-                paint.setColor(Color.BLUE);
-                paint.setTextSize(12);
-                paint.setStyle(Paint.Style.FILL_AND_STROKE); // Set style
-                paint.setTextAlign(Paint.Align.CENTER); // Set alignment
-                //paint.setAlpha(255);
-                canvas.drawText("H",50,50,paint);
-                //canvas.drawColor(Color.GREEN);
-                //canvas.drawArc(0,0,140,140,0,90,true,paint);
-                canvas.drawCircle(50,50,50,paint);
-                //canvas.setBitmap(new Bitmap());
-                imgPercentage.draw(canvas);
-                //imgPercentage.setVisible(true,true);
-                //buttonPrice.setCompoundDrawables(imgPercentage,null,null,null); // Put a trending up button inside*/
             }
             else {
                 buttonPrice.setTextColor(ContextCompat.getColor(getContext(), R.color.md_light_green_500)); // Otherwise, color it green
                 Drawable img = ContextCompat.getDrawable(getContext(), R.mipmap.trending_up);
                 img.setBounds(0, 0, 100, 100);
-/*                Canvas canvas = new Canvas();
-                Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-                paint.setColor(Color.BLUE);
-                paint.setTextSize(12);
-                paint.setStyle(Paint.Style.FILL_AND_STROKE); // Set style
-                paint.setTextAlign(Paint.Align.CENTER); // Set alignment
-                //paint.setAlpha(255);
-                canvas.drawText("H",0,0,paint);
-                img.draw(canvas);*/
                 buttonPrice.setCompoundDrawables(null,null,img,null); // Put a trending up button inside
             }
             RelativeLayout.LayoutParams paramsText = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT); // Set width and height

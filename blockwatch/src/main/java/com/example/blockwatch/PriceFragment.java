@@ -41,8 +41,6 @@ import java.util.Locale;
 import data.BlockContract;
 import utilities.TransactionJsonUtils;
 
-import static com.github.mikephil.charting.animation.Easing.EasingOption.Linear;
-
 /**
  * Created by Michael on 2/16/2017.
  */
@@ -161,20 +159,23 @@ public class PriceFragment extends Fragment implements LoaderManager.LoaderCallb
         final String[] dates = new String[366];
         DateFormat df = new SimpleDateFormat("M/d/yy", Locale.US);
         Date dateString;
+        int entries_index=0;
         for (i=0; i<price_array.length; i++) {
             // Turn your data into Entry objects
-            entries.add(new Entry((float) i, (float) price_array[i][1]));
-            // The labels that should be drawn on the XAxis
-            dateString = new Date((long) price_array[i][0]*1000);
-            dates[i] = String.valueOf(df.format(dateString));
+            if(price_array[i][1]!=0) { // Only add if you didn't somehow get a 0 value (sometimes the JSON response is a different length)
+                entries.add(new Entry((float) entries_index, (float) price_array[i][1]));
+                // The labels that should be drawn on the XAxis
+                dateString = new Date((long) price_array[i][0] * 1000);
+                dates[entries_index] = String.valueOf(df.format(dateString));
+                entries_index++; // Increment the index for storing the entries only if you found a non-zero number
+            }
         }
         entries.add(new Entry((float) i,(float) data.getDouble(7)));
         dateString = new Date(System.currentTimeMillis()/1000);
         dates[i] = String.valueOf(df.format(dateString));
-
         // Price history
         LineChart priceHistoryChart = (LineChart) rootView.findViewById(R.id.price_chart);
-        LineDataSet dataSet = new LineDataSet(entries, ""); // add entries to dataset
+        LineDataSet dataSet = new LineDataSet(entries, ""); // Add entries to dataset
         dataSet.setColor(Color.BLACK);
         dataSet.setValueTextColor(Color.BLACK); //
         dataSet.setCircleColor(Color.BLACK);
@@ -207,8 +208,13 @@ public class PriceFragment extends Fragment implements LoaderManager.LoaderCallb
         priceHistoryChart.setDrawGridBackground(false);
         priceHistoryChart.setDescription(null);
         priceHistoryChart.getLegend().setEnabled(false);
-        priceHistoryChart.animateX(2000, Linear);
+        priceHistoryChart.setVisibleXRangeMaximum(100);
+        //priceHistoryChart.animateX(2500, Linear);
+        //priceHistoryChart.moveViewToX(300);
+        priceHistoryChart.moveViewToAnimated(300, 1000, YAxis.AxisDependency.LEFT, 2000);
+        //priceHistoryChart.centerViewToAnimated(300,1000, YAxis.AxisDependency.LEFT,2000);
         //priceHistoryChart.invalidate(); // Refresh
+        priceHistoryChart.setVisibleXRangeMaximum(1000);
 
         AdView mAdView = (AdView) rootView.findViewById(R.id.adViewDetailPrice);
         // Create an ad request. Check logcat output for the hashed device ID to
@@ -231,7 +237,7 @@ public class PriceFragment extends Fragment implements LoaderManager.LoaderCallb
             NumberFormat percentFormat = NumberFormat.getPercentInstance();
             percentFormat.setMinimumFractionDigits(2);
             percentFormat.setMaximumFractionDigits(2);
-            String formattedPercentageChange = percentFormat.format((data.getDouble(7) - price_array[price_array.length - 1][1])/price_array[price_array.length - 1][1]); // Get the price percentage change from yesterday
+            String formattedPercentageChange = "("+percentFormat.format((data.getDouble(7) - price_array[price_array.length - 1][1])/price_array[price_array.length - 1][1])+")"; // Get the price percentage change from yesterday
 
             if (data.getDouble(7) < price_array[price_array.length - 1][1]) { // If today's price is currently less than yesterday's closing price
                 detailPrice.setTextColor(ContextCompat.getColor(getContext(), R.color.md_red_500)); // Color the price red
