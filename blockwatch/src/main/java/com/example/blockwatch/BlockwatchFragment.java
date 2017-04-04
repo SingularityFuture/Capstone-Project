@@ -224,7 +224,6 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
             paramsText.addRule(RelativeLayout.ALIGN_BOTTOM);
             buttonPrice.setLayoutParams(paramsText); // Apply the layout width and height
             buttonPrice.setText(formattedCurrentPrice);
-
             buttonPrice.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     Intent intent = new Intent(getContext(), PriceDetailActivity.class);

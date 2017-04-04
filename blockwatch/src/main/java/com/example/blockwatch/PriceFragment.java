@@ -41,6 +41,8 @@ import java.util.Locale;
 import data.BlockContract;
 import utilities.TransactionJsonUtils;
 
+import static com.github.mikephil.charting.animation.Easing.EasingOption.Linear;
+
 /**
  * Created by Michael on 2/16/2017.
  */
@@ -209,11 +211,9 @@ public class PriceFragment extends Fragment implements LoaderManager.LoaderCallb
         priceHistoryChart.setDescription(null);
         priceHistoryChart.getLegend().setEnabled(false);
         priceHistoryChart.setVisibleXRangeMaximum(100);
-        //priceHistoryChart.animateX(2500, Linear);
-        //priceHistoryChart.moveViewToX(300);
-        priceHistoryChart.moveViewToAnimated(300, 1000, YAxis.AxisDependency.LEFT, 2000);
-        //priceHistoryChart.centerViewToAnimated(300,1000, YAxis.AxisDependency.LEFT,2000);
-        //priceHistoryChart.invalidate(); // Refresh
+        priceHistoryChart.animateX(2500, Linear);
+        // Move to 90 days before the end and center on the last price
+        priceHistoryChart.moveViewToAnimated((float) (365-90), entries.get(entries.size()-1).getY(), YAxis.AxisDependency.LEFT, 2000);
         priceHistoryChart.setVisibleXRangeMaximum(1000);
 
         AdView mAdView = (AdView) rootView.findViewById(R.id.adViewDetailPrice);
