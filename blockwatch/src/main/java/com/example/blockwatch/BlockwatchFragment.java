@@ -12,12 +12,14 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
+import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -29,6 +31,8 @@ import java.text.NumberFormat;
 
 import data.BlockContract;
 import utilities.TransactionJsonUtils;
+
+import static android.content.Context.WINDOW_SERVICE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -77,7 +81,6 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
         super.onCreateView(inflater, container, savedInstanceState);
         rootView = inflater.inflate(R.layout.fragment_blockwatch, container, false);
         layout = (RelativeLayout) rootView.findViewById(R.id.watch_fragment_layout);
-
         // Inflate the layout for this fragment
         return rootView;
     }
@@ -99,7 +102,7 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         getLoaderManager().restartLoader(ID_BLOCKWATCH_LOADER, null, this);
     }
@@ -166,7 +169,6 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
         }
 
         AdView mAdView = (AdView) layout.findViewById(R.id.adView);
-        mAdView.setBackgroundColor(Color.TRANSPARENT);
         // Create an ad request. Check logcat output for the hashed device ID to
         // get test ads on a physical device. e.g.
         // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
@@ -175,6 +177,11 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
                 .addTestDevice("TEST_DEVICE_ID")
                 .build();
         mAdView.loadAd(adRequest);
+
+        WindowManager wm = (WindowManager) getContext().getSystemService(WINDOW_SERVICE); // Get the window manager
+        DisplayMetrics metrics = new DisplayMetrics(); // Declare a metrics object
+        wm.getDefaultDisplay().getMetrics(metrics); // Get the metrics of the window
+        int rotation = wm.getDefaultDisplay().getRotation(); // Get the orientation of the screen
 
         // This represents the current transaction hash
         if (!data.isNull(1)) {
@@ -188,40 +195,52 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
             pV.setSaveEnabled(true); // Make sure it saves its state
             pV.setOnClickListener(this); // Set the onClick listener to call back to the activity
             pV.setContentDescription(getString(R.string.blockwatch_face));
+            RelativeLayout.LayoutParams paramsWatch = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT); // Set width and height
+            paramsWatch.addRule(RelativeLayout.BELOW, R.id.adView);
+            if (rotation == Surface.ROTATION_90
+                    || rotation == Surface.ROTATION_270) { // If it's in landscape mode,
+                paramsWatch.addRule(RelativeLayout.CENTER_HORIZONTAL);
+            }
+            pV.setLayoutParams(paramsWatch);
             layout.addView(pV); // Add the view to the fragment layout
         }
 
-        if (!data.isNull(7)){
+        if (!data.isNull(7)) {
             Button buttonPrice = (Button) layout.findViewById(R.id.current_price);
-            TextView percentagePrice = (TextView) layout.findViewById(R.id.current_price_percentage_change_blockwatch);
             NumberFormat formatter = new DecimalFormat("#0.00");
             formatter.setMinimumFractionDigits(2);
             formatter.setMaximumFractionDigits(2);
-            //
             String formattedCurrentPrice = formatter.format(data.getDouble(7)); // Get the current price
-            if(!data.isNull(8)){
+            if (!data.isNull(8)) {
                 String jsonHistoricalPricesResponse = data.getString(8); // Get the string representing the JSON of historical prices
                 try { // Try parsing the JSON to get the price array
                     price_array = TransactionJsonUtils.getHistoricalPricesFromJson(jsonHistoricalPricesResponse);
-                } catch(JSONException e){
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
-            if(data.getDouble(7) < price_array[price_array.length-1][1]){ // If today's price is currently less than yesterday's closing price
+            Drawable img;
+            if (data.getDouble(7) < price_array[price_array.length - 1][1]) { // If today's price is currently less than yesterday's closing price
                 buttonPrice.setTextColor(ContextCompat.getColor(getContext(), R.color.md_red_500)); // Color the price red
-                Drawable img = ContextCompat.getDrawable(getContext(), R.mipmap.trending_down);
-                img.setBounds(0, 0, 100, 100);
-                buttonPrice.setCompoundDrawables(null,null,img,null); // Put a trending up button inside
-            }
-            else {
+                img = ContextCompat.getDrawable(getContext(), R.mipmap.trending_down);
+            } else {
                 buttonPrice.setTextColor(ContextCompat.getColor(getContext(), R.color.md_light_green_500)); // Otherwise, color it green
-                Drawable img = ContextCompat.getDrawable(getContext(), R.mipmap.trending_up);
-                img.setBounds(0, 0, 100, 100);
-                buttonPrice.setCompoundDrawables(null,null,img,null); // Put a trending up button inside
+                img = ContextCompat.getDrawable(getContext(), R.mipmap.trending_up);
             }
-            RelativeLayout.LayoutParams paramsText = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT); // Set width and height
-            paramsText.addRule(RelativeLayout.BELOW, pV.getId());
-            paramsText.addRule(RelativeLayout.ALIGN_BOTTOM);
+            img.setBounds(0, 0, 100, 100);
+
+
+            RelativeLayout.LayoutParams paramsText = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT); // Set width and height
+            if (rotation == Surface.ROTATION_90
+                    || rotation == Surface.ROTATION_270) { // If it's in landscape mode,
+                buttonPrice.setCompoundDrawablesWithIntrinsicBounds(null, null, null, img); // Put a trending button inside
+                paramsText.addRule(RelativeLayout.START_OF, pV.getId());
+                paramsText.addRule(RelativeLayout.CENTER_VERTICAL, pV.getId());
+            } else {
+                buttonPrice.setCompoundDrawables(null, null, img, null); // Put a trending button inside
+                paramsText.addRule(RelativeLayout.BELOW, pV.getId());
+                paramsText.addRule(RelativeLayout.ALIGN_LEFT, pV.getId());
+            }
             buttonPrice.setLayoutParams(paramsText); // Apply the layout width and height
             buttonPrice.setText(formattedCurrentPrice);
             buttonPrice.setOnClickListener(new View.OnClickListener() {

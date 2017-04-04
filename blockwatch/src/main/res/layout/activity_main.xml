@@ -1,49 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:contentDescription="@string/blockwatch_main_screen"
-    android:fitsSystemWindows="true"
-    tools:context="com.example.blockwatch.MainActivity">
+    android:fitsSystemWindows="true">
 
-    <android.support.design.widget.AppBarLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/black"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="match_parent"
+        android:background="@color/md_white_1000"
+        android:contentDescription="@string/blockwatch_main_screen"
+        android:orientation="vertical"
+        tools:context="com.example.blockwatch.MainActivity">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@android:color/black"
-            android:contentDescription="@string/main_screen_toolbar"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
-    </android.support.design.widget.AppBarLayout>
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:theme="@style/AppTheme.AppBarOverlay">
 
-    <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/swipe_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:alpha="255"
+                android:background="@color/colorPrimary"
+                android:contentDescription="@string/main_screen_toolbar"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+        </android.support.design.widget.AppBarLayout>
 
-        <ScrollView
+        <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/swipe_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/toolbar"
-            android:fillViewport="false">
+            android:layout_below="@id/toolbar">
 
-            <FrameLayout
-                android:id="@+id/blockwatch_fragment"
-                android:name="com.example.blockwatch.BlockwatchFragment"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/watch_face"
-                android:nextFocusUp="@id/toolbar"
-                tools:context="com.example.blockwatch.BlockwatchFragment"
-                tools:layout="@layout/fragment_blockwatch" />
+                android:layout_height="match_parent"
+                android:layout_below="@id/toolbar"
+                android:fillViewport="false">
 
-        </ScrollView>
-    </android.support.v4.widget.SwipeRefreshLayout>
+                <FrameLayout
+                    android:id="@+id/blockwatch_fragment"
+                    android:name="com.example.blockwatch.BlockwatchFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/watch_face"
+                    android:nextFocusUp="@id/toolbar"
+                    tools:context="com.example.blockwatch.BlockwatchFragment"
+                    tools:layout="@layout/fragment_blockwatch" />
+
+            </ScrollView>
+        </android.support.v4.widget.SwipeRefreshLayout>
+    </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

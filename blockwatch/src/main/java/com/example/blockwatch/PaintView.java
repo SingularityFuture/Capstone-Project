@@ -13,6 +13,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.Surface;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -21,6 +22,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
+import static android.content.Context.WINDOW_SERVICE;
 import static com.example.blockwatch.R.string.hour_one_color;
 import static com.example.blockwatch.R.string.hour_two_color;
 import static com.example.blockwatch.R.string.military_time_preference_key;
@@ -95,20 +97,22 @@ public class PaintView extends View {
     private int[] indexInCircle = {0, 0, 0, 0};
     private int[] timeAngles = {0, 0, 0, 0};
     private int am_pm;
-    int hourOneColor = PreferenceManager.getDefaultSharedPreferences(getContext()).getInt(getResources().getString(hour_one_color), ContextCompat.getColor(getContext(),R.color.red));
-    int hourTwoColor = PreferenceManager.getDefaultSharedPreferences(getContext()).getInt(getResources().getString(hour_two_color), ContextCompat.getColor(getContext(),R.color.red));
-    int minuteOneColor = PreferenceManager.getDefaultSharedPreferences(getContext()).getInt(getResources().getString(minute_one_color), ContextCompat.getColor(getContext(),R.color.red));
-    int minuteTwoColor = PreferenceManager.getDefaultSharedPreferences(getContext()).getInt(getResources().getString(minute_two_color), ContextCompat.getColor(getContext(),R.color.red));
+    int hourOneColor = PreferenceManager.getDefaultSharedPreferences(getContext()).getInt(getResources().getString(hour_one_color), ContextCompat.getColor(getContext(), R.color.red));
+    int hourTwoColor = PreferenceManager.getDefaultSharedPreferences(getContext()).getInt(getResources().getString(hour_two_color), ContextCompat.getColor(getContext(), R.color.red));
+    int minuteOneColor = PreferenceManager.getDefaultSharedPreferences(getContext()).getInt(getResources().getString(minute_one_color), ContextCompat.getColor(getContext(), R.color.red));
+    int minuteTwoColor = PreferenceManager.getDefaultSharedPreferences(getContext()).getInt(getResources().getString(minute_two_color), ContextCompat.getColor(getContext(), R.color.red));
     boolean showTimeBelowWheel = PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean(getResources().getString(show_time_preference_key), true);
     boolean moveSecondHandWheel = PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean(getResources().getString(second_hand_wheel_key), true);
     boolean isMilitaryTime = PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean(getResources().getString(military_time_preference_key), true);
+    WindowManager wm = (WindowManager) getContext().getSystemService(WINDOW_SERVICE); // Get the window manager
+    DisplayMetrics metrics = new DisplayMetrics(); // Declare a metrics object
 
     public PaintView(Context context, String currentHash) {
         super(context); // Call the superclass's (View) constructor
         this.currentHash = currentHash;
-        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE); // Get the window manager
-        DisplayMetrics metrics = new DisplayMetrics(); // Declare a metrics object
         wm.getDefaultDisplay().getMetrics(metrics); // Get the metrics of the window
+        int rotation = wm.getDefaultDisplay().getRotation(); // Get the orientation of the screen
+
         // Calculate ActionBar height
         TypedValue tv = new TypedValue(); // Declare a typed value
         if (context.getTheme().resolveAttribute(R.attr.actionBarSize, tv, true)) // Get the action bar size attribute
@@ -122,26 +126,34 @@ public class PaintView extends View {
             statusBarHeight = getResources().getDimensionPixelSize(resourceId); // If it exists, put it here
         }
         if (!isTablet) { // If it's not a tablet, have this fill the whole screen
-            radius = (Math.min(metrics.widthPixels, (metrics.heightPixels - actionBarHeight - statusBarHeight)) / 2); // Measure the radius of the screen using the smallest dimension taking into account the action bar height
-            centerX = metrics.widthPixels / 2; // Measure the center x coordinate
+            radius = (Math.min(metrics.widthPixels, metrics.heightPixels - actionBarHeight - statusBarHeight - 168) / 2); // Measure the radius of the screen using the smallest dimension taking into account the action bar height
+            if (rotation == Surface.ROTATION_90
+                    || rotation == Surface.ROTATION_270) { // If it's in landscape mode,
+                centerX = metrics.widthPixels / 4; // Measure the center x coordinate
+            } else {
+                centerX = metrics.widthPixels / 2; // Measure the center x coordinate
+            }
         } else { // Otherwise, push it over to the left half of the screen
-            radius = (Math.min(metrics.widthPixels, (metrics.heightPixels - actionBarHeight - statusBarHeight)) / 2.5f); // Measure the radius of the screen using the smallest dimension taking into account the action bar height
+            radius = (Math.min(metrics.widthPixels, (metrics.heightPixels - actionBarHeight - statusBarHeight - 168)) / 2.5f); // Measure the radius of the screen using the smallest dimension taking into account the action bar height
             centerX = metrics.widthPixels / 4; // Measure the center x coordinate
         }
-        // For some reason, adding actionBarHeight to the centerY coordinate pushes it too far down, even though it's required when computing the radius size
-        centerY = (metrics.heightPixels + statusBarHeight) / 2; // Measure the center y coordinate of this rectangle taking into account the action bar height
+        if (rotation == Surface.ROTATION_90
+                || rotation == Surface.ROTATION_270) { // If it's in landscape mode,
+            centerY = (metrics.heightPixels - actionBarHeight - statusBarHeight - 168) / 2; // Measure the center y coordinate of this rectangle taking into account the action bar height
+        } else {
+            centerY = (metrics.heightPixels - actionBarHeight - statusBarHeight - 168 - 130) / 2; // Measure the center y coordinate of this rectangle taking into account the action bar height // Subtract a little more in portrait mode so price shows up on the bottom
+        }
         //centerY = (metrics.heightPixels + statusBarHeight) / 4; // Measure the center y coordinate of this rectangle taking into account the action bar height
         mPaintText = new Paint(Paint.ANTI_ALIAS_FLAG); // Create paint object
         mPaintText.setStyle(Paint.Style.FILL_AND_STROKE); // Set style
         mPaintText.setTextSize(mTextHeight); // Set text size
         mPaintText.setTextAlign(Paint.Align.CENTER); // Set alignment
-
         for (int i = 0; i < numberOfCircles; i++) {
             Arrays.fill(degreesArray.get(i), 360 / circleCount[i]); // Fill the arrays with the degrees for each arc
             // Declare the bounding rectangles for all the circles of the watch
             mOvalsF[i] = new RectF(Math.round(centerX - radius * circleSpacing[i]), Math.round(centerY - radius * circleSpacing[i]), Math.round(centerX + radius * circleSpacing[i]), Math.round(centerY + radius * circleSpacing[i]));
         }
-        if(moveSecondHandWheel) {
+        if (moveSecondHandWheel) {
             moveInnerDial.run(); //
         }
     }
@@ -157,11 +169,15 @@ public class PaintView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        WindowManager wm = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE); // Get the window manager
-        DisplayMetrics metrics = new DisplayMetrics(); // Declare a metrics object
         wm.getDefaultDisplay().getMetrics(metrics); // Get the metrics of the window
+        int rotation = wm.getDefaultDisplay().getRotation(); // Get the orientation of the screen
         int height = metrics.heightPixels;
-        setMeasuredDimension(widthMeasureSpec, height-250);
+        if (rotation == Surface.ROTATION_90
+                || rotation == Surface.ROTATION_270) { // If it's in landscape mode,
+            setMeasuredDimension(widthMeasureSpec / 2, (int) (height - actionBarHeight - statusBarHeight - 168)); // Set the dimensions differently
+        } else {
+            setMeasuredDimension(widthMeasureSpec, (int) (height - actionBarHeight - statusBarHeight - 168 - 130)); // Subtract some more so the price shows up on the bottom
+        }
     }
 
     @Override
@@ -173,7 +189,7 @@ public class PaintView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         mCalendar = Calendar.getInstance();
-        if(!isMilitaryTime) {
+        if (!isMilitaryTime) {
             hour = String.valueOf(mCalendar.get(Calendar.HOUR));  // Get the hour
         } else {
             hour = String.valueOf(mCalendar.get(Calendar.HOUR_OF_DAY));  // Get the hour in 24 hour format
@@ -270,7 +286,7 @@ public class PaintView extends View {
             currentChar = String.valueOf(currentHash.charAt(charIndices[j])); // Get the current character in the hash
             if (j == 0 && hourDrawn.get(0)) { // If you're on the current digit of the time, and you found it up above while looping through the hash
                 // Draw a circle behind the current digit to make it stand out
-                if(hour.length() == 2) {
+                if (hour.length() == 2) {
                     mPaintText.setColor(hourOneColor); // Use the first color in the preference if there are two digits in the hour
                 } else if (hour.length() == 1) {
                     mPaintText.setColor(hourTwoColor); // Make sure to use the 2nd hour color if there is only one digit in the hour
@@ -345,7 +361,7 @@ public class PaintView extends View {
             mPaintText.getTextBounds(currentChar, 0, currentChar.length(), bounds); // Measure the text
             mPaintText.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD)); // Make the hours bold
             // Draw a circle behind the current digit to make it stand out
-            if(hour.length() == 2) {
+            if (hour.length() == 2) {
                 mPaintText.setColor(hourOneColor); // Use the first color in the preference if there are two digits in the hour
             } else if (hour.length() == 1) {
                 mPaintText.setColor(hourTwoColor); // Make sure to use the 2nd hour color if there is only one digit in the hour
@@ -400,9 +416,9 @@ public class PaintView extends View {
             mPaintText.setColor(Color.WHITE);
             canvas.drawText(currentChar, (float) (centerX + (radius * Math.cos(medianAngle))), (float) (centerY + (radius * Math.sin(medianAngle))) + bounds.height() * 0.5f, mPaintText);
         }
-        if(showTimeBelowWheel) {
+        if (showTimeBelowWheel) {
             String fullTime;
-            if(!isMilitaryTime) {
+            if (!isMilitaryTime) {
                 fullTime = am_pm == Calendar.AM ? hour + ":" + minute + " AM" : hour + ":" + minute + " PM"; // Put the full time here
             } else {
                 fullTime = hour + ":" + minute; // Don't use AM/PM
