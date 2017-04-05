@@ -7,7 +7,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.0'
+        classpath 'com.android.tools.build:gradle:2.3.1'
     }
 }
 
@@ -31,6 +31,17 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    productFlavors {
+        free {
+            applicationIdSuffix ".free"
+            versionNameSuffix "-free"
+        }
+        paid {
+            applicationIdSuffix ".paid"
+            versionNameSuffix "-paid"
         }
     }
 }

@@ -8,7 +8,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.0'
+        classpath 'com.android.tools.build:gradle:2.3.1'
     }
 }
 
@@ -50,6 +50,18 @@ android {
             signingConfig signingConfigs.myconfig
         }
     }
+
+    productFlavors {
+        free {
+            applicationIdSuffix ".free"
+            versionNameSuffix "-free"
+        }
+        paid {
+            applicationIdSuffix ".paid"
+            versionNameSuffix "-paid"
+        }
+    }
+
     // `return void` removes the lint error: `Not all execution paths return a value`.
     return void
 }

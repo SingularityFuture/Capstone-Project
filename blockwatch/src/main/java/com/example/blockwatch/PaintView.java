@@ -127,8 +127,7 @@ public class PaintView extends View {
         }
         if (!isTablet) { // If it's not a tablet, have this fill the whole screen
             radius = (Math.min(metrics.widthPixels, metrics.heightPixels - actionBarHeight - statusBarHeight - 168) / 2); // Measure the radius of the screen using the smallest dimension taking into account the action bar height
-            if (rotation == Surface.ROTATION_90
-                    || rotation == Surface.ROTATION_270) { // If it's in landscape mode,
+            if (rotation == Surface.ROTATION_90 || rotation == Surface.ROTATION_270) { // If it's in landscape mode,
                 centerX = metrics.widthPixels / 4; // Measure the center x coordinate
             } else {
                 centerX = metrics.widthPixels / 2; // Measure the center x coordinate
@@ -154,7 +153,7 @@ public class PaintView extends View {
             mOvalsF[i] = new RectF(Math.round(centerX - radius * circleSpacing[i]), Math.round(centerY - radius * circleSpacing[i]), Math.round(centerX + radius * circleSpacing[i]), Math.round(centerY + radius * circleSpacing[i]));
         }
         if (moveSecondHandWheel) {
-            moveInnerDial.run(); //
+            moveInnerDial.run();
         }
     }
 

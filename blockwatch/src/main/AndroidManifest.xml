@@ -60,6 +60,7 @@
             android:name="data.BlockProvider"
             android:authorities="com.example.blockwatch"
             android:syncable="true"
+            android:exported="true"
             android:label="blockwatch"></provider>
 
         <!-- SyncAdapter's dummy authentication service -->
