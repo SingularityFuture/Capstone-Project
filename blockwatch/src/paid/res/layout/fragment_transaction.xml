@@ -1,0 +1,59 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/transaction_fragment_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:contentDescription="@string/transaction_fragment"
+    tools:context="com.example.blockwatch.TransactionDetailActivity">
+
+    <TextView
+        android:id="@+id/transactionHashLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/toolbar_transaction"
+        android:contentDescription="@string/transaction_hash_label"
+        android:gravity="center"
+        android:nextFocusUp="@id/toolbar_transaction"
+        android:text="@string/tx_hash"
+        android:textColor="@android:color/black"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/transactionHash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar_transaction"
+        android:layout_toEndOf="@id/transactionHashLabel"
+        android:contentDescription="@string/transaction_hash"
+        android:nextFocusUp="@id/transactionHashLabel" />
+
+    <TextView
+        android:id="@+id/transactionRelayedByLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/transactionHash"
+        android:contentDescription="@string/transaction_relayed_by_label"
+        android:gravity="center"
+        android:nextFocusUp="@id/transactionHash"
+        android:text="@string/relayed_by"
+        android:textColor="@android:color/black"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/transactionRelayedBy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/transaction_relayed_by_ip_address"
+        android:nextFocusUp="@id/transactionRelayedByLabel" />
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/transactionRelayedByLabel"
+        android:contentDescription="@string/map_of_ip_address"
+        android:nextFocusUp="@id/transactionRelayedBy" />
+</RelativeLayout>

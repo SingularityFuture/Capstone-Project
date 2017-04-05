@@ -7,28 +7,18 @@
     android:contentDescription="@string/price_fragment"
     tools:context="com.example.blockwatch.PriceFragment">
 
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/adViewDetailPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar_transaction"
-        android:layout_centerHorizontal="true"
-        android:contentDescription="@string/google_ad"
-        ads:adSize="SMART_BANNER"
-        ads:adUnitId="@string/banner_ad_unit_id"></com.google.android.gms.ads.AdView>
-
     <TextView
         android:id="@+id/current_price_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar_price"
+        android:layout_centerHorizontal="true"
         android:layout_margin="0dp"
-        android:layout_below="@id/adViewDetailPrice"
         android:contentDescription="@string/current_price"
         android:drawablePadding="8dp"
         android:paddingEnd="16dp"
         android:paddingStart="16dp"
         android:textAlignment="center"
-        android:layout_centerInParent="true"
         android:textSize="30sp" />
 
     <TextView
@@ -37,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/current_price_detail"
         android:contentDescription="@string/current_price"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
         android:textAlignment="center"
         android:textSize="20sp" />
 
@@ -45,6 +35,6 @@
         android:id="@+id/price_chart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/current_price_detail"
+        android:layout_below="@id/current_price_percentage_change"
         android:layout_margin="16dp" />
 </RelativeLayout>

@@ -64,6 +64,7 @@ android {
 
     // `return void` removes the lint error: `Not all execution paths return a value`.
     return void
+    sourceSets { free { java.srcDirs = ['src/free/java', 'src/free/java/'] } }
 }
 
 
