@@ -37,7 +37,8 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        //super.onCreate(savedInstanceState);
+        super.onCreate(null);
         setContentView(R.layout.activity_main); // Set the main activity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar); // Get the toolbar ID
         setSupportActionBar(toolbar); // Set the toolbar
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
         // The detail container view will be present only in the large-screen layouts
         // (res/layout-sw600dp). If this view is present, then the activity should be
         // in two-pane mode.
-        isTablet = getResources().getBoolean(R.bool.isTablet); // Track whether this is a tablet
+/*        isTablet = getResources().getBoolean(R.bool.isTablet); // Track whether this is a tablet
         if (isTablet) {
             // In two-pane mode, show the detail view in this activity by
             // adding or replacing the detail fragment using a
@@ -76,18 +77,17 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
                         .replace(R.id.transaction_fragment, transactionFragment, TRANSACTION_FRAGMENT_TAG)
                         .commit();
             }
-        }
-        MobileAds.initialize(getApplicationContext(), "ca-app-pub-3940256099942544~3347511713");
+        }*/
+        //MobileAds.initialize(getApplicationContext(), "ca-app-pub-3940256099942544~3347511713");
 
-        rootView = getLayoutInflater().inflate(R.layout.activity_main, null);
         // Retrieve the SwipeRefreshLayout and ListView instances
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         // Set the color scheme of the SwipeRefreshLayout by providing 4 color resource ids
         mSwipeRefreshLayout.setColorSchemeColors( // Set the colors to the ones the user has set in preferences
-                PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(hour_one_color), ContextCompat.getColor(this, R.color.red)),
-                PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(hour_two_color), ContextCompat.getColor(this, R.color.red)),
-                PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(minute_one_color), ContextCompat.getColor(this, R.color.red)),
-                PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(minute_two_color), ContextCompat.getColor(this, R.color.red)));
+                PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(hour_one_color), ContextCompat.getColor(this, R.color.md_red_500)),
+                PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(hour_two_color), ContextCompat.getColor(this, R.color.md_red_500)),
+                PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(minute_one_color), ContextCompat.getColor(this, R.color.md_red_500)),
+                PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(minute_two_color), ContextCompat.getColor(this, R.color.md_red_500)));
         mSwipeRefreshLayout.setOnRefreshListener(this); // Set the refresh listener
         mSwipeRefreshLayout.setProgressViewOffset(false, 168, 400); // Set where the progress circle starts and ends up
         mSwipeRefreshLayout.setEnabled(true); // Make sure the swipe screen is enabled
@@ -97,10 +97,10 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
     public void onResume() {
         super.onResume(); // Do this so colors are reset after visiting the preference screen
         mSwipeRefreshLayout.setColorSchemeColors( // Set the colors to the ones the user has set in preferences
-                PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(hour_one_color), ContextCompat.getColor(this, R.color.red)),
-                PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(hour_two_color), ContextCompat.getColor(this, R.color.red)),
-                PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(minute_one_color), ContextCompat.getColor(this, R.color.red)),
-                PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(minute_two_color), ContextCompat.getColor(this, R.color.red)));
+                PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(hour_one_color), ContextCompat.getColor(this, R.color.md_red_500)),
+                PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(hour_two_color), ContextCompat.getColor(this, R.color.md_red_500)),
+                PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(minute_one_color), ContextCompat.getColor(this, R.color.md_red_500)),
+                PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(minute_two_color), ContextCompat.getColor(this, R.color.md_red_500)));
     }
 
     @Override

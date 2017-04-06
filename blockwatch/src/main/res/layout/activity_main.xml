@@ -35,7 +35,8 @@
             android:id="@+id/swipe_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/toolbar">
+            android:layout_below="@id/toolbar"
+            android:saveEnabled="false">
 
             <ScrollView
                 android:layout_width="match_parent"
