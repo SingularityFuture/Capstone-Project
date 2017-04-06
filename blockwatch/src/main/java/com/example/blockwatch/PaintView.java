@@ -15,7 +15,9 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Surface;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -112,6 +114,21 @@ public class PaintView extends View {
         this.currentHash = currentHash;
         wm.getDefaultDisplay().getMetrics(metrics); // Get the metrics of the window
         int rotation = wm.getDefaultDisplay().getRotation(); // Get the orientation of the screen
+
+        setBackgroundColor(Color.TRANSPARENT); // Set the background white
+        if (android.os.Build.VERSION.SDK_INT > 20)
+            setElevation(200); // Set elevation if SDK > 20
+        int newID = generateViewId(); // Generate a new unique ID
+        setId(newID); // Set the ID here
+        setSaveEnabled(true); // Make sure it saves its state
+        setContentDescription(context.getString(R.string.blockwatch_face));
+        RelativeLayout.LayoutParams paramsWatch = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT); // Set width and height
+        paramsWatch.addRule(RelativeLayout.BELOW, R.id.adView);
+        if (rotation == Surface.ROTATION_90
+                || rotation == Surface.ROTATION_270) { // If it's in landscape mode,
+            paramsWatch.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        }
+        setLayoutParams(paramsWatch);
 
         // Calculate ActionBar height
         TypedValue tv = new TypedValue(); // Declare a typed value

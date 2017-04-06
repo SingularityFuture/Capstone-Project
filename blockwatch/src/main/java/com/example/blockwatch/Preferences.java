@@ -90,7 +90,6 @@ public class Preferences extends AppCompatActivity implements
                 if(keepColorsSame.isChecked()) {
                     MakeColorsTheSame(hourOneColor);
                 }
-                Toast.makeText(getContext(), "Some text", Toast.LENGTH_SHORT).show();
                 return true;
             }
         };

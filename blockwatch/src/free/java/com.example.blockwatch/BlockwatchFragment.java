@@ -4,9 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
@@ -20,6 +21,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -47,11 +49,14 @@ import static android.content.Context.WINDOW_SERVICE;
  */
 public class BlockwatchFragment extends Fragment implements View.OnClickListener, LoaderManager.LoaderCallbacks<Cursor> {
     private static final int ID_BLOCKWATCH_LOADER = 444;
-    PaintView pV;  // Declare paintView to put the watch in
+    PaintView pV = null;  // Declare paintView to put the watch in
     View rootView; // Declare rootView
     RelativeLayout layout; // Declare layout that will access fragment layout
     private OnFragmentInteractionListener mListener; // Declare the listener to click on the fragment
     double[][] price_array = new double[365][365]; // Declare the array of historical prices
+    static final int MSG_UPDATE_TIME = 0;
+    static final int INTERACTIVE_UPDATE_RATE_MS = 15*1000; // How often to update the watch, in milliseconds
+    String currentHash = "";
 
     /**
      * Use this factory method to create a new instance of
@@ -75,6 +80,38 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
         super.onSaveInstanceState(outState);
     }
 
+    // Handler to update the time once a minute
+    final Handler mUpdateTimeHandler = new Handler() {
+        @Override
+        public void handleMessage(Message message) {
+            switch (message.what) {
+                case MSG_UPDATE_TIME:
+                    if(pV == null){
+                        //layout.addView(pV); // Add the view to the fragment layout
+                        pV = new PaintView(getActivity(), currentHash); // Create a new paint view for the watch face
+                        //pV.invalidate();
+                        Toast.makeText(getContext(), "First addition", Toast.LENGTH_SHORT).show();
+                    } else if (pV != null){
+                        //layout.removeView(pV); // Remove the view to the fragment layout, otherwise you get an error
+                        ///layout.addView(pV); // Add the view to the fragment layout
+                        //pV = null;
+                        pV = new PaintView(getActivity(), currentHash); // Create a new paint view for the watch face
+                        pV.invalidate();
+                        Toast.makeText(getContext(), "Refresh", Toast.LENGTH_SHORT).show();
+                    }
+                    //pV.invalidate();
+                    /*
+                    long timeMs = System.currentTimeMillis();
+                    long delayMs = INTERACTIVE_UPDATE_RATE_MS
+                            - (timeMs % INTERACTIVE_UPDATE_RATE_MS);
+                    Toast.makeText(getContext(), "Invalidated", Toast.LENGTH_SHORT).show();
+                    mUpdateTimeHandler
+                            .sendEmptyMessageDelayed(MSG_UPDATE_TIME, delayMs);*/
+                    break;
+            }
+        }
+    };
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -82,6 +119,18 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
         rootView = inflater.inflate(R.layout.fragment_blockwatch, container, false);
         layout = (RelativeLayout) rootView.findViewById(R.id.watch_fragment_layout);
         // Inflate the layout for this fragment
+
+        // Load the ad here since it doesn't depend on the loader finishing loading
+        AdView mAdView = (AdView) layout.findViewById(R.id.adView);
+        // Create an ad request. Check logcat output for the hashed device ID to
+        // get test ads on a physical device. e.g.
+        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice("TEST_DEVICE_ID")
+                .build();
+        mAdView.loadAd(adRequest);
+
         return rootView;
     }
 
@@ -116,11 +165,8 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
      */
     @Override
     public Loader<Cursor> onCreateLoader(int loaderId, Bundle loaderArgs) {
-
         switch (loaderId) {
-
             case ID_BLOCKWATCH_LOADER:
-
                 return new CursorLoader(getActivity(),
                         BlockContract.BlockEntry.CONTENT_URI,
                         null,
@@ -145,7 +191,6 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
      */
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-
         /*
          * Before we bind the data to the UI that will display that data, we need to check the
          * cursor to make sure we have the results that we are expecting. In order to do that, we
@@ -168,16 +213,6 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
             return;
         }
 
-        AdView mAdView = (AdView) layout.findViewById(R.id.adView);
-        // Create an ad request. Check logcat output for the hashed device ID to
-        // get test ads on a physical device. e.g.
-        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("TEST_DEVICE_ID")
-                .build();
-        mAdView.loadAd(adRequest);
-
         WindowManager wm = (WindowManager) getContext().getSystemService(WINDOW_SERVICE); // Get the window manager
         DisplayMetrics metrics = new DisplayMetrics(); // Declare a metrics object
         wm.getDefaultDisplay().getMetrics(metrics); // Get the metrics of the window
@@ -185,9 +220,11 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
 
         // This represents the current transaction hash
         if (!data.isNull(1)) {
-            String currentHash = data.getString(1);
-            pV = new PaintView(getActivity(), currentHash); // Create a new paint view for the watch face
-            pV.setBackgroundColor(Color.TRANSPARENT); // Set the background white
+            currentHash = data.getString(1);
+            if (pV == null) {
+                pV = new PaintView(getActivity(), currentHash); // Create a new paint view for the watch face
+            }
+/*            pV.setBackgroundColor(Color.TRANSPARENT); // Set the background white
             if (android.os.Build.VERSION.SDK_INT > 20)
                 pV.setElevation(200); // Set elevation if SDK > 20
             int newID = pV.generateViewId(); // Generate a new unique ID
@@ -201,8 +238,19 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
                     || rotation == Surface.ROTATION_270) { // If it's in landscape mode,
                 paramsWatch.addRule(RelativeLayout.CENTER_HORIZONTAL);
             }
-            pV.setLayoutParams(paramsWatch);
-            layout.addView(pV); // Add the view to the fragment layout
+            pV.setLayoutParams(paramsWatch);*/
+
+            pV.setOnClickListener(this); // Set the onClick listener to call back to the activity
+            //mUpdateTimeHandler.sendEmptyMessage(MSG_UPDATE_TIME);
+
+
+            long timeMs = System.currentTimeMillis();
+            long delayMs = INTERACTIVE_UPDATE_RATE_MS
+                    - (timeMs % INTERACTIVE_UPDATE_RATE_MS);
+            Toast.makeText(getContext(), "Loader Updated", Toast.LENGTH_SHORT).show();
+            mUpdateTimeHandler
+                    .sendEmptyMessageDelayed(MSG_UPDATE_TIME, delayMs);
+            //layout.addView(pV); // Add the view to the fragment layout
         }
 
         if (!data.isNull(7)) {
@@ -228,7 +276,6 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
                 img = ContextCompat.getDrawable(getContext(), R.mipmap.trending_up);
             }
             img.setBounds(0, 0, 100, 100);
-
 
             RelativeLayout.LayoutParams paramsText = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT); // Set width and height
             if (rotation == Surface.ROTATION_90
