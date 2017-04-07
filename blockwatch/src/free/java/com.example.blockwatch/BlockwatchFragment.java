@@ -99,8 +99,7 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         rootView = inflater.inflate(R.layout.fragment_blockwatch, container, false);
-        layout = (RelativeLayout) rootView.findViewById(R.id.watch_fragment_layout);
-        // Inflate the layout for this fragment
+        layout = (RelativeLayout) rootView.findViewById(R.id.watch_fragment_layout); // Inflate the layout for this fragment
 
         // Load the ad here since it doesn't depend on the loader finishing loading
         AdView mAdView = (AdView) layout.findViewById(R.id.adView);
