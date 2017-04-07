@@ -95,7 +95,8 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
                         //layout.removeView(pV); // Remove the view to the fragment layout, otherwise you get an error
                         ///layout.addView(pV); // Add the view to the fragment layout
                         //pV = null;
-                        pV = new PaintView(getActivity(), currentHash); // Create a new paint view for the watch face
+                        //pV = new PaintView(getActivity(), currentHash); // Create a new paint view for the watch face
+                        pV.setCurrentHash(currentHash);
                         pV.invalidate();
                         Toast.makeText(getContext(), "Refresh", Toast.LENGTH_SHORT).show();
                     }
@@ -223,6 +224,8 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
             currentHash = data.getString(1);
             if (pV == null) {
                 pV = new PaintView(getActivity(), currentHash); // Create a new paint view for the watch face
+                pV.setOnClickListener(this); // Set the onClick listener to call back to the activity
+                layout.addView(pV); // Add the view to the fragment layout
             }
 /*            pV.setBackgroundColor(Color.TRANSPARENT); // Set the background white
             if (android.os.Build.VERSION.SDK_INT > 20)
@@ -240,17 +243,17 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
             }
             pV.setLayoutParams(paramsWatch);*/
 
-            pV.setOnClickListener(this); // Set the onClick listener to call back to the activity
+
             //mUpdateTimeHandler.sendEmptyMessage(MSG_UPDATE_TIME);
 
 
             long timeMs = System.currentTimeMillis();
             long delayMs = INTERACTIVE_UPDATE_RATE_MS
                     - (timeMs % INTERACTIVE_UPDATE_RATE_MS);
-            Toast.makeText(getContext(), "Loader Updated", Toast.LENGTH_SHORT).show();
             mUpdateTimeHandler
                     .sendEmptyMessageDelayed(MSG_UPDATE_TIME, delayMs);
-            //layout.addView(pV); // Add the view to the fragment layout
+            Toast.makeText(getContext(), "Loader Updated", Toast.LENGTH_SHORT).show();
+
         }
 
         if (!data.isNull(7)) {

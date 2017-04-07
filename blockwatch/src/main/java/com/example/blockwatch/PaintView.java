@@ -174,6 +174,10 @@ public class PaintView extends View {
         }
     }
 
+    public void setCurrentHash(String currentHash){
+        this.currentHash=currentHash;
+    }
+
     public PaintView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
