@@ -55,7 +55,7 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
     private OnFragmentInteractionListener mListener; // Declare the listener to click on the fragment
     double[][] price_array = new double[365][365]; // Declare the array of historical prices
     static final int MSG_UPDATE_TIME = 0;
-    static final int INTERACTIVE_UPDATE_RATE_MS = 15*1000; // How often to update the watch, in milliseconds
+    static final int INTERACTIVE_UPDATE_RATE_MS = 60 * 1000; // How often to update the watch, in milliseconds
     String currentHash = "";
 
     /**
@@ -80,34 +80,15 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
         super.onSaveInstanceState(outState);
     }
 
-    // Handler to update the time once a minute
+    // Handler to update the time once a minute, called from when the Loader gets a new hash from the blockchain
     final Handler mUpdateTimeHandler = new Handler() {
         @Override
         public void handleMessage(Message message) {
             switch (message.what) {
                 case MSG_UPDATE_TIME:
-                    if(pV == null){
-                        //layout.addView(pV); // Add the view to the fragment layout
-                        pV = new PaintView(getActivity(), currentHash); // Create a new paint view for the watch face
-                        //pV.invalidate();
-                        Toast.makeText(getContext(), "First addition", Toast.LENGTH_SHORT).show();
-                    } else if (pV != null){
-                        //layout.removeView(pV); // Remove the view to the fragment layout, otherwise you get an error
-                        ///layout.addView(pV); // Add the view to the fragment layout
-                        //pV = null;
-                        //pV = new PaintView(getActivity(), currentHash); // Create a new paint view for the watch face
-                        pV.setCurrentHash(currentHash);
-                        pV.invalidate();
-                        Toast.makeText(getContext(), "Refresh", Toast.LENGTH_SHORT).show();
-                    }
-                    //pV.invalidate();
-                    /*
-                    long timeMs = System.currentTimeMillis();
-                    long delayMs = INTERACTIVE_UPDATE_RATE_MS
-                            - (timeMs % INTERACTIVE_UPDATE_RATE_MS);
-                    Toast.makeText(getContext(), "Invalidated", Toast.LENGTH_SHORT).show();
-                    mUpdateTimeHandler
-                            .sendEmptyMessageDelayed(MSG_UPDATE_TIME, delayMs);*/
+                    pV.setCurrentHash(currentHash);
+                    pV.invalidate();
+                    Toast.makeText(getContext(), "Refresh", Toast.LENGTH_SHORT).show();
                     break;
             }
         }
@@ -227,33 +208,12 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
                 pV.setOnClickListener(this); // Set the onClick listener to call back to the activity
                 layout.addView(pV); // Add the view to the fragment layout
             }
-/*            pV.setBackgroundColor(Color.TRANSPARENT); // Set the background white
-            if (android.os.Build.VERSION.SDK_INT > 20)
-                pV.setElevation(200); // Set elevation if SDK > 20
-            int newID = pV.generateViewId(); // Generate a new unique ID
-            pV.setId(newID); // Set the ID here
-            pV.setSaveEnabled(true); // Make sure it saves its state
-            pV.setOnClickListener(this); // Set the onClick listener to call back to the activity
-            pV.setContentDescription(getString(R.string.blockwatch_face));
-            RelativeLayout.LayoutParams paramsWatch = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT); // Set width and height
-            paramsWatch.addRule(RelativeLayout.BELOW, R.id.adView);
-            if (rotation == Surface.ROTATION_90
-                    || rotation == Surface.ROTATION_270) { // If it's in landscape mode,
-                paramsWatch.addRule(RelativeLayout.CENTER_HORIZONTAL);
-            }
-            pV.setLayoutParams(paramsWatch);*/
-
-
-            //mUpdateTimeHandler.sendEmptyMessage(MSG_UPDATE_TIME);
-
-
             long timeMs = System.currentTimeMillis();
             long delayMs = INTERACTIVE_UPDATE_RATE_MS
                     - (timeMs % INTERACTIVE_UPDATE_RATE_MS);
             mUpdateTimeHandler
                     .sendEmptyMessageDelayed(MSG_UPDATE_TIME, delayMs);
             Toast.makeText(getContext(), "Loader Updated", Toast.LENGTH_SHORT).show();
-
         }
 
         if (!data.isNull(7)) {
