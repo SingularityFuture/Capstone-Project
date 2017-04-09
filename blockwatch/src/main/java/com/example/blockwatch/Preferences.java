@@ -85,7 +85,7 @@ public class Preferences extends AppCompatActivity implements
             public boolean onPreferenceClick(Preference preference) {
                 CheckBoxPreference keepColorsSame = (CheckBoxPreference) getPreferenceManager().findPreference(
                         getString(R.string.keep_colors_same_key));
-                int hourOneColor = PreferenceManager.getDefaultSharedPreferences(getContext()).getInt(getResources().getString(hour_one_color), ContextCompat.getColor(getContext(),R.color.red));
+                int hourOneColor = PreferenceManager.getDefaultSharedPreferences(getContext()).getInt(getResources().getString(hour_one_color), ContextCompat.getColor(getContext(),R.color.md_red_500));
                 FlipVisibilityOfColors();
                 if(keepColorsSame.isChecked()) {
                     MakeColorsTheSame(hourOneColor);

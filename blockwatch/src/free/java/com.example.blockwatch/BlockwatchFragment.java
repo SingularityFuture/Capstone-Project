@@ -57,6 +57,7 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
     static final int MSG_UPDATE_TIME = 0;
     static final int INTERACTIVE_UPDATE_RATE_MS = 60 * 1000; // How often to update the watch, in milliseconds
     String currentHash = "";
+    boolean isTablet;
 
     /**
      * Use this factory method to create a new instance of
@@ -73,6 +74,7 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
         super.onCreate(savedInstanceState);
         /* This connects our Activity into the loader lifecycle. */
         getLoaderManager().initLoader(ID_BLOCKWATCH_LOADER, null, this).forceLoad();
+        isTablet = getActivity().getResources().getBoolean(R.bool.isTablet); // Detect whether we are in tablet mode, which will affect the drawing size and coordinates
     }
 
     @Override
@@ -88,7 +90,7 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
                 case MSG_UPDATE_TIME:
                     pV.setCurrentHash(currentHash);
                     pV.invalidate();
-                    Toast.makeText(getContext(), "Refresh", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), "Refresh", Toast.LENGTH_SHORT).show();
                     break;
             }
         }
@@ -240,8 +242,8 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
             img.setBounds(0, 0, 100, 100);
 
             RelativeLayout.LayoutParams paramsText = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT); // Set width and height
-            if (rotation == Surface.ROTATION_90
-                    || rotation == Surface.ROTATION_270) { // If it's in landscape mode,
+            if ((rotation == Surface.ROTATION_90
+                    || rotation == Surface.ROTATION_270) && !isTablet) { // If it's in landscape mode and not a tablet,
                 buttonPrice.setCompoundDrawablesWithIntrinsicBounds(null, null, null, img); // Put a trending button inside
                 paramsText.addRule(RelativeLayout.START_OF, pV.getId());
                 paramsText.addRule(RelativeLayout.CENTER_VERTICAL, pV.getId());

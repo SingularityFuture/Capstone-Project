@@ -99,10 +99,10 @@ public class PaintView extends View {
     private int[] indexInCircle = {0, 0, 0, 0};
     private int[] timeAngles = {0, 0, 0, 0};
     private int am_pm;
-    int hourOneColor = PreferenceManager.getDefaultSharedPreferences(getContext()).getInt(getResources().getString(hour_one_color), ContextCompat.getColor(getContext(), R.color.red));
-    int hourTwoColor = PreferenceManager.getDefaultSharedPreferences(getContext()).getInt(getResources().getString(hour_two_color), ContextCompat.getColor(getContext(), R.color.red));
-    int minuteOneColor = PreferenceManager.getDefaultSharedPreferences(getContext()).getInt(getResources().getString(minute_one_color), ContextCompat.getColor(getContext(), R.color.red));
-    int minuteTwoColor = PreferenceManager.getDefaultSharedPreferences(getContext()).getInt(getResources().getString(minute_two_color), ContextCompat.getColor(getContext(), R.color.red));
+    int hourOneColor = PreferenceManager.getDefaultSharedPreferences(getContext()).getInt(getResources().getString(hour_one_color), ContextCompat.getColor(getContext(), R.color.md_red_500));
+    int hourTwoColor = PreferenceManager.getDefaultSharedPreferences(getContext()).getInt(getResources().getString(hour_two_color), ContextCompat.getColor(getContext(), R.color.md_red_500));
+    int minuteOneColor = PreferenceManager.getDefaultSharedPreferences(getContext()).getInt(getResources().getString(minute_one_color), ContextCompat.getColor(getContext(), R.color.md_red_500));
+    int minuteTwoColor = PreferenceManager.getDefaultSharedPreferences(getContext()).getInt(getResources().getString(minute_two_color), ContextCompat.getColor(getContext(), R.color.md_red_500));
     boolean showTimeBelowWheel = PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean(getResources().getString(show_time_preference_key), true);
     boolean moveSecondHandWheel = PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean(getResources().getString(second_hand_wheel_key), true);
     boolean isMilitaryTime = PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean(getResources().getString(military_time_preference_key), true);
@@ -149,17 +149,21 @@ public class PaintView extends View {
             } else {
                 centerX = metrics.widthPixels / 2; // Measure the center x coordinate
             }
-        } else { // Otherwise, push it over to the left half of the screen
-            radius = (Math.min(metrics.widthPixels, (metrics.heightPixels - actionBarHeight - statusBarHeight - 168)) / 2.5f); // Measure the radius of the screen using the smallest dimension taking into account the action bar height
-            centerX = metrics.widthPixels / 4; // Measure the center x coordinate
+        } else { // Otherwise, push it over to the left half of the screen if it's a tablet
+            if (rotation == Surface.ROTATION_90 || rotation == Surface.ROTATION_270) { // If it's in landscape mode,
+                radius = (Math.min(metrics.widthPixels, (metrics.heightPixels - actionBarHeight - statusBarHeight - 168 - 130)) / 2f); // Measure the radius of the screen using the smallest dimension taking into account the action bar height
+                centerX = metrics.widthPixels / 4; // Measure the center x coordinate
+            } else{
+                radius = (Math.min(metrics.widthPixels, (metrics.heightPixels - actionBarHeight - statusBarHeight - 168)) / 4f); // Measure the radius of the screen using the smallest dimension taking into account the action bar height
+                centerX = metrics.widthPixels / 4; // Measure the center x coordinate
+            }
         }
-        if (rotation == Surface.ROTATION_90
-                || rotation == Surface.ROTATION_270) { // If it's in landscape mode,
+        if ((rotation == Surface.ROTATION_90
+                || rotation == Surface.ROTATION_270) && !isTablet) { // If it's in landscape mode and not a tablet,
             centerY = (metrics.heightPixels - actionBarHeight - statusBarHeight - 168) / 2; // Measure the center y coordinate of this rectangle taking into account the action bar height
         } else {
             centerY = (metrics.heightPixels - actionBarHeight - statusBarHeight - 168 - 130) / 2; // Measure the center y coordinate of this rectangle taking into account the action bar height // Subtract a little more in portrait mode so price shows up on the bottom
         }
-        //centerY = (metrics.heightPixels + statusBarHeight) / 4; // Measure the center y coordinate of this rectangle taking into account the action bar height
         mPaintText = new Paint(Paint.ANTI_ALIAS_FLAG); // Create paint object
         mPaintText.setStyle(Paint.Style.FILL_AND_STROKE); // Set style
         mPaintText.setTextSize(mTextHeight); // Set text size
@@ -192,11 +196,11 @@ public class PaintView extends View {
         wm.getDefaultDisplay().getMetrics(metrics); // Get the metrics of the window
         int rotation = wm.getDefaultDisplay().getRotation(); // Get the orientation of the screen
         int height = metrics.heightPixels;
-        if (rotation == Surface.ROTATION_90
-                || rotation == Surface.ROTATION_270) { // If it's in landscape mode,
+        if ((rotation == Surface.ROTATION_90
+                || rotation == Surface.ROTATION_270) && !isTablet) { // If it's in landscape mode,
             setMeasuredDimension(widthMeasureSpec / 2, (int) (height - actionBarHeight - statusBarHeight - 168)); // Set the dimensions differently
         } else {
-            setMeasuredDimension(widthMeasureSpec, (int) (height - actionBarHeight - statusBarHeight - 168 - 130)); // Subtract some more so the price shows up on the bottom
+            setMeasuredDimension(widthMeasureSpec, (int) (height - actionBarHeight - statusBarHeight - 168)); // Subtract some more so the price shows up on the bottom
         }
     }
 
@@ -233,7 +237,6 @@ public class PaintView extends View {
         canvas.drawRect(mOvalsF[0].left - 200, mOvalsF[0].top - 150, mOvalsF[0].right + 200, mOvalsF[0].bottom + 200, mPaintText); // Add white rectangle to back
         mPaintText.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL)); // Make the hash normal text style
         mPaintText.setShadowLayer(0, 0, 0, Color.BLACK); // Nullify the shadow layer
-
         // All circles
         // Keep track of the character index
         charCount = 0;

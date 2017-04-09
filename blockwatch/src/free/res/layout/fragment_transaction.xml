@@ -16,7 +16,7 @@
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/google_ad"
         ads:adSize="SMART_BANNER"
-        ads:adUnitId="@string/banner_ad_unit_id"></com.google.android.gms.ads.AdView>
+        ads:adUnitId="@string/banner_ad_unit_id"/>
 
     <TextView
         android:id="@+id/transactionHashLabel"

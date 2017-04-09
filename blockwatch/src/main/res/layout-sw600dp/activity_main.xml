@@ -41,22 +41,20 @@
             <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/swipe_container"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:saveEnabled="false"
-                android:layout_weight="1">
+                android:layout_weight="0.5">
 
                 <ScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@id/toolbar"
-                    android:fillViewport="false"
-                    >
+                    android:fillViewport="false">
 
                     <FrameLayout
                         android:id="@+id/blockwatch_fragment"
                         android:name="com.example.blockwatch.BlockwatchFragment"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:contentDescription="@string/watch_face"
                         android:nextFocusUp="@id/toolbar"
                         tools:context="com.example.blockwatch.BlockwatchFragment"
@@ -71,7 +69,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginTop="?attr/actionBarSize"
-                android:layout_weight="2"
+                android:layout_weight="0.5"
                 tools:layout="@layout/fragment_transaction" />
         </LinearLayout>
     </LinearLayout>
