@@ -51,6 +51,7 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
     LatLng currentLocation; // Declare the location of the current transaction based on the Relayed By IP address
     private Uri mURI; // Declare URI for loader query
     private SyncAdapterType mAdapter;
+    boolean isTablet;
 
     /**
      * Use this factory method to create a new instance of
@@ -69,6 +70,7 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
         super.onCreate(savedInstanceState);
         /* This connects our Activity into the loader lifecycle. */
         getLoaderManager().initLoader(ID_DETAIL_LOADER, null, this).forceLoad();
+        isTablet = getActivity().getResources().getBoolean(R.bool.isTablet); // Detect whether we are in tablet mode, which will affect the drawing size and coordinates
     }
 
     @Override
@@ -191,15 +193,21 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
             textRelayedBy.setLayoutParams(relativeLayoutParams2);
         }
 
-        AdView mAdView = (AdView) rootView.findViewById(R.id.adViewDetail);
-        // Create an ad request. Check logcat output for the hashed device ID to
-        // get test ads on a physical device. e.g.
-        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("TEST_DEVICE_ID")
-                .build();
-        mAdView.loadAd(adRequest);
+        AdView mAdView = (AdView) layout.findViewById(R.id.adViewDetail);
+        if(!isTablet) {
+            // Create an ad request. Check logcat output for the hashed device ID to
+            // get test ads on a physical device. e.g.
+            // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
+            AdRequest adRequest = new AdRequest.Builder()
+                    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                    .addTestDevice("TEST_DEVICE_ID")
+                    .build();
+            mAdView.loadAd(adRequest);
+        }
+        else {
+            // Otherwise, take it out so you don't have two ads
+            layout.removeView(mAdView);
+        }
 
         // For dropping a marker at a point on the Map
         currentLocation = new LatLng(data.getDouble(5), data.getDouble(6));

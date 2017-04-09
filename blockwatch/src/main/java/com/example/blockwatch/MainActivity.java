@@ -14,6 +14,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
 import data.BlockContract;
@@ -79,6 +82,19 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
             }
         }
         MobileAds.initialize(getApplicationContext(), "ca-app-pub-3940256099942544~3347511713");
+
+        if(isTablet){
+            // Load the ad here since it doesn't depend on the loader finishing loading
+            AdView mAdView = (AdView) findViewById(R.id.adViewTabletOnly);
+            // Create an ad request. Check logcat output for the hashed device ID to
+            // get test ads on a physical device. e.g.
+            // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
+            AdRequest adRequest = new AdRequest.Builder()
+                    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                    .addTestDevice("TEST_DEVICE_ID")
+                    .build();
+            mAdView.loadAd(adRequest);
+        }
 
         // Retrieve the SwipeRefreshLayout and ListView instances
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);

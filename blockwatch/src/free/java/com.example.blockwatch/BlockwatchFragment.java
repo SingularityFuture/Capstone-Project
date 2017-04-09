@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -103,16 +104,22 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
         rootView = inflater.inflate(R.layout.fragment_blockwatch, container, false);
         layout = (RelativeLayout) rootView.findViewById(R.id.watch_fragment_layout); // Inflate the layout for this fragment
 
-        // Load the ad here since it doesn't depend on the loader finishing loading
         AdView mAdView = (AdView) layout.findViewById(R.id.adView);
-        // Create an ad request. Check logcat output for the hashed device ID to
-        // get test ads on a physical device. e.g.
-        // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
-        AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice("TEST_DEVICE_ID")
-                .build();
-        mAdView.loadAd(adRequest);
+        if(!isTablet) { // In tablet mode, you will load the big ad from the main activity
+            // Load the ad here since it doesn't depend on the loader finishing loading
+            // Create an ad request. Check logcat output for the hashed device ID to
+            // get test ads on a physical device. e.g.
+            // "Use AdRequest.Builder.addTestDevice("ABCDEF012345") to get test ads on this device."
+            AdRequest adRequest = new AdRequest.Builder()
+                    .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                    .addTestDevice("TEST_DEVICE_ID")
+                    .build();
+            mAdView.loadAd(adRequest);
+        }
+        else {
+            // Otherwise, take it out so you don't have two ads
+            layout.removeView(mAdView);
+        }
 
         return rootView;
     }

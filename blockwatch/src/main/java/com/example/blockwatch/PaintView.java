@@ -123,7 +123,12 @@ public class PaintView extends View {
         setSaveEnabled(true); // Make sure it saves its state
         setContentDescription(context.getString(R.string.blockwatch_face));
         RelativeLayout.LayoutParams paramsWatch = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT); // Set width and height
-        paramsWatch.addRule(RelativeLayout.BELOW, R.id.adView);
+        if(!isTablet) {
+            paramsWatch.addRule(RelativeLayout.BELOW, R.id.adView);
+        }
+        else {
+            paramsWatch.addRule(RelativeLayout.BELOW, R.id.adViewTabletOnly);
+        }
         if (rotation == Surface.ROTATION_90
                 || rotation == Surface.ROTATION_270) { // If it's in landscape mode,
             paramsWatch.addRule(RelativeLayout.CENTER_HORIZONTAL);
@@ -153,17 +158,22 @@ public class PaintView extends View {
             if (rotation == Surface.ROTATION_90 || rotation == Surface.ROTATION_270) { // If it's in landscape mode,
                 radius = (Math.min(metrics.widthPixels, (metrics.heightPixels - actionBarHeight - statusBarHeight - 168 - 130)) / 2f); // Measure the radius of the screen using the smallest dimension taking into account the action bar height
                 centerX = metrics.widthPixels / 4; // Measure the center x coordinate
-            } else{
+            } else {
                 radius = (Math.min(metrics.widthPixels, (metrics.heightPixels - actionBarHeight - statusBarHeight - 168)) / 4f); // Measure the radius of the screen using the smallest dimension taking into account the action bar height
                 centerX = metrics.widthPixels / 4; // Measure the center x coordinate
             }
         }
-        if ((rotation == Surface.ROTATION_90
-                || rotation == Surface.ROTATION_270) && !isTablet) { // If it's in landscape mode and not a tablet,
-            centerY = (metrics.heightPixels - actionBarHeight - statusBarHeight - 168) / 2; // Measure the center y coordinate of this rectangle taking into account the action bar height
+        if (!isTablet) {
+            if (rotation == Surface.ROTATION_90
+                    || rotation == Surface.ROTATION_270) { // If it's in landscape mode and not a tablet,
+                centerY = (metrics.heightPixels - actionBarHeight - statusBarHeight - 168) / 2; // Measure the center y coordinate of this rectangle taking into account the action bar height
+            } else {
+                centerY = (metrics.heightPixels - actionBarHeight - statusBarHeight - 168 - 130) / 2; // Measure the center y coordinate of this rectangle taking into account the action bar height // Subtract a little more in portrait mode so price shows up on the bottom
+            }
         } else {
-            centerY = (metrics.heightPixels - actionBarHeight - statusBarHeight - 168 - 130) / 2; // Measure the center y coordinate of this rectangle taking into account the action bar height // Subtract a little more in portrait mode so price shows up on the bottom
+            centerY = (metrics.heightPixels - actionBarHeight - statusBarHeight - 168 - 90) / 2; // Measure the center y coordinate of this rectangle taking into account the action bar height // Subtract a little more in portrait mode so price shows up on the bottom
         }
+
         mPaintText = new Paint(Paint.ANTI_ALIAS_FLAG); // Create paint object
         mPaintText.setStyle(Paint.Style.FILL_AND_STROKE); // Set style
         mPaintText.setTextSize(mTextHeight); // Set text size
@@ -178,8 +188,8 @@ public class PaintView extends View {
         }
     }
 
-    public void setCurrentHash(String currentHash){
-        this.currentHash=currentHash;
+    public void setCurrentHash(String currentHash) {
+        this.currentHash = currentHash;
     }
 
     public PaintView(Context context, AttributeSet attrs) {
@@ -196,12 +206,22 @@ public class PaintView extends View {
         wm.getDefaultDisplay().getMetrics(metrics); // Get the metrics of the window
         int rotation = wm.getDefaultDisplay().getRotation(); // Get the orientation of the screen
         int height = metrics.heightPixels;
-        if ((rotation == Surface.ROTATION_90
-                || rotation == Surface.ROTATION_270) && !isTablet) { // If it's in landscape mode,
-            setMeasuredDimension(widthMeasureSpec / 2, (int) (height - actionBarHeight - statusBarHeight - 168)); // Set the dimensions differently
+        if (!isTablet) {
+            if ((rotation == Surface.ROTATION_90
+                    || rotation == Surface.ROTATION_270)) { // If it's in landscape mode,
+                setMeasuredDimension(widthMeasureSpec / 2, (int) (height - actionBarHeight - statusBarHeight - 168)); // Set the dimensions differently
+            } else {
+                setMeasuredDimension(widthMeasureSpec, (int) (height - actionBarHeight - statusBarHeight - 168 - 130)); // Subtract some more so the price shows up on the bottom
+            }
         } else {
-            setMeasuredDimension(widthMeasureSpec, (int) (height - actionBarHeight - statusBarHeight - 168)); // Subtract some more so the price shows up on the bottom
+            if ((rotation == Surface.ROTATION_90
+                    || rotation == Surface.ROTATION_270)) { // If it's in landscape mode,
+                setMeasuredDimension(widthMeasureSpec, (int) (height - actionBarHeight - statusBarHeight - 168 - 30)); // Set the dimensions differently
+            } else {
+                setMeasuredDimension(widthMeasureSpec, (int) (height - actionBarHeight - statusBarHeight - 168 - 90)); // Subtract some more so the price shows up on the bottom
+            }
         }
+
     }
 
     @Override
