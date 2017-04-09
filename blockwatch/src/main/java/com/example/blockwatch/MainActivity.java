@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
         // The detail container view will be present only in the large-screen layouts
         // (res/layout-sw600dp). If this view is present, then the activity should be
         // in two-pane mode.
-/*        isTablet = getResources().getBoolean(R.bool.isTablet); // Track whether this is a tablet
+        isTablet = getResources().getBoolean(R.bool.isTablet); // Track whether this is a tablet
         if (isTablet) {
             // In two-pane mode, show the detail view in this activity by
             // adding or replacing the detail fragment using a
@@ -77,8 +77,8 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
                         .replace(R.id.transaction_fragment, transactionFragment, TRANSACTION_FRAGMENT_TAG)
                         .commit();
             }
-        }*/
-        //MobileAds.initialize(getApplicationContext(), "ca-app-pub-3940256099942544~3347511713");
+        }
+        MobileAds.initialize(getApplicationContext(), "ca-app-pub-3940256099942544~3347511713");
 
         // Retrieve the SwipeRefreshLayout and ListView instances
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
     @Override
     public void onResume() {
         super.onResume(); // Do this so colors are reset after visiting the preference screen
-        mSwipeRefreshLayout.setColorSchemeColors( // Set the colors to the ones the user has set in preferences
+        mSwipeRefreshLayout.setColorSchemeColors( // Set the colors to the ones the us has set in preferences
                 PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(hour_one_color), ContextCompat.getColor(this, R.color.md_red_500)),
                 PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(hour_two_color), ContextCompat.getColor(this, R.color.md_red_500)),
                 PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(minute_one_color), ContextCompat.getColor(this, R.color.md_red_500)),
