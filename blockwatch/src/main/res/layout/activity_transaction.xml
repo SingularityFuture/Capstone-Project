@@ -31,7 +31,6 @@
         android:layout_height="match_parent"
         android:layout_marginTop="?android:attr/actionBarSize"
         android:contentDescription="@string/transaction_frame"
-        tools:context="com.example.blockwatch.PriceFragment"
         tools:layout="@layout/fragment_transaction" />
 
 </android.support.design.widget.CoordinatorLayout>
