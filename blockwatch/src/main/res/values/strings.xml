@@ -198,4 +198,7 @@
     <string name="price_frame">Price Frame</string>
     <string name="price_fragment">Price Fragment</string>
     <string name="donate">Donate</string>
+    <string name="like_blockwatch">Like Blockwatch?</string>
+    <string name="donate_bitcoin">Donate Bitcoin to promote new releases!</string>
+    <string name="address_hash">17FkYpVTnNfZFqkZtiEH6PLYbsei5jxK1b</string>
 </resources>

@@ -277,7 +277,7 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
         }
 
         ImageButton donateButton= (ImageButton) layout.findViewById(R.id.donate);
-        Drawable QRCode;
+        final Drawable QRCode;
         QRCode = ContextCompat.getDrawable(getContext(), R.mipmap.donate_qr);
         //QRCode.setBounds(0, 0, 100, 100);
         RelativeLayout.LayoutParams paramsQR = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT); // Set width and height
@@ -289,10 +289,9 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
         donateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 1. Instantiate an AlertDialog.Builder with its constructor
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setMessage("Give me money")
-                        .setTitle("Money Now");
+                builder.setView(getActivity().getLayoutInflater().inflate(R.layout.donate_layout, null));
+
                 AlertDialog dialog = builder.create();
                 dialog.show();
             }
