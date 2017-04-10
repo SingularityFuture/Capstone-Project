@@ -4,11 +4,11 @@ import android.content.SyncAdapterType;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.util.Log;
@@ -166,7 +166,7 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
             TextView textHash = (TextView) rootView.findViewById(R.id.transactionHash);
             textHash.setText(data.getString(1));
             textHash.setSingleLine(false); // Make it multiline
-            textHash.setTextColor(Color.RED);
+            textHash.setTextColor(ContextCompat.getColor(getActivity(),R.color.md_red_500));
             textHash.setTextSize(19);
             textHash.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         }
@@ -180,7 +180,7 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
             // Relayed By IP text
             TextView textRelayedBy = (TextView) rootView.findViewById(R.id.transactionRelayedBy);
             textRelayedBy.setText(data.getString(3));
-            textRelayedBy.setTextColor(Color.RED);
+            textRelayedBy.setTextColor(ContextCompat.getColor(getActivity(),R.color.md_red_500));
             textRelayedBy.setSingleLine(false); // Make it multiline
             textRelayedBy.setTextSize(19);
             textRelayedBy.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);

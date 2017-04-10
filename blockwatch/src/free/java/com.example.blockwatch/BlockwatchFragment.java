@@ -287,8 +287,8 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
         RelativeLayout.LayoutParams paramsQR = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT); // Set width and height
         if ((rotation == Surface.ROTATION_90
                 || rotation == Surface.ROTATION_270) && !isTablet) { // If it's in landscape mode and not a tablet,
-            paramsQR.addRule(RelativeLayout.START_OF, pV.getId());
-            paramsQR.addRule(RelativeLayout.ALIGN_BOTTOM, pV.getId());
+            paramsQR.addRule(RelativeLayout.END_OF, pV.getId());
+            paramsQR.addRule(RelativeLayout.CENTER_VERTICAL, pV.getId());
         }   else{
             paramsQR.addRule(RelativeLayout.BELOW, pV.getId());
             paramsQR.addRule(RelativeLayout.ALIGN_END, pV.getId());

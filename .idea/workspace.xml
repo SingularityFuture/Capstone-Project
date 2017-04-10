@@ -18,10 +18,8 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatch/src/free/java/com.example.blockwatch/BlockwatchFragment.java" afterPath="$PROJECT_DIR$/blockwatch/src/free/java/com.example.blockwatch/BlockwatchFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatch/src/free/res/layout/fragment_blockwatch.xml" afterPath="$PROJECT_DIR$/blockwatch/src/free/res/layout/fragment_blockwatch.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatch/src/free/res/layout/fragment_transaction.xml" afterPath="$PROJECT_DIR$/blockwatch/src/free/res/layout/fragment_transaction.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatch/src/main/java/com/example/blockwatch/PaintView.java" afterPath="$PROJECT_DIR$/blockwatch/src/main/java/com/example/blockwatch/PaintView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatch/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/blockwatch/src/main/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatch/src/free/java/com.example.blockwatch/TransactionFragment.java" afterPath="$PROJECT_DIR$/blockwatch/src/free/java/com.example.blockwatch/TransactionFragment.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatch/src/main/java/com/example/blockwatch/MainActivity.java" afterPath="$PROJECT_DIR$/blockwatch/src/main/java/com/example/blockwatch/MainActivity.java" />
     </list>
     <ignored path="Capstone-Project.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -55,15 +53,15 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/blockwatch/src/main/java/com/example/blockwatch/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="88">
-              <caret line="151" column="24" selection-start-line="151" selection-start-column="24" selection-end-line="151" selection-end-column="24" />
+            <state relative-caret-position="241">
+              <caret line="127" column="41" selection-start-line="127" selection-start-column="41" selection-end-line="127" selection-end-column="41" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#9866#10038#0" expanded="true" />
-                <element signature="e#10037#10038#0" expanded="true" />
+                <element signature="e#10176#10348#0" expanded="true" />
+                <element signature="e#10347#10348#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -72,37 +70,37 @@
       <file leaf-file-name="BlockwatchFragment.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/blockwatch/src/free/java/com.example.blockwatch/BlockwatchFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="473">
-              <caret line="290" column="56" selection-start-line="290" selection-start-column="56" selection-end-line="290" selection-end-column="56" />
+            <state relative-caret-position="184">
+              <caret line="275" column="45" selection-start-line="275" selection-start-column="45" selection-end-line="275" selection-end-column="45" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#3653#4022#0" expanded="true" />
                 <element signature="e#4021#4022#0" expanded="true" />
                 <element signature="e#5402#5403#0" expanded="true" />
                 <element signature="e#5486#5487#0" expanded="true" />
-                <element signature="e#13806#15803#0" expanded="true" />
-                <element signature="e#14133#14153#0" expanded="true" />
-                <element signature="e#14155#14422#0" expanded="true" />
-                <element signature="e#14421#14422#0" expanded="true" />
-                <element signature="e#14467#14488#0" expanded="true" />
-                <element signature="e#14490#15691#0" expanded="true" />
-                <element signature="e#14953#14985#0" expanded="true" />
-                <element signature="e#15128#15162#0" expanded="true" />
-                <element signature="e#15690#15691#0" expanded="true" />
-                <element signature="e#15802#15803#0" expanded="true" />
+                <element signature="e#13807#15804#0" expanded="true" />
+                <element signature="e#14134#14154#0" expanded="true" />
+                <element signature="e#14156#14423#0" expanded="true" />
+                <element signature="e#14422#14423#0" expanded="true" />
+                <element signature="e#14468#14489#0" expanded="true" />
+                <element signature="e#14491#15692#0" expanded="true" />
+                <element signature="e#14954#14986#0" expanded="true" />
+                <element signature="e#15129#15163#0" expanded="true" />
+                <element signature="e#15691#15692#0" expanded="true" />
+                <element signature="e#15803#15804#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fragment_transaction.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="fragment_transaction.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/blockwatch/src/free/res/layout/fragment_transaction.xml">
           <provider editor-type-id="android-designer2">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="663">
-              <caret line="39" column="57" selection-start-line="39" selection-start-column="57" selection-end-line="39" selection-end-column="57" />
+            <state relative-caret-position="221">
+              <caret line="13" column="44" selection-start-line="13" selection-start-column="44" selection-end-line="13" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -116,6 +114,16 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="321">
               <caret line="38" column="32" selection-start-line="38" selection-start-column="32" selection-end-line="38" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TransactionFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/blockwatch/src/free/java/com.example.blockwatch/TransactionFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="490">
+              <caret line="196" column="23" selection-start-line="196" selection-start-column="23" selection-end-line="196" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -4413,21 +4421,21 @@
         <option value="$PROJECT_DIR$/blockwatch/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/blockwatch/src/main/java/com/example/blockwatch/Preferences.java" />
         <option value="$PROJECT_DIR$/blockwatch/src/main/res/layout/activity_transaction.xml" />
-        <option value="$PROJECT_DIR$/blockwatch/src/free/java/com.example.blockwatch/TransactionFragment.java" />
         <option value="$PROJECT_DIR$/blockwatch/src/main/res/layout-sw600dp/activity_main.xml" />
         <option value="$PROJECT_DIR$/blockwatch/src/main/res/layout/donate_layout.xml" />
         <option value="$PROJECT_DIR$/blockwatch/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/blockwatch/src/main/java/com/example/blockwatch/MainActivity.java" />
         <option value="$PROJECT_DIR$/blockwatch/src/free/res/layout/fragment_blockwatch.xml" />
         <option value="$PROJECT_DIR$/blockwatch/src/main/java/com/example/blockwatch/PaintView.java" />
-        <option value="$PROJECT_DIR$/blockwatch/src/free/java/com.example.blockwatch/BlockwatchFragment.java" />
         <option value="$PROJECT_DIR$/blockwatch/src/free/res/layout/fragment_transaction.xml" />
+        <option value="$PROJECT_DIR$/blockwatch/src/free/java/com.example.blockwatch/BlockwatchFragment.java" />
+        <option value="$PROJECT_DIR$/blockwatch/src/free/java/com.example.blockwatch/TransactionFragment.java" />
+        <option value="$PROJECT_DIR$/blockwatch/src/main/java/com/example/blockwatch/MainActivity.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="202" />
-    <option name="y" value="118" />
+    <option name="x" value="69" />
+    <option name="y" value="130" />
     <option name="width" value="1570" />
     <option name="height" value="976" />
   </component>
@@ -4495,7 +4503,7 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="layout" />
+              <option name="myItemId" value="values" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -4521,6 +4529,24 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="java" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Capstone-Project" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="blockwatch" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com.example.blockwatch" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -4979,13 +5005,6 @@
       <option name="presentableId" value="Default" />
       <updated>1487708967009</updated>
     </task>
-    <task id="LOCAL-00015" summary="Fix up a few things regarding framelayout for fragment">
-      <created>1489182416882</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1489182416882</updated>
-    </task>
     <task id="LOCAL-00016" summary="Fixing sync adapter&#10;&#10;Starting tablet view">
       <created>1489441727096</created>
       <option name="number" value="00016" />
@@ -5322,11 +5341,18 @@
       <option name="project" value="LOCAL" />
       <updated>1491854819120</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="Fix layout of donate button in landscape/non-tablet mode">
+      <created>1491856551936</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1491856551936</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="202" y="118" width="1570" height="976" extended-state="0" />
+    <frame x="69" y="130" width="1570" height="976" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -5393,7 +5419,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Made refresh circle colors match the preference colors set by the user" />
     <MESSAGE value="Add current price in USD to the database from blockchain.info&#10;" />
     <MESSAGE value="Add price textview but not showing up" />
     <MESSAGE value="Fix price view on main screen&#10;&#10;Next will make it red or green depending on day change" />
@@ -5418,54 +5443,11 @@
     <MESSAGE value="Add donate dialog with QR Code" />
     <MESSAGE value="Fix alignment of donate Toast text" />
     <MESSAGE value="Playing with Donate Dialog alignments" />
-    <option name="LAST_COMMIT_MESSAGE" value="Playing with Donate Dialog alignments" />
+    <MESSAGE value="Fix layout of donate button in landscape/non-tablet mode" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix layout of donate button in landscape/non-tablet mode" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/blockwatch/src/main/java/com/example/blockwatch/MainActivity.java</url>
-          <line>50</line>
-          <properties />
-          <option name="timeStamp" value="526" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/blockwatch/src/main/java/com/example/blockwatch/MainActivity.java</url>
-          <line>60</line>
-          <properties />
-          <option name="timeStamp" value="527" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/blockwatch/src/main/java/com/example/blockwatch/MainActivity.java</url>
-          <line>61</line>
-          <properties />
-          <option name="timeStamp" value="528" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/blockwatch/src/main/java/com/example/blockwatch/MainActivity.java</url>
-          <line>108</line>
-          <properties />
-          <option name="timeStamp" value="530" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/blockwatch/src/main/java/com/example/blockwatch/MainActivity.java</url>
-          <line>116</line>
-          <properties />
-          <option name="timeStamp" value="531" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/blockwatch/src/main/java/com/example/blockwatch/MainActivity.java</url>
-          <line>163</line>
-          <properties />
-          <option name="timeStamp" value="532" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/blockwatch/src/main/java/com/example/blockwatch/MainActivity.java</url>
-          <line>164</line>
-          <properties />
-          <option name="timeStamp" value="533" />
-        </line-breakpoint>
-      </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
@@ -5479,14 +5461,6 @@
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/blockwatch/src/main/res/xml/color_preferences.xml" />
-    <entry file="file://$PROJECT_DIR$/blockwatch/src/main/res/values/colors.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="29" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/blockwatch/src/main/res/drawable/blockwatchicon" />
     <entry file="jar://$USER_HOME$/AppData/Local/Android/Sdk/platforms/android-25/android.jar!/android/preference/PreferenceGroup.class">
       <provider selected="true" editor-type-id="text-editor">
@@ -5750,14 +5724,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/blockwatch/src/free/java/com.example.blockwatch/TransactionFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="458">
-          <caret line="209" column="9" selection-start-line="209" selection-start-column="9" selection-end-line="209" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/blockwatch/build/intermediates/res/merged/free/debug/mipmap-hdpi-v4/donate_qr.PNG">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -5795,18 +5761,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/blockwatch/src/main/java/com/example/blockwatch/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="151" column="24" selection-start-line="151" selection-start-column="24" selection-end-line="151" selection-end-column="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#9866#10038#0" expanded="true" />
-            <element signature="e#10037#10038#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/blockwatch/src/main/java/com/example/blockwatch/PaintView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
@@ -5826,38 +5780,66 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/blockwatch/src/free/res/layout/fragment_transaction.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="44" selection-start-line="13" selection-start-column="44" selection-end-line="13" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/blockwatch/src/free/java/com.example.blockwatch/BlockwatchFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="473">
-          <caret line="290" column="56" selection-start-line="290" selection-start-column="56" selection-end-line="290" selection-end-column="56" />
+        <state relative-caret-position="184">
+          <caret line="275" column="45" selection-start-line="275" selection-start-column="45" selection-end-line="275" selection-end-column="45" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#3653#4022#0" expanded="true" />
             <element signature="e#4021#4022#0" expanded="true" />
             <element signature="e#5402#5403#0" expanded="true" />
             <element signature="e#5486#5487#0" expanded="true" />
-            <element signature="e#13806#15803#0" expanded="true" />
-            <element signature="e#14133#14153#0" expanded="true" />
-            <element signature="e#14155#14422#0" expanded="true" />
-            <element signature="e#14421#14422#0" expanded="true" />
-            <element signature="e#14467#14488#0" expanded="true" />
-            <element signature="e#14490#15691#0" expanded="true" />
-            <element signature="e#14953#14985#0" expanded="true" />
-            <element signature="e#15128#15162#0" expanded="true" />
-            <element signature="e#15690#15691#0" expanded="true" />
-            <element signature="e#15802#15803#0" expanded="true" />
+            <element signature="e#13807#15804#0" expanded="true" />
+            <element signature="e#14134#14154#0" expanded="true" />
+            <element signature="e#14156#14423#0" expanded="true" />
+            <element signature="e#14422#14423#0" expanded="true" />
+            <element signature="e#14468#14489#0" expanded="true" />
+            <element signature="e#14491#15692#0" expanded="true" />
+            <element signature="e#14954#14986#0" expanded="true" />
+            <element signature="e#15129#15163#0" expanded="true" />
+            <element signature="e#15691#15692#0" expanded="true" />
+            <element signature="e#15803#15804#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/blockwatch/src/free/res/layout/fragment_transaction.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/blockwatch/src/main/res/values/colors.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="39" column="57" selection-start-line="39" selection-start-column="57" selection-end-line="39" selection-end-column="57" />
+        <state relative-caret-position="102">
+          <caret line="6" column="37" selection-start-line="6" selection-start-column="37" selection-end-line="6" selection-end-column="37" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blockwatch/src/free/java/com.example.blockwatch/TransactionFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="490">
+          <caret line="196" column="23" selection-start-line="196" selection-start-column="23" selection-end-line="196" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blockwatch/src/main/java/com/example/blockwatch/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="241">
+          <caret line="127" column="41" selection-start-line="127" selection-start-column="41" selection-end-line="127" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#10176#10348#0" expanded="true" />
+            <element signature="e#10347#10348#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

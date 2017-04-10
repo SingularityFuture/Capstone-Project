@@ -120,6 +120,8 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
                 PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(minute_one_color), ContextCompat.getColor(this, R.color.md_red_500)),
                 PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(minute_two_color), ContextCompat.getColor(this, R.color.md_red_500)));
 
+        watchFragment = new BlockwatchFragment().newInstance(true); // Create a new watch fragment with a new hash
+        getSupportFragmentManager().beginTransaction().replace(R.id.blockwatch_fragment, watchFragment, WATCH_FRAGMENT_TAG).commit(); // Replace the fragment with the current one with a new hash
     }
 
     @Override
