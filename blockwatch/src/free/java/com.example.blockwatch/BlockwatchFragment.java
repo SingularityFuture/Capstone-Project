@@ -20,7 +20,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -59,14 +58,17 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
     static final int INTERACTIVE_UPDATE_RATE_MS = 60 * 1000; // How often to update the watch, in milliseconds
     String currentHash = "";
     boolean isTablet;
+    boolean refreshNow = false;
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
      * @return A new instance of fragment BlockwatchFragment.
+     * @param refreshNow
      */
-    public BlockwatchFragment newInstance() {
+    public BlockwatchFragment newInstance(boolean refreshNow) {
+        this.refreshNow = refreshNow;
         return new BlockwatchFragment();
     }
 
@@ -89,9 +91,8 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
         public void handleMessage(Message message) {
             switch (message.what) {
                 case MSG_UPDATE_TIME:
-                    pV.setCurrentHash(currentHash);
-                    pV.invalidate();
-                    //Toast.makeText(getActivity(), "Refresh", Toast.LENGTH_SHORT).show();
+                    pV.setCurrentHash(currentHash); // Change the hash when the minute changes
+                    pV.invalidate(); // Redraw the watch
                     break;
             }
         }
@@ -216,11 +217,15 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
                 pV.setOnClickListener(this); // Set the onClick listener to call back to the activity
                 layout.addView(pV); // Add the view to the fragment layout
             }
-            long timeMs = System.currentTimeMillis();
-            long delayMs = INTERACTIVE_UPDATE_RATE_MS
-                    - (timeMs % INTERACTIVE_UPDATE_RATE_MS);
-            mUpdateTimeHandler
-                    .sendEmptyMessageDelayed(MSG_UPDATE_TIME, delayMs);
+            if (refreshNow){
+                pV.invalidate(); // If this was the result of swiping down, refresh the watch now
+            } else { // Otherwise, only refresh it once the minute changes.
+                long timeMs = System.currentTimeMillis();
+                long delayMs = INTERACTIVE_UPDATE_RATE_MS
+                        - (timeMs % INTERACTIVE_UPDATE_RATE_MS);
+                mUpdateTimeHandler
+                        .sendEmptyMessageDelayed(MSG_UPDATE_TIME, delayMs);
+            }
             Toast.makeText(getContext(), "Loader Updated", Toast.LENGTH_SHORT).show();
         }
 

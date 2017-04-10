@@ -3,30 +3,21 @@
 
     <item
         is-multidex="true"
-        jar="C:\Users\test\AndroidStudioProjects\Capstone-Project\blockwatch\build\intermediates\incremental-classes\free\debug\instant-run-bootstrap.jar"
+        jar="C:\Users\Michael\AndroidStudioProjects\Capstone-Project\blockwatch\build\intermediates\incremental-classes\free\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="c040629116e9f4e559fa27891835bad76fa4f5cb">
-        <dex dex="C:\Users\test\AndroidStudioProjects\Capstone-Project\blockwatch\build\intermediates\transforms\dex\free\debug\folders\1000\10000\instant-run-bootstrap_64a096a6e520bd3a9fb350b904ff1bb1e2672077\classes.dex" />
+        sha1="d79d948bf40aa1e593c7639a76b603873992f684">
+        <dex dex="C:\Users\Michael\AndroidStudioProjects\Capstone-Project\blockwatch\build\intermediates\transforms\dex\free\debug\folders\1000\10000\instant-run-bootstrap_c4eee68530acba62aaa4ef2001147b37861beedf\classes.dex" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\test\AndroidStudioProjects\Capstone-Project\blockwatch\build\intermediates\incremental-runtime-classes\free\debug\instant-run.jar"
+        jar="C:\Users\Michael\AndroidStudioProjects\Capstone-Project\blockwatch\build\intermediates\incremental-runtime-classes\free\debug\instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="510aa6efc159983dfbffa676a0dae37568c0a46f">
-        <dex dex="C:\Users\test\AndroidStudioProjects\Capstone-Project\blockwatch\build\intermediates\transforms\dex\free\debug\folders\1000\10000\instant-run_3a68d514b37ce801670e7dd3cfbc650cf404b9b7\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\test\.android\build-cache\2a18b54321adf79bc6f4d907c2d3a57081db80d9\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="374d595ee099a19b6c1c3718cdb4c345be7a3d45">
-        <dex dex="C:\Users\test\AndroidStudioProjects\Capstone-Project\blockwatch\build\intermediates\transforms\dex\free\debug\folders\1000\10\classes_3e0132c7dd4e7b292e0db6939ce0b6236d8e840a\classes.dex" />
+        <dex dex="C:\Users\Michael\AndroidStudioProjects\Capstone-Project\blockwatch\build\intermediates\transforms\dex\free\debug\folders\1000\10000\instant-run_fc5837e4e76cc41ab5530409b77fb46013db1ac5\classes.dex" />
     </item>
 
 </items>
