@@ -1,6 +1,7 @@
 package com.example.blockwatch;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.Cursor;
@@ -15,6 +16,8 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.View;
@@ -22,7 +25,9 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
@@ -37,6 +42,7 @@ import data.BlockContract;
 import utilities.TransactionJsonUtils;
 
 import static android.content.Context.WINDOW_SERVICE;
+import static android.widget.Toast.makeText;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,8 +72,8 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @return A new instance of fragment BlockwatchFragment.
      * @param refreshNow
+     * @return A new instance of fragment BlockwatchFragment.
      */
     public BlockwatchFragment newInstance(boolean refreshNow) {
         this.refreshNow = refreshNow;
@@ -108,7 +114,7 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
         layout = (RelativeLayout) rootView.findViewById(R.id.watch_fragment_layout); // Inflate the layout for this fragment
 
         AdView mAdView = (AdView) layout.findViewById(R.id.adView);
-        if(!isTablet) { // In tablet mode, you will load the big ad from the main activity
+        if (!isTablet) { // In tablet mode, you will load the big ad from the main activity
             // Load the ad here since it doesn't depend on the loader finishing loading
             // Create an ad request. Check logcat output for the hashed device ID to
             // get test ads on a physical device. e.g.
@@ -118,8 +124,7 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
                     .addTestDevice("TEST_DEVICE_ID")
                     .build();
             mAdView.loadAd(adRequest);
-        }
-        else {
+        } else {
             // Otherwise, take it out so you don't have two ads
             layout.removeView(mAdView);
         }
@@ -219,7 +224,7 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
                 pV.setOnClickListener(this); // Set the onClick listener to call back to the activity
                 layout.addView(pV); // Add the view to the fragment layout
             }
-            if (refreshNow){
+            if (refreshNow) {
                 pV.invalidate(); // If this was the result of swiping down, refresh the watch now
             } else { // Otherwise, only refresh it once the minute changes.
                 long timeMs = System.currentTimeMillis();
@@ -228,7 +233,7 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
                 mUpdateTimeHandler
                         .sendEmptyMessageDelayed(MSG_UPDATE_TIME, delayMs);
             }
-            Toast.makeText(getContext(), "Loader Updated", Toast.LENGTH_SHORT).show();
+            makeText(getContext(), "Loader Updated", Toast.LENGTH_SHORT).show();
         }
 
         if (!data.isNull(7)) {
@@ -276,7 +281,7 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
             });
         }
 
-        ImageButton donateButton= (ImageButton) layout.findViewById(R.id.donate);
+        ImageButton donateButton = (ImageButton) layout.findViewById(R.id.donate);
         final Drawable QRCode;
         QRCode = ContextCompat.getDrawable(getContext(), R.mipmap.donate_qr);
         //QRCode.setBounds(0, 0, 100, 100);
@@ -290,8 +295,29 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setView(getActivity().getLayoutInflater().inflate(R.layout.donate_layout, null));
-
+                builder.setView(getActivity().getLayoutInflater().inflate(R.layout.donate_layout, null))
+                        .setNegativeButton("Don't Donate", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        })
+                        .setPositiveButton("Copy Address", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                                android.content.ClipData clip = android.content.ClipData.newPlainText("Copied Donation Address", getString(R.string.address_hash));
+                                clipboard.setPrimaryClip(clip);
+                                Toast toast = Toast.makeText(getActivity(), getString(R.string.address_copied), Toast.LENGTH_LONG);
+                                try {
+                                    ((TextView) ((LinearLayout) toast.getView()).getChildAt(0))
+                                            .setGravity(Gravity.CENTER_HORIZONTAL);
+                                } catch (ClassCastException e) {
+                                    Log.d("Watch Fragment", "Toast not cast correctly");
+                                }
+                                toast.show();
+                            }
+                        });
                 AlertDialog dialog = builder.create();
                 dialog.show();
             }
