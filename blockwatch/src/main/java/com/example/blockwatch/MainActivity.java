@@ -11,9 +11,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -156,8 +158,12 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
     @Override
     public void onRefresh() {
         Log.i(LOG_TAG, "onRefresh called from SwipeRefreshLayout");
-        Snackbar.make(mSwipeRefreshLayout, R.string.fab_text, Snackbar.LENGTH_LONG)
-                .setAction("action", null).show();
+        Snackbar snackbar = Snackbar.make(mSwipeRefreshLayout, R.string.fab_text, Snackbar.LENGTH_LONG);
+                snackbar.setAction("action", null).show();
+        View snackView = snackbar.getView();
+        TextView snackText = (TextView) snackView.findViewById(android.support.design.R.id.snackbar_text); // Center the snackbar text
+        snackText.setGravity(Gravity.CENTER);
+        snackText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
         try {
             mSwipeRefreshLayout.setRefreshing(true);
             BlockwatchSyncAdapter.syncImmediately(getBaseContext());

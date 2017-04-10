@@ -320,6 +320,31 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
                         });
                 AlertDialog dialog = builder.create();
                 dialog.show();
+                Button positive = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                Log.i("Dialog Alignment", String.valueOf(positive.getTextAlignment()));
+                Log.i("Dialog Text", String.valueOf(positive.getText()));
+
+                positive.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                positive.setGravity(Gravity.CENTER_HORIZONTAL);
+                Log.i("Dialog Alignment", String.valueOf(positive.getTextAlignment()));
+
+                Button negative = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+                negative.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                negative.setGravity(Gravity.CENTER_HORIZONTAL);
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                layoutParams.setMargins(0,0,0,0);
+                layoutParams.gravity=Gravity.LEFT;
+                //layoutParams.width=ViewGroup.LayoutParams.MATCH_PARENT;
+                layoutParams.width=0;
+                layoutParams.weight=0.5f;
+
+
+                negative.setLayoutParams(layoutParams);
+                Log.i("Dialog Text", String.valueOf(negative.getText()));
+                Log.i("Dialog Alignment", String.valueOf(negative.getTextAlignment()));
+
+
+
             }
         });
     }
