@@ -197,4 +197,5 @@
     <string name="price_toolbar">Price Toolbar</string>
     <string name="price_frame">Price Frame</string>
     <string name="price_fragment">Price Fragment</string>
+    <string name="donate">Donate</string>
 </resources>

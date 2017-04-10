@@ -13,6 +13,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.Surface;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -262,7 +264,7 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
             } else {
                 buttonPrice.setCompoundDrawables(null, null, img, null); // Put a trending button inside
                 paramsText.addRule(RelativeLayout.BELOW, pV.getId());
-                paramsText.addRule(RelativeLayout.ALIGN_LEFT, pV.getId());
+                paramsText.addRule(RelativeLayout.ALIGN_START, pV.getId());
             }
             buttonPrice.setLayoutParams(paramsText); // Apply the layout width and height
             buttonPrice.setText(formattedCurrentPrice);
@@ -273,6 +275,28 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
                 }
             });
         }
+
+        ImageButton donateButton= (ImageButton) layout.findViewById(R.id.donate);
+        Drawable QRCode;
+        QRCode = ContextCompat.getDrawable(getContext(), R.mipmap.donate_qr);
+        //QRCode.setBounds(0, 0, 100, 100);
+        RelativeLayout.LayoutParams paramsQR = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT); // Set width and height
+        paramsQR.addRule(RelativeLayout.BELOW, pV.getId());
+        paramsQR.addRule(RelativeLayout.ALIGN_END, pV.getId());
+        donateButton.setLayoutParams(paramsQR);
+        donateButton.setImageDrawable(QRCode);
+
+        donateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 1. Instantiate an AlertDialog.Builder with its constructor
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage("Give me money")
+                        .setTitle("Money Now");
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
     }
 
     /**

@@ -34,6 +34,15 @@
         android:paddingStart="16dp"
         android:drawablePadding="8dp"
         android:elevation="8dp" />
+
+    <ImageButton
+        android:id="@+id/donate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/donate"
+        android:textAlignment="center"
+        android:background="@color/md_white_1000"
+        android:elevation="8dp" />
 </RelativeLayout>
 
 
