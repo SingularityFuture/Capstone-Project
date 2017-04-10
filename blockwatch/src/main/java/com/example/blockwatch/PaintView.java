@@ -209,7 +209,7 @@ public class PaintView extends View {
         if (!isTablet) {
             if ((rotation == Surface.ROTATION_90
                     || rotation == Surface.ROTATION_270)) { // If it's in landscape mode,
-                setMeasuredDimension(widthMeasureSpec / 2, (int) (height - actionBarHeight - statusBarHeight - 168)); // Set the dimensions differently
+                setMeasuredDimension(widthMeasureSpec / 2, (int) (height - actionBarHeight - statusBarHeight - 90)); // Set the dimensions differently
             } else {
                 setMeasuredDimension(widthMeasureSpec, (int) (height - actionBarHeight - statusBarHeight - 168 - 130)); // Subtract some more so the price shows up on the bottom
             }

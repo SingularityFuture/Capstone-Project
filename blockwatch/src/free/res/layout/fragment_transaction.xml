@@ -28,7 +28,7 @@
         android:gravity="center"
         android:nextFocusUp="@id/toolbar_transaction"
         android:text="@string/tx_hash"
-        android:textColor="@android:color/black"
+        android:textColor="@color/colorPrimary"
         android:textSize="30sp" />
 
 
@@ -51,7 +51,7 @@
         android:gravity="center"
         android:nextFocusUp="@id/transactionHash"
         android:text="@string/relayed_by"
-        android:textColor="@android:color/black"
+        android:textColor="@color/colorPrimary"
         android:textSize="30sp" />
 
     <TextView

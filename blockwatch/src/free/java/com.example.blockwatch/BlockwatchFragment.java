@@ -42,7 +42,6 @@ import data.BlockContract;
 import utilities.TransactionJsonUtils;
 
 import static android.content.Context.WINDOW_SERVICE;
-import static android.widget.Toast.makeText;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -233,11 +232,11 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
                 mUpdateTimeHandler
                         .sendEmptyMessageDelayed(MSG_UPDATE_TIME, delayMs);
             }
-            makeText(getContext(), "Loader Updated", Toast.LENGTH_SHORT).show();
+            //makeText(getContext(), "Loader Updated", Toast.LENGTH_SHORT).show();
         }
 
+        Button buttonPrice = (Button) layout.findViewById(R.id.current_price);
         if (!data.isNull(7)) {
-            Button buttonPrice = (Button) layout.findViewById(R.id.current_price);
             NumberFormat formatter = new DecimalFormat("#0.00");
             formatter.setMinimumFractionDigits(2);
             formatter.setMaximumFractionDigits(2);
@@ -284,10 +283,16 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
         ImageButton donateButton = (ImageButton) layout.findViewById(R.id.donate);
         final Drawable QRCode;
         QRCode = ContextCompat.getDrawable(getContext(), R.mipmap.donate_qr);
-        //QRCode.setBounds(0, 0, 100, 100);
+
         RelativeLayout.LayoutParams paramsQR = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT); // Set width and height
-        paramsQR.addRule(RelativeLayout.BELOW, pV.getId());
-        paramsQR.addRule(RelativeLayout.ALIGN_END, pV.getId());
+        if ((rotation == Surface.ROTATION_90
+                || rotation == Surface.ROTATION_270) && !isTablet) { // If it's in landscape mode and not a tablet,
+            paramsQR.addRule(RelativeLayout.START_OF, pV.getId());
+            paramsQR.addRule(RelativeLayout.ALIGN_BOTTOM, pV.getId());
+        }   else{
+            paramsQR.addRule(RelativeLayout.BELOW, pV.getId());
+            paramsQR.addRule(RelativeLayout.ALIGN_END, pV.getId());
+        }
         donateButton.setLayoutParams(paramsQR);
         donateButton.setImageDrawable(QRCode);
 
@@ -296,13 +301,13 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setView(getActivity().getLayoutInflater().inflate(R.layout.donate_layout, null))
-                        .setNegativeButton("Don't Donate", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.dont_donate, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.cancel();
                             }
                         })
-                        .setPositiveButton("Copy Address", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.copy_address, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
@@ -320,31 +325,6 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
                         });
                 AlertDialog dialog = builder.create();
                 dialog.show();
-                Button positive = dialog.getButton(DialogInterface.BUTTON_POSITIVE);
-                Log.i("Dialog Alignment", String.valueOf(positive.getTextAlignment()));
-                Log.i("Dialog Text", String.valueOf(positive.getText()));
-
-                positive.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                positive.setGravity(Gravity.CENTER_HORIZONTAL);
-                Log.i("Dialog Alignment", String.valueOf(positive.getTextAlignment()));
-
-                Button negative = dialog.getButton(DialogInterface.BUTTON_NEGATIVE);
-                negative.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                negative.setGravity(Gravity.CENTER_HORIZONTAL);
-                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                layoutParams.setMargins(0,0,0,0);
-                layoutParams.gravity=Gravity.LEFT;
-                //layoutParams.width=ViewGroup.LayoutParams.MATCH_PARENT;
-                layoutParams.width=0;
-                layoutParams.weight=0.5f;
-
-
-                negative.setLayoutParams(layoutParams);
-                Log.i("Dialog Text", String.valueOf(negative.getText()));
-                Log.i("Dialog Alignment", String.valueOf(negative.getTextAlignment()));
-
-
-
             }
         });
     }

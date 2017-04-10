@@ -202,4 +202,6 @@
     <string name="donate_bitcoin">Donate Bitcoin to promote new releases!</string>
     <string name="address_hash">17FkYpVTnNfZFqkZtiEH6PLYbsei5jxK1b</string>
     <string name="address_copied">Address Copied\nPaste into Wallet App to Donate</string>
+    <string name="dont_donate">Don\'t Donate</string>
+    <string name="copy_address">Copy Address</string>
 </resources>
