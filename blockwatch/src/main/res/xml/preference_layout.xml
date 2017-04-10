@@ -3,105 +3,113 @@
     android:layout_below="@id/settings_toolbar">
     <!-- opens a subscreen of settings -->
     <PreferenceScreen
-        android:key="button_color_category_key"
-        android:title="Colors"
-        android:persistent="false"
         android:icon="@mipmap/color_wheel"
-        android:summary="Change the colors of the watch">
+        android:key="button_color_category_key"
+        android:persistent="false"
+        android:summary="Change the colors of the watch"
+        android:title="Colors">
 
         <PreferenceCategory android:title="@string/title_color_preferences">
 
             <CheckBoxPreference
+                android:defaultValue="true"
+                android:disableDependentsState="true"
                 android:enabled="true"
                 android:key="@string/keep_colors_same_key"
-                android:title="@string/title_keep_colors_same"
                 android:summary="@string/keep_colors_same"
-                android:defaultValue="true"
-                android:disableDependentsState="true"/>
+                android:title="@string/title_keep_colors_same" />
 
 
             <com.thebluealliance.spectrum.SpectrumPreferenceCompat
                 android:key="@string/hour_one_color"
-                android:title="@string/title_hour_one_color"
                 android:summary="@string/change_hour_one_color"
+                android:title="@string/title_hour_one_color"
                 app:spectrum_colors="@array/demo_colors"
                 app:spectrum_columnCount="4"
-                app:spectrum_outlineWidth="2dp"
-                />
+                app:spectrum_outlineWidth="2dp" />
 
             <com.thebluealliance.spectrum.SpectrumPreferenceCompat
+                android:dependency="@string/keep_colors_same_key"
                 android:key="@string/hour_two_color"
-                android:title="@string/title_hour_two_color"
                 android:summary="@string/change_hour_two_color"
-                android:dependency="@string/keep_colors_same_key"
+                android:title="@string/title_hour_two_color"
                 app:spectrum_colors="@array/demo_colors"
                 app:spectrum_columnCount="4"
-                app:spectrum_outlineWidth="2dp"
-                />
+                app:spectrum_outlineWidth="2dp" />
 
             <com.thebluealliance.spectrum.SpectrumPreferenceCompat
+                android:dependency="@string/keep_colors_same_key"
                 android:key="@string/minute_one_color"
-                android:title="@string/title_minute_one_color"
                 android:summary="@string/change_minute_one_color"
-                android:dependency="@string/keep_colors_same_key"
+                android:title="@string/title_minute_one_color"
                 app:spectrum_colors="@array/demo_colors"
                 app:spectrum_columnCount="4"
-                app:spectrum_outlineWidth="2dp"/>
+                app:spectrum_outlineWidth="2dp" />
 
             <com.thebluealliance.spectrum.SpectrumPreferenceCompat
-                android:key="@string/minute_two_color"
-                android:title="@string/title_minute_two_color"
-                android:summary="@string/change_minute_two_color"
                 android:dependency="@string/keep_colors_same_key"
+                android:key="@string/minute_two_color"
+                android:summary="@string/change_minute_two_color"
+                android:title="@string/title_minute_two_color"
                 app:spectrum_colors="@array/demo_colors"
                 app:spectrum_columnCount="4"
-                app:spectrum_outlineWidth="2dp"/>
+                app:spectrum_outlineWidth="2dp" />
 
         </PreferenceCategory>
 
     </PreferenceScreen>
 
     <PreferenceScreen
-        android:key="button_time_category_key"
         android:icon="@mipmap/ic_clock"
-        android:title="@string/time_settings_title"
+        android:key="button_time_category_key"
         android:persistent="false"
-        android:summary="@string/change_time_settings">
+        android:summary="@string/change_time_settings"
+        android:title="@string/time_settings_title">
 
-        <PreferenceCategory
-            android:title="@string/time_preference_category">
+        <PreferenceCategory android:title="@string/time_preference_category">
 
             <CheckBoxPreference
+                android:defaultValue="true"
                 android:key="@string/show_time_preference_key"
-                android:title="@string/title_show_time_preference"
                 android:summary="@string/show_time_below_wheel"
-                android:defaultValue="true"
                 android:tint="@android:color/white"
-                app:backgroundTint="@android:color/black"/>
-<!--        </PreferenceCategory>-->
-
-<!--        <PreferenceCategory
-            android:title="@string/second_hand_wheel_preference">-->
+                android:title="@string/title_show_time_preference"
+                app:backgroundTint="@android:color/black" />
 
             <CheckBoxPreference
+                android:defaultValue="true"
                 android:key="@string/second_hand_wheel_key"
-                android:title="@string/second_hand_wheel_title"
                 android:summary="@string/second_hand_wheel_summary"
-                android:defaultValue="true"
                 android:tint="@android:color/white"
-                app:backgroundTint="@android:color/black"/>
-    <!--    </PreferenceCategory>-->
+                android:title="@string/second_hand_wheel_title"
+                app:backgroundTint="@android:color/black" />
 
-        <!--<PreferenceCategory
-            android:title="@string/military_time_preference">
--->
             <CheckBoxPreference
-                android:key="@string/military_time_preference_key"
-                android:title="@string/title_military_time_preference"
-                android:summary="@string/show_military_time"
                 android:defaultValue="false"
+                android:key="@string/military_time_preference_key"
+                android:summary="@string/show_military_time"
                 android:tint="@android:color/white"
-                app:backgroundTint="@android:color/black"/>
+                android:title="@string/title_military_time_preference"
+                app:backgroundTint="@android:color/black" />
+        </PreferenceCategory>
+
+    </PreferenceScreen>
+
+    <PreferenceScreen
+        android:icon="@mipmap/bitcoin_info"
+        android:key="@string/learn_about_bitcoin_key"
+        android:persistent="false"
+        android:summary="@string/learn_about_bitcoin_summary"
+        android:title="@string/learn_about_bitcoin_title">
+
+        <PreferenceCategory android:title="@string/learn_about_bitcoin_summary">
+
+            <Preference android:title="@string/visit_bitcoin_website">
+                <intent
+                    android:action="android.intent.action.VIEW"
+                    android:data="https://bitcoin.org/en/getting-started" />
+            </Preference>
+
         </PreferenceCategory>
 
     </PreferenceScreen>

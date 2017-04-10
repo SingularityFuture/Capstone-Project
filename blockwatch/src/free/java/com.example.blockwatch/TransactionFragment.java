@@ -25,6 +25,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
@@ -218,7 +220,10 @@ public class TransactionFragment extends Fragment implements LoaderManager.Loade
     @Override
     public void onMapReady(GoogleMap map) {
         // Add a marker to current location
+        BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.mipmap.color_wheel);
+
         Marker marker = map.addMarker(new MarkerOptions().position(currentLocation).title(getString(R.string.relayed_by_ip_location)).snippet(getString(R.string.location_of_ip)));
+        marker.setIcon(icon);
         try {
             // Customise the styling of the base map using a JSON object defined
             // in a raw resource file.

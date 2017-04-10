@@ -204,4 +204,9 @@
     <string name="address_copied">Address Copied\nPaste into Wallet App to Donate</string>
     <string name="dont_donate">Don\'t Donate</string>
     <string name="copy_address">Copy Address</string>
+    <string name="learn_about_bitcoin_key">Learn About Bitcoin</string>
+    <string name="learn_about_bitcoin_summary">Learn More About Bitcoin</string>
+    <string name="learn_about_bitcoin_title">About</string>
+    <string name="visit_bitcoin_website">Go to Bitcoin.org</string>
+
 </resources>
