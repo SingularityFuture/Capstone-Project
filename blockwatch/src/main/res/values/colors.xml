@@ -355,6 +355,7 @@
     <color name="md_grey_900">#212121</color>
     <color name="md_black_1000">#000000</color>
     <color name="md_white_1000">#ffffff</color>
+    <color name="white_1000_transparent">#99ffffff</color>
 
     <!--blue grey-->
     <color name="md_blue_grey_50">#ECEFF1</color>

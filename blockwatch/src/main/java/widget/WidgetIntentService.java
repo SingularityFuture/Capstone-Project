@@ -86,9 +86,8 @@ public class WidgetIntentService extends IntentService {
             NumberFormat percentFormat = NumberFormat.getPercentInstance();
             percentFormat.setMinimumFractionDigits(2);
             percentFormat.setMaximumFractionDigits(2);
-            formattedPercentageChange = "("+percentFormat.format((data.getDouble(7) - price_array[price_array.length - 1][1])/price_array[price_array.length - 1][1])+")"; // Get the price percentage change from yesterday
+            formattedPercentageChange = "("+percentFormat.format((data.getDouble(INDEX_COLUMN_PRICE) - price_array[price_array.length - 1][1])/price_array[price_array.length - 1][1])+")"; // Get the price percentage change from yesterday
         }
-        data.close();
         String description = getApplicationContext().getString(R.string.Transaction);
 
         // Perform this loop procedure for each Today widget
@@ -100,7 +99,7 @@ public class WidgetIntentService extends IntentService {
             int img;
             views.setTextViewText(R.id.widget_current_price, formattedCurrentPrice);
             views.setTextViewText(R.id.widget_percentage_change, formattedPercentageChange);
-            if (data.getDouble(7) < price_array[price_array.length - 1][1]) { // If today's price is currently less than yesterday's closing price
+            if (data.getDouble(INDEX_COLUMN_PRICE) < price_array[price_array.length - 1][1]) { // If today's price is currently less than yesterday's closing price
                 // Add the data to the RemoteViews
                 views.setImageViewResource(R.id.widget_icon, R.mipmap.red_md_circle);
                 views.setTextColor(R.id.widget_current_price, ContextCompat.getColor(getApplicationContext(), R.color.md_red_500)); // Color the price red
@@ -119,6 +118,7 @@ public class WidgetIntentService extends IntentService {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
                 setRemoteContentDescription(views, description);
             }
+            data.close();
 
             // Create an Intent to launch MainActivity
             Intent launchIntent = new Intent(this, MainActivity.class);
