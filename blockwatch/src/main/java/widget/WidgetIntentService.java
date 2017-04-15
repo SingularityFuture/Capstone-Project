@@ -11,25 +11,41 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RemoteViews;
+import android.widget.TextView;
 
 import com.example.blockwatch.MainActivity;
 import com.example.blockwatch.R;
 
+import org.json.JSONException;
+import org.w3c.dom.Text;
+
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 import data.BlockContract;
+import utilities.TransactionJsonUtils;
 
 /**
  * IntentService which handles updating the widget with the latest data
  */
 public class WidgetIntentService extends IntentService {
     private static final String[] TRANSACTION_COLUMNS = {
-            BlockContract.BlockEntry.COLUMN_HASH,
-            BlockContract.BlockEntry.COLUMN_RELAYED_BY
+            BlockContract.BlockEntry.COLUMN_PRICE,
+            BlockContract.BlockEntry.COLUMN_PRICE_HISTORY
     };
     // These indices must match the projection
-    private static final int INDEX_TRANSACTION_HASH = 0;
-    private static final int INDEX_RELAYED_BY = 1;
+    private static final int INDEX_COLUMN_PRICE = 0;
+    private static final int INDEX_COLUMN_PRICE_HISTORY = 1;
+    String formattedCurrentPrice = "";
+    String priceHistoryJSON = "";
+    double[][] price_array = new double[365][365]; // Declare the array of historical prices
+    String formattedPercentageChange = "";
 
     public WidgetIntentService() {
         super("WidgetIntentService");
@@ -54,8 +70,24 @@ public class WidgetIntentService extends IntentService {
         }
 
         // Extract the weather data from the Cursor
-        String transactionHash = data.getString(INDEX_TRANSACTION_HASH);
-        String relayedBy = data.getString(INDEX_RELAYED_BY);
+        if (!data.isNull(0)) {
+            NumberFormat formatter = new DecimalFormat("#0.00");
+            formatter.setMinimumFractionDigits(2);
+            formatter.setMaximumFractionDigits(2);
+            formattedCurrentPrice = formatter.format(data.getDouble(INDEX_COLUMN_PRICE)); // Get the current price
+        }
+        if (!data.isNull(1)) {
+            priceHistoryJSON = data.getString(INDEX_COLUMN_PRICE_HISTORY); // Get the price history
+            try { // Try parsing the JSON to get the price array
+                price_array = TransactionJsonUtils.getHistoricalPricesFromJson(priceHistoryJSON);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            NumberFormat percentFormat = NumberFormat.getPercentInstance();
+            percentFormat.setMinimumFractionDigits(2);
+            percentFormat.setMaximumFractionDigits(2);
+            formattedPercentageChange = "("+percentFormat.format((data.getDouble(7) - price_array[price_array.length - 1][1])/price_array[price_array.length - 1][1])+")"; // Get the price percentage change from yesterday
+        }
         data.close();
         String description = getApplicationContext().getString(R.string.Transaction);
 
@@ -65,14 +97,28 @@ public class WidgetIntentService extends IntentService {
             int iconResource = R.drawable.blockwatchicon;
             RemoteViews views = new RemoteViews(getPackageName(), layoutId);
 
-            // Add the data to the RemoteViews
-            views.setImageViewResource(R.id.widget_icon, iconResource);
+            int img;
+            views.setTextViewText(R.id.widget_current_price, formattedCurrentPrice);
+            views.setTextViewText(R.id.widget_percentage_change, formattedPercentageChange);
+            if (data.getDouble(7) < price_array[price_array.length - 1][1]) { // If today's price is currently less than yesterday's closing price
+                // Add the data to the RemoteViews
+                views.setImageViewResource(R.id.widget_icon, R.mipmap.red_md_circle);
+                views.setTextColor(R.id.widget_current_price, ContextCompat.getColor(getApplicationContext(), R.color.md_red_500)); // Color the price red
+                views.setTextColor(R.id.widget_percentage_change, ContextCompat.getColor(getApplicationContext(), R.color.md_red_500)); // Color the price red
+                img = R.mipmap.trending_down;
+            } else {
+                // Add the data to the RemoteViews
+                views.setImageViewResource(R.id.widget_icon, R.mipmap.green_md_circle);
+                views.setTextColor(R.id.widget_current_price, ContextCompat.getColor(getApplicationContext(), R.color.md_light_green_500)); // Color the price red
+                views.setTextColor(R.id.widget_percentage_change, ContextCompat.getColor(getApplicationContext(), R.color.md_light_green_500)); // Color the price red
+                img = R.mipmap.trending_up;
+            }
+            views.setTextViewCompoundDrawables(R.id.widget_current_price, 0, 0, 0, img);
+
             // Content Descriptions for RemoteViews were only added in ICS MR1
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
                 setRemoteContentDescription(views, description);
             }
-            views.setTextViewText(R.id.transactionHash, transactionHash);
-            views.setTextViewText(R.id.transactionRelayedBy, relayedBy);
 
             // Create an Intent to launch MainActivity
             Intent launchIntent = new Intent(this, MainActivity.class);

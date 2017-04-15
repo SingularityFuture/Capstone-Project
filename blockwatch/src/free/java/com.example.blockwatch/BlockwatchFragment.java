@@ -236,18 +236,18 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
 
         Button buttonPrice = (Button) layout.findViewById(R.id.current_price);
         if (!data.isNull(7)) {
-            NumberFormat formatter = new DecimalFormat("#0.00");
-            formatter.setMinimumFractionDigits(2);
-            formatter.setMaximumFractionDigits(2);
-            String formattedCurrentPrice = formatter.format(data.getDouble(7)); // Get the current price
-            if (!data.isNull(8)) {
-                String jsonHistoricalPricesResponse = data.getString(8); // Get the string representing the JSON of historical prices
-                try { // Try parsing the JSON to get the price array
-                    price_array = TransactionJsonUtils.getHistoricalPricesFromJson(jsonHistoricalPricesResponse);
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                NumberFormat formatter = new DecimalFormat("#0.00");
+                formatter.setMinimumFractionDigits(2);
+                formatter.setMaximumFractionDigits(2);
+                String formattedCurrentPrice = formatter.format(data.getDouble(7)); // Get the current price
+                if (!data.isNull(8)) {
+                    String jsonHistoricalPricesResponse = data.getString(8); // Get the string representing the JSON of historical prices
+                    try { // Try parsing the JSON to get the price array
+                        price_array = TransactionJsonUtils.getHistoricalPricesFromJson(jsonHistoricalPricesResponse);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
             Drawable img;
             if (data.getDouble(7) < price_array[price_array.length - 1][1]) { // If today's price is currently less than yesterday's closing price
                 buttonPrice.setTextColor(ContextCompat.getColor(getContext(), R.color.md_red_500)); // Color the price red

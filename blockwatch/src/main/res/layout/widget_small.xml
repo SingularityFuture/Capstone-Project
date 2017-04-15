@@ -1,76 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/widget"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:contentDescription="@string/blockwatch_widget"
-    android:padding="@dimen/widget_margin">
+    android:contentDescription="@string/widget_layout"
+    android:orientation="horizontal"
+    android:padding="4dp"
+    android:background="@color/md_white_1000">
 
-    <RelativeLayout
-        android:id="@+id/widget"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:contentDescription="@string/widget_layout"
+    <ImageView
+        android:id="@+id/widget_icon"
+        android:layout_width="@dimen/list_icon"
+        android:layout_height="@dimen/list_icon"
+        android:layout_gravity="center"
+        android:contentDescription="@string/blockwatch_icon"
+        android:gravity="center"
+        tools:src="@mipmap/color_wheel" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="4dp">
+        android:id="@+id/widget_price_info">
 
         <TextView
-            android:id="@+id/transactionHashLabel"
+            android:id="@+id/widget_current_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/transaction_hash_label"
-            android:gravity="center"
-            android:text="@string/tx_hash"
-            android:textColor="@android:color/white" />
-
-        <ImageView
-            android:id="@+id/widget_icon"
-            android:layout_width="@dimen/list_icon"
-            android:layout_height="@dimen/list_icon"
-            android:layout_alignEnd="@id/transactionHashLabel"
-            android:layout_alignStart="@id/transactionHashLabel"
-            android:layout_below="@id/transactionHashLabel"
-            android:layout_gravity="center"
-            android:contentDescription="@string/blockwatch_icon"
-            android:gravity="center"
-            android:nextFocusUp="@id/transactionHashLabel"
-            tools:src="@mipmap/color_wheel" />
-
-        <TextView
-            android:id="@+id/transactionHash"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/transactionHashLabel"
-            android:contentDescription="@string/transaction_hash"
+            android:contentDescription="@string/widget_current_price"
             android:nextFocusUp="@id/widget_icon"
             android:textAlignment="center"
-            android:textColor="@android:color/white"
-            android:textSize="11sp" />
+            android:textColor="@android:color/black"
+            android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/transactionRelayedByLabel"
+            android:id="@+id/widget_percentage_change"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/widget_icon"
-            android:contentDescription="@string/transaction_relayed_by_label"
+            android:contentDescription="@string/widget_percentage_change"
             android:gravity="center"
-            android:nextFocusUp="@id/transactionHash"
-            android:text="@string/relayed_by"
-            android:textColor="@android:color/white" />
+            android:nextFocusUp="@id/widget_current_price"
+            android:textColor="@android:color/black" />
 
-        <TextView
-            android:id="@+id/transactionRelayedBy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@id/transactionRelayedByLabel"
-            android:layout_alignEnd="@id/transactionHash"
-            android:layout_alignStart="@id/transactionHash"
-            android:layout_alignTop="@id/transactionRelayedByLabel"
-            android:layout_toEndOf="@id/transactionRelayedByLabel"
-            android:contentDescription="@string/transaction_relayed_by_ip_address"
-            android:nextFocusUp="@id/transactionRelayedByLabel"
-            android:textAlignment="center"
-            android:textColor="@android:color/white"
-            android:textSize="11sp" />
-    </RelativeLayout>
-</FrameLayout>
+    </LinearLayout>
+
+</LinearLayout>
