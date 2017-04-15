@@ -232,7 +232,6 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
                 mUpdateTimeHandler
                         .sendEmptyMessageDelayed(MSG_UPDATE_TIME, delayMs);
             }
-            //makeText(getContext(), "Loader Updated", Toast.LENGTH_SHORT).show();
         }
 
         Button buttonPrice = (Button) layout.findViewById(R.id.current_price);

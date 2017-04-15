@@ -1,28 +1,34 @@
 package com.example.blockwatch;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 
@@ -52,6 +58,11 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
     RelativeLayout layout; // Declare layout that will access fragment layout
     private OnFragmentInteractionListener mListener; // Declare the listener to click on the fragment
     double[][] price_array = new double[365][365]; // Declare the array of historical prices
+    static final int MSG_UPDATE_TIME = 0;
+    static final int INTERACTIVE_UPDATE_RATE_MS = 60 * 1000; // How often to update the watch, in milliseconds
+    String currentHash = "";
+    boolean isTablet;
+    boolean refreshNow = false;
 
     /**
      * Use this factory method to create a new instance of
@@ -59,7 +70,8 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
      *
      * @return A new instance of fragment BlockwatchFragment.
      */
-    public BlockwatchFragment newInstance() {
+    public BlockwatchFragment newInstance(boolean refreshNow) {
+        this.refreshNow = refreshNow;
         return new BlockwatchFragment();
     }
 
@@ -68,12 +80,26 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
         super.onCreate(savedInstanceState);
         /* This connects our Activity into the loader lifecycle. */
         getLoaderManager().initLoader(ID_BLOCKWATCH_LOADER, null, this).forceLoad();
+        isTablet = getActivity().getResources().getBoolean(R.bool.isTablet); // Detect whether we are in tablet mode, which will affect the drawing size and coordinates
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
     }
+
+    // Handler to update the time once a minute, called from when the Loader gets a new hash from the blockchain
+    final Handler mUpdateTimeHandler = new Handler() {
+        @Override
+        public void handleMessage(Message message) {
+            switch (message.what) {
+                case MSG_UPDATE_TIME:
+                    pV.setCurrentHash(currentHash); // Change the hash when the minute changes
+                    pV.invalidate(); // Redraw the watch
+                    break;
+            }
+        }
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,6 +108,7 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
         rootView = inflater.inflate(R.layout.fragment_blockwatch, container, false);
         layout = (RelativeLayout) rootView.findViewById(R.id.watch_fragment_layout);
         // Inflate the layout for this fragment
+
         return rootView;
     }
 
@@ -175,24 +202,19 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
 
         // This represents the current transaction hash
         if (!data.isNull(1)) {
-            String currentHash = data.getString(1);
+            currentHash = data.getString(1);
             pV = new PaintView(getActivity(), currentHash); // Create a new paint view for the watch face
-            pV.setBackgroundColor(Color.TRANSPARENT); // Set the background white
-            if (android.os.Build.VERSION.SDK_INT > 20)
-                pV.setElevation(200); // Set elevation if SDK > 20
-            int newID = pV.generateViewId(); // Generate a new unique ID
-            pV.setId(newID); // Set the ID here
-            pV.setSaveEnabled(true); // Make sure it saves its state
             pV.setOnClickListener(this); // Set the onClick listener to call back to the activity
-            pV.setContentDescription(getString(R.string.blockwatch_face));
-            RelativeLayout.LayoutParams paramsWatch = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT); // Set width and height
-            paramsWatch.addRule(RelativeLayout.BELOW, R.id.toolbar);
-            if (rotation == Surface.ROTATION_90
-                    || rotation == Surface.ROTATION_270) { // If it's in landscape mode,
-                paramsWatch.addRule(RelativeLayout.CENTER_HORIZONTAL);
-            }
-            pV.setLayoutParams(paramsWatch);
             layout.addView(pV); // Add the view to the fragment layout
+            if (refreshNow) {
+                pV.invalidate(); // If this was the result of swiping down, refresh the watch now
+            } else { // Otherwise, only refresh it once the minute changes.
+                long timeMs = System.currentTimeMillis();
+                long delayMs = INTERACTIVE_UPDATE_RATE_MS
+                        - (timeMs % INTERACTIVE_UPDATE_RATE_MS);
+                mUpdateTimeHandler
+                        .sendEmptyMessageDelayed(MSG_UPDATE_TIME, delayMs);
+            }
         }
 
         if (!data.isNull(7)) {
@@ -229,7 +251,7 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
             } else {
                 buttonPrice.setCompoundDrawables(null, null, img, null); // Put a trending button inside
                 paramsText.addRule(RelativeLayout.BELOW, pV.getId());
-                paramsText.addRule(RelativeLayout.ALIGN_LEFT, pV.getId());
+                paramsText.addRule(RelativeLayout.ALIGN_START, pV.getId());
             }
             buttonPrice.setLayoutParams(paramsText); // Apply the layout width and height
             buttonPrice.setText(formattedCurrentPrice);
@@ -240,6 +262,54 @@ public class BlockwatchFragment extends Fragment implements View.OnClickListener
                 }
             });
         }
+
+        ImageButton donateButton = (ImageButton) layout.findViewById(R.id.donate);
+        final Drawable QRCode;
+        QRCode = ContextCompat.getDrawable(getContext(), R.mipmap.donate_qr);
+
+        RelativeLayout.LayoutParams paramsQR = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT); // Set width and height
+        if ((rotation == Surface.ROTATION_90
+                || rotation == Surface.ROTATION_270) && !isTablet) { // If it's in landscape mode and not a tablet,
+            paramsQR.addRule(RelativeLayout.END_OF, pV.getId());
+            paramsQR.addRule(RelativeLayout.CENTER_VERTICAL, pV.getId());
+        }   else{
+            paramsQR.addRule(RelativeLayout.BELOW, pV.getId());
+            paramsQR.addRule(RelativeLayout.ALIGN_END, pV.getId());
+        }
+        donateButton.setLayoutParams(paramsQR);
+        donateButton.setImageDrawable(QRCode);
+
+        donateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setView(getActivity().getLayoutInflater().inflate(R.layout.donate_layout, null))
+                        .setNegativeButton(R.string.dont_donate, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        })
+                        .setPositiveButton(R.string.copy_address, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+                                android.content.ClipData clip = android.content.ClipData.newPlainText("Copied Donation Address", getString(R.string.address_hash));
+                                clipboard.setPrimaryClip(clip);
+                                Toast toast = Toast.makeText(getActivity(), getString(R.string.address_copied), Toast.LENGTH_LONG);
+                                try {
+                                    ((TextView) ((LinearLayout) toast.getView()).getChildAt(0))
+                                            .setGravity(Gravity.CENTER_HORIZONTAL);
+                                } catch (ClassCastException e) {
+                                    Log.d("Watch Fragment", "Toast not cast correctly");
+                                }
+                                toast.show();
+                            }
+                        });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
     }
 
     /**

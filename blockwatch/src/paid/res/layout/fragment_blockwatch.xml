@@ -1,29 +1,37 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/watch_fragment_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_below="@id/toolbar"
     android:contentDescription="@string/watch_fragment"
     android:descendantFocusability="blocksDescendants"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    android:layout_below="@id/toolbar"
     tools:context="com.example.blockwatch.MainActivity">
 
     <Button
         android:id="@+id/current_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/current_price"
-        android:textAlignment="center"
-        android:background="@color/md_white_1000"
-        android:textSize="30sp"
         android:layout_margin="16dp"
+        android:background="@color/md_white_1000"
+        android:contentDescription="@string/current_price"
+        android:drawablePadding="8dp"
+        android:elevation="8dp"
         android:paddingEnd="16dp"
         android:paddingStart="16dp"
-        android:drawablePadding="8dp"
+        android:textAlignment="center"
+        android:textSize="30sp" />
+
+    <ImageButton
+        android:id="@+id/donate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/md_white_1000"
+        android:contentDescription="@string/donate"
         android:elevation="8dp" />
+
 </RelativeLayout>
 
 
