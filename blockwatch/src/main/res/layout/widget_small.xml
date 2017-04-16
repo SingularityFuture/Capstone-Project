@@ -1,49 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/md_black_1000"
     android:contentDescription="@string/widget_layout"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:padding="4dp"
-    android:windowIsTranslucent="true"
-    android:background="@color/md_white_1000">
+    android:windowIsTranslucent="true">
+
+    <TextView
+        android:id="@+id/widget_current_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:contentDescription="@string/widget_current_price"
+        android:drawablePadding="16dp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textSize="16sp" />
 
     <ImageView
-        android:id="@+id/widget_icon"
+        android:id="@+id/widget_trend"
         android:layout_width="@dimen/list_icon"
         android:layout_height="@dimen/list_icon"
+        android:layout_below="@id/widget_current_price"
+        android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:contentDescription="@string/blockwatch_icon"
         android:gravity="center"
-        tools:src="@mipmap/color_wheel" />
+        android:padding="4dp" />
 
-    <LinearLayout
+
+    <TextView
+        android:id="@+id/widget_percentage_change"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/widget_price_info">
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/widget_trend"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:contentDescription="@string/widget_percentage_change"
+        android:gravity="center"
+        android:nextFocusUp="@id/widget_current_price"
+        android:textAlignment="center"
+        android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/widget_current_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/widget_current_price"
-            android:nextFocusUp="@id/widget_icon"
-            android:textAlignment="center"
-            android:textSize="16sp"
-            android:alpha="255"/>
-
-        <TextView
-            android:id="@+id/widget_percentage_change"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/widget_percentage_change"
-            android:gravity="center"
-            android:nextFocusUp="@id/widget_current_price"
-            android:textSize="12sp"/>
-
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>

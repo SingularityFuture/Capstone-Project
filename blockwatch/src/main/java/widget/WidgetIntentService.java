@@ -101,18 +101,19 @@ public class WidgetIntentService extends IntentService {
             views.setTextViewText(R.id.widget_percentage_change, formattedPercentageChange);
             if (data.getDouble(INDEX_COLUMN_PRICE) < price_array[price_array.length - 1][1]) { // If today's price is currently less than yesterday's closing price
                 // Add the data to the RemoteViews
-                views.setImageViewResource(R.id.widget_icon, R.mipmap.red_md_circle);
+                //views.setImageViewResource(R.id.widget_icon, R.mipmap.red_md_circle);
                 views.setTextColor(R.id.widget_current_price, ContextCompat.getColor(getApplicationContext(), R.color.md_red_500)); // Color the price red
                 views.setTextColor(R.id.widget_percentage_change, ContextCompat.getColor(getApplicationContext(), R.color.md_red_500)); // Color the price red
                 img = R.mipmap.trending_down;
             } else {
                 // Add the data to the RemoteViews
-                views.setImageViewResource(R.id.widget_icon, R.mipmap.green_md_circle);
+                //views.setImageViewResource(R.id.widget_icon, R.mipmap.green_md_circle);
                 views.setTextColor(R.id.widget_current_price, ContextCompat.getColor(getApplicationContext(), R.color.md_light_green_500)); // Color the price red
                 views.setTextColor(R.id.widget_percentage_change, ContextCompat.getColor(getApplicationContext(), R.color.md_light_green_500)); // Color the price red
                 img = R.mipmap.trending_up;
             }
-            views.setTextViewCompoundDrawables(R.id.widget_current_price, 0, 0, 0, img);
+            //views.setTextViewCompoundDrawables(R.id.widget_current_price, 0, 0, img, 0);
+            views.setImageViewResource(R.id.widget_trend, img);
 
             // Content Descriptions for RemoteViews were only added in ICS MR1
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
@@ -132,6 +133,6 @@ public class WidgetIntentService extends IntentService {
 
     @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
     private void setRemoteContentDescription(RemoteViews views, String description) {
-        views.setContentDescription(R.id.widget_icon, description);
+        views.setContentDescription(R.id.widget, description);
     }
 }

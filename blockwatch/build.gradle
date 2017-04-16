@@ -90,4 +90,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:10.2.0'
 
     compile 'com.firebase:firebase-jobdispatcher:0.6.0'
+
+    compile 'com.github.paolorotolo:appintro:4.1.0'
+
 }

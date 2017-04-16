@@ -41,13 +41,6 @@
       <sourceFolder url="file://$MODULE_DIR$/src/paidDebug/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/paidDebug/rs" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/paidDebug/shaders" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testPaidDebug/res" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testPaidDebug/resources" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testPaidDebug/assets" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testPaidDebug/aidl" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testPaidDebug/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testPaidDebug/rs" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/testPaidDebug/shaders" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/r/androidTest/paid/debug" isTestSource="true" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/aidl/androidTest/paid/debug" isTestSource="true" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/buildConfig/androidTest/paid/debug" isTestSource="true" generated="true" />
@@ -55,6 +48,13 @@
       <sourceFolder url="file://$MODULE_DIR$/build/generated/source/apt/androidTest/paid/debug" isTestSource="true" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/res/rs/androidTest/paid/debug" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/build/generated/res/resValues/androidTest/paid/debug" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testPaidDebug/res" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testPaidDebug/resources" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testPaidDebug/assets" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testPaidDebug/aidl" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testPaidDebug/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testPaidDebug/rs" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/testPaidDebug/shaders" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/paid/res" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/paid/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/paid/assets" type="java-resource" />
@@ -157,6 +157,7 @@
     <orderEntry type="library" exported="" name="support-core-utils-25.3.0" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="jsr305-2.0.1" level="project" />
     <orderEntry type="library" exported="" name="support-fragment-25.3.0" level="project" />
+    <orderEntry type="library" exported="" name="appintro-4.1.0" level="project" />
     <orderEntry type="library" exported="" scope="TEST" name="espresso-core-2.2.2" level="project" />
     <orderEntry type="library" exported="" name="preference-v7-25.3.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-ads-10.2.0" level="project" />

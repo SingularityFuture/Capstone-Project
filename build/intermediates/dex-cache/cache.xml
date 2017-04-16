@@ -3,6 +3,15 @@
 
     <item
         is-multidex="true"
+        jar="C:\Users\test\.android\build-cache\b459b440b5e0785e10e60d561f84e227891e6920\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="461cd433c2723981c7536d60acfcf3d86f3105fb">
+        <dex dex="C:\Users\test\AndroidStudioProjects\Capstone-Project\blockwatch\build\intermediates\transforms\dex\paid\debug\folders\1000\10\classes_27c6e4d6e47cb19781602d82029d59674171f32e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="C:\Users\test\AndroidStudioProjects\Capstone-Project\blockwatch\build\intermediates\incremental-classes\free\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
