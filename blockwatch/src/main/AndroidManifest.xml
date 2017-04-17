@@ -56,6 +56,9 @@
             android:label="@string/preference_with_headers"
             android:theme="@style/PreferenceThemeOverlay"></activity>
 
+        <activity android:name=".IntroSlidesClass"
+            android:label="@string/app_intro" />
+
         <provider
             android:name="data.BlockProvider"
             android:authorities="com.example.blockwatch"

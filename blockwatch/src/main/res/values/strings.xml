@@ -210,5 +210,6 @@
     <string name="visit_bitcoin_website">Go to Bitcoin.org</string>
     <string name="widget_percentage_change">Percentage Change in Price</string>
     <string name="widget_current_price">Current Price in USD</string>
+    <string name="app_intro">Introduction to Blockwatch</string>
 
 </resources>

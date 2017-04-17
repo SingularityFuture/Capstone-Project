@@ -43,7 +43,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="3ae0203e5da53ccca0a6b566c23977e21fcdcabd">
+        sha1="b04725e284c39d2ff48cc7a2badbcc85e96203c7">
         <dex dex="C:\Users\test\AndroidStudioProjects\Capstone-Project\blockwatch\build\intermediates\transforms\dex\paid\debug\folders\1000\10000\instant-run-bootstrap_bcd5a3f5ec510a124aa93248123494a183971c3f\classes.dex" />
     </item>
 

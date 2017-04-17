@@ -2,6 +2,7 @@ package com.example.blockwatch;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -50,6 +51,33 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
 
         PreferenceManager.setDefaultValues(this, R.xml.advanced_preferences, false);
 
+        //  Declare a new thread to do a preference check
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //  Initialize SharedPreferences
+                SharedPreferences getPrefs = PreferenceManager
+                        .getDefaultSharedPreferences(getBaseContext());
+                //  Create a new boolean and preference and set it to true
+                boolean isFirstStart = getPrefs.getBoolean("firstStart", true);
+                //  If the activity has never started before...
+                if (isFirstStart) {
+                    //  Launch app intro
+                    Intent i = new Intent(MainActivity.this, IntroSlidesClass.class);
+                    startActivity(i);
+                    //  Make a new preferences editor
+                    SharedPreferences.Editor e = getPrefs.edit();
+                    //  Edit preference to make it false because we don't want this to run again
+                    e.putBoolean("firstStart", false);
+                    //  Apply changes
+                    e.apply();
+                }
+            }
+        });
+
+        // Start the thread
+        t.start();
+
         if (getSupportFragmentManager().findFragmentByTag(WATCH_FRAGMENT_TAG) == null) { // If the fragment doesn't exist yet,
 
             BlockwatchSyncAdapter.initializeSyncAdapter(this);
@@ -85,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
         }
         MobileAds.initialize(getApplicationContext(), "ca-app-pub-3940256099942544~3347511713");
 
-        if(isTablet){
+        if (isTablet) {
             // Load the ad here since it doesn't depend on the loader finishing loading
             AdView mAdView = (AdView) findViewById(R.id.adViewTabletOnly);
             // Create an ad request. Check logcat output for the hashed device ID to
@@ -161,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
     public void onRefresh() {
         Log.i(LOG_TAG, "onRefresh called from SwipeRefreshLayout");
         Snackbar snackbar = Snackbar.make(mSwipeRefreshLayout, R.string.fab_text, Snackbar.LENGTH_LONG);
-                snackbar.setAction("action", null).show();
+        snackbar.setAction("action", null).show();
         View snackView = snackbar.getView();
         TextView snackText = (TextView) snackView.findViewById(android.support.design.R.id.snackbar_text); // Center the snackbar text
         snackText.setGravity(Gravity.CENTER);
