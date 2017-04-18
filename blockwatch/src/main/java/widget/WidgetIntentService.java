@@ -11,19 +11,14 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
-import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.RemoteViews;
-import android.widget.TextView;
 
 import com.example.blockwatch.MainActivity;
 import com.example.blockwatch.R;
 
 import org.json.JSONException;
-import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -74,7 +69,7 @@ public class WidgetIntentService extends IntentService {
             NumberFormat formatter = new DecimalFormat("#0.00");
             formatter.setMinimumFractionDigits(2);
             formatter.setMaximumFractionDigits(2);
-            formattedCurrentPrice = formatter.format(data.getDouble(INDEX_COLUMN_PRICE)); // Get the current price
+            formattedCurrentPrice = "$" + formatter.format(data.getDouble(INDEX_COLUMN_PRICE)); // Get the current price
         }
         if (!data.isNull(1)) {
             priceHistoryJSON = data.getString(INDEX_COLUMN_PRICE_HISTORY); // Get the price history
