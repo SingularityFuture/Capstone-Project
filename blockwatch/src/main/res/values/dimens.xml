@@ -6,7 +6,7 @@
 
     <!-- Widget -->
     <dimen name="widget_margin">8dp</dimen>
-    <dimen name="widget_default_width">90dp</dimen>
+    <dimen name="widget_default_width">120dp</dimen>
     <dimen name="widget_default_height">60dp</dimen>
     <dimen name="list_icon">30dp</dimen>
 </resources>
