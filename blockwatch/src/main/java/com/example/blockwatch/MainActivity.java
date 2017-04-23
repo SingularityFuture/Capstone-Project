@@ -37,8 +37,7 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
     boolean isTablet; // Track whether this is a tablet
     private Fragment watchFragment; // Declare the fragment you will include
     private Fragment transactionFragment; // Declare the fragment you will include
-    private SwipeRefreshLayout mSwipeRefreshLayout; // Declare the container for the swip refresh action
-    View rootView; // Declare rootView
+    private SwipeRefreshLayout mSwipeRefreshLayout; // Declare the container for the swipe refresh action
     private static final String LOG_TAG = BlockwatchFragment.class.getSimpleName();
 
     @Override
@@ -78,12 +77,30 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
         // Start the thread
         t.start();
 
+        // Retrieve the SwipeRefreshLayout and ListView instances
+        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        // Set the color scheme of the SwipeRefreshLayout by providing 4 color resource ids
+        mSwipeRefreshLayout.setColorSchemeColors( // Set the colors to the ones the user has set in preferences
+                PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(hour_one_color), ContextCompat.getColor(this, R.color.md_red_500)),
+                PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(hour_two_color), ContextCompat.getColor(this, R.color.md_red_500)),
+                PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(minute_one_color), ContextCompat.getColor(this, R.color.md_red_500)),
+                PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(minute_two_color), ContextCompat.getColor(this, R.color.md_red_500)));
+        mSwipeRefreshLayout.setOnRefreshListener(this); // Set the refresh listener
+        mSwipeRefreshLayout.setProgressViewOffset(false, 168, 400); // Set where the progress circle starts and ends up
+        mSwipeRefreshLayout.setEnabled(true); // Make sure the swipe screen is enabled
+
         if (getSupportFragmentManager().findFragmentByTag(WATCH_FRAGMENT_TAG) == null) { // If the fragment doesn't exist yet,
 
             BlockwatchSyncAdapter.initializeSyncAdapter(this);
-
+            mSwipeRefreshLayout.setRefreshing(true);
             watchFragment = new BlockwatchFragment().newInstance(false); // Add the watch fragment here, passing the context as an implementation of the fragment listener
             getSupportFragmentManager().beginTransaction().add(R.id.blockwatch_fragment, watchFragment, WATCH_FRAGMENT_TAG).commit(); // Add the fragment to the transaction
+            mSwipeRefreshLayout.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mSwipeRefreshLayout.setRefreshing(false);
+                }
+            }, 3000);
 
         } else {
             watchFragment = getSupportFragmentManager().findFragmentByTag(WATCH_FRAGMENT_TAG); // Else if it exists
@@ -125,18 +142,6 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
                     .build();
             mAdView.loadAd(adRequest);
         }
-
-        // Retrieve the SwipeRefreshLayout and ListView instances
-        mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
-        // Set the color scheme of the SwipeRefreshLayout by providing 4 color resource ids
-        mSwipeRefreshLayout.setColorSchemeColors( // Set the colors to the ones the user has set in preferences
-                PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(hour_one_color), ContextCompat.getColor(this, R.color.md_red_500)),
-                PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(hour_two_color), ContextCompat.getColor(this, R.color.md_red_500)),
-                PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(minute_one_color), ContextCompat.getColor(this, R.color.md_red_500)),
-                PreferenceManager.getDefaultSharedPreferences(this).getInt(getResources().getString(minute_two_color), ContextCompat.getColor(this, R.color.md_red_500)));
-        mSwipeRefreshLayout.setOnRefreshListener(this); // Set the refresh listener
-        mSwipeRefreshLayout.setProgressViewOffset(false, 168, 400); // Set where the progress circle starts and ends up
-        mSwipeRefreshLayout.setEnabled(true); // Make sure the swipe screen is enabled
     }
 
     @Override
