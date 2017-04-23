@@ -237,9 +237,9 @@ public class PriceFragment extends Fragment implements LoaderManager.LoaderCallb
             NumberFormat percentFormat = NumberFormat.getPercentInstance();
             percentFormat.setMinimumFractionDigits(2);
             percentFormat.setMaximumFractionDigits(2);
-            String formattedPercentageChange = "("+percentFormat.format((data.getDouble(7) - price_array[price_array.length - 1][1])/price_array[price_array.length - 1][1])+")"; // Get the price percentage change from yesterday
+            String formattedPercentageChange = "("+percentFormat.format((data.getDouble(7) - entries.get(entries.size()-2).getY())/entries.get(entries.size()-2).getY())+")"; // Get the price percentage change from yesterday
 
-            if (data.getDouble(7) < price_array[price_array.length - 1][1]) { // If today's price is currently less than yesterday's closing price
+            if (data.getDouble(7) < entries.get(entries.size()-2).getY()) { // If today's price is currently less than yesterday's closing price
                 detailPrice.setTextColor(ContextCompat.getColor(getContext(), R.color.md_red_500)); // Color the price red
                 percentagePrice.setTextColor(ContextCompat.getColor(getContext(), R.color.md_red_500)); // Color the price red
                 Drawable img = ContextCompat.getDrawable(getContext(), R.mipmap.trending_down);

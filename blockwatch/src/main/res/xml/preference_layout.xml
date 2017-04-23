@@ -110,6 +110,13 @@
                     android:data="https://bitcoin.org/en/getting-started" />
             </Preference>
 
+            <Preference
+                android:selectable="false"
+                android:enabled="true"
+                android:key="@string/disclaimer_key"
+                android:title="@string/disclaimer_title"
+                android:summary="@string/disclaimer" />
+
         </PreferenceCategory>
 
     </PreferenceScreen>

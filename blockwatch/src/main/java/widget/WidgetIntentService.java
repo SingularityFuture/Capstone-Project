@@ -41,6 +41,7 @@ public class WidgetIntentService extends IntentService {
     String priceHistoryJSON = "";
     double[][] price_array = new double[365][365]; // Declare the array of historical prices
     String formattedPercentageChange = "";
+    double firstNonZero; // Holder for yesterday's price
 
     public WidgetIntentService() {
         super("WidgetIntentService");
@@ -81,7 +82,16 @@ public class WidgetIntentService extends IntentService {
             NumberFormat percentFormat = NumberFormat.getPercentInstance();
             percentFormat.setMinimumFractionDigits(2);
             percentFormat.setMaximumFractionDigits(2);
-            formattedPercentageChange = "("+percentFormat.format((data.getDouble(INDEX_COLUMN_PRICE) - price_array[price_array.length - 1][1])/price_array[price_array.length - 1][1])+")"; // Get the price percentage change from yesterday
+            int i;
+            firstNonZero = data.getDouble(INDEX_COLUMN_PRICE); // Initialize yesterday's price to today's in case you have trouble finding it below for some reason
+            for (i=price_array.length-1; i>0; i--) {
+                // Turn your data into Entry objects
+                if (price_array[i][1] != 0) {
+                    firstNonZero=price_array[i][1];
+                    break;
+                }
+            }
+            formattedPercentageChange = "("+percentFormat.format((data.getDouble(INDEX_COLUMN_PRICE) - firstNonZero)/firstNonZero)+")"; // Get the price percentage change from yesterday
         }
         String description = getApplicationContext().getString(R.string.Transaction);
 
@@ -94,20 +104,17 @@ public class WidgetIntentService extends IntentService {
             int img;
             views.setTextViewText(R.id.widget_current_price, formattedCurrentPrice);
             views.setTextViewText(R.id.widget_percentage_change, formattedPercentageChange);
-            if (data.getDouble(INDEX_COLUMN_PRICE) < price_array[price_array.length - 1][1]) { // If today's price is currently less than yesterday's closing price
+            if (data.getDouble(INDEX_COLUMN_PRICE) < firstNonZero) { // If today's price is currently less than yesterday's closing price
                 // Add the data to the RemoteViews
-                //views.setImageViewResource(R.id.widget_icon, R.mipmap.red_md_circle);
                 views.setTextColor(R.id.widget_current_price, ContextCompat.getColor(getApplicationContext(), R.color.md_red_500)); // Color the price red
                 views.setTextColor(R.id.widget_percentage_change, ContextCompat.getColor(getApplicationContext(), R.color.md_red_500)); // Color the price red
                 img = R.mipmap.trending_down;
             } else {
                 // Add the data to the RemoteViews
-                //views.setImageViewResource(R.id.widget_icon, R.mipmap.green_md_circle);
                 views.setTextColor(R.id.widget_current_price, ContextCompat.getColor(getApplicationContext(), R.color.md_light_green_500)); // Color the price red
                 views.setTextColor(R.id.widget_percentage_change, ContextCompat.getColor(getApplicationContext(), R.color.md_light_green_500)); // Color the price red
                 img = R.mipmap.trending_up;
             }
-            //views.setTextViewCompoundDrawables(R.id.widget_current_price, 0, 0, img, 0);
             views.setImageViewResource(R.id.widget_trend, img);
 
             // Content Descriptions for RemoteViews were only added in ICS MR1

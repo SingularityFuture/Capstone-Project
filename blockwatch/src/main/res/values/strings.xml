@@ -211,5 +211,7 @@
     <string name="widget_percentage_change">Percentage Change in Price</string>
     <string name="widget_current_price">Current Price in USD</string>
     <string name="app_intro">Introduction to Blockwatch</string>
-
+    <string name="disclaimer">All data comes from the blockchain.info API.\n\nThe content provided on this site is for information only and not intended as financial advice.</string>
+    <string name="disclaimer_key">Disclaimer Key</string>
+    <string name="disclaimer_title">Disclaimer</string>
 </resources>
