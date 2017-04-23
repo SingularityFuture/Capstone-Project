@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.blockwatch">
+    package="com.singularityfuture.blockwatch">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name="com.singularityfuture.blockwatch.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -42,26 +42,26 @@
             android:value="AIzaSyDMXAT4Yhe5wLNLiuzezokLNv2iZPgVytE" />
 
         <activity
-            android:name=".TransactionDetailActivity"
+            android:name="com.singularityfuture.blockwatch.TransactionDetailActivity"
             android:label="@string/transaction_detail"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <activity
-            android:name=".PriceDetailActivity"
+            android:name="com.singularityfuture.blockwatch.PriceDetailActivity"
             android:label="@string/price_detail"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <activity
-            android:name=".Preferences"
+            android:name="com.singularityfuture.blockwatch.Preferences"
             android:label="@string/preference_with_headers"
             android:theme="@style/PreferenceThemeOverlay"></activity>
 
-        <activity android:name=".IntroSlidesClass"
+        <activity android:name="com.singularityfuture.blockwatch.IntroSlidesClass"
             android:label="@string/app_intro" />
 
         <provider
             android:name="data.BlockProvider"
-            android:authorities="com.example.blockwatch"
+            android:authorities="com.singularityfuture.blockwatch"
             android:syncable="true"
             android:exported="true"
             android:label="blockwatch"></provider>
@@ -94,7 +94,7 @@
             android:label="@string/title_widget_">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="com.example.blockwatch.ACTION_DATA_UPDATED" />
+                <action android:name="com.singularityfuture.blockwatch.ACTION_DATA_UPDATED" />
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"

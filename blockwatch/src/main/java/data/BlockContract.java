@@ -19,7 +19,7 @@ public class BlockContract {
      * content authority is the package name for the app, which is guaranteed to be unique on the
      * Play Store.
      */
-    public static final String CONTENT_AUTHORITY = "com.example.blockwatch";
+    public static final String CONTENT_AUTHORITY = "com.singularityfuture.blockwatch";
 
     /*
      * Use CONTENT_AUTHORITY to create the base of all URI's which apps will use to contact

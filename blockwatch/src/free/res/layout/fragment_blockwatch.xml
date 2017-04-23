@@ -9,7 +9,7 @@
     android:focusableInTouchMode="true"
     android:orientation="vertical"
     android:layout_below="@id/toolbar"
-    tools:context="com.example.blockwatch.MainActivity">
+    tools:context="com.singularityfuture.blockwatch.com.singularityfuture.blockwatch.MainActivity">
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"

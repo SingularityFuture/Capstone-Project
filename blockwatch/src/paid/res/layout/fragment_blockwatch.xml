@@ -8,7 +8,7 @@
     android:descendantFocusability="blocksDescendants"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    tools:context="com.example.blockwatch.MainActivity">
+    tools:context="com.singularityfuture.blockwatch.MainActivity">
 
     <Button
         android:id="@+id/current_price"

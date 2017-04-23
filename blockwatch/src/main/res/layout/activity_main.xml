@@ -13,7 +13,7 @@
         android:background="@color/md_white_1000"
         android:contentDescription="@string/blockwatch_main_screen"
         android:orientation="vertical"
-        tools:context="com.example.blockwatch.MainActivity">
+        tools:context="com.singularityfuture.blockwatch.com.singularityfuture.blockwatch.MainActivity">
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
@@ -45,12 +45,12 @@
 
                 <FrameLayout
                     android:id="@+id/blockwatch_fragment"
-                    android:name="com.example.blockwatch.BlockwatchFragment"
+                    android:name="com.singularityfuture.blockwatch.BlockwatchFragment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/watch_face"
                     android:nextFocusUp="@id/toolbar"
-                    tools:context="com.example.blockwatch.BlockwatchFragment"
+                    tools:context="com.singularityfuture.blockwatch.com.singularityfuture.blockwatch.BlockwatchFragment"
                     tools:layout="@layout/fragment_blockwatch" />
 
             </ScrollView>

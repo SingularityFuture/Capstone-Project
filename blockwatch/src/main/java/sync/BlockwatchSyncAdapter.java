@@ -18,7 +18,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.example.blockwatch.R;
+import com.singularityfuture.blockwatch.R;
 
 import java.net.URL;
 
@@ -34,7 +34,7 @@ public class BlockwatchSyncAdapter extends AbstractThreadedSyncAdapter {
     public static final long SYNC_INTERVAL = 5;
     public static final long SYNC_FLEXTIME = SYNC_INTERVAL / 3;
     public static final String ACTION_DATA_UPDATED =
-            "com.example.blockwatch.ACTION_DATA_UPDATED";
+            "com.example.com.ACTION_DATA_UPDATED";
     private static final String LATITUDE = "latitude";
     private static final String LONGITUDE = "longitude";
     private static final String RELAYED_BY = "relayed_by";

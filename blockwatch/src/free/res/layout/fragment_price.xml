@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:contentDescription="@string/price_fragment"
-    tools:context="com.example.blockwatch.PriceFragment">
+    tools:context="com.singularityfuture.blockwatch.com.singularityfuture.blockwatch.PriceFragment">
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adViewDetailPrice"

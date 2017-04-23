@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-//import com.example.blockwatch.data.BlockContract.BlockEntry;
+//import com.example.com.data.BlockContract.BlockEntry;
 
 /**
  * Manages a local database for block data.

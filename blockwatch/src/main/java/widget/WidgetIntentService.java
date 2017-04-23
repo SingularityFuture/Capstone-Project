@@ -15,8 +15,8 @@ import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.widget.RemoteViews;
 
-import com.example.blockwatch.MainActivity;
-import com.example.blockwatch.R;
+import com.singularityfuture.blockwatch.MainActivity;
+import com.singularityfuture.blockwatch.R;
 
 import org.json.JSONException;
 

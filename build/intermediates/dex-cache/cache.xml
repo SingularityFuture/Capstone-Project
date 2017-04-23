@@ -3,33 +3,6 @@
 
     <item
         is-multidex="true"
-        jar="C:\Users\test\.android\build-cache\b459b440b5e0785e10e60d561f84e227891e6920\output\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="461cd433c2723981c7536d60acfcf3d86f3105fb">
-        <dex dex="C:\Users\test\AndroidStudioProjects\Capstone-Project\blockwatch\build\intermediates\transforms\dex\paid\debug\folders\1000\10\classes_27c6e4d6e47cb19781602d82029d59674171f32e\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\test\AndroidStudioProjects\Capstone-Project\blockwatch\build\intermediates\incremental-classes\free\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="ab29c2136c80716735b39163e46f88f9bfae8e07">
-        <dex dex="C:\Users\test\AndroidStudioProjects\Capstone-Project\blockwatch\build\intermediates\transforms\dex\free\debug\folders\1000\10000\instant-run-bootstrap_64a096a6e520bd3a9fb350b904ff1bb1e2672077\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\test\AndroidStudioProjects\Capstone-Project\blockwatch\build\intermediates\incremental-runtime-classes\paid\debug\instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="510aa6efc159983dfbffa676a0dae37568c0a46f">
-        <dex dex="C:\Users\test\AndroidStudioProjects\Capstone-Project\blockwatch\build\intermediates\transforms\dex\paid\debug\folders\1000\10000\instant-run_0a0df71a84c3246b48a0768f7d3d6118ba065e78\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="C:\Users\test\AndroidStudioProjects\Capstone-Project\blockwatch\build\intermediates\incremental-runtime-classes\free\debug\instant-run.jar"
         jumboMode="true"
         optimize="true"
@@ -39,12 +12,12 @@
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\test\AndroidStudioProjects\Capstone-Project\blockwatch\build\intermediates\incremental-classes\paid\debug\instant-run-bootstrap.jar"
+        jar="C:\Users\test\AndroidStudioProjects\Capstone-Project\blockwatch\build\intermediates\incremental-classes\free\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="b04725e284c39d2ff48cc7a2badbcc85e96203c7">
-        <dex dex="C:\Users\test\AndroidStudioProjects\Capstone-Project\blockwatch\build\intermediates\transforms\dex\paid\debug\folders\1000\10000\instant-run-bootstrap_bcd5a3f5ec510a124aa93248123494a183971c3f\classes.dex" />
+        sha1="8ad32cbf4fa46e18442510d3ae9d91bac4db500d">
+        <dex dex="C:\Users\test\AndroidStudioProjects\Capstone-Project\blockwatch\build\intermediates\transforms\dex\free\debug\folders\1000\10000\instant-run-bootstrap_64a096a6e520bd3a9fb350b904ff1bb1e2672077\classes.dex" />
     </item>
 
 </items>

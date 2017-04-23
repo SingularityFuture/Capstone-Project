@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:contentDescription="@string/preferences_main_screen"
     android:fitsSystemWindows="true"
-    tools:context="com.example.blockwatch.Preferences">
+    tools:context="com.singularityfuture.blockwatch.com.singularityfuture.blockwatch.Preferences">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -26,13 +26,13 @@
 
     <FrameLayout
         android:id="@+id/settings_content"
-        android:name="com.example.blockwatch.Pref1Fragment"
+        android:name="com.singularityfuture.blockwatch.Pref1Fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/settings_toolbar"
         android:layout_marginTop="?android:attr/actionBarSize"
         android:contentDescription="@string/settings_fragment"
         android:nextFocusUp="@id/settings_toolbar"
-        tools:context="com.example.blockwatch.Preferences"
+        tools:context="com.singularityfuture.blockwatch.com.singularityfuture.blockwatch.Preferences"
         />
 </android.support.design.widget.CoordinatorLayout>

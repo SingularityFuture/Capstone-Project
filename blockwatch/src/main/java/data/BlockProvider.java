@@ -50,7 +50,7 @@ public class BlockProvider extends ContentProvider {
          * they aren't going to change.
          */
 
-        /* This URI is content://com.example.blockwatch/transaction/
+        /* This URI is content://com.example.com/transaction/
         */
         matcher.addURI(authority, BlockContract.PATH_TRANSACTION, CODE_TRANSACTION);
 
@@ -161,7 +161,7 @@ public class BlockProvider extends ContentProvider {
             /*
              * When sUriMatcher's match method is called with a URI that looks EXACTLY like this
              *
-             *      content://com.example.blockwatch/transaction/
+             *      content://com.example.com/transaction/
              *
              * sUriMatcher's match method will return the code that indicates to us that we need
              * to return all of the data in our block table.

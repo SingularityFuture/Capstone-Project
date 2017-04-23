@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.blockwatch.TransactionDetailActivity">
+    tools:context="com.singularityfuture.blockwatch.com.singularityfuture.blockwatch.TransactionDetailActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -26,12 +26,12 @@
 
     <FrameLayout
         android:id="@+id/price_fragment"
-        android:name="com.example.blockwatch.PriceFragment"
+        android:name="com.singularityfuture.blockwatch.PriceFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="?android:attr/actionBarSize"
         android:contentDescription="@string/price_frame"
-        tools:context="com.example.blockwatch.PriceFragment"
+        tools:context="com.singularityfuture.blockwatch.com.singularityfuture.blockwatch.PriceFragment"
         tools:layout="@layout/fragment_price" />
 
 </android.support.design.widget.CoordinatorLayout>
