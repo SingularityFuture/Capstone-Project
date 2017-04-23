@@ -11,84 +11,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3b0acacc-b6d0-480b-9864-c3297a4a65ec" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-06-10-10-49-397.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-06-12-02-07-914.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-06-12-02-18-671.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-06-12-33-15-377.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-06-12-33-36-869.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-06-14-44-48-494.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-06-14-48-08-550.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-06-14-49-41-310.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-06-15-17-42-270.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-06-15-19-14-732.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-06-15-20-11-627.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-06-15-20-56-480.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-06-15-24-24-222.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-06-15-32-33-313.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-06-15-46-00-805.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-06-15-49-30-396.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-06-17-03-23-541.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-06-17-24-22-262.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-06-17-26-41-701.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-06-17-29-08-925.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-06-17-35-15-353.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-06-17-38-49-156.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-06-17-39-50-253.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-07-10-32-42-166.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-07-10-43-40-585.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-07-10-47-37-816.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-07-10-49-09-147.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-07-10-52-26-352.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-07-11-05-37-514.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/android-profile/profile-2017-04-07-11-22-16-311.rawproto" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/generated/mockable-android-25.jar" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/blockwatch/src/androidTest/java/com/example/blockwatch/ExampleInstrumentedTest.java" afterPath="$PROJECT_DIR$/blockwatch/src/androidTest/java/com/singularityfuture/blockwatch/ExampleInstrumentedTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/blockwatch/src/free/java/com.example.blockwatch/BlockwatchFragment.java" afterPath="$PROJECT_DIR$/blockwatch/src/free/java/com/singularityfuture/blockwatch/BlockwatchFragment.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/blockwatch/src/free/java/com.example.blockwatch/PaintView.java" afterPath="$PROJECT_DIR$/blockwatch/src/free/java/com/singularityfuture/blockwatch/PaintView.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/blockwatch/src/free/java/com.example.blockwatch/PriceFragment.java" afterPath="$PROJECT_DIR$/blockwatch/src/free/java/com/singularityfuture/blockwatch/PriceFragment.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/blockwatch/src/free/java/com.example.blockwatch/TransactionFragment.java" afterPath="$PROJECT_DIR$/blockwatch/src/free/java/com/singularityfuture/blockwatch/TransactionFragment.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/blockwatch/src/main/java/com/example/blockwatch/ExternalColorChangePreference.java" afterPath="$PROJECT_DIR$/blockwatch/src/main/java/com/singularityfuture/blockwatch/ExternalColorChangePreference.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/blockwatch/src/main/java/com/example/blockwatch/IntroSlidesClass.java" afterPath="$PROJECT_DIR$/blockwatch/src/main/java/com/singularityfuture/blockwatch/IntroSlidesClass.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/blockwatch/src/main/java/com/example/blockwatch/MainActivity.java" afterPath="$PROJECT_DIR$/blockwatch/src/main/java/com/singularityfuture/blockwatch/MainActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/blockwatch/src/main/java/com/example/blockwatch/Preferences.java" afterPath="$PROJECT_DIR$/blockwatch/src/main/java/com/singularityfuture/blockwatch/Preferences.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/blockwatch/src/main/java/com/example/blockwatch/PriceDetailActivity.java" afterPath="$PROJECT_DIR$/blockwatch/src/main/java/com/singularityfuture/blockwatch/PriceDetailActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/blockwatch/src/main/java/com/example/blockwatch/TransactionDetailActivity.java" afterPath="$PROJECT_DIR$/blockwatch/src/main/java/com/singularityfuture/blockwatch/TransactionDetailActivity.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/blockwatch/src/paid/java/com/example/blockwatch/BlockwatchFragment.java" afterPath="$PROJECT_DIR$/blockwatch/src/paid/java/com/singularityfuture/blockwatch/BlockwatchFragment.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/blockwatch/src/paid/java/com/example/blockwatch/PaintView.java" afterPath="$PROJECT_DIR$/blockwatch/src/paid/java/com/singularityfuture/blockwatch/PaintView.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/blockwatch/src/paid/java/com/example/blockwatch/PriceFragment.java" afterPath="$PROJECT_DIR$/blockwatch/src/paid/java/com/singularityfuture/blockwatch/PriceFragment.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/blockwatch/src/paid/java/com/example/blockwatch/TransactionFragment.java" afterPath="$PROJECT_DIR$/blockwatch/src/paid/java/com/singularityfuture/blockwatch/TransactionFragment.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/blockwatch/src/test/java/com/example/blockwatch/ExampleUnitTest.java" afterPath="$PROJECT_DIR$/blockwatch/src/test/java/com/singularityfuture/blockwatch/ExampleUnitTest.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/blockwatchface/src/main/java/com/example/blockwatchface/BlockWatchFaceService.java" afterPath="$PROJECT_DIR$/blockwatchface/src/main/java/com/singularityfuture/blockwatchface/BlockWatchFaceService.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatch/blockwatch.iml" afterPath="$PROJECT_DIR$/blockwatch/blockwatch.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatch/build.gradle" afterPath="$PROJECT_DIR$/blockwatch/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatch/src/free/res/layout/fragment_blockwatch.xml" afterPath="$PROJECT_DIR$/blockwatch/src/free/res/layout/fragment_blockwatch.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatch/src/free/res/layout/fragment_price.xml" afterPath="$PROJECT_DIR$/blockwatch/src/free/res/layout/fragment_price.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatch/src/free/res/layout/fragment_transaction.xml" afterPath="$PROJECT_DIR$/blockwatch/src/free/res/layout/fragment_transaction.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatch/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/blockwatch/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatch/src/main/java/data/BlockContract.java" afterPath="$PROJECT_DIR$/blockwatch/src/main/java/data/BlockContract.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatch/src/main/java/data/BlockDbHelper.java" afterPath="$PROJECT_DIR$/blockwatch/src/main/java/data/BlockDbHelper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatch/src/main/java/data/BlockProvider.java" afterPath="$PROJECT_DIR$/blockwatch/src/main/java/data/BlockProvider.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatch/src/main/java/sync/BlockwatchSyncAdapter.java" afterPath="$PROJECT_DIR$/blockwatch/src/main/java/sync/BlockwatchSyncAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatch/src/main/java/widget/WidgetIntentService.java" afterPath="$PROJECT_DIR$/blockwatch/src/main/java/widget/WidgetIntentService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatch/src/main/res/layout-sw600dp/activity_main.xml" afterPath="$PROJECT_DIR$/blockwatch/src/main/res/layout-sw600dp/activity_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatch/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/blockwatch/src/main/res/layout/activity_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatch/src/main/res/layout/activity_price.xml" afterPath="$PROJECT_DIR$/blockwatch/src/main/res/layout/activity_price.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatch/src/main/res/layout/activity_transaction.xml" afterPath="$PROJECT_DIR$/blockwatch/src/main/res/layout/activity_transaction.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatch/src/main/res/layout/settings_layout.xml" afterPath="$PROJECT_DIR$/blockwatch/src/main/res/layout/settings_layout.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatch/src/main/res/menu/menu_main.xml" afterPath="$PROJECT_DIR$/blockwatch/src/main/res/menu/menu_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatch/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/blockwatch/src/main/res/values/strings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatch/src/paid/res/layout/fragment_blockwatch.xml" afterPath="$PROJECT_DIR$/blockwatch/src/paid/res/layout/fragment_blockwatch.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatch/src/paid/res/layout/fragment_price.xml" afterPath="$PROJECT_DIR$/blockwatch/src/paid/res/layout/fragment_price.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatch/src/paid/res/layout/fragment_transaction.xml" afterPath="$PROJECT_DIR$/blockwatch/src/paid/res/layout/fragment_transaction.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatchface/blockwatchface.iml" afterPath="$PROJECT_DIR$/blockwatchface/blockwatchface.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatchface/build.gradle" afterPath="$PROJECT_DIR$/blockwatchface/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatchface/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/blockwatchface/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" afterPath="$PROJECT_DIR$/build/intermediates/dex-cache/cache.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatch/src/main/java/com/singularityfuture/blockwatch/MainActivity.java" afterPath="$PROJECT_DIR$/blockwatch/src/main/java/com/singularityfuture/blockwatch/MainActivity.java" />
     </list>
     <ignored path="Capstone-Project.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -122,14 +51,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/blockwatch/src/main/java/com/singularityfuture/blockwatch/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="197">
-              <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+            <state relative-caret-position="231">
+              <caret line="100" column="33" selection-start-line="100" selection-start-column="33" selection-end-line="100" selection-end-column="33" />
               <folding>
                 <element signature="e#4790#4832#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BlockwatchFragment.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/blockwatch/src/free/java/com/singularityfuture/blockwatch/BlockwatchFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="76" column="7" selection-start-line="76" selection-start-column="7" selection-end-line="76" selection-end-column="7" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -4574,10 +4513,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="375" />
-    <option name="y" value="96" />
+    <option name="x" value="360" />
+    <option name="y" value="181" />
     <option name="width" value="1467" />
-    <option name="height" value="782" />
+    <option name="height" value="781" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -5125,13 +5064,6 @@
       <option name="presentableId" value="Default" />
       <updated>1487708967009</updated>
     </task>
-    <task id="LOCAL-00022" summary="Add accessibility features&#10;&#10;Add d-pad navigation and content descriptions to layout xml's.">
-      <created>1489677483079</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1489677483099</updated>
-    </task>
     <task id="LOCAL-00023" summary="Fixing layout for blockwatch fragment&#10;&#10;">
       <created>1489700990541</created>
       <option name="number" value="00023" />
@@ -5468,34 +5400,41 @@
       <option name="project" value="LOCAL" />
       <updated>1492963626275</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL-00071" summary="Rename package&#10;&#10;Add refresh to initial screen.  Fix manifest content provider authority.">
+      <created>1492976100980</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1492976100981</updated>
+    </task>
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="375" y="96" width="1467" height="782" extended-state="0" />
+    <frame x="360" y="181" width="1467" height="781" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2027439" sideWeight="0.3910891" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26083866" sideWeight="0.35459185" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26083866" sideWeight="0.35549873" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33619633" sideWeight="0.5172818" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3728" sideWeight="0.7789623" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37339744" sideWeight="0.7789623" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35460123" sideWeight="0.2770943" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2352" sideWeight="0.45557925" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33736762" sideWeight="0.49492753" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34251496" sideWeight="0.5139903" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26083866" sideWeight="0.64540815" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26083866" sideWeight="0.64450127" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3152" sideWeight="0.47405827" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20224719" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3728" sideWeight="0.22103767" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37339744" sideWeight="0.22103767" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -5573,7 +5512,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fix price chart&#10;&#10;Shows animated price history with percentage change" />
     <MESSAGE value="Fix layout of price and percentage in price chart" />
     <MESSAGE value="Animate price history chart data" />
     <MESSAGE value="Fix animation of price history" />
@@ -5598,7 +5536,8 @@
     <MESSAGE value="Simplify and fix widget layout" />
     <MESSAGE value="Add intro tutorial" />
     <MESSAGE value="Fix layout and color of intro slides." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix layout and color of intro slides." />
+    <MESSAGE value="Rename package&#10;&#10;Add refresh to initial screen.  Fix manifest content provider authority." />
+    <option name="LAST_COMMIT_MESSAGE" value="Rename package&#10;&#10;Add refresh to initial screen.  Fix manifest content provider authority." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -6056,14 +5995,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/blockwatch/src/free/java/com/singularityfuture/blockwatch/BlockwatchFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="204" column="32" selection-start-line="204" selection-start-column="31" selection-end-line="204" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/blockwatch/src/main/java/data/BlockExplorerClass.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -6095,11 +6026,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/blockwatch/src/main/java/com/singularityfuture/blockwatch/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+        <state relative-caret-position="231">
+          <caret line="100" column="33" selection-start-line="100" selection-start-column="33" selection-end-line="100" selection-end-column="33" />
           <folding>
             <element signature="e#4790#4832#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blockwatch/src/free/java/com/singularityfuture/blockwatch/BlockwatchFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="76" column="7" selection-start-line="76" selection-start-column="7" selection-end-line="76" selection-end-column="7" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -94,18 +94,8 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
         mSwipeRefreshLayout.setEnabled(true); // Make sure the swipe screen is enabled
 
         if (getSupportFragmentManager().findFragmentByTag(WATCH_FRAGMENT_TAG) == null) { // If the fragment doesn't exist yet,
-
-            //BlockwatchSyncAdapter.initializeSyncAdapter(this);
-            mSwipeRefreshLayout.setRefreshing(true);
             //watchFragment = new BlockwatchFragment().newInstance(false); // Add the watch fragment here, passing the context as an implementation of the fragment listener
             getSupportFragmentManager().beginTransaction().add(R.id.blockwatch_fragment, watchFragment, WATCH_FRAGMENT_TAG).commit(); // Add the fragment to the transaction
-            mSwipeRefreshLayout.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mSwipeRefreshLayout.setRefreshing(false);
-                }
-            }, 3000);
-
         } else {
             watchFragment = getSupportFragmentManager().findFragmentByTag(WATCH_FRAGMENT_TAG); // Else if it exists
             getSupportFragmentManager().beginTransaction().replace(R.id.blockwatch_fragment, watchFragment, WATCH_FRAGMENT_TAG).commit(); // Replace the fragment with the current one
