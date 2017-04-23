@@ -17,21 +17,12 @@ public class IntroSlidesClass  extends AppIntro {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Note here that we DO NOT use setContentView();
-
-        // Add your slide fragments here.
-        // AppIntro will automatically generate the dots indicator and buttons.
-/*        addSlide(firstFragment);
-        addSlide(secondFragment);
-        addSlide(thirdFragment);
-        addSlide(fourthFragment);*/
-
         // Instead of fragments, you can also use our default slide
         // Just set a title, description, background and image. AppIntro will do the rest.
-        addSlide(AppIntroFragment.newInstance("Welcome to Blockwatch", "The only Android watchface based on the Bitcoin Blockchain.", R.mipmap.color_wheel, ContextCompat.getColor(this,R.color.md_red_500)));
-        addSlide(AppIntroFragment.newInstance("Welcome to Blockwatch", "The only Android watchface based on the Bitcoin Blockchain.", R.mipmap.color_wheel, ContextCompat.getColor(this,R.color.md_light_green_500)));
-        addSlide(AppIntroFragment.newInstance("Welcome to Blockwatch", "The only Android watchface based on the Bitcoin Blockchain.", R.mipmap.color_wheel, ContextCompat.getColor(this,R.color.md_red_500)));
-
+        addSlide(AppIntroFragment.newInstance("Welcome to Blockwatch", "The only Android watchface based on the Bitcoin Blockchain\nEach wheel is a current transaction hash on the blockchain", R.drawable.onlywatch, ContextCompat.getColor(this,R.color.md_red_500)));
+        addSlide(AppIntroFragment.newInstance("Price History", "Click on the price to see Bitcoin's price history", R.drawable.price_history, ContextCompat.getColor(this,R.color.md_light_green_500)));
+        addSlide(AppIntroFragment.newInstance("Transaction IP Address Map", "Click on the Watch Wheel to see where the transaction hash was relayed", R.drawable.transaction_map, ContextCompat.getColor(this,R.color.md_blue_500)));
+        addSlide(AppIntroFragment.newInstance("Price Widget", "Add a widget to your screen to monitor the price", R.drawable.widget_full, ContextCompat.getColor(this,R.color.md_yellow_500)));
     }
 
     @Override
