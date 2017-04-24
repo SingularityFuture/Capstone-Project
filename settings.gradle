@@ -1,1 +1,1 @@
-include ':blockwatch', ':blockwatchface'
+include ':blockwatch'
