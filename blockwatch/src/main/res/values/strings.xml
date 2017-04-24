@@ -3,7 +3,8 @@
     <string name="action_settings">Settings</string>
     <string name="transaction_detail">Transaction Detail</string>
     <string name="fab_text">Transaction Hash Refreshed</string>
-    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+<!--    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>-->
+    <string name="banner_ad_unit_id">ca-app-pub-0730144369893618/9179460812</string>
     <string name="relayed_by">Relayed By: </string>
     <string name="tx_hash">TX Hash: </string>
     <string name="dummy_hash">b5357533bf43d6793aa24d91d6a01055128bff64730627bbb3a512b04d2e9043</string>

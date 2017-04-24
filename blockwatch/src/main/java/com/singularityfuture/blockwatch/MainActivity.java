@@ -18,7 +18,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.singularityfuture.blockwatch.R;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -122,7 +121,8 @@ public class MainActivity extends AppCompatActivity implements BlockwatchFragmen
                         .commit();
             }
         }
-        MobileAds.initialize(getApplicationContext(), "ca-app-pub-3940256099942544~3347511713");
+        //MobileAds.initialize(getApplicationContext(), "ca-app-pub-3940256099942544~3347511713");
+        MobileAds.initialize(getApplicationContext(), getString(R.string.banner_ad_unit_id));
 
         if (isTablet) {
             // Load the ad here since it doesn't depend on the loader finishing loading

@@ -95,10 +95,9 @@ public class WidgetIntentService extends IntentService {
         }
         String description = getApplicationContext().getString(R.string.Transaction);
 
-        // Perform this loop procedure for each Today widget
+        // Perform this loop procedure for each widget
         for (int appWidgetId : appWidgetIds) {
             int layoutId = R.layout.widget_small;
-            int iconResource = R.drawable.blockwatchicon;
             RemoteViews views = new RemoteViews(getPackageName(), layoutId);
 
             int img;
