@@ -29,17 +29,30 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.wearable.watchface.CanvasWatchFaceService;
 import android.support.wearable.watchface.WatchFaceStyle;
+import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.WindowInsets;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.wearable.DataApi;
+import com.google.android.gms.wearable.DataEvent;
+import com.google.android.gms.wearable.DataEventBuffer;
+import com.google.android.gms.wearable.DataItem;
+import com.google.android.gms.wearable.DataMap;
+import com.google.android.gms.wearable.DataMapItem;
+import com.google.android.gms.wearable.PutDataMapRequest;
+import com.google.android.gms.wearable.PutDataRequest;
+import com.google.android.gms.wearable.Wearable;
 
 import java.lang.ref.WeakReference;
 import java.util.Calendar;
+import java.util.Random;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
@@ -64,6 +77,7 @@ public class BlockWatchFaceService extends CanvasWatchFaceService {
     private static final String TAG = "BlockWatch Face Canvas";
     private static final int REQUEST_RESOLVE_ERROR = 1000;
     private static final String BITCOIN_PRICE = "com.singularityfuture.blockwatchface.key.bitcoinprice";
+    private static final String INSTALLED = "com.example.android.sunshine.key.installed";
 
     @Override
     public Engine onCreateEngine() {
@@ -115,6 +129,67 @@ public class BlockWatchFaceService extends CanvasWatchFaceService {
          * disable anti-aliasing in ambient mode.
          */
         boolean mLowBitAmbient;
+
+        private GoogleApiClient mGoogleApiClient;
+        private boolean mResolvingError;
+        private double bitcoin_price;
+
+        @Override
+        public void onConnected(@Nullable Bundle bundle) {
+            mResolvingError = false;
+            Wearable.DataApi.addListener(mGoogleApiClient, this);
+
+            PutDataMapRequest putDataMapReq = PutDataMapRequest.create("/blockwatchface_installed");
+            putDataMapReq.getDataMap().putInt(INSTALLED, new Random().nextInt());
+            PutDataRequest putDataReq = putDataMapReq.asPutDataRequest();
+            putDataReq.setUrgent();
+            Wearable.DataApi.putDataItem(mGoogleApiClient, putDataReq)
+                    .setResultCallback(new ResultCallback<DataApi.DataItemResult>() {
+                        @Override
+                        public void onResult(DataApi.DataItemResult dataItemResult) {
+                            Log.d(TAG, "Sending Install Status was successful: " + dataItemResult.getStatus()
+                                    .isSuccess());
+                        }
+                    });
+        }
+
+        @Override
+        public void onConnectionSuspended(int i) {
+            Log.d(TAG, "onConnectionSuspended");
+            Wearable.DataApi.removeListener(mGoogleApiClient, this);
+            mGoogleApiClient.disconnect();
+        }
+
+        @Override
+        public void onDataChanged(DataEventBuffer dataEvents) {
+            Log.d(TAG, "onDataChanged");
+            for (DataEvent event : dataEvents) {
+                if (event.getType() == DataEvent.TYPE_CHANGED) {
+                    // DataItem changed
+                    DataItem item = event.getDataItem();
+                    if (item.getUri().getPath().compareTo("/weather_info") == 0) {
+                        DataMap dataMap = DataMapItem.fromDataItem(item).getDataMap();
+                        bitcoin_price= dataMap.getInt(BITCOIN_PRICE);
+                        invalidate();
+                    }
+                } else if (event.getType() == DataEvent.TYPE_DELETED) {
+                    // DataItem deleted
+                }
+            }
+        }
+
+        @Override
+        public void onConnectionFailed(ConnectionResult connectionResult) {
+            Log.d(TAG, "onConnectionFailed");
+            if (!mResolvingError) {
+                if (connectionResult.hasResolution()) {
+                } else {
+                    Log.e(TAG, "Connection to Google API client has failed");
+                    mResolvingError = false;
+                    //Wearable.DataApi.removeListener(mGoogleApiClient, this);
+                }
+            }
+        }
 
         @Override
         public void onCreate(SurfaceHolder holder) {

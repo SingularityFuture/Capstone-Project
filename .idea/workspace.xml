@@ -73,10 +73,12 @@
       <file leaf-file-name="BlockWatchFaceService.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/blockwatchface/src/main/java/com/singularityfuture/blockwatchface/BlockWatchFaceService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="93" column="17" selection-start-line="93" selection-start-column="17" selection-end-line="93" selection-end-column="17" />
+            <state relative-caret-position="106">
+              <caret line="187" column="44" selection-start-line="187" selection-start-column="44" selection-end-line="187" selection-end-column="44" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#5712#6087#0" expanded="true" />
+                <element signature="e#6086#6087#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -4471,8 +4473,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="84" />
-    <option name="y" value="244" />
+    <option name="x" value="77" />
+    <option name="y" value="242" />
     <option name="width" value="1467" />
     <option name="height" value="781" />
   </component>
@@ -5058,13 +5060,6 @@
       <option name="presentableId" value="Default" />
       <updated>1487708967009</updated>
     </task>
-    <task id="LOCAL-00029" summary="Add preferences screen&#10;&#10;Allows user to set colors of time digit circles and whether the simple time shows below the big wheel.">
-      <created>1490301857471</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1490301857471</updated>
-    </task>
     <task id="LOCAL-00030" summary="Tweak preference screen and default options">
       <created>1490304569432</created>
       <option name="number" value="00030" />
@@ -5401,11 +5396,18 @@
       <option name="project" value="LOCAL" />
       <updated>1494092369361</updated>
     </task>
-    <option name="localTasksCounter" value="78" />
+    <task id="LOCAL-00078" summary="Make engine implement DataAPI and GoogleApiClient interfaces&#10;">
+      <created>1494092658235</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1494092658235</updated>
+    </task>
+    <option name="localTasksCounter" value="79" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="84" y="244" width="1467" height="781" extended-state="0" />
+    <frame x="77" y="242" width="1467" height="781" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -5506,7 +5508,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Clean up code and reset handler to update every minute&#10;&#10;Appears to be working, with a new hash showing the time, right on the minute!" />
     <MESSAGE value="Fix layout for table to include swiperefresh&#10;&#10;Didn't have the element in the tablet xml, causing it to crash!" />
     <MESSAGE value="Switch tablet layout to include weights for watch and map" />
     <MESSAGE value="Fixing tablet layout measurement issues" />
@@ -5531,7 +5532,8 @@
     <MESSAGE value="Fix version code" />
     <MESSAGE value="Add watch face module back" />
     <MESSAGE value="Eliminate old module with wrong package name" />
-    <option name="LAST_COMMIT_MESSAGE" value="Eliminate old module with wrong package name" />
+    <MESSAGE value="Make engine implement DataAPI and GoogleApiClient interfaces&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Make engine implement DataAPI and GoogleApiClient interfaces&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -5991,10 +5993,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/blockwatchface/src/main/java/com/singularityfuture/blockwatchface/BlockWatchFaceService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="93" column="17" selection-start-line="93" selection-start-column="17" selection-end-line="93" selection-end-column="17" />
+        <state relative-caret-position="106">
+          <caret line="187" column="44" selection-start-line="187" selection-start-column="44" selection-end-line="187" selection-end-column="44" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#5712#6087#0" expanded="true" />
+            <element signature="e#6086#6087#0" expanded="true" />
           </folding>
         </state>
       </provider>
