@@ -77,8 +77,8 @@ public class BlockWatchFaceService extends CanvasWatchFaceService {
      * Handler message id for updating the time periodically in interactive mode.
      */
     private static final int MSG_UPDATE_TIME = 0;
+
     private static final String TAG = "BlockWatch Face Canvas";
-    private static final int REQUEST_RESOLVE_ERROR = 1000;
     private static final String BITCOIN_PRICE = "com.singularityfuture.blockwatchface.key.bitcoinprice";
     private static final String INSTALLED = "com.example.android.sunshine.key.installed";
 

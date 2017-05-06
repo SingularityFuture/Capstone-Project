@@ -120,6 +120,7 @@
     <orderEntry type="library" exported="" name="transition-25.3.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-base-10.2.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-gass-10.2.0" level="project" />
+    <orderEntry type="library" exported="" name="play-services-wearable-10.0.1" level="project" />
     <orderEntry type="library" exported="" name="play-services-clearcut-10.2.0" level="project" />
     <orderEntry type="library" exported="" name="support-core-ui-25.3.0" level="project" />
     <orderEntry type="library" exported="" name="play-services-ads-lite-10.2.0" level="project" />

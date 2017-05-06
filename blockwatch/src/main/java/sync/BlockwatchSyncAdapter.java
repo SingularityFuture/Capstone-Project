@@ -18,7 +18,21 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.singularityfuture.blockwatch.R;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.wearable.DataApi;
+import com.google.android.gms.wearable.DataEvent;
+import com.google.android.gms.wearable.DataEventBuffer;
+import com.google.android.gms.wearable.DataItem;
+import com.google.android.gms.wearable.PutDataMapRequest;
+import com.google.android.gms.wearable.PutDataRequest;
+import com.google.android.gms.wearable.Wearable;
+
 
 import java.net.URL;
 
@@ -29,7 +43,7 @@ import utilities.TransactionJsonUtils;
 
 import static data.BlockExplorerClass.retrieveCurrentPrice;
 
-public class BlockwatchSyncAdapter extends AbstractThreadedSyncAdapter {
+public class BlockwatchSyncAdapter extends AbstractThreadedSyncAdapter implements DataApi.DataListener {
     // Interval at which to sync with the blockchain transaction, in seconds
     public static final long SYNC_INTERVAL = 5;
     public static final long SYNC_FLEXTIME = SYNC_INTERVAL / 3;
@@ -42,6 +56,11 @@ public class BlockwatchSyncAdapter extends AbstractThreadedSyncAdapter {
     private String currentHash;
     private double currentPrice;
     private static final String HISTORICAL_PRICES = "market-price";
+
+    private static final String TAG = "BlockWatch Face Canvas";
+    private static final String BITCOIN_PRICE = "com.singularityfuture.blockwatchface.key.bitcoinprice";
+    private static boolean mResolvingError = false;
+    private static GoogleApiClient mGoogleApiClient;
 
     public BlockwatchSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
@@ -215,7 +234,67 @@ public class BlockwatchSyncAdapter extends AbstractThreadedSyncAdapter {
 
                 // Call the service to update the widgets
                 updateWidgets();
+
+                /* If the code reaches this point, we have successfully performed our sync */
+                mGoogleApiClient = new GoogleApiClient.Builder(context)
+                        .addApi(Wearable.API)
+                        .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
+                            @Override
+                            public void onConnected (Bundle connectionHint){
+                                Log.d(TAG, "onConnected: " + connectionHint);
+                                mResolvingError = false;
+                                // Now you can use the Data Layer API
+                                Wearable.DataApi.addListener(mGoogleApiClient,sync_instance);
+                            }
+                            @Override
+                            public void onConnectionSuspended ( int cause){
+                                Log.d(TAG, "onConnectionSuspended: " + cause);
+                            }
+                        })
+                        .addOnConnectionFailedListener(new GoogleApiClient.OnConnectionFailedListener(){
+                            @Override
+                            public void onConnectionFailed(ConnectionResult connectionResult){
+                                Log.d(TAG, "onConnectionFailed");
+                                if (!mResolvingError) {
+                                    if (connectionResult.hasResolution()) {
+            /*                try {
+                                mResolvingError = true;
+                                connectionResult.startResolutionForResult(this, REQUEST_RESOLVE_ERROR);
+                            } catch (IntentSender.SendIntentException e) {
+                                // There was an error with the resolution intent. Try again.
+                                mGoogleApiClient.connect();
+                            }*/
+                                    } else {
+                                        Log.e(TAG, "Connection to Google API client has failed");
+                                        mResolvingError = false;
+                                        //SunshineSyncTask sync_instance = new SunshineSyncTask();
+                                        Wearable.DataApi.removeListener(mGoogleApiClient,sync_instance);
+                                        //sync_instance.removeListener(mGoogleApiClient);
+                                    }
+                                }
+
+                            }
+                        })
+                        .build();
+                if (!mResolvingError) {
+                    mGoogleApiClient.connect();
+                }
+
+                PutDataMapRequest putDataMapReq = PutDataMapRequest.create("/weather_info");
+                putDataMapReq.getDataMap().putInt(BITCOIN_PRICE, (double) bitcoin_price);
+                PutDataRequest putDataReq = putDataMapReq.asPutDataRequest();
+                putDataReq.setUrgent();
+                Wearable.DataApi.putDataItem(mGoogleApiClient, putDataReq)
+                        .setResultCallback(new ResultCallback<DataApi.DataItemResult>() {
+                            @Override
+                            public void onResult(DataApi.DataItemResult dataItemResult) {
+                                Log.d(TAG, "Sending data was successful: " + dataItemResult.getStatus()
+                                        .isSuccess());
+                            }
+                        });
+
             }
+
         } catch (Exception e) {
             /* Server probably invalid */
             e.printStackTrace();
@@ -223,6 +302,20 @@ public class BlockwatchSyncAdapter extends AbstractThreadedSyncAdapter {
         return;
     }
 
+    @Override
+    public void onDataChanged(DataEventBuffer dataEvents) {
+        for (DataEvent event : dataEvents) {
+            if (event.getType() == DataEvent.TYPE_DELETED) {
+                Log.d(TAG, "DataItem deleted: " + event.getDataItem().getUri());
+            } else if (event.getType() == DataEvent.TYPE_CHANGED) {
+                Log.d(TAG, "DataItem changed: " + event.getDataItem().getUri());
+                DataItem item = event.getDataItem();
+                if (item.getUri().getPath().compareTo("/sunshine_installed") == 0) {
+                    syncWeather(mContext);
+                }
+            }
+        }
+    }
     // Update the widget information
     private void updateWidgets() {
         Context context = getContext();
