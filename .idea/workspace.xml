@@ -11,16 +11,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3b0acacc-b6d0-480b-9864-c3297a4a65ec" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/blockwatchface/src/main/java/com/example/blockwatchface/BlockwatchFace.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatch/blockwatch.iml" afterPath="$PROJECT_DIR$/blockwatch/blockwatch.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatch/build.gradle" afterPath="$PROJECT_DIR$/blockwatch/build.gradle" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatchface/blockwatchface.iml" afterPath="$PROJECT_DIR$/blockwatchface/blockwatchface.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatchface/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/blockwatchface/src/main/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatchface/src/main/java/com/singularityfuture/blockwatchface/BlockWatchFaceService.java" afterPath="$PROJECT_DIR$/blockwatchface/src/main/java/com/singularityfuture/blockwatchface/BlockWatchFaceService.java" />
     </list>
     <ignored path="Capstone-Project.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -81,9 +73,11 @@
       <file leaf-file-name="BlockWatchFaceService.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/blockwatchface/src/main/java/com/singularityfuture/blockwatchface/BlockWatchFaceService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="43" column="62" selection-start-line="43" selection-start-column="62" selection-end-line="43" selection-end-column="62" />
-              <folding />
+            <state relative-caret-position="289">
+              <caret line="93" column="17" selection-start-line="93" selection-start-column="17" selection-end-line="93" selection-end-column="17" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -4422,7 +4416,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$USER_HOME$/AppData/Local/Android/Sdk/platforms/android-25/android.jar!/android/preference/PreferenceGroup.class" />
         <option value="$PROJECT_DIR$/blockwatch/src/main/java/data/BlockExplorerClass.java" />
         <option value="$PROJECT_DIR$/blockwatch/src/main/java/data/BlockDbHelper.java" />
         <option value="$PROJECT_DIR$/blockwatch/src/main/java/data/BlockProvider.java" />
@@ -4473,6 +4466,7 @@
         <option value="$PROJECT_DIR$/settings.gradle" />
         <option value="$PROJECT_DIR$/blockwatch/build.gradle" />
         <option value="$PROJECT_DIR$/blockwatchface/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/blockwatchface/src/main/java/com/singularityfuture/blockwatchface/BlockWatchFaceService.java" />
       </list>
     </option>
   </component>
@@ -5064,13 +5058,6 @@
       <option name="presentableId" value="Default" />
       <updated>1487708967009</updated>
     </task>
-    <task id="LOCAL-00028" summary="Begin adding Preference with Headers Activity&#10;&#10;Activity references several fragments that contain different types of preferences">
-      <created>1490219816540</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1490219816540</updated>
-    </task>
     <task id="LOCAL-00029" summary="Add preferences screen&#10;&#10;Allows user to set colors of time digit circles and whether the simple time shows below the big wheel.">
       <created>1490301857471</created>
       <option name="number" value="00029" />
@@ -5407,7 +5394,14 @@
       <option name="project" value="LOCAL" />
       <updated>1494091377203</updated>
     </task>
-    <option name="localTasksCounter" value="77" />
+    <task id="LOCAL-00077" summary="Eliminate old module with wrong package name">
+      <created>1494092369361</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1494092369361</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -5512,7 +5506,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Create setter for PaintView member variable currentHash&#10;&#10;This allows me to set it in the Handler and then invalidate the view, without having to totally recreate the View." />
     <MESSAGE value="Clean up code and reset handler to update every minute&#10;&#10;Appears to be working, with a new hash showing the time, right on the minute!" />
     <MESSAGE value="Fix layout for table to include swiperefresh&#10;&#10;Didn't have the element in the tablet xml, causing it to crash!" />
     <MESSAGE value="Switch tablet layout to include weights for watch and map" />
@@ -5537,7 +5530,8 @@
     <MESSAGE value="Make widget update every 15 minutes" />
     <MESSAGE value="Fix version code" />
     <MESSAGE value="Add watch face module back" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add watch face module back" />
+    <MESSAGE value="Eliminate old module with wrong package name" />
+    <option name="LAST_COMMIT_MESSAGE" value="Eliminate old module with wrong package name" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -5997,9 +5991,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/blockwatchface/src/main/java/com/singularityfuture/blockwatchface/BlockWatchFaceService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="43" column="62" selection-start-line="43" selection-start-column="62" selection-end-line="43" selection-end-column="62" />
-          <folding />
+        <state relative-caret-position="289">
+          <caret line="93" column="17" selection-start-line="93" selection-start-column="17" selection-end-line="93" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
