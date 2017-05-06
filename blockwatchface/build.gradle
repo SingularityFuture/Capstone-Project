@@ -21,7 +21,7 @@ android {
     buildToolsVersion "25.0.2"
 
     defaultConfig {
-        applicationId "com.example.com.singularityfuture.com"
+        applicationId 'com.singularityfuture.blockwatch'
         minSdkVersion 21
         targetSdkVersion 25
         versionCode 1
@@ -47,7 +47,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.google.android.support:wearable:2.0.0-beta2'
     compile 'com.google.android.gms:play-services-wearable:10.0.1'
 }

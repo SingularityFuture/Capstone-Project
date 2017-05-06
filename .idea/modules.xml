@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Capstone-Project.iml" filepath="$PROJECT_DIR$/Capstone-Project.iml" />
       <module fileurl="file://$PROJECT_DIR$/blockwatch/blockwatch.iml" filepath="$PROJECT_DIR$/blockwatch/blockwatch.iml" />
+      <module fileurl="file://$PROJECT_DIR$/blockwatchface/blockwatchface.iml" filepath="$PROJECT_DIR$/blockwatchface/blockwatchface.iml" />
     </modules>
   </component>
 </project>

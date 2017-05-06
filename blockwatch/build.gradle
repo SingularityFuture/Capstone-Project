@@ -66,7 +66,7 @@ android {
             versionNameSuffix "-free"
             applicationId 'com.singularityfuture.blockwatch'
             signingConfig signingConfigs.myconfig
-            versionCode 1
+            versionCode 2
             versionName 'First'
         }
         paid {
