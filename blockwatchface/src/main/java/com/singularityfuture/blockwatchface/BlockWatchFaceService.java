@@ -26,6 +26,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -51,7 +52,9 @@ import com.google.android.gms.wearable.PutDataRequest;
 import com.google.android.gms.wearable.Wearable;
 
 import java.lang.ref.WeakReference;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Random;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
@@ -111,7 +114,6 @@ public class BlockWatchFaceService extends CanvasWatchFaceService {
         final Handler mUpdateTimeHandler = new EngineHandler(this);
         boolean mRegisteredTimeZoneReceiver = false;
         Paint mBackgroundPaint;
-        Paint mTextPaint;
         boolean mAmbient;
         Calendar mCalendar;
         final BroadcastReceiver mTimeZoneReceiver = new BroadcastReceiver() {
@@ -123,6 +125,13 @@ public class BlockWatchFaceService extends CanvasWatchFaceService {
         };
         float mXOffset;
         float mYOffset;
+
+        Paint mTextPaint;
+        Paint mTextPaintThin;
+        Paint mTextPaintDate;
+        float mTextXOffset;
+        float mTextXOffsetDate;
+        float mTextYOffset;
 
         /**
          * Whether the display supports fewer bits for each color in ambient mode. When true, we
@@ -194,23 +203,37 @@ public class BlockWatchFaceService extends CanvasWatchFaceService {
         @Override
         public void onCreate(SurfaceHolder holder) {
             super.onCreate(holder);
+            mTextPaint = new Paint();
+            mTextPaint.setTextSize(40);
+            mTextPaint.setColor(Color.WHITE);
+            mTextPaint.setAntiAlias(true);
+            mTextPaint.setTypeface(Typeface.DEFAULT_BOLD);
+            mTextPaintThin=mTextPaint;
+            mTextPaintThin.setTypeface(Typeface.DEFAULT);
+            // In order to make text in the center, we need adjust its position
+            mTextXOffset = mTextPaint.measureText("00"+(char)0x00B0+" ");
+            mTextYOffset = (mTextPaint.ascent() + mTextPaint.descent()) / 2;
+
+            // Paint for the Date
+            mTextPaintDate = new Paint();
+            mTextPaintDate.setTextSize(30);
+            mTextPaintDate.setColor(Color.WHITE);
+            mTextPaintDate.setAntiAlias(true);
+            mTextXOffsetDate = mTextPaintDate.measureText("Fri, Jan, 13") / 2;
 
             setWatchFaceStyle(new WatchFaceStyle.Builder(BlockWatchFaceService.this)
-                    .setCardPeekMode(WatchFaceStyle.PEEK_MODE_VARIABLE)
+                    .setCardPeekMode(WatchFaceStyle.PEEK_MODE_SHORT)
                     .setBackgroundVisibility(WatchFaceStyle.BACKGROUND_VISIBILITY_INTERRUPTIVE)
-                    .setShowSystemUiTime(false)
+                    .setShowSystemUiTime(true)
                     .setAcceptsTapEvents(true)
                     .build());
-            Resources resources = BlockWatchFaceService.this.getResources();
-            mYOffset = resources.getDimension(R.dimen.digital_y_offset);
 
-            mBackgroundPaint = new Paint();
-            mBackgroundPaint.setColor(resources.getColor(R.color.background));
-
-            mTextPaint = new Paint();
-            mTextPaint = createTextPaint(resources.getColor(R.color.digital_text));
-
-            mCalendar = Calendar.getInstance();
+            mGoogleApiClient = new GoogleApiClient.Builder(getApplicationContext())
+                    .addApi(Wearable.API)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .build();
+            mGoogleApiClient.connect();
         }
 
         @Override
@@ -236,14 +259,20 @@ public class BlockWatchFaceService extends CanvasWatchFaceService {
 
                 // Update time zone in case it changed while we weren't visible.
                 mCalendar.setTimeZone(TimeZone.getDefault());
+                mGoogleApiClient.connect();
                 invalidate();
             } else {
                 unregisterReceiver();
+                if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
+                    Wearable.DataApi.removeListener(mGoogleApiClient, this);
+                    mGoogleApiClient.disconnect();
+                }
             }
 
             // Whether the timer should be running depends on whether we're visible (as well as
             // whether we're in ambient mode), so we may need to start or stop the timer.
             updateTimer();
+            super.onVisibilityChanged(visible);
         }
 
         private void registerReceiver() {
@@ -331,23 +360,21 @@ public class BlockWatchFaceService extends CanvasWatchFaceService {
 
         @Override
         public void onDraw(Canvas canvas, Rect bounds) {
-            // Draw the background.
-            if (isInAmbientMode()) {
+            if (mAmbient) {
                 canvas.drawColor(Color.BLACK);
             } else {
-                canvas.drawRect(0, 0, bounds.width(), bounds.height(), mBackgroundPaint);
+                canvas.drawColor(Color.BLUE);
+                String bitcoin_price_string = Double.toString(bitcoin_price);
+                canvas.drawText(bitcoin_price_string+(char) 0x00B0,
+                        bounds.centerX() - mTextXOffset,
+                        bounds.centerY() - mTextYOffset,
+                        mTextPaint);
+                SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM, d");
+                Date d = new Date();
+                String date = sdf.format(d);
+                canvas.drawText(date,bounds.centerX() - mTextXOffsetDate,
+                        bounds.centerY() - mTextYOffset*4,mTextPaintDate);
             }
-
-            // Draw H:MM in ambient mode or H:MM:SS in interactive mode.
-            long now = System.currentTimeMillis();
-            mCalendar.setTimeInMillis(now);
-
-            String text = mAmbient
-                    ? String.format("%d:%02d", mCalendar.get(Calendar.HOUR),
-                    mCalendar.get(Calendar.MINUTE))
-                    : String.format("%d:%02d:%02d", mCalendar.get(Calendar.HOUR),
-                    mCalendar.get(Calendar.MINUTE), mCalendar.get(Calendar.SECOND));
-            canvas.drawText(text, mXOffset, mYOffset, mTextPaint);
         }
 
         /**

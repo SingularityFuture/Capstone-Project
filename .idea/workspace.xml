@@ -73,12 +73,12 @@
       <file leaf-file-name="BlockWatchFaceService.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/blockwatchface/src/main/java/com/singularityfuture/blockwatchface/BlockWatchFaceService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="106">
-              <caret line="187" column="44" selection-start-line="187" selection-start-column="44" selection-end-line="187" selection-end-column="44" />
+            <state relative-caret-position="139">
+              <caret line="316" column="26" selection-start-line="316" selection-start-column="20" selection-end-line="316" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#5712#6087#0" expanded="true" />
-                <element signature="e#6086#6087#0" expanded="true" />
+                <element signature="e#5962#6337#0" expanded="true" />
+                <element signature="e#6336#6337#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -5060,13 +5060,6 @@
       <option name="presentableId" value="Default" />
       <updated>1487708967009</updated>
     </task>
-    <task id="LOCAL-00030" summary="Tweak preference screen and default options">
-      <created>1490304569432</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1490304569432</updated>
-    </task>
     <task id="LOCAL-00031" summary="Transform preferences into Activity with PreferenceFragment&#10;&#10;Create new color icon.  Add toolbar.">
       <created>1490376851075</created>
       <option name="number" value="00031" />
@@ -5403,7 +5396,14 @@
       <option name="project" value="LOCAL" />
       <updated>1494092658235</updated>
     </task>
-    <option name="localTasksCounter" value="79" />
+    <task id="LOCAL-00079" summary="Correctly implement callbacks">
+      <created>1494093437534</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1494093437534</updated>
+    </task>
+    <option name="localTasksCounter" value="80" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -5508,7 +5508,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fix layout for table to include swiperefresh&#10;&#10;Didn't have the element in the tablet xml, causing it to crash!" />
     <MESSAGE value="Switch tablet layout to include weights for watch and map" />
     <MESSAGE value="Fixing tablet layout measurement issues" />
     <MESSAGE value="Fix ad issues with tablet layout&#10;&#10;Make one big ad for entire tablet layout and remove other adviews programmatically." />
@@ -5533,7 +5532,8 @@
     <MESSAGE value="Add watch face module back" />
     <MESSAGE value="Eliminate old module with wrong package name" />
     <MESSAGE value="Make engine implement DataAPI and GoogleApiClient interfaces&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Make engine implement DataAPI and GoogleApiClient interfaces&#10;" />
+    <MESSAGE value="Correctly implement callbacks" />
+    <option name="LAST_COMMIT_MESSAGE" value="Correctly implement callbacks" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -5993,12 +5993,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/blockwatchface/src/main/java/com/singularityfuture/blockwatchface/BlockWatchFaceService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="106">
-          <caret line="187" column="44" selection-start-line="187" selection-start-column="44" selection-end-line="187" selection-end-column="44" />
+        <state relative-caret-position="139">
+          <caret line="316" column="26" selection-start-line="316" selection-start-column="20" selection-end-line="316" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#5712#6087#0" expanded="true" />
-            <element signature="e#6086#6087#0" expanded="true" />
+            <element signature="e#5962#6337#0" expanded="true" />
+            <element signature="e#6336#6337#0" expanded="true" />
           </folding>
         </state>
       </provider>
