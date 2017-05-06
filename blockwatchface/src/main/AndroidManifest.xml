@@ -29,7 +29,7 @@
         <meta-data android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <service android:name="com.example.blockwatchface.BlockwatchFace"
+        <service android:name="com.singularityfuture.blockwatchface.BlockWatchFaceService"
             android:label="@string/my_digital_name"
             android:permission="android.permission.BIND_WALLPAPER">
             <meta-data android:name="android.service.wallpaper"
