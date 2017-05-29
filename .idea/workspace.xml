@@ -13,13 +13,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3b0acacc-b6d0-480b-9864-c3297a4a65ec" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatch/blockwatch.iml" afterPath="$PROJECT_DIR$/blockwatch/blockwatch.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatch/src/main/java/sync/BlockwatchSyncAdapter.java" afterPath="$PROJECT_DIR$/blockwatch/src/main/java/sync/BlockwatchSyncAdapter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatchface/src/main/java/com/singularityfuture/blockwatchface/BlockWatchFaceService.java" afterPath="$PROJECT_DIR$/blockwatchface/src/main/java/com/singularityfuture/blockwatchface/BlockWatchFaceService.java" />
     </list>
     <ignored path="Capstone-Project.iws" />
@@ -54,22 +48,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="BlockWatchFaceService.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="BlockWatchFaceService.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/blockwatchface/src/main/java/com/singularityfuture/blockwatchface/BlockWatchFaceService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="162" column="23" selection-start-line="162" selection-start-column="23" selection-end-line="162" selection-end-column="23" />
+            <state relative-caret-position="188">
+              <caret line="215" column="75" selection-start-line="215" selection-start-column="75" selection-end-line="215" selection-end-column="75" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BlockwatchSyncAdapter.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="BlockwatchSyncAdapter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/blockwatch/src/main/java/sync/BlockwatchSyncAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="323" column="5" selection-start-line="323" selection-start-column="5" selection-end-line="323" selection-end-column="5" />
-              <folding />
+            <state relative-caret-position="30">
+              <caret line="315" column="19" selection-start-line="315" selection-start-column="19" selection-end-line="315" selection-end-column="19" />
+              <folding>
+                <element signature="e#14792#15181#0" expanded="true" />
+                <element signature="e#15180#15181#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -4513,9 +4510,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="64" />
-    <option name="y" value="134" />
-    <option name="width" value="1526" />
+    <option name="x" value="28" />
+    <option name="y" value="146" />
+    <option name="width" value="1432" />
     <option name="height" value="827" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -5018,13 +5015,6 @@
       <option name="presentableId" value="Default" />
       <updated>1487708967009</updated>
     </task>
-    <task id="LOCAL-00037" summary="Remove refresh FAB and associated code from main screen">
-      <created>1490727768038</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1490727768038</updated>
-    </task>
     <task id="LOCAL-00038" summary="Remove more FAB code">
       <created>1490727833963</created>
       <option name="number" value="00038" />
@@ -5361,7 +5351,14 @@
       <option name="project" value="LOCAL" />
       <updated>1496081341353</updated>
     </task>
-    <option name="localTasksCounter" value="86" />
+    <task id="LOCAL-00086" summary="Debugging watch  - won't show price">
+      <created>1496090416879</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1496090416880</updated>
+    </task>
+    <option name="localTasksCounter" value="87" />
     <servers />
   </component>
   <component name="TodoView">
@@ -5374,28 +5371,28 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="64" y="134" width="1526" height="827" extended-state="0" />
+    <frame x="28" y="146" width="1432" height="827" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296875" sideWeight="0.49779457" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.375" sideWeight="0.36862004" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24965894" sideWeight="0.4608076" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26676384" sideWeight="0.46021506" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.371875" sideWeight="0.70195335" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37164178" sideWeight="0.55457026" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30597016" sideWeight="0.55466473" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2765625" sideWeight="0.45305607" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.353125" sideWeight="0.27221173" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3119403" sideWeight="0.35308954" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33630952" sideWeight="0.51101637" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24965894" sideWeight="0.5391924" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26676384" sideWeight="0.53978497" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20198676" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37164178" sideWeight="0.44542974" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30597016" sideWeight="0.44533527" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -5475,7 +5472,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Playing with Donate Dialog alignments" />
     <MESSAGE value="Fix layout of donate button in landscape/non-tablet mode" />
     <MESSAGE value="Fix fragment updating colors coming back from preference screen" />
     <MESSAGE value="Transfer new features (mainly donate button) to paid flavor" />
@@ -5500,7 +5496,8 @@
     <MESSAGE value="Fix watch label name to Blockwatch" />
     <MESSAGE value="Fix bitcoin price to double in get map" />
     <MESSAGE value="Fix dollar sign for price" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix dollar sign for price" />
+    <MESSAGE value="Debugging watch  - won't show price" />
+    <option name="LAST_COMMIT_MESSAGE" value="Debugging watch  - won't show price" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -6094,18 +6091,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/blockwatchface/src/main/java/com/singularityfuture/blockwatchface/BlockWatchFaceService.java">
+    <entry file="file://$PROJECT_DIR$/blockwatch/src/main/java/sync/BlockwatchSyncAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="162" column="23" selection-start-line="162" selection-start-column="23" selection-end-line="162" selection-end-column="23" />
-          <folding />
+        <state relative-caret-position="30">
+          <caret line="315" column="19" selection-start-line="315" selection-start-column="19" selection-end-line="315" selection-end-column="19" />
+          <folding>
+            <element signature="e#14792#15181#0" expanded="true" />
+            <element signature="e#15180#15181#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/blockwatch/src/main/java/sync/BlockwatchSyncAdapter.java">
+    <entry file="file://$PROJECT_DIR$/blockwatchface/src/main/java/com/singularityfuture/blockwatchface/BlockWatchFaceService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="323" column="5" selection-start-line="323" selection-start-column="5" selection-end-line="323" selection-end-column="5" />
+        <state relative-caret-position="188">
+          <caret line="215" column="75" selection-start-line="215" selection-start-column="75" selection-end-line="215" selection-end-column="75" />
           <folding />
         </state>
       </provider>

@@ -213,7 +213,7 @@ public class BlockWatchFaceService extends CanvasWatchFaceService {
             mTextPaintThin=mTextPaint;
             mTextPaintThin.setTypeface(Typeface.DEFAULT);
             // In order to make text in the center, we need adjust its position
-            mTextXOffset = mTextPaint.measureText("00"+(char)0x00B0+" ");
+            mTextXOffset = mTextPaint.measureText((char) 0x0024 + "0000.00");
             mTextYOffset = (mTextPaint.ascent() + mTextPaint.descent()) / 2;
 
             // Paint for the Date
@@ -324,13 +324,14 @@ public class BlockWatchFaceService extends CanvasWatchFaceService {
         @Override
         public void onAmbientModeChanged(boolean inAmbientMode) {
             super.onAmbientModeChanged(inAmbientMode);
-/*            if (mAmbient != inAmbientMode) {*/
+            if (mAmbient != inAmbientMode) {
                 mAmbient = inAmbientMode;
-/*                if (mLowBitAmbient) {
+                if (mLowBitAmbient) {
                     mTextPaint.setAntiAlias(!inAmbientMode);
                 }
-                invalidate();*/
-            //}
+                invalidate();
+
+            }
 
             // Whether the timer should be running depends on whether we're visible (as well as
             // whether we're in ambient mode), so we may need to start or stop the timer.
@@ -353,8 +354,8 @@ public class BlockWatchFaceService extends CanvasWatchFaceService {
                 case TAP_TYPE_TAP:
                     // The user has completed the tap gesture.
                     // TODO: Add code to handle the tap gesture.
-                    Toast.makeText(getApplicationContext(), R.string.message, Toast.LENGTH_SHORT)
-                            .show();
+                    //Toast.makeText(getApplicationContext(), R.string.message, Toast.LENGTH_SHORT)
+                    //        .show();
                     break;
             }
             invalidate();
@@ -362,12 +363,12 @@ public class BlockWatchFaceService extends CanvasWatchFaceService {
 
         @Override
         public void onDraw(Canvas canvas, Rect bounds) {
-            /*if (mAmbient) {
+            if (mAmbient) {
                 canvas.drawColor(Color.BLACK);
-            } else*/ {
+            } else {
                 canvas.drawColor(Color.BLUE);
                 String bitcoin_price_string = Double.toString(bitcoin_price);
-                canvas.drawText((char) 	0x0024 + bitcoin_price_string,
+                canvas.drawText((char) 0x0024 + bitcoin_price_string,
                         bounds.centerX() - mTextXOffset,
                         bounds.centerY() - mTextYOffset,
                         mTextPaint);
