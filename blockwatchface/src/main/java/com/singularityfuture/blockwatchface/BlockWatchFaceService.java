@@ -100,7 +100,7 @@ public class BlockWatchFaceService extends CanvasWatchFaceService {
             if (engine != null) {
                 switch (msg.what) {
                     case MSG_UPDATE_TIME:
-                        engine.handleUpdateTimeMessage();
+                        //engine.handleUpdateTimeMessage();
                         break;
                 }
             }
@@ -115,7 +115,7 @@ public class BlockWatchFaceService extends CanvasWatchFaceService {
         boolean mRegisteredTimeZoneReceiver = false;
         Paint mBackgroundPaint;
         boolean mAmbient;
-        Calendar mCalendar;
+        private Calendar mCalendar;
         final BroadcastReceiver mTimeZoneReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -141,12 +141,13 @@ public class BlockWatchFaceService extends CanvasWatchFaceService {
 
         private GoogleApiClient mGoogleApiClient;
         private boolean mResolvingError;
-        private double bitcoin_price;
+        private double bitcoin_price = 0.0;
 
         @Override
         public void onConnected(@Nullable Bundle bundle) {
             mResolvingError = false;
             Wearable.DataApi.addListener(mGoogleApiClient, this);
+            Log.d(TAG, "onConnected");
 
             PutDataMapRequest putDataMapReq = PutDataMapRequest.create("/blockwatchface_installed");
             putDataMapReq.getDataMap().putInt(INSTALLED, new Random().nextInt());
@@ -173,6 +174,7 @@ public class BlockWatchFaceService extends CanvasWatchFaceService {
         public void onDataChanged(DataEventBuffer dataEvents) {
             Log.d(TAG, "onDataChanged");
             for (DataEvent event : dataEvents) {
+                Log.d(TAG, String.valueOf(event.getType()) + " vs. " + String.valueOf(DataEvent.TYPE_CHANGED));
                 if (event.getType() == DataEvent.TYPE_CHANGED) {
                     // DataItem changed
                     DataItem item = event.getDataItem();
@@ -258,7 +260,7 @@ public class BlockWatchFaceService extends CanvasWatchFaceService {
                 registerReceiver();
 
                 // Update time zone in case it changed while we weren't visible.
-                mCalendar.setTimeZone(TimeZone.getDefault());
+                //mCalendar.setTimeZone(TimeZone.getDefault());
                 mGoogleApiClient.connect();
                 invalidate();
             } else {
@@ -322,17 +324,17 @@ public class BlockWatchFaceService extends CanvasWatchFaceService {
         @Override
         public void onAmbientModeChanged(boolean inAmbientMode) {
             super.onAmbientModeChanged(inAmbientMode);
-            if (mAmbient != inAmbientMode) {
+/*            if (mAmbient != inAmbientMode) {*/
                 mAmbient = inAmbientMode;
-                if (mLowBitAmbient) {
+/*                if (mLowBitAmbient) {
                     mTextPaint.setAntiAlias(!inAmbientMode);
                 }
-                invalidate();
-            }
+                invalidate();*/
+            //}
 
             // Whether the timer should be running depends on whether we're visible (as well as
             // whether we're in ambient mode), so we may need to start or stop the timer.
-            updateTimer();
+            //updateTimer();
         }
 
         /**
@@ -360,20 +362,20 @@ public class BlockWatchFaceService extends CanvasWatchFaceService {
 
         @Override
         public void onDraw(Canvas canvas, Rect bounds) {
-            if (mAmbient) {
+            /*if (mAmbient) {
                 canvas.drawColor(Color.BLACK);
-            } else {
+            } else*/ {
                 canvas.drawColor(Color.BLUE);
                 String bitcoin_price_string = Double.toString(bitcoin_price);
                 canvas.drawText((char) 	0x0024 + bitcoin_price_string,
                         bounds.centerX() - mTextXOffset,
                         bounds.centerY() - mTextYOffset,
                         mTextPaint);
-/*                SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM, d");
+                SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM, d");
                 Date d = new Date();
                 String date = sdf.format(d);
                 canvas.drawText(date,bounds.centerX() - mTextXOffsetDate,
-                        bounds.centerY() - mTextYOffset*4,mTextPaintDate);*/
+                        bounds.centerY() - mTextYOffset*4,mTextPaintDate);
             }
         }
 

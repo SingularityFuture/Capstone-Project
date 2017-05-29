@@ -56,7 +56,7 @@ public class BlockwatchSyncAdapter extends AbstractThreadedSyncAdapter implement
     private static final String RELAYED_BY = "relayed_by";
     public final String LOG_TAG = BlockwatchSyncAdapter.class.getSimpleName();
     private String currentHash;
-    private double currentPrice;
+    private double currentPrice = 1.0;
     private static final String HISTORICAL_PRICES = "market-price";
 
     private static final String TAG = "BlockWatch Face Canvas";
