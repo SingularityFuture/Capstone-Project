@@ -178,7 +178,7 @@ public class BlockWatchFaceService extends CanvasWatchFaceService {
                     DataItem item = event.getDataItem();
                     if (item.getUri().getPath().compareTo("/price_info") == 0) {
                         DataMap dataMap = DataMapItem.fromDataItem(item).getDataMap();
-                        bitcoin_price= dataMap.getInt(BITCOIN_PRICE);
+                        bitcoin_price= dataMap.getDouble(BITCOIN_PRICE);
                         invalidate();
                     }
                 } else if (event.getType() == DataEvent.TYPE_DELETED) {
@@ -365,15 +365,15 @@ public class BlockWatchFaceService extends CanvasWatchFaceService {
             } else {
                 canvas.drawColor(Color.BLUE);
                 String bitcoin_price_string = Double.toString(bitcoin_price);
-                canvas.drawText(bitcoin_price_string+(char) 0x00B0,
+                canvas.drawText(bitcoin_price_string,
                         bounds.centerX() - mTextXOffset,
                         bounds.centerY() - mTextYOffset,
                         mTextPaint);
-                SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM, d");
+/*                SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM, d");
                 Date d = new Date();
                 String date = sdf.format(d);
                 canvas.drawText(date,bounds.centerX() - mTextXOffsetDate,
-                        bounds.centerY() - mTextYOffset*4,mTextPaintDate);
+                        bounds.centerY() - mTextYOffset*4,mTextPaintDate);*/
             }
         }
 
