@@ -34,6 +34,8 @@ import com.google.android.gms.wearable.PutDataRequest;
 import com.google.android.gms.wearable.Wearable;
 
 
+import org.json.JSONException;
+
 import java.net.URL;
 
 import data.BlockContract;
@@ -61,9 +63,12 @@ public class BlockwatchSyncAdapter extends AbstractThreadedSyncAdapter implement
     private static final String BITCOIN_PRICE = "com.singularityfuture.blockwatchface.key.bitcoinprice";
     private static boolean mResolvingError = false;
     private static GoogleApiClient mGoogleApiClient;
+    private static Context mContext;
+    double[][] price_array = new double[365][365]; // Declare the array of historical prices
 
     public BlockwatchSyncAdapter(Context context, boolean autoInitialize) {
         super(context, autoInitialize);
+        mContext = context;
     }
 
     /**
@@ -235,8 +240,9 @@ public class BlockwatchSyncAdapter extends AbstractThreadedSyncAdapter implement
                 // Call the service to update the widgets
                 updateWidgets();
 
+                final BlockwatchSyncAdapter sync_instance = new BlockwatchSyncAdapter(mContext,true);
                 /* If the code reaches this point, we have successfully performed our sync */
-                mGoogleApiClient = new GoogleApiClient.Builder(context)
+                mGoogleApiClient = new GoogleApiClient.Builder(mContext)
                         .addApi(Wearable.API)
                         .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
                             @Override
@@ -280,8 +286,8 @@ public class BlockwatchSyncAdapter extends AbstractThreadedSyncAdapter implement
                     mGoogleApiClient.connect();
                 }
 
-                PutDataMapRequest putDataMapReq = PutDataMapRequest.create("/weather_info");
-                putDataMapReq.getDataMap().putInt(BITCOIN_PRICE, (double) bitcoin_price);
+                PutDataMapRequest putDataMapReq = PutDataMapRequest.create("/price_info");
+                putDataMapReq.getDataMap().putDouble(BITCOIN_PRICE, currentPrice);
                 PutDataRequest putDataReq = putDataMapReq.asPutDataRequest();
                 putDataReq.setUrgent();
                 Wearable.DataApi.putDataItem(mGoogleApiClient, putDataReq)
@@ -310,8 +316,8 @@ public class BlockwatchSyncAdapter extends AbstractThreadedSyncAdapter implement
             } else if (event.getType() == DataEvent.TYPE_CHANGED) {
                 Log.d(TAG, "DataItem changed: " + event.getDataItem().getUri());
                 DataItem item = event.getDataItem();
-                if (item.getUri().getPath().compareTo("/sunshine_installed") == 0) {
-                    syncWeather(mContext);
+                if (item.getUri().getPath().compareTo("/blockwatchface_installed") == 0) {
+                    syncImmediately(mContext);
                 }
             }
         }

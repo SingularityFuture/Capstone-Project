@@ -80,7 +80,7 @@ public class BlockWatchFaceService extends CanvasWatchFaceService {
 
     private static final String TAG = "BlockWatch Face Canvas";
     private static final String BITCOIN_PRICE = "com.singularityfuture.blockwatchface.key.bitcoinprice";
-    private static final String INSTALLED = "com.example.android.sunshine.key.installed";
+    private static final String INSTALLED = "com.singularityfuture.blockwatchface.key.installed";
 
     @Override
     public Engine onCreateEngine() {
@@ -176,7 +176,7 @@ public class BlockWatchFaceService extends CanvasWatchFaceService {
                 if (event.getType() == DataEvent.TYPE_CHANGED) {
                     // DataItem changed
                     DataItem item = event.getDataItem();
-                    if (item.getUri().getPath().compareTo("/weather_info") == 0) {
+                    if (item.getUri().getPath().compareTo("/price_info") == 0) {
                         DataMap dataMap = DataMapItem.fromDataItem(item).getDataMap();
                         bitcoin_price= dataMap.getInt(BITCOIN_PRICE);
                         invalidate();
