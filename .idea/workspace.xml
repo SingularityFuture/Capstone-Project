@@ -11,23 +11,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3b0acacc-b6d0-480b-9864-c3297a4a65ec" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/espresso_core_2_2_2.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/espresso_idling_resource_2_2_2.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/exposed_instrumentation_api_publish_0_5.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/hamcrest_integration_1_3.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/hamcrest_library_1_3.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/javawriter_2_1_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/javax_annotation_api_1_2.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/javax_inject_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/jsr305_2_0_1.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/rules_0_5.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/runner_0_5.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileHashes.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/fileSnapshots.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" afterPath="$PROJECT_DIR$/.gradle/3.3/taskArtifacts/taskArtifacts.lock" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatch/blockwatch.iml" afterPath="$PROJECT_DIR$/blockwatch/blockwatch.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/blockwatchface/src/main/java/com/singularityfuture/blockwatchface/BlockWatchFaceService.java" afterPath="$PROJECT_DIR$/blockwatchface/src/main/java/com/singularityfuture/blockwatchface/BlockWatchFaceService.java" />
     </list>
     <ignored path="Capstone-Project.iws" />
@@ -65,8 +49,8 @@
       <file leaf-file-name="BlockWatchFaceService.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/blockwatchface/src/main/java/com/singularityfuture/blockwatchface/BlockWatchFaceService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="372" column="36" selection-start-line="372" selection-start-column="36" selection-end-line="372" selection-end-column="36" />
+            <state relative-caret-position="76">
+              <caret line="367" column="46" selection-start-line="367" selection-start-column="46" selection-end-line="367" selection-end-column="46" />
               <folding />
             </state>
           </provider>
@@ -5052,13 +5036,6 @@
       <option name="presentableId" value="Default" />
       <updated>1487708967009</updated>
     </task>
-    <task id="LOCAL-00035" summary="Fix swipe refresh with offset of progress circle&#10;&#10;Just need to make the arrow show up while it's in progress">
-      <created>1490721050702</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1490721050702</updated>
-    </task>
     <task id="LOCAL-00036" summary="Fix arrow showing up on progress circle.&#10;&#10;Put setRefreshed(false) inside postDelayed runnable so it shows up longer.">
       <created>1490723275527</created>
       <option name="number" value="00036" />
@@ -5395,7 +5372,14 @@
       <option name="project" value="LOCAL" />
       <updated>1496078410579</updated>
     </task>
-    <option name="localTasksCounter" value="84" />
+    <task id="LOCAL-00084" summary="Fix bitcoin price to double in get map">
+      <created>1496081286390</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1496081286390</updated>
+    </task>
+    <option name="localTasksCounter" value="85" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -5500,7 +5484,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add donate dialog with QR Code" />
     <MESSAGE value="Fix alignment of donate Toast text" />
     <MESSAGE value="Playing with Donate Dialog alignments" />
     <MESSAGE value="Fix layout of donate button in landscape/non-tablet mode" />
@@ -5525,7 +5508,8 @@
     <MESSAGE value="Update BlockwatchSyncAdapter to fix all errors and to store the current price in the data map" />
     <MESSAGE value="Fix wear dependencies, change one to 'provided'" />
     <MESSAGE value="Fix watch label name to Blockwatch" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix watch label name to Blockwatch" />
+    <MESSAGE value="Fix bitcoin price to double in get map" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix bitcoin price to double in get map" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -5979,8 +5963,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/blockwatchface/src/main/java/com/singularityfuture/blockwatchface/BlockWatchFaceService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="372" column="36" selection-start-line="372" selection-start-column="36" selection-end-line="372" selection-end-column="36" />
+        <state relative-caret-position="76">
+          <caret line="367" column="46" selection-start-line="367" selection-start-column="46" selection-end-line="367" selection-end-column="46" />
           <folding />
         </state>
       </provider>

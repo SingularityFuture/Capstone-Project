@@ -365,7 +365,7 @@ public class BlockWatchFaceService extends CanvasWatchFaceService {
             } else {
                 canvas.drawColor(Color.BLUE);
                 String bitcoin_price_string = Double.toString(bitcoin_price);
-                canvas.drawText(bitcoin_price_string,
+                canvas.drawText((char) 	0x0024 + bitcoin_price_string,
                         bounds.centerX() - mTextXOffset,
                         bounds.centerY() - mTextYOffset,
                         mTextPaint);
